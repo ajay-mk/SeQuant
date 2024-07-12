@@ -4,7 +4,7 @@ on: [push, pull_request, workflow_dispatch]
 
 jobs:
   build:
-    name: "Build and Deploy Documentation"
+    name: "Build and Deploy"
     runs-on: macos-latest
     env:
       CXX : clang++
@@ -23,7 +23,7 @@ jobs:
         run: brew install ninja boost catch2 && brew install --cask doxygen
 
       - name: Install prerequisite Python packages
-        run: pip install sphinx breathe sphinx_rtd_theme myst_parser
+        run: pip install -r doc/sphinx/requirements.txt
 
       - name: Configure CMake
         shell: bash
@@ -43,5 +43,4 @@ jobs:
           publish_branch: gh-pages
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ${{github.workspace}}/build/doc/sphinx/html
-          commit_message: ${{ github.event.head_commit.message }}
           force_orphan: false # the branch is published with only the latest commit
