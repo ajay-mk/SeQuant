@@ -15,3 +15,10 @@ For getting started with SeQuant, refer to :doc:`source/readme`. See :doc:`sourc
 
     source/readme
     source/install
+
+Indices and tables
+------------------
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
