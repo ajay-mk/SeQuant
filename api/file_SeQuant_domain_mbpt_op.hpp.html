@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>File op.hpp &mdash; SeQuant  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<link href="../_static/style.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SeQuant
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html">SeQuant: symbolic tensor algebra in C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#synopsis">Synopsis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#getting-started">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#build-harness">Build harness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#using">Using</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#id1">Getting Started</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#register-index-spaces">Register Index Spaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#quasiparticles">Quasiparticles</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#operators">Operators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#developers">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#acknowledgement">Acknowledgement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/install.html">SeQuant: installation guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#tl-dr">TL;DR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#configure">Configure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../source/install.html#useful-cmake-variables">Useful CMake variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#build">Build</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SeQuant</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">File op.hpp</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ajay-mk/SeQuant/blob/master/doc/sphinx/api/file_SeQuant_domain_mbpt_op.hpp.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="file-op-hpp">
+<span id="file-sequant-domain-mbpt-op-hpp"></span><h1>File op.hpp<a class="headerlink" href="#file-op-hpp" title="Link to this heading"></a></h1>
+<p>↰ <a class="reference internal" href="dir_SeQuant_domain_mbpt.html#dir-sequant-domain-mbpt"><span class="std std-ref">Parent directory</span></a> (<code class="docutils literal notranslate"><span class="pre">SeQuant/domain/mbpt</span></code>)</p>
+<nav class="contents local" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#definition-sequant-domain-mbpt-op-hpp" id="id1">Definition (<code class="docutils literal notranslate"><span class="pre">SeQuant/domain/mbpt/op.hpp</span></code>)</a></p></li>
+<li><p><a class="reference internal" href="#includes" id="id2">Includes</a></p></li>
+<li><p><a class="reference internal" href="#included-by" id="id3">Included By</a></p></li>
+<li><p><a class="reference internal" href="#namespaces" id="id4">Namespaces</a></p></li>
+<li><p><a class="reference internal" href="#classes" id="id5">Classes</a></p></li>
+<li><p><a class="reference internal" href="#enums" id="id6">Enums</a></p></li>
+<li><p><a class="reference internal" href="#functions" id="id7">Functions</a></p></li>
+<li><p><a class="reference internal" href="#typedefs" id="id8">Typedefs</a></p></li>
+<li><p><a class="reference internal" href="#variables" id="id9">Variables</a></p></li>
+</ul>
+</nav>
+<section id="definition-sequant-domain-mbpt-op-hpp">
+<h2>Definition (<code class="docutils literal notranslate"><span class="pre">SeQuant/domain/mbpt/op.hpp</span></code>)<a class="headerlink" href="#definition-sequant-domain-mbpt-op-hpp" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="program_listing_file_SeQuant_domain_mbpt_op.hpp.html">Program Listing for File op.hpp</a></li>
+</ul>
+</div>
+</section>
+<section id="includes">
+<h2>Includes<a class="headerlink" href="#includes" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SeQuant/core/attr.hpp</span></code> (<a class="reference internal" href="file_SeQuant_core_attr.hpp.html#file-sequant-core-attr-hpp"><span class="std std-ref">File attr.hpp</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SeQuant/core/container.hpp</span></code> (<a class="reference internal" href="file_SeQuant_core_container.hpp.html#file-sequant-core-container-hpp"><span class="std std-ref">File container.hpp</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SeQuant/core/context.hpp</span></code> (<a class="reference internal" href="file_SeQuant_core_context.hpp.html#file-sequant-core-context-hpp"><span class="std std-ref">File context.hpp</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SeQuant/core/expr.hpp</span></code> (<a class="reference internal" href="file_SeQuant_core_expr.hpp.html#file-sequant-core-expr-hpp"><span class="std std-ref">File expr.hpp</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SeQuant/core/hash.hpp</span></code> (<a class="reference internal" href="file_SeQuant_core_hash.hpp.html#file-sequant-core-hash-hpp"><span class="std std-ref">File hash.hpp</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SeQuant/core/index.hpp</span></code> (<a class="reference internal" href="file_SeQuant_core_index.hpp.html#file-sequant-core-index-hpp"><span class="std std-ref">File index.hpp</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SeQuant/core/interval.hpp</span></code> (<a class="reference internal" href="file_SeQuant_core_interval.hpp.html#file-sequant-core-interval-hpp"><span class="std std-ref">File interval.hpp</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SeQuant/core/math.hpp</span></code> (<a class="reference internal" href="file_SeQuant_core_math.hpp.html#file-sequant-core-math-hpp"><span class="std std-ref">File math.hpp</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SeQuant/core/op.hpp</span></code> (<a class="reference internal" href="file_SeQuant_core_op.hpp.html#file-sequant-core-op-hpp"><span class="std std-ref">File op.hpp</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SeQuant/core/rational.hpp</span></code> (<a class="reference internal" href="file_SeQuant_core_rational.hpp.html#file-sequant-core-rational-hpp"><span class="std std-ref">File rational.hpp</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SeQuant/core/space.hpp</span></code> (<a class="reference internal" href="file_SeQuant_core_space.hpp.html#file-sequant-core-space-hpp"><span class="std std-ref">File space.hpp</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SeQuant/domain/mbpt/fwd.hpp</span></code> (<a class="reference internal" href="file_SeQuant_domain_mbpt_fwd.hpp.html#file-sequant-domain-mbpt-fwd-hpp"><span class="std std-ref">File fwd.hpp</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SeQuant/domain/mbpt/spin.hpp</span></code> (<a class="reference internal" href="file_SeQuant_domain_mbpt_spin.hpp.html#file-sequant-domain-mbpt-spin-hpp"><span class="std std-ref">File spin.hpp</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SeQuant/domain/mbpt/vac_av.hpp</span></code> (<a class="reference internal" href="file_SeQuant_domain_mbpt_vac_av.hpp.html#file-sequant-domain-mbpt-vac-av-hpp"><span class="std std-ref">File vac_av.hpp</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">algorithm</span></code> (<a class="reference internal" href="file_SeQuant_core_algorithm.hpp.html#file-sequant-core-algorithm-hpp"><span class="std std-ref">File algorithm.hpp</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">array</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cassert</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cstddef</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cstdint</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">functional</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">initializer_list</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">iterator</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">map</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">optional</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">range/v3/iterator/basic_iterator.hpp</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">range/v3/range/conversion.hpp</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">range/v3/range/primitives.hpp</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">range/v3/view/map.hpp</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">range/v3/view/transform.hpp</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">range/v3/view/view.hpp</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">range/v3/view/zip.hpp</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stdexcept</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">string</span></code> (<a class="reference internal" href="file_SeQuant_core_utility_string.cpp.html#file-sequant-core-utility-string-cpp"><span class="std std-ref">File string.cpp</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">string_view</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">type_traits</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">utility</span></code> (<a class="reference internal" href="file_SeQuant_core_utility_context.hpp.html#file-sequant-core-utility-context-hpp"><span class="std std-ref">File context.hpp</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vector</span></code></p></li>
+</ul>
+</section>
+<section id="included-by">
+<h2>Included By<a class="headerlink" href="#included-by" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="file_SeQuant_domain_mbpt_convention.cpp.html#file-sequant-domain-mbpt-convention-cpp"><span class="std std-ref">File convention.cpp</span></a></p></li>
+<li><p><a class="reference internal" href="file_SeQuant_domain_mbpt_models_cc.cpp.html#file-sequant-domain-mbpt-models-cc-cpp"><span class="std std-ref">File cc.cpp</span></a></p></li>
+<li><p><a class="reference internal" href="file_SeQuant_domain_mbpt_op.cpp.html#file-sequant-domain-mbpt-op-cpp"><span class="std std-ref">File op.cpp</span></a></p></li>
+<li><p><a class="reference internal" href="file_SeQuant_domain_mbpt_op.ipp.html#file-sequant-domain-mbpt-op-ipp"><span class="std std-ref">File op.ipp</span></a></p></li>
+<li><p><a class="reference internal" href="file_SeQuant_domain_mbpt_rdm.hpp.html#file-sequant-domain-mbpt-rdm-hpp"><span class="std std-ref">File rdm.hpp</span></a></p></li>
+</ul>
+</section>
+<section id="namespaces">
+<h2>Namespaces<a class="headerlink" href="#namespaces" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="namespace_sequant.html#namespace-sequant"><span class="std std-ref">Namespace sequant</span></a></p></li>
+<li><p><a class="reference internal" href="namespace_sequant__mbpt.html#namespace-sequant-mbpt"><span class="std std-ref">Namespace sequant::mbpt</span></a></p></li>
+<li><p><a class="reference internal" href="namespace_sequant__mbpt__op.html#namespace-sequant-mbpt-op"><span class="std std-ref">Namespace sequant::mbpt::op</span></a></p></li>
+<li><p><a class="reference internal" href="namespace_sequant__mbpt__op__sequant__mbpt__tensor.html#namespace-sequant-mbpt-op-sequant-mbpt-tensor"><span class="std std-ref">Namespace sequant::mbpt::op::sequant::mbpt::tensor</span></a></p></li>
+</ul>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="structsequant_1_1mbpt_1_1default__qns__tag.html#exhale-struct-structsequant-1-1mbpt-1-1default-qns-tag"><span class="std std-ref">Struct default_qns_tag</span></a></p></li>
+<li><p><a class="reference internal" href="classsequant_1_1mbpt_1_1_operator.html#exhale-class-classsequant-1-1mbpt-1-1-operator"><span class="std std-ref">Template Class Operator</span></a></p></li>
+<li><p><a class="reference internal" href="classsequant_1_1mbpt_1_1_operator_3_01void_00_01_s_01_4.html#exhale-class-classsequant-1-1mbpt-1-1-operator-3-01void-00-01-s-01-4"><span class="std std-ref">Template Class Operator&lt; void, S &gt;</span></a></p></li>
+<li><p><a class="reference internal" href="classsequant_1_1mbpt_1_1_op_maker.html#exhale-class-classsequant-1-1mbpt-1-1-op-maker"><span class="std std-ref">Template Class OpMaker</span></a></p></li>
+<li><p><a class="reference internal" href="classsequant_1_1mbpt_1_1_quantum_number_change.html#exhale-class-classsequant-1-1mbpt-1-1-quantum-number-change"><span class="std std-ref">Template Class QuantumNumberChange</span></a></p></li>
+</ul>
+</section>
+<section id="enums">
+<h2>Enums<a class="headerlink" href="#enums" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="enum_namespacesequant_1_1mbpt_1a4c0e601427ac8aa692f8ff00aa093802.html#exhale-enum-namespacesequant-1-1mbpt-1a4c0e601427ac8aa692f8ff00aa093802"><span class="std std-ref">Enum OpClass</span></a></p></li>
+<li><p><a class="reference internal" href="enum_namespacesequant_1_1mbpt_1a2cc7a68fd11662b8066472d4d8fa998a.html#exhale-enum-namespacesequant-1-1mbpt-1a2cc7a68fd11662b8066472d4d8fa998a"><span class="std std-ref">Enum OpType</span></a></p></li>
+</ul>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="function_namespacesequant_1_1mbpt_1a8ec0f4965fc7e1017a447b9943e299f9.html#exhale-function-namespacesequant-1-1mbpt-1a8ec0f4965fc7e1017a447b9943e299f9"><span class="std std-ref">Template Function sequant::mbpt::equal</span></a></p></li>
+<li><p><a class="reference internal" href="function_namespacesequant_1_1mbpt_1ae7b9c61cfe78c3d6ab060af59a220809.html#exhale-function-namespacesequant-1-1mbpt-1ae7b9c61cfe78c3d6ab060af59a220809"><span class="std std-ref">Template Function sequant::mbpt::is_vacuum</span></a></p></li>
+<li><p><a class="reference internal" href="function_namespacesequant_1_1mbpt_1a207af3e4b039b3e78d903dd74e1cca07.html#exhale-function-namespacesequant-1-1mbpt-1a207af3e4b039b3e78d903dd74e1cca07"><span class="std std-ref">Function sequant::mbpt::make_space</span></a></p></li>
+<li><p><a class="reference internal" href="function_namespacesequant_1_1mbpt_1ae73803f79b5a220ce58bef248ee9514a.html#exhale-function-namespacesequant-1-1mbpt-1ae73803f79b5a220ce58bef248ee9514a"><span class="std std-ref">Template Function sequant::mbpt::operator!=(const QuantumNumberChange&lt;Tag, QNV&gt;&amp;, const QuantumNumberChange&lt;Tag, QNV&gt;&amp;)</span></a></p></li>
+<li><p><a class="reference internal" href="function_namespacesequant_1_1mbpt_1a28cee5d3740dcb2c47b58c53ee195546.html#exhale-function-namespacesequant-1-1mbpt-1a28cee5d3740dcb2c47b58c53ee195546"><span class="std std-ref">Template Function sequant::mbpt::operator!=(const QuantumNumberChange&lt;Tag, QNV&gt;&amp;, I)</span></a></p></li>
+<li><p><a class="reference internal" href="function_namespacesequant_1_1mbpt_1aeba14ceb736042ab684545ac7debbee9.html#exhale-function-namespacesequant-1-1mbpt-1aeba14ceb736042ab684545ac7debbee9"><span class="std std-ref">Template Function sequant::mbpt::operator==(const QuantumNumberChange&lt;Tag, QNV&gt;&amp;, const QuantumNumberChange&lt;Tag, QNV&gt;&amp;)</span></a></p></li>
+<li><p><a class="reference internal" href="function_namespacesequant_1_1mbpt_1af6b4b030942b2d3377fb5935fe3f9b33.html#exhale-function-namespacesequant-1-1mbpt-1af6b4b030942b2d3377fb5935fe3f9b33"><span class="std std-ref">Template Function sequant::mbpt::operator==(const QuantumNumberChange&lt;Tag, QNV&gt;&amp;, I)</span></a></p></li>
+</ul>
+</section>
+<section id="typedefs">
+<h2>Typedefs<a class="headerlink" href="#typedefs" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="typedef_namespacesequant_1_1mbpt_1a3d2f437989c63199b8aff4f9b3ab2a74.html#exhale-typedef-namespacesequant-1-1mbpt-1a3d2f437989c63199b8aff4f9b3ab2a74"><span class="std std-ref">Typedef sequant::mbpt::BOperator</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_namespacesequant_1_1mbpt_1ad1a6334102aefd44ff8f1aca631d2054.html#exhale-typedef-namespacesequant-1-1mbpt-1ad1a6334102aefd44ff8f1aca631d2054"><span class="std std-ref">Typedef sequant::mbpt::BOperatorBase</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_namespacesequant_1_1mbpt_1a787c6f96763fef2ae0b1ae8cfd074fc5.html#exhale-typedef-namespacesequant-1-1mbpt-1a787c6f96763fef2ae0b1ae8cfd074fc5"><span class="std std-ref">Typedef sequant::mbpt::FOperator</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_namespacesequant_1_1mbpt_1ad436db09fa93070bc1d31af3e293544d.html#exhale-typedef-namespacesequant-1-1mbpt-1ad436db09fa93070bc1d31af3e293544d"><span class="std std-ref">Typedef sequant::mbpt::FOperatorBase</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_namespacesequant_1_1mbpt_1a3cbd212ba85ca7893c5b993a5ebccd14.html#exhale-typedef-namespacesequant-1-1mbpt-1a3cbd212ba85ca7893c5b993a5ebccd14"><span class="std std-ref">Typedef sequant::mbpt::op_t</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_namespacesequant_1_1mbpt_1a9d3581dd7193ca521286e52579b742ea.html#exhale-typedef-namespacesequant-1-1mbpt-1a9d3581dd7193ca521286e52579b742ea"><span class="std std-ref">Typedef sequant::mbpt::qnc_t</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_namespacesequant_1_1mbpt_1ab1d31eb0ac066b47eca635cdd1d9ddef.html#exhale-typedef-namespacesequant-1-1mbpt-1ab1d31eb0ac066b47eca635cdd1d9ddef"><span class="std std-ref">Typedef sequant::mbpt::qninterval_t</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_namespacesequant_1_1mbpt_1a10e5c8a886c31d560cb60d120a4f01be.html#exhale-typedef-namespacesequant-1-1mbpt-1a10e5c8a886c31d560cb60d120a4f01be"><span class="std std-ref">Typedef sequant::mbpt::qns_t</span></a></p></li>
+</ul>
+</section>
+<section id="variables">
+<h2>Variables<a class="headerlink" href="#variables" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="variable_namespacesequant_1_1mbpt_1a6bce80ead500e8599cdcba7bc08b54eb.html#exhale-variable-namespacesequant-1-1mbpt-1a6bce80ead500e8599cdcba7bc08b54eb"><span class="std std-ref">Variable sequant::mbpt::label2optype</span></a></p></li>
+<li><p><a class="reference internal" href="variable_namespacesequant_1_1mbpt_1acadadce74730a4fb8530e4a644419072.html#exhale-variable-namespacesequant-1-1mbpt-1acadadce74730a4fb8530e4a644419072"><span class="std std-ref">Variable sequant::mbpt::optype2label</span></a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Valeev Research Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

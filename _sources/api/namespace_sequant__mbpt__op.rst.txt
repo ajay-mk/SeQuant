@@ -1,0 +1,76 @@
+
+.. _namespace_sequant__mbpt__op:
+
+Namespace sequant::mbpt::op
+===========================
+
+
+the namespace containing MBPT operators 
+
+
+
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_sequant__mbpt__op__sequant__mbpt__tensor`
+
+- :ref:`namespace_sequant__mbpt__op__tensor`
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1ac0d959e38666ce2c526336a10408cb67`
+
+- :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1a2e40b49c3201b4472e29a6f116433182`
+
+- :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1a6ce5ce32e23d84743fdd2ff406a6b599`
+
+- :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1ac389de58f04c5ccf7279da092b6adc0c`
+
+- :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1a05b191934b7ec6df3870136088c9cc7e`
+
+- :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1ae328b1fa28bb2590a61eb67fe04e1165`
+
+- :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1a9559012d994833696c5cf9c165e7809e`
+
+- :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1a48425eefec4b9fb72ee4bc5cb21a438f`
+
+- :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1a027c8fbac813db708c772228dbfbfffe`
+
+- :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1a2d0f5442bff8143e51605c27078512af`
+
+- :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1a0c283ebec4013293020a3611af0c91e4`
+
+- :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1af5689550f4672fbd0aed61116f09d144`
+
+- :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1a36256db089763a4d2ed9a36750abe50b`
+
+- :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1ad3fcffe0f94a87c8e3531f5de01a4429`
+
+- :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1a7bc386a01ed4ff1fd0e86eed4859f289`
+
+- :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1a91854e25e81fab2c84b6fba5118fd7ac`
+
+- :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1a6ddf1fdf29e951b952c8249ec139ec6a`
+
+- :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1a412c86d89a91039a181b468ed2dd337f`
+
+- :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1ae3b03f40d3d015db21a0317b4f158fd1`
+
+- :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1a39bfb1c7b3d91724a12cbd895db290e1`
+
+- :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1aa2040e8d3d82615fac789e0acff9551e`
+
+- :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1ae16c0a88747765d0cc34fcdec8475ed7`

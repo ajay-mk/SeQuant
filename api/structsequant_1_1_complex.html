@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Template Struct Complex &mdash; SeQuant  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<link href="../_static/style.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SeQuant
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html">SeQuant: symbolic tensor algebra in C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#synopsis">Synopsis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#getting-started">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#build-harness">Build harness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#using">Using</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#id1">Getting Started</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#register-index-spaces">Register Index Spaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#quasiparticles">Quasiparticles</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#operators">Operators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#developers">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#acknowledgement">Acknowledgement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/install.html">SeQuant: installation guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#tl-dr">TL;DR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#configure">Configure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../source/install.html#useful-cmake-variables">Useful CMake variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#build">Build</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SeQuant</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Template Struct Complex</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ajay-mk/SeQuant/blob/master/doc/sphinx/api/structsequant_1_1_complex.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="template-struct-complex">
+<span id="exhale-struct-structsequant-1-1-complex"></span><h1>Template Struct Complex<a class="headerlink" href="#template-struct-complex" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_SeQuant_core_complex.hpp.html#file-sequant-core-complex-hpp"><span class="std std-ref">File complex.hpp</span></a></p></li>
+</ul>
+<section id="struct-documentation">
+<h2>Struct Documentation<a class="headerlink" href="#struct-documentation" title="Link to this heading"></a></h2>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN7sequant7ComplexE">
+<span id="_CPPv3I0EN7sequant7ComplexE"></span><span id="_CPPv2I0EN7sequant7ComplexE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structsequant_1_1_complex"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Complex</span></span></span><a class="headerlink" href="#_CPPv4I0EN7sequant7ComplexE" title="Link to this definition"></a><br /></dt>
+<dd><p>analog of std::complex&lt;Real&gt; for non-real numeric rings </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant7Complex10value_typeE">
+<span id="_CPPv3N7sequant7Complex10value_typeE"></span><span id="_CPPv2N7sequant7Complex10value_typeE"></span><span class="target" id="structsequant_1_1_complex_1ad3b45ff6dcb841eae3f4dea3f0de7bf8"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">value_type</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN7sequant7ComplexE" title="sequant::Complex::T"><span class="n"><span class="pre">T</span></span></a><a class="headerlink" href="#_CPPv4N7sequant7Complex10value_typeE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant7Complex7ComplexEv">
+<span id="_CPPv3N7sequant7Complex7ComplexEv"></span><span id="_CPPv2N7sequant7Complex7ComplexEv"></span><span id="sequant::Complex::ComplexCE"></span><span class="target" id="structsequant_1_1_complex_1ad74273c07ba0705f475c787b28547c87"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Complex</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N7sequant7Complex7ComplexEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I000EN7sequant7Complex7ComplexE1A1B">
+<span id="_CPPv3I000EN7sequant7Complex7ComplexE1A1B"></span><span id="_CPPv2I000EN7sequant7Complex7ComplexE1A1B"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">A</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">B</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I000EN7sequant7Complex7ComplexE1A1B" title="sequant::Complex::Complex::A"><span class="n"><span class="pre">A</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">enable_if_t</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">is_arithmetic_v</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I000EN7sequant7Complex7ComplexE1A1B" title="sequant::Complex::Complex::A"><span class="n"><span class="pre">A</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="o"><span class="pre">&amp;&amp;</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">is_constructible_v</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN7sequant7ComplexE" title="sequant::Complex::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I000EN7sequant7Complex7ComplexE1A1B" title="sequant::Complex::Complex::A"><span class="n"><span class="pre">A</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="o"><span class="pre">&amp;&amp;</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">is_arithmetic_v</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I000EN7sequant7Complex7ComplexE1A1B" title="sequant::Complex::Complex::B"><span class="n"><span class="pre">B</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="o"><span class="pre">&amp;&amp;</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">is_constructible_v</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN7sequant7ComplexE" title="sequant::Complex::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I000EN7sequant7Complex7ComplexE1A1B" title="sequant::Complex::Complex::B"><span class="n"><span class="pre">B</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structsequant_1_1_complex_1aa08359bb28276033c3f8ac9119d5f59b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Complex</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I000EN7sequant7Complex7ComplexE1A1B" title="sequant::Complex::Complex::A"><span class="n"><span class="pre">A</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">real</span></span>, <a class="reference internal" href="#_CPPv4I000EN7sequant7Complex7ComplexE1A1B" title="sequant::Complex::Complex::B"><span class="n"><span class="pre">B</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">imag</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I000EN7sequant7Complex7ComplexE1A1B" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant7Complex7ComplexE1T1T">
+<span id="_CPPv3N7sequant7Complex7ComplexE1T1T"></span><span id="_CPPv2N7sequant7Complex7ComplexE1T1T"></span><span id="sequant::Complex::Complex__T.TCE"></span><span class="target" id="structsequant_1_1_complex_1a5f064812cffc142587e7418d160779f4"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Complex</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0EN7sequant7ComplexE" title="sequant::Complex::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">real</span></span>, <a class="reference internal" href="#_CPPv4I0EN7sequant7ComplexE" title="sequant::Complex::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">imag</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7sequant7Complex7ComplexE1T1T" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant7Complex7ComplexERK7Complex">
+<span id="_CPPv3N7sequant7Complex7ComplexERK7Complex"></span><span id="_CPPv2N7sequant7Complex7ComplexERK7Complex"></span><span id="sequant::Complex::Complex__ComplexCRCE"></span><span class="target" id="structsequant_1_1_complex_1a0692b21657361f6e37e7035a01539e60"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Complex</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N7sequant7Complex7ComplexERK7Complex" title="sequant::Complex::Complex"><span class="n"><span class="pre">Complex</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N7sequant7Complex7ComplexERK7Complex" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant7Complex7ComplexERR7Complex">
+<span id="_CPPv3N7sequant7Complex7ComplexERR7Complex"></span><span id="_CPPv2N7sequant7Complex7ComplexERR7Complex"></span><span id="sequant::Complex::Complex__ComplexRRCE"></span><span class="target" id="structsequant_1_1_complex_1a84f181fbf58d37c750a940a5573f54a7"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Complex</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N7sequant7Complex7ComplexERR7Complex" title="sequant::Complex::Complex"><span class="n"><span class="pre">Complex</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N7sequant7Complex7ComplexERR7Complex" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant7ComplexaSERK7Complex">
+<span id="_CPPv3N7sequant7ComplexaSERK7Complex"></span><span id="_CPPv2N7sequant7ComplexaSERK7Complex"></span><span id="sequant::Complex::assign-operator__ComplexCR"></span><span class="target" id="structsequant_1_1_complex_1a0e29aa7a329f8a9331cc0a9092e5bad6"></span><a class="reference internal" href="#_CPPv4I0EN7sequant7ComplexE" title="sequant::Complex"><span class="n"><span class="pre">Complex</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN7sequant7ComplexE" title="sequant::Complex"><span class="n"><span class="pre">Complex</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N7sequant7ComplexaSERK7Complex" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant7ComplexaSERR7Complex">
+<span id="_CPPv3N7sequant7ComplexaSERR7Complex"></span><span id="_CPPv2N7sequant7ComplexaSERR7Complex"></span><span id="sequant::Complex::assign-operator__ComplexRR"></span><span class="target" id="structsequant_1_1_complex_1a9357f169bc0f9edf3a06eee338b0f9c2"></span><a class="reference internal" href="#_CPPv4I0EN7sequant7ComplexE" title="sequant::Complex"><span class="n"><span class="pre">Complex</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0EN7sequant7ComplexE" title="sequant::Complex"><span class="n"><span class="pre">Complex</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N7sequant7ComplexaSERR7Complex" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant7Complex4realEv">
+<span id="_CPPv3NK7sequant7Complex4realEv"></span><span id="_CPPv2NK7sequant7Complex4realEv"></span><span id="sequant::Complex::realC"></span><span class="target" id="structsequant_1_1_complex_1af19bc7159753d1b21b6acf5fb1d103e1"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN7sequant7ComplexE" title="sequant::Complex::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">real</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant7Complex4realEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant7Complex4imagEv">
+<span id="_CPPv3NK7sequant7Complex4imagEv"></span><span id="_CPPv2NK7sequant7Complex4imagEv"></span><span id="sequant::Complex::imagC"></span><span class="target" id="structsequant_1_1_complex_1a17ffc6bd7958d60861211dcbc9af22bc"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN7sequant7ComplexE" title="sequant::Complex::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">imag</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant7Complex4imagEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant7Complex7is_zeroEv">
+<span id="_CPPv3NK7sequant7Complex7is_zeroEv"></span><span id="_CPPv2NK7sequant7Complex7is_zeroEv"></span><span id="sequant::Complex::is_zeroC"></span><span class="target" id="structsequant_1_1_complex_1a96675acf1cb065c03b2cef04acf62f95"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">is_zero</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant7Complex7is_zeroEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant7Complex11is_identityEv">
+<span id="_CPPv3NK7sequant7Complex11is_identityEv"></span><span id="_CPPv2NK7sequant7Complex11is_identityEv"></span><span id="sequant::Complex::is_identityC"></span><span class="target" id="structsequant_1_1_complex_1a70765def8f5ecefbc8f26bd6e12ea2f7"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">is_identity</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant7Complex11is_identityEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant7Complex8to_latexEv">
+<span id="_CPPv3NK7sequant7Complex8to_latexEv"></span><span id="_CPPv2NK7sequant7Complex8to_latexEv"></span><span id="sequant::Complex::to_latexC"></span><span class="target" id="structsequant_1_1_complex_1a81b4654c39bb65d5c08944d67b8e05ea"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">wstring</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">to_latex</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant7Complex8to_latexEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant7Complex10to_wolframEv">
+<span id="_CPPv3NK7sequant7Complex10to_wolframEv"></span><span id="_CPPv2NK7sequant7Complex10to_wolframEv"></span><span id="sequant::Complex::to_wolframC"></span><span class="target" id="structsequant_1_1_complex_1ab0e1ab686ad832ce96c8b1b6a2be3a7c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">wstring</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">to_wolfram</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant7Complex10to_wolframEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant7Complex10hash_valueEv">
+<span id="_CPPv3NK7sequant7Complex10hash_valueEv"></span><span id="_CPPv2NK7sequant7Complex10hash_valueEv"></span><span id="sequant::Complex::hash_valueC"></span><span class="target" id="structsequant_1_1_complex_1a85ef8924b42b7024188a1d85fa18f342"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hash_value</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant7Complex10hash_valueEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant7ComplexpLERK1T">
+<span id="_CPPv3N7sequant7ComplexpLERK1T"></span><span id="_CPPv2N7sequant7ComplexpLERK1T"></span><span id="sequant::Complex::add-assign-operator__TCR"></span><span class="target" id="structsequant_1_1_complex_1a821102eb7e979891f688900ddfa539a1"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN7sequant7ComplexE" title="sequant::Complex"><span class="n"><span class="pre">Complex</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">+=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN7sequant7ComplexE" title="sequant::Complex::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">scalar</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7sequant7ComplexpLERK1T" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant7ComplexmIERK1T">
+<span id="_CPPv3N7sequant7ComplexmIERK1T"></span><span id="_CPPv2N7sequant7ComplexmIERK1T"></span><span id="sequant::Complex::sub-assign-operator__TCR"></span><span class="target" id="structsequant_1_1_complex_1aae72042f490ca5dc87e3929c0d41be27"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN7sequant7ComplexE" title="sequant::Complex"><span class="n"><span class="pre">Complex</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">-=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN7sequant7ComplexE" title="sequant::Complex::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">scalar</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7sequant7ComplexmIERK1T" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant7ComplexmLERK1T">
+<span id="_CPPv3N7sequant7ComplexmLERK1T"></span><span id="_CPPv2N7sequant7ComplexmLERK1T"></span><span id="sequant::Complex::mul-assign-operator__TCR"></span><span class="target" id="structsequant_1_1_complex_1a4e70d3fd0a9092c526e36efd331c1c9c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN7sequant7ComplexE" title="sequant::Complex"><span class="n"><span class="pre">Complex</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">*=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN7sequant7ComplexE" title="sequant::Complex::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">scalar</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7sequant7ComplexmLERK1T" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN7sequant7ComplexpLER7ComplexRK7ComplexI1XE">
+<span id="_CPPv3I0EN7sequant7ComplexpLERK7ComplexI1XE"></span><span id="_CPPv2I0EN7sequant7ComplexpLERK7ComplexI1XE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">X</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structsequant_1_1_complex_1a5687b1721fe7bfcbe05e15eefe98432f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN7sequant7ComplexE" title="sequant::Complex"><span class="n"><span class="pre">Complex</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">+=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN7sequant7ComplexE" title="sequant::Complex"><span class="n"><span class="pre">Complex</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN7sequant7ComplexpLER7ComplexRK7ComplexI1XE" title="sequant::Complex::operator+=::X"><span class="n"><span class="pre">X</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN7sequant7ComplexpLER7ComplexRK7ComplexI1XE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN7sequant7ComplexmIER7ComplexRK7ComplexI1XE">
+<span id="_CPPv3I0EN7sequant7ComplexmIERK7ComplexI1XE"></span><span id="_CPPv2I0EN7sequant7ComplexmIERK7ComplexI1XE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">X</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structsequant_1_1_complex_1ae9026f557cd7a7c5614b0f6bcff5a70c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN7sequant7ComplexE" title="sequant::Complex"><span class="n"><span class="pre">Complex</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">-=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN7sequant7ComplexE" title="sequant::Complex"><span class="n"><span class="pre">Complex</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN7sequant7ComplexmIER7ComplexRK7ComplexI1XE" title="sequant::Complex::operator-=::X"><span class="n"><span class="pre">X</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN7sequant7ComplexmIER7ComplexRK7ComplexI1XE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN7sequant7ComplexmLER7ComplexRK7ComplexI1XE">
+<span id="_CPPv3I0EN7sequant7ComplexmLERK7ComplexI1XE"></span><span id="_CPPv2I0EN7sequant7ComplexmLERK7ComplexI1XE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">X</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structsequant_1_1_complex_1ab8b8467edeac2977c325f94a89eecdb9"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN7sequant7ComplexE" title="sequant::Complex"><span class="n"><span class="pre">Complex</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">*=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN7sequant7ComplexE" title="sequant::Complex"><span class="n"><span class="pre">Complex</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN7sequant7ComplexmLER7ComplexRK7ComplexI1XE" title="sequant::Complex::operator*=::X"><span class="n"><span class="pre">X</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN7sequant7ComplexmLER7ComplexRK7ComplexI1XE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant7Complex2reE">
+<span id="_CPPv3N7sequant7Complex2reE"></span><span id="_CPPv2N7sequant7Complex2reE"></span><span id="sequant::Complex::re__T"></span><span class="target" id="structsequant_1_1_complex_1a189e02069198af65ffbfe0e578198df2"></span><a class="reference internal" href="#_CPPv4I0EN7sequant7ComplexE" title="sequant::Complex::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">re</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N7sequant7Complex2reE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant7Complex2imE">
+<span id="_CPPv3N7sequant7Complex2imE"></span><span id="_CPPv2N7sequant7Complex2imE"></span><span id="sequant::Complex::im__T"></span><span class="target" id="structsequant_1_1_complex_1abe65d9f1864853c75e11cd61d328e101"></span><a class="reference internal" href="#_CPPv4I0EN7sequant7ComplexE" title="sequant::Complex::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">im</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N7sequant7Complex2imE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Valeev Research Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

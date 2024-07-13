@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Struct FlopsWithSymm &mdash; SeQuant  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<link href="../_static/style.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SeQuant
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html">SeQuant: symbolic tensor algebra in C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#synopsis">Synopsis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#getting-started">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#build-harness">Build harness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#using">Using</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#id1">Getting Started</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#register-index-spaces">Register Index Spaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#quasiparticles">Quasiparticles</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#operators">Operators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#developers">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#acknowledgement">Acknowledgement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/install.html">SeQuant: installation guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#tl-dr">TL;DR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#configure">Configure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../source/install.html#useful-cmake-variables">Useful CMake variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#build">Build</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SeQuant</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Struct FlopsWithSymm</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ajay-mk/SeQuant/blob/master/doc/sphinx/api/structsequant_1_1_flops_with_symm.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="struct-flopswithsymm">
+<span id="exhale-struct-structsequant-1-1-flops-with-symm"></span><h1>Struct FlopsWithSymm<a class="headerlink" href="#struct-flopswithsymm" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_SeQuant_core_eval_node.hpp.html#file-sequant-core-eval-node-hpp"><span class="std std-ref">File eval_node.hpp</span></a></p></li>
+</ul>
+<section id="struct-documentation">
+<h2>Struct Documentation<a class="headerlink" href="#struct-documentation" title="Link to this heading"></a></h2>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant13FlopsWithSymmE">
+<span id="_CPPv3N7sequant13FlopsWithSymmE"></span><span id="_CPPv2N7sequant13FlopsWithSymmE"></span><span id="sequant::FlopsWithSymm"></span><span class="target" id="structsequant_1_1_flops_with_symm"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">FlopsWithSymm</span></span></span><a class="headerlink" href="#_CPPv4N7sequant13FlopsWithSymmE" title="Link to this definition"></a><br /></dt>
+<dd><p>This function object takes an evaluation node and returns the symbolic cost of flops required for evaluation as an <a class="reference internal" href="classsequant_1_1_asy_cost.html#classsequant_1_1_asy_cost"><span class="std std-ref">AsyCost</span></a> object. </p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="classsequant_1_1_asy_cost.html#classsequant_1_1_asy_cost"><span class="std std-ref">AsyCost</span></a>. If the cost can be reduced due to symmetry, it is done so. </p>
+</div>
+</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The cost of evaluation of leaf nodes is assumed to be zero. </p>
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I00ENK7sequant13FlopsWithSymmclE7AsyCostRK5NodeT">
+<span id="_CPPv3I00ENK7sequant13FlopsWithSymmclERK5NodeT"></span><span id="_CPPv2I00ENK7sequant13FlopsWithSymmclERK5NodeT"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NodeT</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">enable_if_t</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="variable_namespacesequant_1a3bd314ee5ff6c15b4b2a11e42be69de4.html#_CPPv4I00EN7sequant10IsEvalNodeE" title="sequant::IsEvalNode"><span class="n"><span class="pre">IsEvalNode</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I00ENK7sequant13FlopsWithSymmclE7AsyCostRK5NodeT" title="sequant::FlopsWithSymm::operator()::NodeT"><span class="n"><span class="pre">NodeT</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structsequant_1_1_flops_with_symm_1a1495a400d0dd6b79502ed7ba6499d22f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="classsequant_1_1_asy_cost.html#_CPPv4N7sequant7AsyCostE" title="sequant::AsyCost"><span class="n"><span class="pre">AsyCost</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">()</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I00ENK7sequant13FlopsWithSymmclE7AsyCostRK5NodeT" title="sequant::FlopsWithSymm::operator()::NodeT"><span class="n"><span class="pre">NodeT</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">n</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4I00ENK7sequant13FlopsWithSymmclE7AsyCostRK5NodeT" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Valeev Research Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

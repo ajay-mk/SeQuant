@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Template Class NormalOperator &mdash; SeQuant  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<link href="../_static/style.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SeQuant
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html">SeQuant: symbolic tensor algebra in C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#synopsis">Synopsis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#getting-started">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#build-harness">Build harness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#using">Using</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#id1">Getting Started</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#register-index-spaces">Register Index Spaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#quasiparticles">Quasiparticles</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#operators">Operators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#developers">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#acknowledgement">Acknowledgement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/install.html">SeQuant: installation guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#tl-dr">TL;DR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#configure">Configure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../source/install.html#useful-cmake-variables">Useful CMake variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#build">Build</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SeQuant</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Template Class NormalOperator</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ajay-mk/SeQuant/blob/master/doc/sphinx/api/classsequant_1_1_normal_operator.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="template-class-normaloperator">
+<span id="exhale-class-classsequant-1-1-normal-operator"></span><h1>Template Class NormalOperator<a class="headerlink" href="#template-class-normaloperator" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_SeQuant_core_op.hpp.html#file-sequant-core-op-hpp"><span class="std std-ref">File op.hpp</span></a></p></li>
+</ul>
+<section id="inheritance-relationships">
+<h2>Inheritance Relationships<a class="headerlink" href="#inheritance-relationships" title="Link to this heading"></a></h2>
+<section id="base-types">
+<h3>Base Types<a class="headerlink" href="#base-types" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">sequant::Operator&lt;</span> <span class="pre">S</span> <span class="pre">&gt;</span></code> (<a class="reference internal" href="classsequant_1_1_operator.html#exhale-class-classsequant-1-1-operator"><span class="std std-ref">Template Class Operator</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">sequant::AbstractTensor</span></code> (<a class="reference internal" href="classsequant_1_1_abstract_tensor.html#exhale-class-classsequant-1-1-abstract-tensor"><span class="std std-ref">Class AbstractTensor</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">sequant::Labeled</span></code> (<a class="reference internal" href="classsequant_1_1_labeled.html#exhale-class-classsequant-1-1-labeled"><span class="std std-ref">Class Labeled</span></a>)</p></li>
+</ul>
+</section>
+</section>
+<section id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Link to this heading"></a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I_10StatisticsEN7sequant14NormalOperatorE">
+<span id="_CPPv3I_10StatisticsEN7sequant14NormalOperatorE"></span><span id="_CPPv2I_10StatisticsEN7sequant14NormalOperatorE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="enum_namespacesequant_1ac51aaf1e35bf9fe90a2282a6cdb2c1fe.html#_CPPv4N7sequant10StatisticsE" title="sequant::Statistics"><span class="n"><span class="pre">Statistics</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">S</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classsequant_1_1_normal_operator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NormalOperator</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">sequant</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="classsequant_1_1_operator.html#_CPPv4I_10StatisticsEN7sequant8OperatorE" title="sequant::Operator"><span class="n"><span class="pre">Operator</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_10StatisticsEN7sequant14NormalOperatorE" title="sequant::NormalOperator::S"><span class="n"><span class="pre">S</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">sequant</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="classsequant_1_1_abstract_tensor.html#_CPPv4N7sequant14AbstractTensorE" title="sequant::AbstractTensor"><span class="n"><span class="pre">AbstractTensor</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">sequant</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="classsequant_1_1_labeled.html#_CPPv4N7sequant7LabeledE" title="sequant::Labeled"><span class="n"><span class="pre">Labeled</span></span></a><a class="headerlink" href="#_CPPv4I_10StatisticsEN7sequant14NormalOperatorE" title="Link to this definition"></a><br /></dt>
+<dd><p><a class="reference internal" href="#classsequant_1_1_normal_operator"><span class="std std-ref">NormalOperator</span></a> is an <a class="reference internal" href="classsequant_1_1_operator.html#classsequant_1_1_operator"><span class="std std-ref">Operator</span></a> normal-ordered with respect to vacuum. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Normal ordering means all creators are to the left of all annihilators. It is natural to express at least number-conserving normal operators (i.e. those with equal number of creators and annihilators) as tensors with creators as superscripts and annihilators as subscripts. <a class="reference internal" href="classsequant_1_1_operator.html#classsequant_1_1_operator"><span class="std std-ref">Operator</span></a> cre(p1) cre(p2) … cre(pN) ann(qN) … ann(q2) ann(q1) is represented in such notation as a^{p1 p2 … pN}_{q1 q2 … qN}, hence it is natural to specify annihilators in the order of their particle index (i.e. as q1 q2, etc.) which is reverse of the order of their appearance in <a class="reference internal" href="classsequant_1_1_operator.html#classsequant_1_1_operator"><span class="std std-ref">Operator</span></a>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The tensor notation becomes less intuitive for number non-conserving operators, e.g. cre(p1) cre(p2) ann(q2) could be represented as a^{p1 p2}_{q2 ⎵} or a^{p1 p2}_{⎵ q2}. To make it explicit that ann(q2) acts on same particle as cre(p2) the latter notation is used; similarly, cre(p1) ann(q1) ann(q2) is represented as a^{⎵ p1}_{q1 q2}.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>S</strong> – specifies the particle statistics </p>
+</dd>
+</dl>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant14NormalOperator9base_typeE">
+<span id="_CPPv3N7sequant14NormalOperator9base_typeE"></span><span id="_CPPv2N7sequant14NormalOperator9base_typeE"></span><span class="target" id="classsequant_1_1_normal_operator_1a9935bfc944f18c09985e9798a23df4b7"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">base_type</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="classsequant_1_1_operator.html#_CPPv4I_10StatisticsEN7sequant8OperatorE" title="sequant::Operator"><span class="n"><span class="pre">Operator</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_10StatisticsEN7sequant14NormalOperatorE" title="sequant::NormalOperator::S"><span class="n"><span class="pre">S</span></span></a><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N7sequant14NormalOperator9base_typeE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant14NormalOperator11vector_typeE">
+<span id="_CPPv3N7sequant14NormalOperator11vector_typeE"></span><span id="_CPPv2N7sequant14NormalOperator11vector_typeE"></span><span class="target" id="classsequant_1_1_normal_operator_1a47e700eef861936cb9651d8b41fde95b"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">vector_type</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><a class="reference internal" href="classsequant_1_1_operator.html#_CPPv4I_10StatisticsEN7sequant8OperatorE" title="sequant::Operator"><span class="n"><span class="pre">Operator</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_10StatisticsEN7sequant14NormalOperatorE" title="sequant::NormalOperator::S"><span class="n"><span class="pre">S</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">base_type</span></span><a class="headerlink" href="#_CPPv4N7sequant14NormalOperator11vector_typeE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant14NormalOperator8iteratorE">
+<span id="_CPPv3N7sequant14NormalOperator8iteratorE"></span><span id="_CPPv2N7sequant14NormalOperator8iteratorE"></span><span class="target" id="classsequant_1_1_normal_operator_1a1415e62de475ad758af750941921ea09"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iterator</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><a class="reference internal" href="classsequant_1_1_operator.html#_CPPv4I_10StatisticsEN7sequant8OperatorE" title="sequant::Operator"><span class="n"><span class="pre">Operator</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_10StatisticsEN7sequant14NormalOperatorE" title="sequant::NormalOperator::S"><span class="n"><span class="pre">S</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">iterator</span></span><a class="headerlink" href="#_CPPv4N7sequant14NormalOperator8iteratorE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant14NormalOperator14const_iteratorE">
+<span id="_CPPv3N7sequant14NormalOperator14const_iteratorE"></span><span id="_CPPv2N7sequant14NormalOperator14const_iteratorE"></span><span class="target" id="classsequant_1_1_normal_operator_1a321dc39838de1bda0de52d37597c8d26"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">const_iterator</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><a class="reference internal" href="classsequant_1_1_operator.html#_CPPv4I_10StatisticsEN7sequant8OperatorE" title="sequant::Operator"><span class="n"><span class="pre">Operator</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_10StatisticsEN7sequant14NormalOperatorE" title="sequant::NormalOperator::S"><span class="n"><span class="pre">S</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">const_iterator</span></span><a class="headerlink" href="#_CPPv4N7sequant14NormalOperator14const_iteratorE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant14NormalOperator14NormalOperatorE6Vacuum">
+<span id="_CPPv3N7sequant14NormalOperator14NormalOperatorE6Vacuum"></span><span id="_CPPv2N7sequant14NormalOperator14NormalOperatorE6Vacuum"></span><span id="sequant::NormalOperator::NormalOperator__Vacuum"></span><span class="target" id="classsequant_1_1_normal_operator_1a75f5ce59c13732f5fb852eb7e920dfee"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NormalOperator</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="enum_namespacesequant_1a27c1015914fed77818b3cd447345f196.html#_CPPv4N7sequant6VacuumE" title="sequant::Vacuum"><span class="n"><span class="pre">Vacuum</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">v</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">get_default_context</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4I_10StatisticsEN7sequant14NormalOperatorE" title="sequant::NormalOperator::S"><span class="n"><span class="pre">S</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">vacuum</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7sequant14NormalOperator14NormalOperatorE6Vacuum" title="Link to this definition"></a><br /></dt>
+<dd><p>constructs an identity operator </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I000EN7sequant14NormalOperator14NormalOperatorERR14IndexSequence1RR14IndexSequence26Vacuum">
+<span id="_CPPv3I000EN7sequant14NormalOperator14NormalOperatorERR14IndexSequence1RR14IndexSequence26Vacuum"></span><span id="_CPPv2I000EN7sequant14NormalOperator14NormalOperatorERR14IndexSequence1RR14IndexSequence26Vacuum"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IndexSequence1</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IndexSequence2</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">enable_if_t</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">meta</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">is_statically_castable_v</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">meta</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">range_value_t</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I000EN7sequant14NormalOperator14NormalOperatorERR14IndexSequence1RR14IndexSequence26Vacuum" title="sequant::NormalOperator::NormalOperator::IndexSequence1"><span class="n"><span class="pre">IndexSequence1</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="classsequant_1_1_index.html#_CPPv4N7sequant5IndexE" title="sequant::Index"><span class="n"><span class="pre">Index</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="o"><span class="pre">&amp;&amp;</span></span><span class="w"> </span><span class="n"><span class="pre">meta</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">is_statically_castable_v</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">meta</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">range_value_t</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I000EN7sequant14NormalOperator14NormalOperatorERR14IndexSequence1RR14IndexSequence26Vacuum" title="sequant::NormalOperator::NormalOperator::IndexSequence1"><span class="n"><span class="pre">IndexSequence1</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="classsequant_1_1_index.html#_CPPv4N7sequant5IndexE" title="sequant::Index"><span class="n"><span class="pre">Index</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classsequant_1_1_normal_operator_1aa2a8461f7cfbb9903f130ed6843236e5"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NormalOperator</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I000EN7sequant14NormalOperator14NormalOperatorERR14IndexSequence1RR14IndexSequence26Vacuum" title="sequant::NormalOperator::NormalOperator::IndexSequence1"><span class="n"><span class="pre">IndexSequence1</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">creator_indices</span></span>, <a class="reference internal" href="#_CPPv4I000EN7sequant14NormalOperator14NormalOperatorERR14IndexSequence1RR14IndexSequence26Vacuum" title="sequant::NormalOperator::NormalOperator::IndexSequence2"><span class="n"><span class="pre">IndexSequence2</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">annihilator_indices</span></span>, <a class="reference internal" href="enum_namespacesequant_1a27c1015914fed77818b3cd447345f196.html#_CPPv4N7sequant6VacuumE" title="sequant::Vacuum"><span class="n"><span class="pre">Vacuum</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">v</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">get_default_context</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4I_10StatisticsEN7sequant14NormalOperatorE" title="sequant::NormalOperator::S"><span class="n"><span class="pre">S</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">vacuum</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I000EN7sequant14NormalOperator14NormalOperatorERR14IndexSequence1RR14IndexSequence26Vacuum" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>IndexSequence1</strong> – type representing a sequence of <a class="reference internal" href="classsequant_1_1_index.html#classsequant_1_1_index"><span class="std std-ref">Index</span></a> objects or objects that can be statically cast into <a class="reference internal" href="classsequant_1_1_index.html#classsequant_1_1_index"><span class="std std-ref">Index</span></a></p></li>
+<li><p><strong>IndexSequence2</strong> – type representing a sequence of <a class="reference internal" href="classsequant_1_1_index.html#classsequant_1_1_index"><span class="std std-ref">Index</span></a> objects or objects that can be statically cast into <a class="reference internal" href="classsequant_1_1_index.html#classsequant_1_1_index"><span class="std std-ref">Index</span></a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>creator_indices</strong> – sequence of creator indices </p></li>
+<li><p><strong>annihilator_indices</strong> – sequence of annihilator indices (in order of particle indices, see the class documentation for more info). </p></li>
+<li><p><strong>v</strong> – vacuum state with respect to which the operator is normal-ordered </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I00EN7sequant14NormalOperator14NormalOperatorERR11OpSequence1RR11OpSequence26VacuumPNSt11enable_if_tIXaantNSt9is_same_vINSt7decay_tI11OpSequence1EE14NormalOperatorEEaantNSt9is_same_vINSt7decay_tI11OpSequence2EE14NormalOperatorEEaaNSt9is_same_vINSt7decay_tI11OpSequence1E10value_typeE2OpI1SEEENSt9is_same_vINSt7decay_tI11OpSequence2E10value_typeE2OpI1SEEEEEE">
+<span id="_CPPv3I00EN7sequant14NormalOperator14NormalOperatorERR11OpSequence1RR11OpSequence26VacuumPNSt11enable_if_tIXaantNSt9is_same_vINSt7decay_tI11OpSequence1EE14NormalOperatorEEaantNSt9is_same_vINSt7decay_tI11OpSequence2EE14NormalOperatorEEaaNSt9is_same_vINSt7decay_tI11OpSequence1E10value_typeE2OpI1SEEENSt9is_same_vINSt7decay_tI11OpSequence2E10value_typeE2OpI1SEEEEEE"></span><span id="_CPPv2I00EN7sequant14NormalOperator14NormalOperatorERR11OpSequence1RR11OpSequence26VacuumPNSt11enable_if_tIX!std::is_same_v<std::decay_t<OpSequence1>, NormalOperator> && !std::is_same_v<std::decay_t<OpSequence2>, NormalOperator> && std::is_same_v<typename std::decay_t<OpSequence1>::value_type, Op<S>> && std::is_same_v<typename std::decay_t<OpSequence2>::value_type, Op<S>>EEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OpSequence1</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OpSequence2</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classsequant_1_1_normal_operator_1ad313e0c06c844df55b28817441035b05"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NormalOperator</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I00EN7sequant14NormalOperator14NormalOperatorERR11OpSequence1RR11OpSequence26VacuumPNSt11enable_if_tIXaantNSt9is_same_vINSt7decay_tI11OpSequence1EE14NormalOperatorEEaantNSt9is_same_vINSt7decay_tI11OpSequence2EE14NormalOperatorEEaaNSt9is_same_vINSt7decay_tI11OpSequence1E10value_typeE2OpI1SEEENSt9is_same_vINSt7decay_tI11OpSequence2E10value_typeE2OpI1SEEEEEE" title="sequant::NormalOperator::NormalOperator::OpSequence1"><span class="n"><span class="pre">OpSequence1</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">creators</span></span>, <a class="reference internal" href="#_CPPv4I00EN7sequant14NormalOperator14NormalOperatorERR11OpSequence1RR11OpSequence26VacuumPNSt11enable_if_tIXaantNSt9is_same_vINSt7decay_tI11OpSequence1EE14NormalOperatorEEaantNSt9is_same_vINSt7decay_tI11OpSequence2EE14NormalOperatorEEaaNSt9is_same_vINSt7decay_tI11OpSequence1E10value_typeE2OpI1SEEENSt9is_same_vINSt7decay_tI11OpSequence2E10value_typeE2OpI1SEEEEEE" title="sequant::NormalOperator::NormalOperator::OpSequence2"><span class="n"><span class="pre">OpSequence2</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">annihilators</span></span>, <a class="reference internal" href="enum_namespacesequant_1a27c1015914fed77818b3cd447345f196.html#_CPPv4N7sequant6VacuumE" title="sequant::Vacuum"><span class="n"><span class="pre">Vacuum</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">v</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">get_default_context</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4I_10StatisticsEN7sequant14NormalOperatorE" title="sequant::NormalOperator::S"><span class="n"><span class="pre">S</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">vacuum</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">enable_if_t</span></span><span class="p"><span class="pre">&lt;</span></span><span class="o"><span class="pre">!</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">is_same_v</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">decay_t</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I00EN7sequant14NormalOperator14NormalOperatorERR11OpSequence1RR11OpSequence26VacuumPNSt11enable_if_tIXaantNSt9is_same_vINSt7decay_tI11OpSequence1EE14NormalOperatorEEaantNSt9is_same_vINSt7decay_tI11OpSequence2EE14NormalOperatorEEaaNSt9is_same_vINSt7decay_tI11OpSequence1E10value_typeE2OpI1SEEENSt9is_same_vINSt7decay_tI11OpSequence2E10value_typeE2OpI1SEEEEEE" title="sequant::NormalOperator::NormalOperator::OpSequence1"><span class="n"><span class="pre">OpSequence1</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I00EN7sequant14NormalOperator14NormalOperatorERR11OpSequence1RR11OpSequence26VacuumPNSt11enable_if_tIXaantNSt9is_same_vINSt7decay_tI11OpSequence1EE14NormalOperatorEEaantNSt9is_same_vINSt7decay_tI11OpSequence2EE14NormalOperatorEEaaNSt9is_same_vINSt7decay_tI11OpSequence1E10value_typeE2OpI1SEEENSt9is_same_vINSt7decay_tI11OpSequence2E10value_typeE2OpI1SEEEEEE" title="sequant::NormalOperator::NormalOperator"><span class="n"><span class="pre">NormalOperator</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="o"><span class="pre">&amp;&amp;</span></span><span class="w"> </span><span class="o"><span class="pre">!</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">is_same_v</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">decay_t</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I00EN7sequant14NormalOperator14NormalOperatorERR11OpSequence1RR11OpSequence26VacuumPNSt11enable_if_tIXaantNSt9is_same_vINSt7decay_tI11OpSequence1EE14NormalOperatorEEaantNSt9is_same_vINSt7decay_tI11OpSequence2EE14NormalOperatorEEaaNSt9is_same_vINSt7decay_tI11OpSequence1E10value_typeE2OpI1SEEENSt9is_same_vINSt7decay_tI11OpSequence2E10value_typeE2OpI1SEEEEEE" title="sequant::NormalOperator::NormalOperator::OpSequence2"><span class="n"><span class="pre">OpSequence2</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I00EN7sequant14NormalOperator14NormalOperatorERR11OpSequence1RR11OpSequence26VacuumPNSt11enable_if_tIXaantNSt9is_same_vINSt7decay_tI11OpSequence1EE14NormalOperatorEEaantNSt9is_same_vINSt7decay_tI11OpSequence2EE14NormalOperatorEEaaNSt9is_same_vINSt7decay_tI11OpSequence1E10value_typeE2OpI1SEEENSt9is_same_vINSt7decay_tI11OpSequence2E10value_typeE2OpI1SEEEEEE" title="sequant::NormalOperator::NormalOperator"><span class="n"><span class="pre">NormalOperator</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="o"><span class="pre">&amp;&amp;</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">is_same_v</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">decay_t</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I00EN7sequant14NormalOperator14NormalOperatorERR11OpSequence1RR11OpSequence26VacuumPNSt11enable_if_tIXaantNSt9is_same_vINSt7decay_tI11OpSequence1EE14NormalOperatorEEaantNSt9is_same_vINSt7decay_tI11OpSequence2EE14NormalOperatorEEaaNSt9is_same_vINSt7decay_tI11OpSequence1E10value_typeE2OpI1SEEENSt9is_same_vINSt7decay_tI11OpSequence2E10value_typeE2OpI1SEEEEEE" title="sequant::NormalOperator::NormalOperator::OpSequence1"><span class="n"><span class="pre">OpSequence1</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">value_type</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="classsequant_1_1_op.html#_CPPv4I_10StatisticsEN7sequant2OpE" title="sequant::Op"><span class="n"><span class="pre">Op</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_10StatisticsEN7sequant14NormalOperatorE" title="sequant::NormalOperator::S"><span class="n"><span class="pre">S</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="o"><span class="pre">&amp;&amp;</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">is_same_v</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">decay_t</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I00EN7sequant14NormalOperator14NormalOperatorERR11OpSequence1RR11OpSequence26VacuumPNSt11enable_if_tIXaantNSt9is_same_vINSt7decay_tI11OpSequence1EE14NormalOperatorEEaantNSt9is_same_vINSt7decay_tI11OpSequence2EE14NormalOperatorEEaaNSt9is_same_vINSt7decay_tI11OpSequence1E10value_typeE2OpI1SEEENSt9is_same_vINSt7decay_tI11OpSequence2E10value_typeE2OpI1SEEEEEE" title="sequant::NormalOperator::NormalOperator::OpSequence2"><span class="n"><span class="pre">OpSequence2</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">value_type</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="classsequant_1_1_op.html#_CPPv4I_10StatisticsEN7sequant2OpE" title="sequant::Op"><span class="n"><span class="pre">Op</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_10StatisticsEN7sequant14NormalOperatorE" title="sequant::NormalOperator::S"><span class="n"><span class="pre">S</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">*</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00EN7sequant14NormalOperator14NormalOperatorERR11OpSequence1RR11OpSequence26VacuumPNSt11enable_if_tIXaantNSt9is_same_vINSt7decay_tI11OpSequence1EE14NormalOperatorEEaantNSt9is_same_vINSt7decay_tI11OpSequence2EE14NormalOperatorEEaaNSt9is_same_vINSt7decay_tI11OpSequence1E10value_typeE2OpI1SEEENSt9is_same_vINSt7decay_tI11OpSequence2E10value_typeE2OpI1SEEEEEE" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>OpSequence1</strong> – type representing a sequence of <code class="docutils literal notranslate"><a class="reference internal" href="classsequant_1_1_op.html#classsequant_1_1_op"><span class="std std-ref"><span class="pre">Op</span></span></a><span class="pre">&lt;S&gt;</span></code> objects </p></li>
+<li><p><strong>OpSequence2</strong> – type representing a sequence of <code class="docutils literal notranslate"><a class="reference internal" href="classsequant_1_1_op.html#classsequant_1_1_op"><span class="std std-ref"><span class="pre">Op</span></span></a><span class="pre">&lt;S&gt;</span></code> objects </p></li>
+</ul>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>creators</strong> – sequence of creators </p></li>
+<li><p><strong>annihilators</strong> – sequence of annihilators (in order of particle indices, see the class documentation for more info). </p></li>
+<li><p><strong>v</strong> – vacuum state with respect to which the operator is normal-ordered </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I00EN7sequant14NormalOperator14NormalOperatorENSt16initializer_listI1IEENSt16initializer_listI1IEE6Vacuum">
+<span id="_CPPv3I00EN7sequant14NormalOperator14NormalOperatorENSt16initializer_listI1IEENSt16initializer_listI1IEE6Vacuum"></span><span id="_CPPv2I00EN7sequant14NormalOperator14NormalOperatorENSt16initializer_listI1IEENSt16initializer_listI1IEE6Vacuum"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">I</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">enable_if_t</span></span><span class="p"><span class="pre">&lt;</span></span><span class="o"><span class="pre">!</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">is_same_v</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">decay_t</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I00EN7sequant14NormalOperator14NormalOperatorENSt16initializer_listI1IEENSt16initializer_listI1IEE6Vacuum" title="sequant::NormalOperator::NormalOperator::I"><span class="n"><span class="pre">I</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="classsequant_1_1_op.html#_CPPv4I_10StatisticsEN7sequant2OpE" title="sequant::Op"><span class="n"><span class="pre">Op</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_10StatisticsEN7sequant14NormalOperatorE" title="sequant::NormalOperator::S"><span class="n"><span class="pre">S</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classsequant_1_1_normal_operator_1a3dab3ad1361b03493fb58e43a2c9d017"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NormalOperator</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">initializer_list</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I00EN7sequant14NormalOperator14NormalOperatorENSt16initializer_listI1IEENSt16initializer_listI1IEE6Vacuum" title="sequant::NormalOperator::NormalOperator::I"><span class="n"><span class="pre">I</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">creator_indices</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">initializer_list</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I00EN7sequant14NormalOperator14NormalOperatorENSt16initializer_listI1IEENSt16initializer_listI1IEE6Vacuum" title="sequant::NormalOperator::NormalOperator::I"><span class="n"><span class="pre">I</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">annihilator_indices</span></span>, <a class="reference internal" href="enum_namespacesequant_1a27c1015914fed77818b3cd447345f196.html#_CPPv4N7sequant6VacuumE" title="sequant::Vacuum"><span class="n"><span class="pre">Vacuum</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">v</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">get_default_context</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4I_10StatisticsEN7sequant14NormalOperatorE" title="sequant::NormalOperator::S"><span class="n"><span class="pre">S</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">vacuum</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00EN7sequant14NormalOperator14NormalOperatorENSt16initializer_listI1IEENSt16initializer_listI1IEE6Vacuum" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>creator_indices</strong> – initializer_list of creator indices </p></li>
+<li><p><strong>annihilator_indices</strong> – initializer_list of annihilator indices (in order of particle indices, see the class documentation for more info). </p></li>
+<li><p><strong>v</strong> – vacuum state with respect to which the operator is normal-ordered </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant14NormalOperator14NormalOperatorENSt16initializer_listI2OpI1SEEENSt16initializer_listI2OpI1SEEE6Vacuum">
+<span id="_CPPv3N7sequant14NormalOperator14NormalOperatorENSt16initializer_listI2OpI1SEEENSt16initializer_listI2OpI1SEEE6Vacuum"></span><span id="_CPPv2N7sequant14NormalOperator14NormalOperatorENSt16initializer_listI2OpI1SEEENSt16initializer_listI2OpI1SEEE6Vacuum"></span><span id="sequant::NormalOperator::NormalOperator__std::initializer_list:Op:S::.std::initializer_list:Op:S::.Vacuum"></span><span class="target" id="classsequant_1_1_normal_operator_1a7ef57a6691a99dd0eb0cc59e5e9a2632"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NormalOperator</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">initializer_list</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="classsequant_1_1_op.html#_CPPv4I_10StatisticsEN7sequant2OpE" title="sequant::Op"><span class="n"><span class="pre">Op</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_10StatisticsEN7sequant14NormalOperatorE" title="sequant::NormalOperator::S"><span class="n"><span class="pre">S</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">creators</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">initializer_list</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="classsequant_1_1_op.html#_CPPv4I_10StatisticsEN7sequant2OpE" title="sequant::Op"><span class="n"><span class="pre">Op</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I_10StatisticsEN7sequant14NormalOperatorE" title="sequant::NormalOperator::S"><span class="n"><span class="pre">S</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">annihilators</span></span>, <a class="reference internal" href="enum_namespacesequant_1a27c1015914fed77818b3cd447345f196.html#_CPPv4N7sequant6VacuumE" title="sequant::Vacuum"><span class="n"><span class="pre">Vacuum</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">v</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">get_default_context</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="#_CPPv4I_10StatisticsEN7sequant14NormalOperatorE" title="sequant::NormalOperator::S"><span class="n"><span class="pre">S</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">.</span></span><span class="n"><span class="pre">vacuum</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7sequant14NormalOperator14NormalOperatorENSt16initializer_listI2OpI1SEEENSt16initializer_listI2OpI1SEEE6Vacuum" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>creators</strong> – initializer_list of creators </p></li>
+<li><p><strong>annihilators</strong> – initializer_list of annihilators (in order of particle indices, see the class documentation for more info). </p></li>
+<li><p><strong>v</strong> – vacuum state with respect to which the operator is normal-ordered </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant14NormalOperator14NormalOperatorERK14NormalOperator">
+<span id="_CPPv3N7sequant14NormalOperator14NormalOperatorERK14NormalOperator"></span><span id="_CPPv2N7sequant14NormalOperator14NormalOperatorERK14NormalOperator"></span><span id="sequant::NormalOperator::NormalOperator__NormalOperatorCR"></span><span class="target" id="classsequant_1_1_normal_operator_1a4b514dd3f86f4bf0eb8f99086357b622"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NormalOperator</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N7sequant14NormalOperator14NormalOperatorERK14NormalOperator" title="sequant::NormalOperator::NormalOperator"><span class="n"><span class="pre">NormalOperator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7sequant14NormalOperator14NormalOperatorERK14NormalOperator" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant14NormalOperator14NormalOperatorERR14NormalOperator">
+<span id="_CPPv3N7sequant14NormalOperator14NormalOperatorERR14NormalOperator"></span><span id="_CPPv2N7sequant14NormalOperator14NormalOperatorERR14NormalOperator"></span><span id="sequant::NormalOperator::NormalOperator__NormalOperatorRR"></span><span class="target" id="classsequant_1_1_normal_operator_1a35fc5e25cd771f1fe8222fbde50697e2"></span><span class="sig-name descname"><span class="n"><span class="pre">NormalOperator</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N7sequant14NormalOperator14NormalOperatorERR14NormalOperator" title="sequant::NormalOperator::NormalOperator"><span class="n"><span class="pre">NormalOperator</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N7sequant14NormalOperator14NormalOperatorERR14NormalOperator" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant14NormalOperatoraSERR14NormalOperator">
+<span id="_CPPv3N7sequant14NormalOperatoraSERR14NormalOperator"></span><span id="_CPPv2N7sequant14NormalOperatoraSERR14NormalOperator"></span><span id="sequant::NormalOperator::assign-operator__NormalOperatorRR"></span><span class="target" id="classsequant_1_1_normal_operator_1aa2dfc379df2035e13e110766ccea861b"></span><a class="reference internal" href="#_CPPv4I_10StatisticsEN7sequant14NormalOperatorE" title="sequant::NormalOperator"><span class="n"><span class="pre">NormalOperator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I_10StatisticsEN7sequant14NormalOperatorE" title="sequant::NormalOperator"><span class="n"><span class="pre">NormalOperator</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N7sequant14NormalOperatoraSERR14NormalOperator" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant14NormalOperatoraSERK14NormalOperator">
+<span id="_CPPv3N7sequant14NormalOperatoraSERK14NormalOperator"></span><span id="_CPPv2N7sequant14NormalOperatoraSERK14NormalOperator"></span><span id="sequant::NormalOperator::assign-operator__NormalOperatorCR"></span><span class="target" id="classsequant_1_1_normal_operator_1a4dc4ff5031904959b5ff52343bb4f249"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_10StatisticsEN7sequant14NormalOperatorE" title="sequant::NormalOperator"><span class="n"><span class="pre">NormalOperator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_10StatisticsEN7sequant14NormalOperatorE" title="sequant::NormalOperator"><span class="n"><span class="pre">NormalOperator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7sequant14NormalOperatoraSERK14NormalOperator" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant14NormalOperator6vacuumEv">
+<span id="_CPPv3NK7sequant14NormalOperator6vacuumEv"></span><span id="_CPPv2NK7sequant14NormalOperator6vacuumEv"></span><span id="sequant::NormalOperator::vacuumC"></span><span class="target" id="classsequant_1_1_normal_operator_1aba00f0e8730c555f8ed65bb406999304"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="enum_namespacesequant_1a27c1015914fed77818b3cd447345f196.html#_CPPv4N7sequant6VacuumE" title="sequant::Vacuum"><span class="n"><span class="pre">Vacuum</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">vacuum</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant14NormalOperator6vacuumEv" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the vacuum state with respect to which the operator is normal-ordered. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant14NormalOperator8creatorsEv">
+<span id="_CPPv3NK7sequant14NormalOperator8creatorsEv"></span><span id="_CPPv2NK7sequant14NormalOperator8creatorsEv"></span><span id="sequant::NormalOperator::creatorsC"></span><span class="target" id="classsequant_1_1_normal_operator_1a7f55647c6fbb311131f5fc286a1008e1"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">creators</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant14NormalOperator8creatorsEv" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the range of creators, in the order of increasing particle index </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant14NormalOperator12annihilatorsEv">
+<span id="_CPPv3NK7sequant14NormalOperator12annihilatorsEv"></span><span id="_CPPv2NK7sequant14NormalOperator12annihilatorsEv"></span><span id="sequant::NormalOperator::annihilatorsC"></span><span class="target" id="classsequant_1_1_normal_operator_1a54bc80067796a3e508938b80533a430a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">annihilators</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant14NormalOperator12annihilatorsEv" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the range of annihilators, in the order of increasing particle index </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant14NormalOperator9ncreatorsEv">
+<span id="_CPPv3NK7sequant14NormalOperator9ncreatorsEv"></span><span id="_CPPv2NK7sequant14NormalOperator9ncreatorsEv"></span><span id="sequant::NormalOperator::ncreatorsC"></span><span class="target" id="classsequant_1_1_normal_operator_1a73e7c0a7d3b918610fbd9715f065fc84"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ncreators</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant14NormalOperator9ncreatorsEv" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the number of creators </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant14NormalOperator13nannihilatorsEv">
+<span id="_CPPv3NK7sequant14NormalOperator13nannihilatorsEv"></span><span id="_CPPv2NK7sequant14NormalOperator13nannihilatorsEv"></span><span id="sequant::NormalOperator::nannihilatorsC"></span><span class="target" id="classsequant_1_1_normal_operator_1a269d6038968d024ddb8cf42bb8967f6d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nannihilators</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant14NormalOperator13nannihilatorsEv" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the number of annihilators </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant14NormalOperator6creannEv">
+<span id="_CPPv3NK7sequant14NormalOperator6creannEv"></span><span id="_CPPv2NK7sequant14NormalOperator6creannEv"></span><span id="sequant::NormalOperator::creannC"></span><span class="target" id="classsequant_1_1_normal_operator_1aa147cdd10a6ffcaf38e15fbc379a3db7"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">creann</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant14NormalOperator6creannEv" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>view of creators and annihilators as a single range </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant14NormalOperator4rankEv">
+<span id="_CPPv3NK7sequant14NormalOperator4rankEv"></span><span id="_CPPv2NK7sequant14NormalOperator4rankEv"></span><span id="sequant::NormalOperator::rankC"></span><span class="target" id="classsequant_1_1_normal_operator_1a07f2beda2b12f4321c0e5ae2ef17c85c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">rank</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant14NormalOperator4rankEv" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span><span class="cpp-expr sig sig-inline cpp"><span class="n">std</span><span class="p">::</span><span class="n">logic_error</span></span></span> – if the operator is not particle number conserving (i.e. if <a class="reference internal" href="#classsequant_1_1_normal_operator_1a73e7c0a7d3b918610fbd9715f065fc84"><span class="std std-ref">ncreators()</span></a> != <a class="reference internal" href="#classsequant_1_1_normal_operator_1a269d6038968d024ddb8cf42bb8967f6d"><span class="std std-ref">nannihilators()</span></a> ) </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>number of creators/annihilators </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant14NormalOperator3hugEv">
+<span id="_CPPv3NK7sequant14NormalOperator3hugEv"></span><span id="_CPPv2NK7sequant14NormalOperator3hugEv"></span><span id="sequant::NormalOperator::hugC"></span><span class="target" id="classsequant_1_1_normal_operator_1a970958b18e01e0e59654b2d210f4059a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">hug</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant14NormalOperator3hugEv" title="Link to this definition"></a><br /></dt>
+<dd><p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="classsequant_1_1_hugenholtz_vertex.html#classsequant_1_1_hugenholtz_vertex"><span class="std std-ref">HugenholtzVertex</span></a></p>
+</div>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the representation of <code class="docutils literal notranslate"><span class="pre">*this</span></code> as a Hugenholtz vertex </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant14NormalOperator5labelEv">
+<span id="_CPPv3NK7sequant14NormalOperator5labelEv"></span><span id="_CPPv2NK7sequant14NormalOperator5labelEv"></span><span id="sequant::NormalOperator::labelC"></span><span class="target" id="classsequant_1_1_normal_operator_1a0755ee38da49eee9842da6f2873f6d33"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">wstring_view</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">label</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK7sequant14NormalOperator5labelEv" title="Link to this definition"></a><br /></dt>
+<dd><p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#classsequant_1_1_normal_operator_1a7b574e39d59e65d8c1a3c499dfe51520"><span class="std std-ref">to_latex()</span></a> for producing unique string representation </p>
+</div>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>object’s label. 2 objects that are not equal can return same label, i.e. the label does not identify the object uniquely. Thus labels can be viewed as immutable string tags that for some object types can be used for sorting and other purposes. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant14NormalOperator8to_latexEv">
+<span id="_CPPv3NK7sequant14NormalOperator8to_latexEv"></span><span id="_CPPv2NK7sequant14NormalOperator8to_latexEv"></span><span id="sequant::NormalOperator::to_latexC"></span><span class="target" id="classsequant_1_1_normal_operator_1a7b574e39d59e65d8c1a3c499dfe51520"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">wstring</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">to_latex</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK7sequant14NormalOperator8to_latexEv" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the string representation of <code class="docutils literal notranslate"><span class="pre">this</span></code> in the LaTeX format </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant14NormalOperator5eraseE14const_iterator">
+<span id="_CPPv3N7sequant14NormalOperator5eraseE14const_iterator"></span><span id="_CPPv2N7sequant14NormalOperator5eraseE14const_iterator"></span><span id="sequant::NormalOperator::erase__const_iterator"></span><span class="target" id="classsequant_1_1_normal_operator_1af9b48bed33f0f7d4befb7b4e7433887b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N7sequant14NormalOperator8iteratorE" title="sequant::NormalOperator::iterator"><span class="n"><span class="pre">iterator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">erase</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N7sequant14NormalOperator14const_iteratorE" title="sequant::NormalOperator::const_iterator"><span class="n"><span class="pre">const_iterator</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">it</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7sequant14NormalOperator5eraseE14const_iterator" title="Link to this definition"></a><br /></dt>
+<dd><p>overload base_type::erase </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN7sequant14NormalOperator6insertE8iterator14const_iteratorRR1T">
+<span id="_CPPv3I0EN7sequant14NormalOperator6insertE14const_iteratorRR1T"></span><span id="_CPPv2I0EN7sequant14NormalOperator6insertE14const_iteratorRR1T"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classsequant_1_1_normal_operator_1a2aa093a92d06f22cbf77a036a23c5fa3"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N7sequant14NormalOperator8iteratorE" title="sequant::NormalOperator::iterator"><span class="n"><span class="pre">iterator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">insert</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N7sequant14NormalOperator14const_iteratorE" title="sequant::NormalOperator::const_iterator"><span class="n"><span class="pre">const_iterator</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">it</span></span>, <a class="reference internal" href="#_CPPv4I0EN7sequant14NormalOperator6insertE8iterator14const_iteratorRR1T" title="sequant::NormalOperator::insert::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN7sequant14NormalOperator6insertE8iterator14const_iteratorRR1T" title="Link to this definition"></a><br /></dt>
+<dd><p>overload base_type::insert </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant14NormalOperator7type_idEv">
+<span id="_CPPv3NK7sequant14NormalOperator7type_idEv"></span><span id="_CPPv2NK7sequant14NormalOperator7type_idEv"></span><span id="sequant::NormalOperator::type_idC"></span><span class="target" id="classsequant_1_1_normal_operator_1aceab370b1f4808aca33024d01cdc2cbe"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="classsequant_1_1_expr.html#_CPPv4N7sequant4ExprE" title="sequant::Expr"><span class="n"><span class="pre">Expr</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="classsequant_1_1_expr.html#_CPPv4N7sequant4Expr12type_id_typeE" title="sequant::Expr::type_id_type"><span class="n"><span class="pre">type_id_type</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">type_id</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK7sequant14NormalOperator7type_idEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Computes and returns the derived type identifier <div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="classsequant_1_1_expr.html#classsequant_1_1_expr_1a11971a85b7a115d063b1d4c7e5b36ce9"><span class="std std-ref">Expr::get_type_id</span></a></p>
+</div>
+</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>this function must be overridden in the derived class </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the hash value for this <a class="reference internal" href="classsequant_1_1_expr.html#classsequant_1_1_expr"><span class="std std-ref">Expr</span></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant14NormalOperator5cloneEv">
+<span id="_CPPv3NK7sequant14NormalOperator5cloneEv"></span><span id="_CPPv2NK7sequant14NormalOperator5cloneEv"></span><span id="sequant::NormalOperator::cloneC"></span><span class="target" id="classsequant_1_1_normal_operator_1acd20dc8f5fd8ef6f77ae900249ed6629"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="classsequant_1_1_expr_ptr.html#_CPPv4N7sequant7ExprPtrE" title="sequant::ExprPtr"><span class="n"><span class="pre">ExprPtr</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">clone</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK7sequant14NormalOperator5cloneEv" title="Link to this definition"></a><br /></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>- must be overridden in the derived class.<ul class="simple">
+<li><p>the default implementation throws an exception </p></li>
+</ul>
+</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a clone of this object, i.e. an object that is equal to <code class="docutils literal notranslate"><span class="pre">this</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant14NormalOperator7adjointEv">
+<span id="_CPPv3N7sequant14NormalOperator7adjointEv"></span><span id="_CPPv2N7sequant14NormalOperator7adjointEv"></span><span id="sequant::NormalOperator::adjoint"></span><span class="target" id="classsequant_1_1_normal_operator_1adf72877b7d29a7ea61f48d803bc07704"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">adjoint</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4N7sequant14NormalOperator7adjointEv" title="Link to this definition"></a><br /></dt>
+<dd><p>adjoint of an <a class="reference internal" href="classsequant_1_1_operator.html#classsequant_1_1_operator"><span class="std std-ref">Operator</span></a> is a reversed string of the adjoints of its ops </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4II00DpE0DpEN7sequant14NormalOperator17transform_indicesEbRK3MapI5Index5IndexDp4ArgsE">
+<span id="_CPPv3II00DpE0DpEN7sequant14NormalOperator17transform_indicesERK3MapI5Index5IndexDp4ArgsE"></span><span id="_CPPv2II00DpE0DpEN7sequant14NormalOperator17transform_indicesERK3MapI5Index5IndexDp4ArgsE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="n"><span class="pre">Args</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Map</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Args</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classsequant_1_1_normal_operator_1a20ee535dbb4a5a99643c818efc3cefdc"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">transform_indices</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4II00DpE0DpEN7sequant14NormalOperator17transform_indicesEbRK3MapI5Index5IndexDp4ArgsE" title="sequant::NormalOperator::transform_indices::Map"><span class="n"><span class="pre">Map</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="classsequant_1_1_index.html#_CPPv4N7sequant5IndexE" title="sequant::Index"><span class="n"><span class="pre">Index</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="classsequant_1_1_index.html#_CPPv4N7sequant5IndexE" title="sequant::Index"><span class="n"><span class="pre">Index</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4II00DpE0DpEN7sequant14NormalOperator17transform_indicesEbRK3MapI5Index5IndexDp4ArgsE" title="sequant::NormalOperator::transform_indices::Args"><span class="n"><span class="pre">Args</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">index_map</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4II00DpE0DpEN7sequant14NormalOperator17transform_indicesEbRK3MapI5Index5IndexDp4ArgsE" title="Link to this definition"></a><br /></dt>
+<dd><p>Replaces indices using the index map </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index_map</strong> – maps <a class="reference internal" href="classsequant_1_1_index.html#classsequant_1_1_index"><span class="std std-ref">Index</span></a> to <a class="reference internal" href="classsequant_1_1_index.html#classsequant_1_1_index"><span class="std std-ref">Index</span></a></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>true if one or more indices changed </p>
+</dd>
+<dt class="field-odd">Pre<span class="colon">:</span></dt>
+<dd class="field-odd"><p>indices are not tagged, or (if want to protect them from replacement) tagged with (int)0 </p>
+</dd>
+<dt class="field-even">Post<span class="colon">:</span></dt>
+<dd class="field-even"><p>indices that were replaced will be tagged with (int)0 </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant14NormalOperator6labelsEv">
+<span id="_CPPv3N7sequant14NormalOperator6labelsEv"></span><span id="_CPPv2N7sequant14NormalOperator6labelsEv"></span><span id="sequant::NormalOperator::labels"></span><span class="target" id="classsequant_1_1_normal_operator_1ae4357156ec76a7543681815263426610"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">container</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="typedef_namespacesequant_1_1container_1a811e88e20a4f0165d2043990f337d84f.html#_CPPv4I0_NSt6size_tEEN7sequant9container7svectorE" title="sequant::container::svector"><span class="n"><span class="pre">svector</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">wstring</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">labels</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7sequant14NormalOperator6labelsEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classsequant_1_1_normal_operator_1abab703e80e949a910f63dc5441a821ee"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">container</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="typedef_namespacesequant_1_1container_1a811e88e20a4f0165d2043990f337d84f.html#_CPPv4I0_NSt6size_tEEN7sequant9container7svectorE" title="sequant::container::svector"><span class="n"><span class="pre">svector</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">wstring</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">labels</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classsequant_1_1_normal_operator_1a6ed8d76ee989c04498588eb9e70253dd"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">wstring_view</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">label</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dd><p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#classsequant_1_1_normal_operator_1a7b574e39d59e65d8c1a3c499dfe51520"><span class="std std-ref">to_latex()</span></a> for producing unique string representation </p>
+</div>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>object’s label. 2 objects that are not equal can return same label, i.e. the label does not identify the object uniquely. Thus labels can be viewed as immutable string tags that for some object types can be used for sorting and other purposes. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classsequant_1_1_normal_operator_1ad9fc136a614ecc5e06b988577839d3f4"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">wstring_view</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">label</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dd><p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#classsequant_1_1_normal_operator_1a7b574e39d59e65d8c1a3c499dfe51520"><span class="std std-ref">to_latex()</span></a> for producing unique string representation </p>
+</div>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>object’s label. 2 objects that are not equal can return same label, i.e. the label does not identify the object uniquely. Thus labels can be viewed as immutable string tags that for some object types can be used for sorting and other purposes. </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classsequant_1_1_normal_operator_1af4d0fe924f3963fef55fa9a806c53116"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">container</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="typedef_namespacesequant_1_1container_1a811e88e20a4f0165d2043990f337d84f.html#_CPPv4I0_NSt6size_tEEN7sequant9container7svectorE" title="sequant::container::svector"><span class="n"><span class="pre">svector</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">wstring</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">labels</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>all possible values returned by <a class="reference internal" href="#classsequant_1_1_normal_operator_1a0755ee38da49eee9842da6f2873f6d33"><span class="std std-ref">label()</span></a> for this operator type </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-attributes">Public Static Attributes</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant14NormalOperator10statisticsE">
+<span id="_CPPv3N7sequant14NormalOperator10statisticsE"></span><span id="_CPPv2N7sequant14NormalOperator10statisticsE"></span><span id="sequant::NormalOperator::statistics__Statistics"></span><span class="target" id="classsequant_1_1_normal_operator_1ac9f493a29deede8b0ef33750fa573d00"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="enum_namespacesequant_1ac51aaf1e35bf9fe90a2282a6cdb2c1fe.html#_CPPv4N7sequant10StatisticsE" title="sequant::Statistics"><span class="n"><span class="pre">Statistics</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">statistics</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I_10StatisticsEN7sequant14NormalOperatorE" title="sequant::NormalOperator::S"><span class="n"><span class="pre">S</span></span></a><a class="headerlink" href="#_CPPv4N7sequant14NormalOperator10statisticsE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Valeev Research Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

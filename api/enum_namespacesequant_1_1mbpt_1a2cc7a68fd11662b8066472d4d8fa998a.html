@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Enum OpType &mdash; SeQuant  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<link href="../_static/style.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SeQuant
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html">SeQuant: symbolic tensor algebra in C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#synopsis">Synopsis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#getting-started">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#build-harness">Build harness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#using">Using</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#id1">Getting Started</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#register-index-spaces">Register Index Spaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#quasiparticles">Quasiparticles</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#operators">Operators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#developers">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#acknowledgement">Acknowledgement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/install.html">SeQuant: installation guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#tl-dr">TL;DR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#configure">Configure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../source/install.html#useful-cmake-variables">Useful CMake variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#build">Build</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SeQuant</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Enum OpType</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ajay-mk/SeQuant/blob/master/doc/sphinx/api/enum_namespacesequant_1_1mbpt_1a2cc7a68fd11662b8066472d4d8fa998a.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="enum-optype">
+<span id="exhale-enum-namespacesequant-1-1mbpt-1a2cc7a68fd11662b8066472d4d8fa998a"></span><h1>Enum OpType<a class="headerlink" href="#enum-optype" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_SeQuant_domain_mbpt_op.hpp.html#file-sequant-domain-mbpt-op-hpp"><span class="std std-ref">File op.hpp</span></a></p></li>
+</ul>
+<section id="enum-documentation">
+<h2>Enum Documentation<a class="headerlink" href="#enum-documentation" title="Link to this heading"></a></h2>
+<dl class="cpp enum-class">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant4mbpt6OpTypeE">
+<span id="_CPPv3N7sequant4mbpt6OpTypeE"></span><span id="_CPPv2N7sequant4mbpt6OpTypeE"></span><span class="target" id="namespacesequant_1_1mbpt_1a2cc7a68fd11662b8066472d4d8fa998a"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">sequant</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">mbpt</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">OpType</span></span></span><a class="headerlink" href="#_CPPv4N7sequant4mbpt6OpTypeE" title="Link to this definition"></a><br /></dt>
+<dd><p>enumerates the known <a class="reference internal" href="classsequant_1_1mbpt_1_1_operator.html#classsequant_1_1mbpt_1_1_operator"><span class="std std-ref">Operator</span></a> types </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant4mbpt6OpType1hE">
+<span id="_CPPv3N7sequant4mbpt6OpType1hE"></span><span id="_CPPv2N7sequant4mbpt6OpType1hE"></span><span class="target" id="namespacesequant_1_1mbpt_1a2cc7a68fd11662b8066472d4d8fa998aa2510c39011c5be704182423e3a695e91"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">h</span></span></span><a class="headerlink" href="#_CPPv4N7sequant4mbpt6OpType1hE" title="Link to this definition"></a><br /></dt>
+<dd><p>1-body Hamiltonian </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant4mbpt6OpType1fE">
+<span id="_CPPv3N7sequant4mbpt6OpType1fE"></span><span id="_CPPv2N7sequant4mbpt6OpType1fE"></span><span class="target" id="namespacesequant_1_1mbpt_1a2cc7a68fd11662b8066472d4d8fa998aa8fa14cdd754f91cc6554c9e71929cce7"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">f</span></span></span><a class="headerlink" href="#_CPPv4N7sequant4mbpt6OpType1fE" title="Link to this definition"></a><br /></dt>
+<dd><p>Fock operator. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp">
+<span class="target" id="namespacesequant_1_1mbpt_1a2cc7a68fd11662b8066472d4d8fa998aa73f9691c9e801489e2ef2d182635ea84"></span><span class="sig-name descname"><span class="pre">f̃</span></span></dt>
+<dd><p>orbitals) </p>
+<p>closed Fock operator (i.e. Fock operator due to fully-occupied </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant4mbpt6OpType1gE">
+<span id="_CPPv3N7sequant4mbpt6OpType1gE"></span><span id="_CPPv2N7sequant4mbpt6OpType1gE"></span><span class="target" id="namespacesequant_1_1mbpt_1a2cc7a68fd11662b8066472d4d8fa998aab2f5ff47436671b6e533d8dc3614845d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">g</span></span></span><a class="headerlink" href="#_CPPv4N7sequant4mbpt6OpType1gE" title="Link to this definition"></a><br /></dt>
+<dd><p>2-body Coulomb </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant4mbpt6OpType1tE">
+<span id="_CPPv3N7sequant4mbpt6OpType1tE"></span><span id="_CPPv2N7sequant4mbpt6OpType1tE"></span><span class="target" id="namespacesequant_1_1mbpt_1a2cc7a68fd11662b8066472d4d8fa998aae358efa489f58062f10dd7316b65649e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">t</span></span></span><a class="headerlink" href="#_CPPv4N7sequant4mbpt6OpType1tE" title="Link to this definition"></a><br /></dt>
+<dd><p>cluster amplitudes </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp">
+<span class="target" id="namespacesequant_1_1mbpt_1a2cc7a68fd11662b8066472d4d8fa998aa6af8e2f02f674b41b6ccf43debc252d2"></span><span class="sig-name descname"><span class="pre">λ</span></span></dt>
+<dd><p>deexcitation cluster amplitudes </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant4mbpt6OpType1AE">
+<span id="_CPPv3N7sequant4mbpt6OpType1AE"></span><span id="_CPPv2N7sequant4mbpt6OpType1AE"></span><span class="target" id="namespacesequant_1_1mbpt_1a2cc7a68fd11662b8066472d4d8fa998aa7fc56270e7a70fa81a5935b72eacbe29"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">A</span></span></span><a class="headerlink" href="#_CPPv4N7sequant4mbpt6OpType1AE" title="Link to this definition"></a><br /></dt>
+<dd><p>antisymmetrizer </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant4mbpt6OpType1SE">
+<span id="_CPPv3N7sequant4mbpt6OpType1SE"></span><span id="_CPPv2N7sequant4mbpt6OpType1SE"></span><span class="target" id="namespacesequant_1_1mbpt_1a2cc7a68fd11662b8066472d4d8fa998aa5dbc98dcc983a70728bd082d1a47546e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">S</span></span></span><a class="headerlink" href="#_CPPv4N7sequant4mbpt6OpType1SE" title="Link to this definition"></a><br /></dt>
+<dd><p>particle symmetrizer </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant4mbpt6OpType1LE">
+<span id="_CPPv3N7sequant4mbpt6OpType1LE"></span><span id="_CPPv2N7sequant4mbpt6OpType1LE"></span><span class="target" id="namespacesequant_1_1mbpt_1a2cc7a68fd11662b8066472d4d8fa998aad20caec3b48a1eef164cb4ca81ba2587"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">L</span></span></span><a class="headerlink" href="#_CPPv4N7sequant4mbpt6OpType1LE" title="Link to this definition"></a><br /></dt>
+<dd><p>left-hand eigenstate </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant4mbpt6OpType1RE">
+<span id="_CPPv3N7sequant4mbpt6OpType1RE"></span><span id="_CPPv2N7sequant4mbpt6OpType1RE"></span><span class="target" id="namespacesequant_1_1mbpt_1a2cc7a68fd11662b8066472d4d8fa998aae1e1d3d40573127e9ee0480caf1283d6"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">R</span></span></span><a class="headerlink" href="#_CPPv4N7sequant4mbpt6OpType1RE" title="Link to this definition"></a><br /></dt>
+<dd><p>right-hand eigenstate </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant4mbpt6OpType3R12E">
+<span id="_CPPv3N7sequant4mbpt6OpType3R12E"></span><span id="_CPPv2N7sequant4mbpt6OpType3R12E"></span><span class="target" id="namespacesequant_1_1mbpt_1a2cc7a68fd11662b8066472d4d8fa998aa1688316d15ac9218146e0f4ba5fc8d4f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">R12</span></span></span><a class="headerlink" href="#_CPPv4N7sequant4mbpt6OpType3R12E" title="Link to this definition"></a><br /></dt>
+<dd><p>geminal kernel </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant4mbpt6OpType2GRE">
+<span id="_CPPv3N7sequant4mbpt6OpType2GRE"></span><span id="_CPPv2N7sequant4mbpt6OpType2GRE"></span><span class="target" id="namespacesequant_1_1mbpt_1a2cc7a68fd11662b8066472d4d8fa998aaf214a7d42e0de5875d55189e01e2e187"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GR</span></span></span><a class="headerlink" href="#_CPPv4N7sequant4mbpt6OpType2GRE" title="Link to this definition"></a><br /></dt>
+<dd><p>GR kernel from f12 theory. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant4mbpt6OpType1CE">
+<span id="_CPPv3N7sequant4mbpt6OpType1CE"></span><span id="_CPPv2N7sequant4mbpt6OpType1CE"></span><span class="target" id="namespacesequant_1_1mbpt_1a2cc7a68fd11662b8066472d4d8fa998aa0d61f8370cad1d412f80b84d143e1257"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">C</span></span></span><a class="headerlink" href="#_CPPv4N7sequant4mbpt6OpType1CE" title="Link to this definition"></a><br /></dt>
+<dd><p>cabs singles op </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant4mbpt6OpType3RDME">
+<span id="_CPPv3N7sequant4mbpt6OpType3RDME"></span><span id="_CPPv2N7sequant4mbpt6OpType3RDME"></span><span class="target" id="namespacesequant_1_1mbpt_1a2cc7a68fd11662b8066472d4d8fa998aa006795aeeab570e4ca336932c33932f2"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RDM</span></span></span><a class="headerlink" href="#_CPPv4N7sequant4mbpt6OpType3RDME" title="Link to this definition"></a><br /></dt>
+<dd><p>RDM. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant4mbpt6OpType11RDMCumulantE">
+<span id="_CPPv3N7sequant4mbpt6OpType11RDMCumulantE"></span><span id="_CPPv2N7sequant4mbpt6OpType11RDMCumulantE"></span><span class="target" id="namespacesequant_1_1mbpt_1a2cc7a68fd11662b8066472d4d8fa998aabf69f4ec757395d5f1bc8481371af913"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RDMCumulant</span></span></span><a class="headerlink" href="#_CPPv4N7sequant4mbpt6OpType11RDMCumulantE" title="Link to this definition"></a><br /></dt>
+<dd><p>RDM cumulant. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp">
+<span class="target" id="namespacesequant_1_1mbpt_1a2cc7a68fd11662b8066472d4d8fa998aa1834dcb80855b642c985cbd1b4409b26"></span><span class="sig-name descname"><span class="pre">δ</span></span></dt>
+<dd><p>Kronecker delta (=identity) operator. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant4mbpt6OpType3h_1E">
+<span id="_CPPv3N7sequant4mbpt6OpType3h_1E"></span><span id="_CPPv2N7sequant4mbpt6OpType3h_1E"></span><span class="target" id="namespacesequant_1_1mbpt_1a2cc7a68fd11662b8066472d4d8fa998aade8465d723217241a3096b8763f598fe"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">h_1</span></span></span><a class="headerlink" href="#_CPPv4N7sequant4mbpt6OpType3h_1E" title="Link to this definition"></a><br /></dt>
+<dd><p>Hamiltonian perturbation. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant4mbpt6OpType3t_1E">
+<span id="_CPPv3N7sequant4mbpt6OpType3t_1E"></span><span id="_CPPv2N7sequant4mbpt6OpType3t_1E"></span><span class="target" id="namespacesequant_1_1mbpt_1a2cc7a68fd11662b8066472d4d8fa998aa69ac49315fb75559bc7125a373ed5735"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">t_1</span></span></span><a class="headerlink" href="#_CPPv4N7sequant4mbpt6OpType3t_1E" title="Link to this definition"></a><br /></dt>
+<dd><p>first order perturbed excitation cluster amplitudes </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp">
+<span class="target" id="namespacesequant_1_1mbpt_1a2cc7a68fd11662b8066472d4d8fa998aaf55817fc5cc6122763f602c8ae060292"></span><span class="sig-name descname"><span class="pre">λ_1</span></span></dt>
+<dd><p>first order perturbed deexcitation cluster amplitudes </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant4mbpt6OpType7invalidE">
+<span id="_CPPv3N7sequant4mbpt6OpType7invalidE"></span><span id="_CPPv2N7sequant4mbpt6OpType7invalidE"></span><span class="target" id="namespacesequant_1_1mbpt_1a2cc7a68fd11662b8066472d4d8fa998aafedb2d84cafe20862cb4399751a8a7e3"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">invalid</span></span></span><a class="headerlink" href="#_CPPv4N7sequant4mbpt6OpType7invalidE" title="Link to this definition"></a><br /></dt>
+<dd><p>invalid operator </p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Valeev Research Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

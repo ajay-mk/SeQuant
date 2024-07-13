@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Struct flattened_rangenest::cursor &mdash; SeQuant  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<link href="../_static/style.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SeQuant
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html">SeQuant: symbolic tensor algebra in C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#synopsis">Synopsis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#getting-started">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#build-harness">Build harness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#using">Using</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#id1">Getting Started</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#register-index-spaces">Register Index Spaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#quasiparticles">Quasiparticles</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#operators">Operators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#developers">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#acknowledgement">Acknowledgement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/install.html">SeQuant: installation guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#tl-dr">TL;DR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#configure">Configure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../source/install.html#useful-cmake-variables">Useful CMake variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#build">Build</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SeQuant</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Struct flattened_rangenest::cursor</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ajay-mk/SeQuant/blob/master/doc/sphinx/api/structsequant_1_1flattened__rangenest_1_1cursor.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="struct-flattened-rangenest-cursor">
+<span id="exhale-struct-structsequant-1-1flattened-rangenest-1-1cursor"></span><h1>Struct flattened_rangenest::cursor<a class="headerlink" href="#struct-flattened-rangenest-cursor" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_SeQuant_core_ranges.hpp.html#file-sequant-core-ranges-hpp"><span class="std std-ref">File ranges.hpp</span></a></p></li>
+</ul>
+<section id="nested-relationships">
+<h2>Nested Relationships<a class="headerlink" href="#nested-relationships" title="Link to this heading"></a></h2>
+<p>This struct is a nested type of <a class="reference internal" href="classsequant_1_1flattened__rangenest.html#exhale-class-classsequant-1-1flattened-rangenest"><span class="std std-ref">Template Class flattened_rangenest</span></a>.</p>
+</section>
+<section id="struct-documentation">
+<h2>Struct Documentation<a class="headerlink" href="#struct-documentation" title="Link to this heading"></a></h2>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant19flattened_rangenest6cursorE">
+<span id="_CPPv3N7sequant19flattened_rangenest6cursorE"></span><span id="_CPPv2N7sequant19flattened_rangenest6cursorE"></span><span id="sequant::flattened_rangenest::cursor"></span><span class="target" id="structsequant_1_1flattened__rangenest_1_1cursor"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cursor</span></span></span><a class="headerlink" href="#_CPPv4N7sequant19flattened_rangenest6cursorE" title="Link to this definition"></a><br /></dt>
+<dd><p>the cursor type </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant19flattened_rangenest6cursor6cursorEv">
+<span id="_CPPv3N7sequant19flattened_rangenest6cursor6cursorEv"></span><span id="_CPPv2N7sequant19flattened_rangenest6cursor6cursorEv"></span><span id="sequant::flattened_rangenest::cursor::cursor"></span><span class="target" id="structsequant_1_1flattened__rangenest_1_1cursor_1a8ae990e3584dfad8bf746e60d922ff9b"></span><span class="sig-name descname"><span class="n"><span class="pre">cursor</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N7sequant19flattened_rangenest6cursor6cursorEv" title="Link to this definition"></a><br /></dt>
+<dd><p>constructs an uninitialized cursor </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant19flattened_rangenest6cursor6cursorEP9RangeNest">
+<span id="_CPPv3N7sequant19flattened_rangenest6cursor6cursorEP9RangeNest"></span><span id="_CPPv2N7sequant19flattened_rangenest6cursor6cursorEP9RangeNest"></span><span id="sequant::flattened_rangenest::cursor::cursor__RangeNestP"></span><span class="target" id="structsequant_1_1flattened__rangenest_1_1cursor_1a5649d5ecadd8ee4a17a2416cf4af21bd"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cursor</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">RangeNest</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">range</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7sequant19flattened_rangenest6cursor6cursorEP9RangeNest" title="Link to this definition"></a><br /></dt>
+<dd><p>constructs a cursor pointing to the begin, if range is not empty </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>has O(1) complexity </p>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant19flattened_rangenest6cursor6cursorEP9RangeNestN6ranges18default_sentinel_tE">
+<span id="_CPPv3N7sequant19flattened_rangenest6cursor6cursorEP9RangeNestN6ranges18default_sentinel_tE"></span><span id="_CPPv2N7sequant19flattened_rangenest6cursor6cursorEP9RangeNestN6ranges18default_sentinel_tE"></span><span id="sequant::flattened_rangenest::cursor::cursor__RangeNestP.ranges::default_sentinel_t"></span><span class="target" id="structsequant_1_1flattened__rangenest_1_1cursor_1a2be1ba742edfdffa5f162b99b72971cc"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cursor</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">RangeNest</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">range</span></span>, <span class="n"><span class="pre">ranges</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">default_sentinel_t</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7sequant19flattened_rangenest6cursor6cursorEP9RangeNestN6ranges18default_sentinel_tE" title="Link to this definition"></a><br /></dt>
+<dd><p>constructs a cursor pointing to the end </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>has O(1) complexity </p>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant19flattened_rangenest6cursor6cursorEP9RangeNestN9RangeNest8iteratorEN5Range8iteratorE">
+<span id="_CPPv3N7sequant19flattened_rangenest6cursor6cursorEP9RangeNestN9RangeNest8iteratorEN5Range8iteratorE"></span><span id="_CPPv2N7sequant19flattened_rangenest6cursor6cursorEP9RangeNestN9RangeNest8iteratorEN5Range8iteratorE"></span><span id="sequant::flattened_rangenest::cursor::cursor__RangeNestP.RangeNest::iterator.Range::iterator"></span><span class="target" id="structsequant_1_1flattened__rangenest_1_1cursor_1a0d74a091a63e071ecc7a6bfccd15876a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cursor</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">RangeNest</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">range</span></span>, <span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="n"><span class="pre">RangeNest</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">iterator</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">range_iter</span></span>, <span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="n"><span class="pre">Range</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">iterator</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">elem_iter</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7sequant19flattened_rangenest6cursor6cursorEP9RangeNestN9RangeNest8iteratorEN5Range8iteratorE" title="Link to this definition"></a><br /></dt>
+<dd><p>constructs a cursor pointing to particular <code class="docutils literal notranslate"><span class="pre">range_iter</span></code> and <code class="docutils literal notranslate"><span class="pre">elem_iter</span></code> </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>has O(N) complexity due to the need to compute the ordinal </p>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant19flattened_rangenest6cursor4readEv">
+<span id="_CPPv3NK7sequant19flattened_rangenest6cursor4readEv"></span><span id="_CPPv2NK7sequant19flattened_rangenest6cursor4readEv"></span><span id="sequant::flattened_rangenest::cursor::readC"></span><span class="target" id="structsequant_1_1flattened__rangenest_1_1cursor_1aba68846c28cd0b7f423d511c32d8b351"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">read</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant19flattened_rangenest6cursor4readEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant19flattened_rangenest6cursor5equalERK6cursor">
+<span id="_CPPv3NK7sequant19flattened_rangenest6cursor5equalERK6cursor"></span><span id="_CPPv2NK7sequant19flattened_rangenest6cursor5equalERK6cursor"></span><span id="sequant::flattened_rangenest::cursor::equal__cursorCRC"></span><span class="target" id="structsequant_1_1flattened__rangenest_1_1cursor_1a10cfbe3e2caaf20d4aa2400deb89fe1e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">equal</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N7sequant19flattened_rangenest6cursorE" title="sequant::flattened_rangenest::cursor"><span class="n"><span class="pre">cursor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">that</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant19flattened_rangenest6cursor5equalERK6cursor" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant19flattened_rangenest6cursor4nextEv">
+<span id="_CPPv3N7sequant19flattened_rangenest6cursor4nextEv"></span><span id="_CPPv2N7sequant19flattened_rangenest6cursor4nextEv"></span><span id="sequant::flattened_rangenest::cursor::next"></span><span class="target" id="structsequant_1_1flattened__rangenest_1_1cursor_1a7e63cd63d08735a9a7e6ed53231b19f2"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">next</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7sequant19flattened_rangenest6cursor4nextEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant19flattened_rangenest6cursor10range_iterEv">
+<span id="_CPPv3NK7sequant19flattened_rangenest6cursor10range_iterEv"></span><span id="_CPPv2NK7sequant19flattened_rangenest6cursor10range_iterEv"></span><span id="sequant::flattened_rangenest::cursor::range_iterC"></span><span class="target" id="structsequant_1_1flattened__rangenest_1_1cursor_1a1c5b4ad2d53b387f3a58a1ce5bcb5d10"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">range_iter</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant19flattened_rangenest6cursor10range_iterEv" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the iterator pointing to the range in which this is located </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant19flattened_rangenest6cursor13range_ordinalEv">
+<span id="_CPPv3NK7sequant19flattened_rangenest6cursor13range_ordinalEv"></span><span id="_CPPv2NK7sequant19flattened_rangenest6cursor13range_ordinalEv"></span><span id="sequant::flattened_rangenest::cursor::range_ordinalC"></span><span class="target" id="structsequant_1_1flattened__rangenest_1_1cursor_1a029d7f19bc245e1a78db338568bf93df"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">range_ordinal</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant19flattened_rangenest6cursor13range_ordinalEv" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ordinal index of the range in which this is located </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant19flattened_rangenest6cursor9elem_iterEv">
+<span id="_CPPv3NK7sequant19flattened_rangenest6cursor9elem_iterEv"></span><span id="_CPPv2NK7sequant19flattened_rangenest6cursor9elem_iterEv"></span><span id="sequant::flattened_rangenest::cursor::elem_iterC"></span><span class="target" id="structsequant_1_1flattened__rangenest_1_1cursor_1acb1a8ad280c93e6f848d6f1218bbe2ef"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">elem_iter</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant19flattened_rangenest6cursor9elem_iterEv" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the iterator pointing to the element at which this is located </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant19flattened_rangenest6cursor7ordinalEv">
+<span id="_CPPv3NK7sequant19flattened_rangenest6cursor7ordinalEv"></span><span id="_CPPv2NK7sequant19flattened_rangenest6cursor7ordinalEv"></span><span id="sequant::flattened_rangenest::cursor::ordinalC"></span><span class="target" id="structsequant_1_1flattened__rangenest_1_1cursor_1a0e45b749e38dc787b543a4f6ca8c8a52"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ordinal</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant19flattened_rangenest6cursor7ordinalEv" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ordinal index of the element at which this is located (i.e. distance to the first element of the first range) </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant19flattened_rangenest6cursor5eraseEv">
+<span id="_CPPv3N7sequant19flattened_rangenest6cursor5eraseEv"></span><span id="_CPPv2N7sequant19flattened_rangenest6cursor5eraseEv"></span><span id="sequant::flattened_rangenest::cursor::erase"></span><span class="target" id="structsequant_1_1flattened__rangenest_1_1cursor_1ac4911d2d4f2600f56ec0b43bab15f191"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">erase</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7sequant19flattened_rangenest6cursor5eraseEv" title="Link to this definition"></a><br /></dt>
+<dd><p>calls erase on the current iterator </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN7sequant19flattened_rangenest6cursor6insertEvRR1T">
+<span id="_CPPv3I0EN7sequant19flattened_rangenest6cursor6insertERR1T"></span><span id="_CPPv2I0EN7sequant19flattened_rangenest6cursor6insertERR1T"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structsequant_1_1flattened__rangenest_1_1cursor_1a0278e96a610e65c22c086ba6a5eedf2c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">insert</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0EN7sequant19flattened_rangenest6cursor6insertEvRR1T" title="sequant::flattened_rangenest::cursor::insert::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">elem</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN7sequant19flattened_rangenest6cursor6insertEvRR1T" title="Link to this definition"></a><br /></dt>
+<dd><p>calls insert on the current iterator </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Valeev Research Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

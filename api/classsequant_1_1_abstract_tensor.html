@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Class AbstractTensor &mdash; SeQuant  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<link href="../_static/style.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SeQuant
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html">SeQuant: symbolic tensor algebra in C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#synopsis">Synopsis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#getting-started">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#build-harness">Build harness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#using">Using</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#id1">Getting Started</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#register-index-spaces">Register Index Spaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#quasiparticles">Quasiparticles</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#operators">Operators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#developers">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#acknowledgement">Acknowledgement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/install.html">SeQuant: installation guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#tl-dr">TL;DR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#configure">Configure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../source/install.html#useful-cmake-variables">Useful CMake variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#build">Build</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SeQuant</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Class AbstractTensor</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ajay-mk/SeQuant/blob/master/doc/sphinx/api/classsequant_1_1_abstract_tensor.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-abstracttensor">
+<span id="exhale-class-classsequant-1-1-abstract-tensor"></span><h1>Class AbstractTensor<a class="headerlink" href="#class-abstracttensor" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_SeQuant_core_abstract_tensor.hpp.html#file-sequant-core-abstract-tensor-hpp"><span class="std std-ref">File abstract_tensor.hpp</span></a></p></li>
+</ul>
+<section id="inheritance-relationships">
+<h2>Inheritance Relationships<a class="headerlink" href="#inheritance-relationships" title="Link to this heading"></a></h2>
+<section id="derived-types">
+<h3>Derived Types<a class="headerlink" href="#derived-types" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">sequant::NormalOperator&lt;</span> <span class="pre">S</span> <span class="pre">&gt;</span></code> (<a class="reference internal" href="classsequant_1_1_normal_operator.html#exhale-class-classsequant-1-1-normal-operator"><span class="std std-ref">Template Class NormalOperator</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">sequant::Tensor</span></code> (<a class="reference internal" href="classsequant_1_1_tensor.html#exhale-class-classsequant-1-1-tensor"><span class="std std-ref">Class Tensor</span></a>)</p></li>
+</ul>
+</section>
+</section>
+<section id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Link to this heading"></a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant14AbstractTensorE">
+<span id="_CPPv3N7sequant14AbstractTensorE"></span><span id="_CPPv2N7sequant14AbstractTensorE"></span><span id="sequant::AbstractTensor"></span><span class="target" id="classsequant_1_1_abstract_tensor"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AbstractTensor</span></span></span><a class="headerlink" href="#_CPPv4N7sequant14AbstractTensorE" title="Link to this definition"></a><br /></dt>
+<dd><p>This interface class defines a <a class="reference internal" href="classsequant_1_1_tensor.html#classsequant_1_1_tensor"><span class="std std-ref">Tensor</span></a> concept. Object <code class="docutils literal notranslate"><span class="pre">t</span></code> of a type that meets the concept must satisfy the following:<ul class="simple">
+<li><p><code class="docutils literal notranslate"><a class="reference internal" href="enum_namespacesequant_1a77a100102aa705742fa050ab1c0d3dc6.html#namespacesequant_1a77a100102aa705742fa050ab1c0d3dc6a3c6ab8c37ec264689cd0131c7014b99d"><span class="std std-ref"><span class="pre">bra(t)</span></span></a></code> , <code class="docutils literal notranslate"><a class="reference internal" href="enum_namespacesequant_1a77a100102aa705742fa050ab1c0d3dc6.html#namespacesequant_1a77a100102aa705742fa050ab1c0d3dc6a83f989dd820bb3683ef6ff6b2bc7fd68"><span class="std std-ref"><span class="pre">ket(t)</span></span></a></code> , and <code class="docutils literal notranslate"><span class="pre">braket(t)</span></code> are valid expressions and evaluate to a range of <a class="reference internal" href="classsequant_1_1_index.html#classsequant_1_1_index"><span class="std std-ref">Index</span></a> objects;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bra_rank(t)</span></code> and <code class="docutils literal notranslate"><span class="pre">ket_rank(t)</span></code> are valid expression and return sizes of the <code class="docutils literal notranslate"><a class="reference internal" href="enum_namespacesequant_1a77a100102aa705742fa050ab1c0d3dc6.html#namespacesequant_1a77a100102aa705742fa050ab1c0d3dc6a3c6ab8c37ec264689cd0131c7014b99d"><span class="std std-ref"><span class="pre">bra(t)</span></span></a></code> and <code class="docutils literal notranslate"><a class="reference internal" href="enum_namespacesequant_1a77a100102aa705742fa050ab1c0d3dc6.html#namespacesequant_1a77a100102aa705742fa050ab1c0d3dc6a83f989dd820bb3683ef6ff6b2bc7fd68"><span class="std std-ref"><span class="pre">ket(t)</span></span></a></code> ranges, respectively;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">symmetry(t)</span></code> is a valid expression and evaluates to a Symmetry object that describes the symmetry of bra/ket of a <em>particle-symmetric</em> <code class="docutils literal notranslate"><span class="pre">t</span></code> ;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">braket_symmetry(t)</span></code> is a valid expression and evaluates to a BraKetSymmetry object that describes the bra-ket symmetry of <code class="docutils literal notranslate"><span class="pre">t</span></code> ;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">particle_symmetry(t)</span></code> is a valid expression and evaluates to a ParticleSymmetry object that describes the symmetry of <code class="docutils literal notranslate"><span class="pre">t</span></code> with respect to permutations of particles;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">color(t)</span></code> is a valid expression and returns whether a nonnegative integer that identifies the type of a tensor; tensors with different colors can be reordered in a <a class="reference internal" href="classsequant_1_1_product.html#classsequant_1_1_product"><span class="std std-ref">Product</span></a> at will</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">is_cnumber(t)</span></code> is a valid expression and returns whether t commutes with other tensor of same color (tensors of different colors are, for now, always assumed to commute)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">label(t)</span></code> is a valid expression and its return is convertible to a std::wstring;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">to_latex(t)</span></code> is a valid expression and its return is convertible to a std::wstring. To adapt an existing class intrusively derive it from <a class="reference internal" href="#classsequant_1_1_abstract_tensor"><span class="std std-ref">AbstractTensor</span></a> and implement all member functions. This allows to implememnt heterogeneous containers of objects that meet the <a class="reference internal" href="classsequant_1_1_tensor.html#classsequant_1_1_tensor"><span class="std std-ref">Tensor</span></a> concept. </p></li>
+</ul>
+</p>
+<p>Subclassed by <a class="reference internal" href="classsequant_1_1_normal_operator.html#classsequant_1_1_normal_operator"><span class="std std-ref">sequant::NormalOperator&lt; S &gt;</span></a>, <a class="reference internal" href="classsequant_1_1_tensor.html#classsequant_1_1_tensor"><span class="std std-ref">sequant::Tensor</span></a></p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant14AbstractTensor19const_any_view_randE">
+<span id="_CPPv3N7sequant14AbstractTensor19const_any_view_randE"></span><span id="_CPPv2N7sequant14AbstractTensor19const_any_view_randE"></span><span class="target" id="classsequant_1_1_abstract_tensor_1af24d0486225db16de278cdc0eb643160"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">const_any_view_rand</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">ranges</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">any_view</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="classsequant_1_1_index.html#_CPPv4N7sequant5IndexE" title="sequant::Index"><span class="n"><span class="pre">Index</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">ranges</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">category</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">random_access</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N7sequant14AbstractTensor19const_any_view_randE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant14AbstractTensor21const_any_view_randszE">
+<span id="_CPPv3N7sequant14AbstractTensor21const_any_view_randszE"></span><span id="_CPPv2N7sequant14AbstractTensor21const_any_view_randszE"></span><span class="target" id="classsequant_1_1_abstract_tensor_1a3a2db04fa4235bb1a4264645520f9b94"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">const_any_view_randsz</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">ranges</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">any_view</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="classsequant_1_1_index.html#_CPPv4N7sequant5IndexE" title="sequant::Index"><span class="n"><span class="pre">Index</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">ranges</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">category</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">random_access</span></span><span class="w"> </span><span class="o"><span class="pre">|</span></span><span class="w"> </span><span class="n"><span class="pre">ranges</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">category</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sized</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N7sequant14AbstractTensor21const_any_view_randszE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant14AbstractTensor13any_view_randE">
+<span id="_CPPv3N7sequant14AbstractTensor13any_view_randE"></span><span id="_CPPv2N7sequant14AbstractTensor13any_view_randE"></span><span class="target" id="classsequant_1_1_abstract_tensor_1a3946c2a57b2e5b4d51300334e3f928f5"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">any_view_rand</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">ranges</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">any_view</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="classsequant_1_1_index.html#_CPPv4N7sequant5IndexE" title="sequant::Index"><span class="n"><span class="pre">Index</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">ranges</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">category</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">random_access</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N7sequant14AbstractTensor13any_view_randE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant14AbstractTensor15any_view_randszE">
+<span id="_CPPv3N7sequant14AbstractTensor15any_view_randszE"></span><span id="_CPPv2N7sequant14AbstractTensor15any_view_randszE"></span><span class="target" id="classsequant_1_1_abstract_tensor_1a0c17a71f53d4c431c6bd3174e80866b1"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">any_view_randsz</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">ranges</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">any_view</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="classsequant_1_1_index.html#_CPPv4N7sequant5IndexE" title="sequant::Index"><span class="n"><span class="pre">Index</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">ranges</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">category</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">random_access</span></span><span class="w"> </span><span class="o"><span class="pre">|</span></span><span class="w"> </span><span class="n"><span class="pre">ranges</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">category</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">sized</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N7sequant14AbstractTensor15any_view_randszE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant14AbstractTensorD0Ev">
+<span id="_CPPv3N7sequant14AbstractTensorD0Ev"></span><span id="_CPPv2N7sequant14AbstractTensorD0Ev"></span><span id="sequant::AbstractTensor::~AbstractTensor"></span><span class="target" id="classsequant_1_1_abstract_tensor_1a977151b73222f7d889c086affdcfd899"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~AbstractTensor</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N7sequant14AbstractTensorD0Ev" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant14AbstractTensor4_braEv">
+<span id="_CPPv3NK7sequant14AbstractTensor4_braEv"></span><span id="_CPPv2NK7sequant14AbstractTensor4_braEv"></span><span id="sequant::AbstractTensor::_braC"></span><span class="target" id="classsequant_1_1_abstract_tensor_1a5d44dde5e2dc1d271062fa4318e2cc94"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N7sequant14AbstractTensor21const_any_view_randszE" title="sequant::AbstractTensor::const_any_view_randsz"><span class="n"><span class="pre">const_any_view_randsz</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_bra</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant14AbstractTensor4_braEv" title="Link to this definition"></a><br /></dt>
+<dd><p>view of a contiguous range of <a class="reference internal" href="classsequant_1_1_index.html#classsequant_1_1_index"><span class="std std-ref">Index</span></a> objects </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant14AbstractTensor4_ketEv">
+<span id="_CPPv3NK7sequant14AbstractTensor4_ketEv"></span><span id="_CPPv2NK7sequant14AbstractTensor4_ketEv"></span><span id="sequant::AbstractTensor::_ketC"></span><span class="target" id="classsequant_1_1_abstract_tensor_1a69809acbc8e45c03b1e22f8690795251"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N7sequant14AbstractTensor21const_any_view_randszE" title="sequant::AbstractTensor::const_any_view_randsz"><span class="n"><span class="pre">const_any_view_randsz</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_ket</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant14AbstractTensor4_ketEv" title="Link to this definition"></a><br /></dt>
+<dd><p>view of a contiguous range of <a class="reference internal" href="classsequant_1_1_index.html#classsequant_1_1_index"><span class="std std-ref">Index</span></a> objects </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant14AbstractTensor7_braketEv">
+<span id="_CPPv3NK7sequant14AbstractTensor7_braketEv"></span><span id="_CPPv2NK7sequant14AbstractTensor7_braketEv"></span><span id="sequant::AbstractTensor::_braketC"></span><span class="target" id="classsequant_1_1_abstract_tensor_1aee142e310fb362a8f0f677c050c348f9"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N7sequant14AbstractTensor19const_any_view_randE" title="sequant::AbstractTensor::const_any_view_rand"><span class="n"><span class="pre">const_any_view_rand</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_braket</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant14AbstractTensor7_braketEv" title="Link to this definition"></a><br /></dt>
+<dd><p>view of a not necessarily contiguous range of <a class="reference internal" href="classsequant_1_1_index.html#classsequant_1_1_index"><span class="std std-ref">Index</span></a> objects </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant14AbstractTensor9_bra_rankEv">
+<span id="_CPPv3NK7sequant14AbstractTensor9_bra_rankEv"></span><span id="_CPPv2NK7sequant14AbstractTensor9_bra_rankEv"></span><span id="sequant::AbstractTensor::_bra_rankC"></span><span class="target" id="classsequant_1_1_abstract_tensor_1aec52f2b37a9e24aaceae6a249a04b67e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_bra_rank</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant14AbstractTensor9_bra_rankEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant14AbstractTensor9_ket_rankEv">
+<span id="_CPPv3NK7sequant14AbstractTensor9_ket_rankEv"></span><span id="_CPPv2NK7sequant14AbstractTensor9_ket_rankEv"></span><span id="sequant::AbstractTensor::_ket_rankC"></span><span class="target" id="classsequant_1_1_abstract_tensor_1a54357d7ad76f94b601a614e6bc9c7030"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_ket_rank</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant14AbstractTensor9_ket_rankEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant14AbstractTensor9_symmetryEv">
+<span id="_CPPv3NK7sequant14AbstractTensor9_symmetryEv"></span><span id="_CPPv2NK7sequant14AbstractTensor9_symmetryEv"></span><span id="sequant::AbstractTensor::_symmetryC"></span><span class="target" id="classsequant_1_1_abstract_tensor_1afd3da357f5da9fbeb7c2610d3f028f07"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="enum_namespacesequant_1a80bc8a00a0036a84c252e8a64db4c485.html#_CPPv4N7sequant8SymmetryE" title="sequant::Symmetry"><span class="n"><span class="pre">Symmetry</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_symmetry</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant14AbstractTensor9_symmetryEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant14AbstractTensor16_braket_symmetryEv">
+<span id="_CPPv3NK7sequant14AbstractTensor16_braket_symmetryEv"></span><span id="_CPPv2NK7sequant14AbstractTensor16_braket_symmetryEv"></span><span id="sequant::AbstractTensor::_braket_symmetryC"></span><span class="target" id="classsequant_1_1_abstract_tensor_1ab991a28ab3d8c5ae4122524f499ca18e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="enum_namespacesequant_1a8fa350a3e3719764fcc1ce8aeddaea46.html#_CPPv4N7sequant14BraKetSymmetryE" title="sequant::BraKetSymmetry"><span class="n"><span class="pre">BraKetSymmetry</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_braket_symmetry</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant14AbstractTensor16_braket_symmetryEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant14AbstractTensor18_particle_symmetryEv">
+<span id="_CPPv3NK7sequant14AbstractTensor18_particle_symmetryEv"></span><span id="_CPPv2NK7sequant14AbstractTensor18_particle_symmetryEv"></span><span id="sequant::AbstractTensor::_particle_symmetryC"></span><span class="target" id="classsequant_1_1_abstract_tensor_1a2ba60e0eb1488aa78fe80b63d0bbf567"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="enum_namespacesequant_1a9130bd036deb119cc1bf7a8acceed847.html#_CPPv4N7sequant16ParticleSymmetryE" title="sequant::ParticleSymmetry"><span class="n"><span class="pre">ParticleSymmetry</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_particle_symmetry</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant14AbstractTensor18_particle_symmetryEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant14AbstractTensor6_colorEv">
+<span id="_CPPv3NK7sequant14AbstractTensor6_colorEv"></span><span id="_CPPv2NK7sequant14AbstractTensor6_colorEv"></span><span id="sequant::AbstractTensor::_colorC"></span><span class="target" id="classsequant_1_1_abstract_tensor_1a6cb70975748ec0f194ca6440af31b85b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_color</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant14AbstractTensor6_colorEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant14AbstractTensor11_is_cnumberEv">
+<span id="_CPPv3NK7sequant14AbstractTensor11_is_cnumberEv"></span><span id="_CPPv2NK7sequant14AbstractTensor11_is_cnumberEv"></span><span id="sequant::AbstractTensor::_is_cnumberC"></span><span class="target" id="classsequant_1_1_abstract_tensor_1a771132e2d38ee90380be563662c97ad8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_is_cnumber</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant14AbstractTensor11_is_cnumberEv" title="Link to this definition"></a><br /></dt>
+<dd><p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="classsequant_1_1_expr.html#classsequant_1_1_expr_1a4799ce45d21f8b03fd2c8196bcb3a853"><span class="std std-ref">Expr::is_cnumber()</span></a></p>
+</div>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>true if this is a c-number; if false, </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant14AbstractTensor6_labelEv">
+<span id="_CPPv3NK7sequant14AbstractTensor6_labelEv"></span><span id="_CPPv2NK7sequant14AbstractTensor6_labelEv"></span><span id="sequant::AbstractTensor::_labelC"></span><span class="target" id="classsequant_1_1_abstract_tensor_1a19f39a38422d874125237cac58042396"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">wstring_view</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_label</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant14AbstractTensor6_labelEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant14AbstractTensor9_to_latexEv">
+<span id="_CPPv3NK7sequant14AbstractTensor9_to_latexEv"></span><span id="_CPPv2NK7sequant14AbstractTensor9_to_latexEv"></span><span id="sequant::AbstractTensor::_to_latexC"></span><span class="target" id="classsequant_1_1_abstract_tensor_1a854a25f14647b5f836f06147c1032d7b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">wstring</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_to_latex</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant14AbstractTensor9_to_latexEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant14AbstractTensorltERK14AbstractTensor">
+<span id="_CPPv3NK7sequant14AbstractTensorltERK14AbstractTensor"></span><span id="_CPPv2NK7sequant14AbstractTensorltERK14AbstractTensor"></span><span id="sequant::AbstractTensor::lt-operator__AbstractTensorCRC"></span><span class="target" id="classsequant_1_1_abstract_tensor_1afa6b2f97c877ca12a193a573584fe0eb"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&lt;</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N7sequant14AbstractTensorE" title="sequant::AbstractTensor"><span class="n"><span class="pre">AbstractTensor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant14AbstractTensorltERK14AbstractTensor" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant14AbstractTensor18_transform_indicesERKN9container3mapI5Index5IndexEE">
+<span id="_CPPv3N7sequant14AbstractTensor18_transform_indicesERKN9container3mapI5Index5IndexEE"></span><span id="_CPPv2N7sequant14AbstractTensor18_transform_indicesERKN9container3mapI5Index5IndexEE"></span><span id="sequant::AbstractTensor::_transform_indices__container::map:Index.Index:CR"></span><span class="target" id="classsequant_1_1_abstract_tensor_1a4bc2d2f069ac6283635faeb4fb61f3b9"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_transform_indices</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">container</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="typedef_namespacesequant_1_1container_1a556ea941fd3f2e05a55e495a51dac7bb.html#_CPPv4I000EN7sequant9container3mapE" title="sequant::container::map"><span class="n"><span class="pre">map</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="classsequant_1_1_index.html#_CPPv4N7sequant5IndexE" title="sequant::Index"><span class="n"><span class="pre">Index</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="classsequant_1_1_index.html#_CPPv4N7sequant5IndexE" title="sequant::Index"><span class="n"><span class="pre">Index</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">index_map</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7sequant14AbstractTensor18_transform_indicesERKN9container3mapI5Index5IndexEE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant14AbstractTensor11_reset_tagsEv">
+<span id="_CPPv3N7sequant14AbstractTensor11_reset_tagsEv"></span><span id="_CPPv2N7sequant14AbstractTensor11_reset_tagsEv"></span><span id="sequant::AbstractTensor::_reset_tags"></span><span class="target" id="classsequant_1_1_abstract_tensor_1a67d09f50c885095d5efb5c0b7921e360"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_reset_tags</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7sequant14AbstractTensor11_reset_tagsEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Valeev Research Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

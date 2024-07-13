@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>File deparse.cpp &mdash; SeQuant  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<link href="../_static/style.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SeQuant
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html">SeQuant: symbolic tensor algebra in C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#synopsis">Synopsis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#getting-started">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#build-harness">Build harness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#using">Using</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#id1">Getting Started</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#register-index-spaces">Register Index Spaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#quasiparticles">Quasiparticles</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#operators">Operators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#developers">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#acknowledgement">Acknowledgement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/install.html">SeQuant: installation guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#tl-dr">TL;DR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#configure">Configure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../source/install.html#useful-cmake-variables">Useful CMake variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#build">Build</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SeQuant</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">File deparse.cpp</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ajay-mk/SeQuant/blob/master/doc/sphinx/api/file_SeQuant_core_parse_deparse.cpp.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="file-deparse-cpp">
+<span id="file-sequant-core-parse-deparse-cpp"></span><h1>File deparse.cpp<a class="headerlink" href="#file-deparse-cpp" title="Link to this heading"></a></h1>
+<p>↰ <a class="reference internal" href="dir_SeQuant_core_parse.html#dir-sequant-core-parse"><span class="std std-ref">Parent directory</span></a> (<code class="docutils literal notranslate"><span class="pre">SeQuant/core/parse</span></code>)</p>
+<nav class="contents local" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#definition-sequant-core-parse-deparse-cpp" id="id1">Definition (<code class="docutils literal notranslate"><span class="pre">SeQuant/core/parse/deparse.cpp</span></code>)</a></p></li>
+<li><p><a class="reference internal" href="#includes" id="id2">Includes</a></p></li>
+<li><p><a class="reference internal" href="#namespaces" id="id3">Namespaces</a></p></li>
+<li><p><a class="reference internal" href="#functions" id="id4">Functions</a></p></li>
+</ul>
+</nav>
+<section id="definition-sequant-core-parse-deparse-cpp">
+<h2>Definition (<code class="docutils literal notranslate"><span class="pre">SeQuant/core/parse/deparse.cpp</span></code>)<a class="headerlink" href="#definition-sequant-core-parse-deparse-cpp" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="program_listing_file_SeQuant_core_parse_deparse.cpp.html">Program Listing for File deparse.cpp</a></li>
+</ul>
+</div>
+</section>
+<section id="includes">
+<h2>Includes<a class="headerlink" href="#includes" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SeQuant/core/attr.hpp</span></code> (<a class="reference internal" href="file_SeQuant_core_attr.hpp.html#file-sequant-core-attr-hpp"><span class="std std-ref">File attr.hpp</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SeQuant/core/complex.hpp</span></code> (<a class="reference internal" href="file_SeQuant_core_complex.hpp.html#file-sequant-core-complex-hpp"><span class="std std-ref">File complex.hpp</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SeQuant/core/expr.hpp</span></code> (<a class="reference internal" href="file_SeQuant_core_expr.hpp.html#file-sequant-core-expr-hpp"><span class="std std-ref">File expr.hpp</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SeQuant/core/index.hpp</span></code> (<a class="reference internal" href="file_SeQuant_core_index.hpp.html#file-sequant-core-index-hpp"><span class="std std-ref">File index.hpp</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SeQuant/core/parse.hpp</span></code> (<a class="reference internal" href="file_SeQuant_core_parse.hpp.html#file-sequant-core-parse-hpp"><span class="std std-ref">File parse.hpp</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SeQuant/core/tensor.hpp</span></code> (<a class="reference internal" href="file_SeQuant_core_tensor.hpp.html#file-sequant-core-tensor-hpp"><span class="std std-ref">File tensor.hpp</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cassert</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">codecvt</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cstddef</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">locale</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">memory</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">range/v3/all.hpp</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stdexcept</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">string</span></code> (<a class="reference internal" href="file_SeQuant_core_utility_string.cpp.html#file-sequant-core-utility-string-cpp"><span class="std std-ref">File string.cpp</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">utility</span></code> (<a class="reference internal" href="file_SeQuant_core_utility_context.hpp.html#file-sequant-core-utility-context-hpp"><span class="std std-ref">File context.hpp</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vector</span></code></p></li>
+</ul>
+</section>
+<section id="namespaces">
+<h2>Namespaces<a class="headerlink" href="#namespaces" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="namespace_sequant.html#namespace-sequant"><span class="std std-ref">Namespace sequant</span></a></p></li>
+<li><p><a class="reference internal" href="namespace_sequant__details.html#namespace-sequant-details"><span class="std std-ref">Namespace sequant::details</span></a></p></li>
+</ul>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="function_namespacesequant_1a9c7e7721e4b51c1b20608b63794328bb.html#exhale-function-namespacesequant-1a9c7e7721e4b51c1b20608b63794328bb"><span class="std std-ref">Function sequant::deparse(const Sum&amp;, bool)</span></a></p></li>
+<li><p><a class="reference internal" href="function_namespacesequant_1aeed130d6a5f23cd4eedc9be19c34b379.html#exhale-function-namespacesequant-1aeed130d6a5f23cd4eedc9be19c34b379"><span class="std std-ref">Function sequant::deparse(const Tensor&amp;, bool)</span></a></p></li>
+<li><p><a class="reference internal" href="function_namespacesequant_1a6fd1b3e795e61a300439a4f1cd6b0436.html#exhale-function-namespacesequant-1a6fd1b3e795e61a300439a4f1cd6b0436"><span class="std std-ref">Function sequant::deparse(const Variable&amp;)</span></a></p></li>
+<li><p><a class="reference internal" href="function_namespacesequant_1afe276926c5c2e7724779e2048c12fe75.html#exhale-function-namespacesequant-1afe276926c5c2e7724779e2048c12fe75"><span class="std std-ref">Function sequant::deparse(const ExprPtr&amp;, bool)</span></a></p></li>
+<li><p><a class="reference internal" href="function_namespacesequant_1aab4a42f481715f868c7914630cd3d2d3.html#exhale-function-namespacesequant-1aab4a42f481715f868c7914630cd3d2d3"><span class="std std-ref">Function sequant::deparse(const Constant&amp;)</span></a></p></li>
+<li><p><a class="reference internal" href="function_namespacesequant_1a3005a7b546fe1ae4cc7bf6b7771a28da.html#exhale-function-namespacesequant-1a3005a7b546fe1ae4cc7bf6b7771a28da"><span class="std std-ref">Function sequant::deparse(const Product&amp;, bool)</span></a></p></li>
+<li><p><a class="reference internal" href="function_namespacesequant_1abcb1341c11dcbc821a92429f891ff5fa.html#exhale-function-namespacesequant-1abcb1341c11dcbc821a92429f891ff5fa"><span class="std std-ref">Function sequant::deparse(const Index&amp;)</span></a></p></li>
+<li><p><a class="reference internal" href="function_namespacesequant_1_1details_1a3b669bdb16571be827a124e1e6dec2ad.html#exhale-function-namespacesequant-1-1details-1a3b669bdb16571be827a124e1e6dec2ad"><span class="std std-ref">Template Function sequant::details::deparse_indices</span></a></p></li>
+<li><p><a class="reference internal" href="function_namespacesequant_1_1details_1a956db5f186d4b7eaf5f87a67dc8afa05.html#exhale-function-namespacesequant-1-1details-1a956db5f186d4b7eaf5f87a67dc8afa05"><span class="std std-ref">Function sequant::details::deparse_scalar</span></a></p></li>
+<li><p><a class="reference internal" href="function_namespacesequant_1_1details_1a592d1e8cab529b694ffe33e558d489df.html#exhale-function-namespacesequant-1-1details-1a592d1e8cab529b694ffe33e558d489df"><span class="std std-ref">Function sequant::details::deparse_sym</span></a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Valeev Research Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

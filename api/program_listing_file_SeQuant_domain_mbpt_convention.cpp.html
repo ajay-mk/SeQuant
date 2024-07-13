@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Program Listing for File convention.cpp &mdash; SeQuant  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<link href="../_static/style.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SeQuant
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html">SeQuant: symbolic tensor algebra in C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#synopsis">Synopsis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#getting-started">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#build-harness">Build harness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#using">Using</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#id1">Getting Started</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#register-index-spaces">Register Index Spaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#quasiparticles">Quasiparticles</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#operators">Operators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#developers">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#acknowledgement">Acknowledgement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/install.html">SeQuant: installation guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#tl-dr">TL;DR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#configure">Configure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../source/install.html#useful-cmake-variables">Useful CMake variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#build">Build</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SeQuant</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Program Listing for File convention.cpp</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ajay-mk/SeQuant/blob/master/doc/sphinx/api/program_listing_file_SeQuant_domain_mbpt_convention.cpp.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="program-listing-for-file-convention-cpp">
+<span id="program-listing-file-sequant-domain-mbpt-convention-cpp"></span><h1>Program Listing for File convention.cpp<a class="headerlink" href="#program-listing-for-file-convention-cpp" title="Link to this heading"></a></h1>
+<p>↰ <a class="reference internal" href="file_SeQuant_domain_mbpt_convention.cpp.html#file-sequant-domain-mbpt-convention-cpp"><span class="std std-ref">Return to documentation for file</span></a> (<code class="docutils literal notranslate"><span class="pre">SeQuant/domain/mbpt/convention.cpp</span></code>)</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">//</span>
+<span class="c1">// Created by Eduard Valeyev on 2019-04-01.</span>
+<span class="c1">//</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;SeQuant/domain/mbpt/convention.hpp&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;SeQuant/domain/mbpt/op.hpp&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;SeQuant/domain/mbpt/spin.hpp&gt;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;SeQuant/core/context.hpp&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;SeQuant/core/index.hpp&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;SeQuant/core/tensor.hpp&gt;</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">sequant</span><span class="w"> </span><span class="p">{</span>
+<span class="k">namespace</span><span class="w"> </span><span class="nn">mbpt</span><span class="w"> </span><span class="p">{</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">load</span><span class="p">(</span><span class="n">Convention</span><span class="w"> </span><span class="n">conv</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">IndexSpaceRegistry</span><span class="o">&gt;</span><span class="w"> </span><span class="n">isr</span><span class="p">;</span>
+<span class="w">  </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">conv</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">Convention</span><span class="o">::</span><span class="no">Minimal</span><span class="p">:</span>
+<span class="w">      </span><span class="n">isr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">make_min_sr_spaces</span><span class="p">();</span>
+<span class="w">      </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">Convention</span><span class="o">::</span><span class="no">SR</span><span class="p">:</span>
+<span class="w">      </span><span class="n">isr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">make_sr_spaces</span><span class="p">();</span>
+<span class="w">      </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">Convention</span><span class="o">::</span><span class="no">MR</span><span class="p">:</span>
+<span class="w">      </span><span class="n">isr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">make_mr_spaces</span><span class="p">();</span>
+<span class="w">      </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">Convention</span><span class="o">::</span><span class="no">F12</span><span class="p">:</span>
+<span class="w">      </span><span class="n">isr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">make_F12_sr_spaces</span><span class="p">();</span>
+<span class="w">      </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="no">Convention</span><span class="o">::</span><span class="no">QCiFS</span><span class="p">:</span>
+<span class="w">      </span><span class="n">isr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">make_legacy_spaces</span><span class="p">();</span>
+<span class="w">      </span><span class="k">break</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="n">set_default_context</span><span class="p">(</span><span class="n">sequant</span><span class="o">::</span><span class="n">Context</span><span class="p">(</span><span class="n">isr</span><span class="p">,</span><span class="w"> </span><span class="n">Vacuum</span><span class="o">::</span><span class="n">SingleProduct</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">add_fermi_spin</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">IndexSpaceRegistry</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">isr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">IndexSpaceRegistry</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">space</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">*</span><span class="n">isr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">space</span><span class="p">.</span><span class="n">base_key</span><span class="p">()</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">IndexSpace</span><span class="w"> </span><span class="n">spin_any</span><span class="p">(</span><span class="n">space</span><span class="p">.</span><span class="n">base_key</span><span class="p">(),</span><span class="w"> </span><span class="n">space</span><span class="p">.</span><span class="n">type</span><span class="p">(),</span><span class="w"> </span><span class="n">Spin</span><span class="o">::</span><span class="n">any</span><span class="p">,</span>
+<span class="w">                          </span><span class="n">space</span><span class="p">.</span><span class="n">approximate_size</span><span class="p">());</span>
+<span class="w">      </span><span class="n">IndexSpace</span><span class="w"> </span><span class="n">spin_up</span><span class="p">(</span><span class="n">spinannotation_add</span><span class="p">(</span><span class="n">space</span><span class="p">.</span><span class="n">base_key</span><span class="p">(),</span><span class="w"> </span><span class="n">Spin</span><span class="o">::</span><span class="n">alpha</span><span class="p">),</span>
+<span class="w">                         </span><span class="n">space</span><span class="p">.</span><span class="n">type</span><span class="p">(),</span><span class="w"> </span><span class="n">Spin</span><span class="o">::</span><span class="n">alpha</span><span class="p">,</span><span class="w"> </span><span class="n">space</span><span class="p">.</span><span class="n">approximate_size</span><span class="p">());</span>
+<span class="w">      </span><span class="n">IndexSpace</span><span class="w"> </span><span class="n">spin_down</span><span class="p">(</span><span class="n">spinannotation_add</span><span class="p">(</span><span class="n">space</span><span class="p">.</span><span class="n">base_key</span><span class="p">(),</span><span class="w"> </span><span class="n">Spin</span><span class="o">::</span><span class="n">beta</span><span class="p">),</span>
+<span class="w">                           </span><span class="n">space</span><span class="p">.</span><span class="n">type</span><span class="p">(),</span><span class="w"> </span><span class="n">Spin</span><span class="o">::</span><span class="n">beta</span><span class="p">,</span><span class="w"> </span><span class="n">space</span><span class="p">.</span><span class="n">approximate_size</span><span class="p">());</span>
+<span class="w">      </span><span class="n">result</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span><span class="n">spin_any</span><span class="p">);</span>
+<span class="w">      </span><span class="n">result</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span><span class="n">spin_up</span><span class="p">);</span>
+<span class="w">      </span><span class="n">result</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span><span class="n">spin_down</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">nulltype_ok</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">  </span><span class="n">result</span><span class="o">-&gt;</span><span class="n">reference_occupied_space</span><span class="p">(</span><span class="n">isr</span><span class="o">-&gt;</span><span class="n">reference_occupied_space</span><span class="p">(</span><span class="n">nulltype_ok</span><span class="p">));</span>
+<span class="w">  </span><span class="n">result</span><span class="o">-&gt;</span><span class="n">vacuum_occupied_space</span><span class="p">(</span><span class="n">isr</span><span class="o">-&gt;</span><span class="n">vacuum_occupied_space</span><span class="p">(</span><span class="n">nulltype_ok</span><span class="p">));</span>
+<span class="w">  </span><span class="n">result</span><span class="o">-&gt;</span><span class="n">particle_space</span><span class="p">(</span><span class="n">isr</span><span class="o">-&gt;</span><span class="n">particle_space</span><span class="p">(</span><span class="n">nulltype_ok</span><span class="p">));</span>
+<span class="w">  </span><span class="n">result</span><span class="o">-&gt;</span><span class="n">hole_space</span><span class="p">(</span><span class="n">isr</span><span class="o">-&gt;</span><span class="n">hole_space</span><span class="p">(</span><span class="n">nulltype_ok</span><span class="p">));</span>
+<span class="w">  </span><span class="n">result</span><span class="o">-&gt;</span><span class="n">complete_space</span><span class="p">(</span><span class="n">isr</span><span class="o">-&gt;</span><span class="n">complete_space</span><span class="p">(</span><span class="n">nulltype_ok</span><span class="p">));</span>
+<span class="w">  </span><span class="n">isr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">IndexSpaceRegistry</span><span class="o">&gt;</span><span class="w"> </span><span class="n">make_min_sr_spaces</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">isr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">IndexSpaceRegistry</span><span class="o">&gt;</span><span class="p">();</span>
+
+<span class="w">  </span><span class="n">isr</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;i&quot;</span><span class="p">,</span><span class="w"> </span><span class="mb">0b01</span><span class="p">,</span><span class="w"> </span><span class="n">is_vacuum_occupied</span><span class="p">,</span><span class="w"> </span><span class="n">is_reference_occupied</span><span class="p">,</span><span class="w"> </span><span class="n">is_hole</span><span class="p">)</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="w"> </span><span class="mb">0b10</span><span class="p">,</span><span class="w"> </span><span class="n">is_particle</span><span class="p">)</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add_union</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;p&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="sa">L</span><span class="s">&quot;i&quot;</span><span class="p">,</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;a&quot;</span><span class="p">},</span><span class="w"> </span><span class="n">is_complete</span><span class="p">);</span>
+<span class="w">  </span><span class="n">add_fermi_spin</span><span class="p">(</span><span class="n">isr</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">isr</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Multireference supspace uses a subset of its occupied orbitals to define a</span>
+<span class="c1">// vacuum occupied subspace.</span>
+<span class="c1">//  this leaves an active space which is partially occupied/unoccupied. This</span>
+<span class="c1">//  definition is convenient when coupled with SR vacuum.</span>
+<span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">IndexSpaceRegistry</span><span class="o">&gt;</span><span class="w"> </span><span class="n">make_mr_spaces</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">isr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">IndexSpaceRegistry</span><span class="o">&gt;</span><span class="p">();</span>
+
+<span class="w">  </span><span class="n">isr</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;o&quot;</span><span class="p">,</span><span class="w"> </span><span class="mb">0b00001</span><span class="p">)</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;i&quot;</span><span class="p">,</span><span class="w"> </span><span class="mb">0b00010</span><span class="p">)</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;u&quot;</span><span class="p">,</span><span class="w"> </span><span class="mb">0b00100</span><span class="p">)</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="w"> </span><span class="mb">0b01000</span><span class="p">)</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;g&quot;</span><span class="p">,</span><span class="w"> </span><span class="mb">0b10000</span><span class="p">)</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add_union</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;O&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="sa">L</span><span class="s">&quot;o&quot;</span><span class="p">,</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;i&quot;</span><span class="p">},</span><span class="w"> </span><span class="n">is_vacuum_occupied</span><span class="p">)</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add_union</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;M&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="sa">L</span><span class="s">&quot;o&quot;</span><span class="p">,</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;i&quot;</span><span class="p">,</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;u&quot;</span><span class="p">},</span><span class="w"> </span><span class="n">is_reference_occupied</span><span class="p">)</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add_union</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;I&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="sa">L</span><span class="s">&quot;i&quot;</span><span class="p">,</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;u&quot;</span><span class="p">},</span><span class="w"> </span><span class="n">is_hole</span><span class="p">)</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add_union</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;E&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="sa">L</span><span class="s">&quot;u&quot;</span><span class="p">,</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;g&quot;</span><span class="p">})</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add_union</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;A&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="sa">L</span><span class="s">&quot;u&quot;</span><span class="p">,</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;a&quot;</span><span class="p">},</span><span class="w"> </span><span class="n">is_particle</span><span class="p">)</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add_union</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;p&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="sa">L</span><span class="s">&quot;M&quot;</span><span class="p">,</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;E&quot;</span><span class="p">},</span><span class="w"> </span><span class="n">is_complete</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">add_fermi_spin</span><span class="p">(</span><span class="n">isr</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">isr</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">IndexSpaceRegistry</span><span class="o">&gt;</span><span class="w"> </span><span class="n">make_sr_spaces</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">isr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">IndexSpaceRegistry</span><span class="o">&gt;</span><span class="p">();</span>
+
+<span class="w">  </span><span class="n">isr</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;o&quot;</span><span class="p">,</span><span class="w"> </span><span class="mb">0b0001</span><span class="p">)</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;i&quot;</span><span class="p">,</span><span class="w"> </span><span class="mb">0b0010</span><span class="p">,</span><span class="w"> </span><span class="n">is_hole</span><span class="p">)</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="w"> </span><span class="mb">0b0100</span><span class="p">,</span><span class="w"> </span><span class="n">is_particle</span><span class="p">)</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;g&quot;</span><span class="p">,</span><span class="w"> </span><span class="mb">0b1000</span><span class="p">)</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add_union</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;m&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="sa">L</span><span class="s">&quot;o&quot;</span><span class="p">,</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;i&quot;</span><span class="p">},</span><span class="w"> </span><span class="n">is_vacuum_occupied</span><span class="p">,</span><span class="w"> </span><span class="n">is_reference_occupied</span><span class="p">)</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add_union</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;e&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="sa">L</span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;g&quot;</span><span class="p">})</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add_union</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;x&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="sa">L</span><span class="s">&quot;i&quot;</span><span class="p">,</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;a&quot;</span><span class="p">})</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add_union</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;p&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="sa">L</span><span class="s">&quot;m&quot;</span><span class="p">,</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;e&quot;</span><span class="p">},</span><span class="w"> </span><span class="n">is_complete</span><span class="p">);</span>
+<span class="w">  </span><span class="n">add_fermi_spin</span><span class="p">(</span><span class="n">isr</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">isr</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">IndexSpaceRegistry</span><span class="o">&gt;</span><span class="w"> </span><span class="n">make_F12_sr_spaces</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">isr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">IndexSpaceRegistry</span><span class="o">&gt;</span><span class="p">();</span>
+
+<span class="w">  </span><span class="n">isr</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;o&quot;</span><span class="p">,</span><span class="w"> </span><span class="mb">0b00001</span><span class="p">)</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;i&quot;</span><span class="p">,</span><span class="w"> </span><span class="mb">0b00010</span><span class="p">,</span><span class="w"> </span><span class="n">is_hole</span><span class="p">)</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="w"> </span><span class="mb">0b00100</span><span class="p">,</span><span class="w"> </span><span class="n">is_particle</span><span class="p">)</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;g&quot;</span><span class="p">,</span><span class="w"> </span><span class="mb">0b01000</span><span class="p">)</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;α&#39;&quot;</span><span class="p">,</span><span class="w"> </span><span class="mb">0b10000</span><span class="p">)</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add_union</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;m&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="sa">L</span><span class="s">&quot;o&quot;</span><span class="p">,</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;i&quot;</span><span class="p">},</span><span class="w"> </span><span class="n">is_vacuum_occupied</span><span class="p">,</span><span class="w"> </span><span class="n">is_reference_occupied</span><span class="p">)</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add_union</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;e&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="sa">L</span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;g&quot;</span><span class="p">})</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add_union</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;x&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="sa">L</span><span class="s">&quot;i&quot;</span><span class="p">,</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;a&quot;</span><span class="p">})</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add_union</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;p&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="sa">L</span><span class="s">&quot;m&quot;</span><span class="p">,</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;e&quot;</span><span class="p">})</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add_unIon</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;h&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="sa">L</span><span class="s">&quot;x&quot;</span><span class="p">,</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;g&quot;</span><span class="p">})</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add_unIon</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;c&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="sa">L</span><span class="s">&quot;g&quot;</span><span class="p">,</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;α&#39;&quot;</span><span class="p">})</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add_union</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;α&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="sa">L</span><span class="s">&quot;e&quot;</span><span class="p">,</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;α&#39;&quot;</span><span class="p">})</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add_union</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;H&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="sa">L</span><span class="s">&quot;i&quot;</span><span class="p">,</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;α&quot;</span><span class="p">})</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add_union</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;κ&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="sa">L</span><span class="s">&quot;p&quot;</span><span class="p">,</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;α&#39;&quot;</span><span class="p">},</span><span class="w"> </span><span class="n">is_complete</span><span class="p">);</span>
+<span class="w">  </span><span class="n">add_fermi_spin</span><span class="p">(</span><span class="n">isr</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">isr</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">IndexSpaceRegistry</span><span class="o">&gt;</span><span class="w"> </span><span class="n">make_legacy_spaces</span><span class="p">(</span><span class="kt">bool</span><span class="w"> </span><span class="n">ignore_spin</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">isr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">IndexSpaceRegistry</span><span class="o">&gt;</span><span class="p">();</span>
+
+<span class="w">  </span><span class="n">isr</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;o&quot;</span><span class="p">,</span><span class="w"> </span><span class="mb">0b0000001</span><span class="p">)</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;n&quot;</span><span class="p">,</span><span class="w"> </span><span class="mb">0b0000010</span><span class="p">)</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;i&quot;</span><span class="p">,</span><span class="w"> </span><span class="mb">0b0000100</span><span class="p">,</span><span class="w"> </span><span class="n">is_hole</span><span class="p">)</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;u&quot;</span><span class="p">,</span><span class="w"> </span><span class="mb">0b0001000</span><span class="p">)</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="w"> </span><span class="mb">0b0010000</span><span class="p">,</span><span class="w"> </span><span class="n">is_particle</span><span class="p">)</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;g&quot;</span><span class="p">,</span><span class="w"> </span><span class="mb">0b0100000</span><span class="p">)</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;α&#39;&quot;</span><span class="p">,</span><span class="w"> </span><span class="mb">0b1000000</span><span class="p">)</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add_union</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;m&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="sa">L</span><span class="s">&quot;o&quot;</span><span class="p">,</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;n&quot;</span><span class="p">,</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;i&quot;</span><span class="p">},</span><span class="w"> </span><span class="n">is_vacuum_occupied</span><span class="p">,</span>
+<span class="w">                 </span><span class="n">is_reference_occupied</span><span class="p">)</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add_union</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;M&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="sa">L</span><span class="s">&quot;m&quot;</span><span class="p">,</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;u&quot;</span><span class="p">})</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add_union</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;e&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="sa">L</span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;g&quot;</span><span class="p">})</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add_union</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;E&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="sa">L</span><span class="s">&quot;u&quot;</span><span class="p">,</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;e&quot;</span><span class="p">})</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add_union</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;x&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="sa">L</span><span class="s">&quot;i&quot;</span><span class="p">,</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;u&quot;</span><span class="p">,</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;a&quot;</span><span class="p">})</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add_union</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;p&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="sa">L</span><span class="s">&quot;m&quot;</span><span class="p">,</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;x&quot;</span><span class="p">,</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;e&quot;</span><span class="p">})</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add_union</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;κ&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="sa">L</span><span class="s">&quot;p&quot;</span><span class="p">,</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;α&#39;&quot;</span><span class="p">},</span><span class="w"> </span><span class="n">is_complete</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">ignore_spin</span><span class="p">)</span><span class="w"> </span><span class="n">add_fermi_spin</span><span class="p">(</span><span class="n">isr</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">isr</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">IndexSpaceRegistry</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">          </span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">IndexSpaceRegistry</span><span class="o">&gt;&gt;</span>
+<span class="n">make_fermi_and_bose_spaces</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">isr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">IndexSpaceRegistry</span><span class="o">&gt;</span><span class="p">();</span>
+
+<span class="w">  </span><span class="n">isr</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;i&quot;</span><span class="p">,</span><span class="w"> </span><span class="mb">0b001</span><span class="p">)</span><span class="w">               </span><span class="c1">// fermi occupied</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;a&quot;</span><span class="p">,</span><span class="w"> </span><span class="mb">0b010</span><span class="p">)</span><span class="w">               </span><span class="c1">// fermi unoccupied</span>
+<span class="w">      </span><span class="p">.</span><span class="n">add_union</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;p&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="sa">L</span><span class="s">&quot;i&quot;</span><span class="p">,</span><span class="w"> </span><span class="sa">L</span><span class="s">&quot;a&quot;</span><span class="p">})</span><span class="w">  </span><span class="c1">// fermi all</span>
+<span class="w">      </span><span class="p">;</span>
+<span class="w">  </span><span class="n">add_fermi_spin</span><span class="p">(</span><span class="n">isr</span><span class="p">);</span>
+<span class="w">  </span><span class="n">isr</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;β&quot;</span><span class="p">,</span><span class="w"> </span><span class="mb">0b100</span><span class="p">);</span><span class="w">  </span><span class="c1">// bose</span>
+
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">fermi_isr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">IndexSpaceRegistry</span><span class="o">&gt;</span><span class="p">(</span><span class="n">isr</span><span class="o">-&gt;</span><span class="n">spaces</span><span class="p">());</span>
+<span class="w">  </span><span class="n">fermi_isr</span><span class="o">-&gt;</span><span class="n">vacuum_occupied_space</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;i&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="n">fermi_isr</span><span class="o">-&gt;</span><span class="n">reference_occupied_space</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;i&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="n">fermi_isr</span><span class="o">-&gt;</span><span class="n">hole_space</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;i&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="n">fermi_isr</span><span class="o">-&gt;</span><span class="n">particle_space</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;a&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="n">fermi_isr</span><span class="o">-&gt;</span><span class="n">complete_space</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;p&quot;</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">bose_isr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">IndexSpaceRegistry</span><span class="o">&gt;</span><span class="p">(</span><span class="n">isr</span><span class="o">-&gt;</span><span class="n">spaces</span><span class="p">());</span>
+<span class="w">  </span><span class="n">bose_isr</span><span class="o">-&gt;</span><span class="n">vacuum_occupied_space</span><span class="p">(</span><span class="n">IndexSpace</span><span class="o">::</span><span class="n">null</span><span class="p">);</span>
+<span class="w">  </span><span class="n">bose_isr</span><span class="o">-&gt;</span><span class="n">reference_occupied_space</span><span class="p">(</span><span class="n">IndexSpace</span><span class="o">::</span><span class="n">null</span><span class="p">);</span>
+<span class="w">  </span><span class="n">bose_isr</span><span class="o">-&gt;</span><span class="n">hole_space</span><span class="p">(</span><span class="n">IndexSpace</span><span class="o">::</span><span class="n">null</span><span class="p">);</span>
+<span class="w">  </span><span class="n">bose_isr</span><span class="o">-&gt;</span><span class="n">particle_space</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;β&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="n">bose_isr</span><span class="o">-&gt;</span><span class="n">complete_space</span><span class="p">(</span><span class="sa">L</span><span class="s">&quot;β&quot;</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_pair</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">fermi_isr</span><span class="p">),</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">bose_isr</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="p">}</span><span class="w">  </span><span class="c1">// namespace mbpt</span>
+<span class="p">}</span><span class="w">  </span><span class="c1">// namespace sequant</span>
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Valeev Research Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

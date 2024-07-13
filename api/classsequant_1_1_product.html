@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Class Product &mdash; SeQuant  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<link href="../_static/style.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SeQuant
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html">SeQuant: symbolic tensor algebra in C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#synopsis">Synopsis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#getting-started">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#build-harness">Build harness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#using">Using</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#id1">Getting Started</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#register-index-spaces">Register Index Spaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#quasiparticles">Quasiparticles</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#operators">Operators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#developers">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#acknowledgement">Acknowledgement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/install.html">SeQuant: installation guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#tl-dr">TL;DR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#configure">Configure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../source/install.html#useful-cmake-variables">Useful CMake variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#build">Build</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SeQuant</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Class Product</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ajay-mk/SeQuant/blob/master/doc/sphinx/api/classsequant_1_1_product.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-product">
+<span id="exhale-class-classsequant-1-1-product"></span><h1>Class Product<a class="headerlink" href="#class-product" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_SeQuant_core_expr.hpp.html#file-sequant-core-expr-hpp"><span class="std std-ref">File expr.hpp</span></a></p></li>
+</ul>
+<section id="inheritance-relationships">
+<h2>Inheritance Relationships<a class="headerlink" href="#inheritance-relationships" title="Link to this heading"></a></h2>
+<section id="base-type">
+<h3>Base Type<a class="headerlink" href="#base-type" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">sequant::Expr</span></code> (<a class="reference internal" href="classsequant_1_1_expr.html#exhale-class-classsequant-1-1-expr"><span class="std std-ref">Class Expr</span></a>)</p></li>
+</ul>
+</section>
+<section id="derived-types">
+<h3>Derived Types<a class="headerlink" href="#derived-types" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">sequant::CProduct</span></code> (<a class="reference internal" href="classsequant_1_1_c_product.html#exhale-class-classsequant-1-1-c-product"><span class="std std-ref">Class CProduct</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">sequant::NCProduct</span></code> (<a class="reference internal" href="classsequant_1_1_n_c_product.html#exhale-class-classsequant-1-1-n-c-product"><span class="std std-ref">Class NCProduct</span></a>)</p></li>
+</ul>
+</section>
+</section>
+<section id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Link to this heading"></a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant7ProductE">
+<span id="_CPPv3N7sequant7ProductE"></span><span id="_CPPv2N7sequant7ProductE"></span><span id="sequant::Product"></span><span class="target" id="classsequant_1_1_product"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Product</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">sequant</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="classsequant_1_1_expr.html#_CPPv4N7sequant4ExprE" title="sequant::Expr"><span class="n"><span class="pre">Expr</span></span></a><a class="headerlink" href="#_CPPv4N7sequant7ProductE" title="Link to this definition"></a><br /></dt>
+<dd><p>generalized product, i.e. a scalar times a product of zero or more terms. </p>
+<p><a class="reference internal" href="#classsequant_1_1_product"><span class="std std-ref">Product</span></a> is distributive over addition (see <a class="reference internal" href="classsequant_1_1_sum.html#classsequant_1_1_sum"><span class="std std-ref">Sum</span></a>). It is associative. All constructors and mutating methods (append/prepend) will by default flatten its factors recursively (but this can be fully controlled by specifying the flatten tag). The commutativity of factors is checked at runtime for each factor (see <a class="reference internal" href="classsequant_1_1_c_product.html#classsequant_1_1_c_product"><span class="std std-ref">CProduct</span></a> and <a class="reference internal" href="classsequant_1_1_n_c_product.html#classsequant_1_1_n_c_product"><span class="std std-ref">NCProduct</span></a> for statically commutative and noncommutative <a class="reference internal" href="#classsequant_1_1_product"><span class="std std-ref">Product</span></a>, respectively) </p>
+<p>Subclassed by <a class="reference internal" href="classsequant_1_1_c_product.html#classsequant_1_1_c_product"><span class="std std-ref">sequant::CProduct</span></a>, <a class="reference internal" href="classsequant_1_1_n_c_product.html#classsequant_1_1_n_c_product"><span class="std std-ref">sequant::NCProduct</span></a></p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp enum-class">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant7Product7FlattenE">
+<span id="_CPPv3N7sequant7Product7FlattenE"></span><span id="_CPPv2N7sequant7Product7FlattenE"></span><span class="target" id="classsequant_1_1_product_1ac25a644738a9ae12b4162e39e0366b10"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Flatten</span></span></span><a class="headerlink" href="#_CPPv4N7sequant7Product7FlattenE" title="Link to this definition"></a><br /></dt>
+<dd><p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant7Product7Flatten4OnceE">
+<span id="_CPPv3N7sequant7Product7Flatten4OnceE"></span><span id="_CPPv2N7sequant7Product7Flatten4OnceE"></span><span class="target" id="classsequant_1_1_product_1ac25a644738a9ae12b4162e39e0366b10ae1a9dc9f23534e63de9df0d540ac1611"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Once</span></span></span><a class="headerlink" href="#_CPPv4N7sequant7Product7Flatten4OnceE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant7Product7Flatten11RecursivelyE">
+<span id="_CPPv3N7sequant7Product7Flatten11RecursivelyE"></span><span id="_CPPv2N7sequant7Product7Flatten11RecursivelyE"></span><span class="target" id="classsequant_1_1_product_1ac25a644738a9ae12b4162e39e0366b10af38f73dbdbdc671268bd3aaabaafe0cc"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Recursively</span></span></span><a class="headerlink" href="#_CPPv4N7sequant7Product7Flatten11RecursivelyE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant7Product7Flatten3YesE">
+<span id="_CPPv3N7sequant7Product7Flatten3YesE"></span><span id="_CPPv2N7sequant7Product7Flatten3YesE"></span><span class="target" id="classsequant_1_1_product_1ac25a644738a9ae12b4162e39e0366b10a93cba07454f06a4a960172bbd6e2a435"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Yes</span></span></span><a class="headerlink" href="#_CPPv4N7sequant7Product7Flatten3YesE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant7Product7Flatten2NoE">
+<span id="_CPPv3N7sequant7Product7Flatten2NoE"></span><span id="_CPPv2N7sequant7Product7Flatten2NoE"></span><span class="target" id="classsequant_1_1_product_1ac25a644738a9ae12b4162e39e0366b10abafd7322c6e97d25b6299b5d6fe8920b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">No</span></span></span><a class="headerlink" href="#_CPPv4N7sequant7Product7Flatten2NoE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant7Product11scalar_typeE">
+<span id="_CPPv3N7sequant7Product11scalar_typeE"></span><span id="_CPPv2N7sequant7Product11scalar_typeE"></span><span class="target" id="classsequant_1_1_product_1afb8fe2671c49dbd9c1806706223fc280"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">scalar_type</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="classsequant_1_1_constant.html#_CPPv4N7sequant8ConstantE" title="sequant::Constant"><span class="n"><span class="pre">Constant</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="classsequant_1_1_constant.html#_CPPv4N7sequant8Constant11scalar_typeE" title="sequant::Constant::scalar_type"><span class="n"><span class="pre">scalar_type</span></span></a><a class="headerlink" href="#_CPPv4N7sequant7Product11scalar_typeE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant7Product7ProductEv">
+<span id="_CPPv3N7sequant7Product7ProductEv"></span><span id="_CPPv2N7sequant7Product7ProductEv"></span><span id="sequant::Product::Product"></span><span class="target" id="classsequant_1_1_product_1ad1a6f5b41260f4d19ca9800b22937140"></span><span class="sig-name descname"><span class="n"><span class="pre">Product</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N7sequant7Product7ProductEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant7ProductD0Ev">
+<span id="_CPPv3N7sequant7ProductD0Ev"></span><span id="_CPPv2N7sequant7ProductD0Ev"></span><span id="sequant::Product::~Product"></span><span class="target" id="classsequant_1_1_product_1ae185f0a34a9e0bd2e190bbc455e91f61"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~Product</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N7sequant7ProductD0Ev" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant7Product7ProductERK7Product">
+<span id="_CPPv3N7sequant7Product7ProductERK7Product"></span><span id="_CPPv2N7sequant7Product7ProductERK7Product"></span><span id="sequant::Product::Product__ProductCR"></span><span class="target" id="classsequant_1_1_product_1af2a873845080f0be326bd1ea6cc5eadc"></span><span class="sig-name descname"><span class="n"><span class="pre">Product</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N7sequant7Product7ProductERK7Product" title="sequant::Product::Product"><span class="n"><span class="pre">Product</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N7sequant7Product7ProductERK7Product" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant7Product7ProductERR7Product">
+<span id="_CPPv3N7sequant7Product7ProductERR7Product"></span><span id="_CPPv2N7sequant7Product7ProductERR7Product"></span><span id="sequant::Product::Product__ProductRR"></span><span class="target" id="classsequant_1_1_product_1a48ea78cc55c70b2352cdce30a8e04674"></span><span class="sig-name descname"><span class="n"><span class="pre">Product</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N7sequant7Product7ProductERR7Product" title="sequant::Product::Product"><span class="n"><span class="pre">Product</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N7sequant7Product7ProductERR7Product" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant7ProductaSERK7Product">
+<span id="_CPPv3N7sequant7ProductaSERK7Product"></span><span id="_CPPv2N7sequant7ProductaSERK7Product"></span><span id="sequant::Product::assign-operator__ProductCR"></span><span class="target" id="classsequant_1_1_product_1a9e417998dd9d65d3af416984f36f3081"></span><a class="reference internal" href="#_CPPv4N7sequant7ProductE" title="sequant::Product"><span class="n"><span class="pre">Product</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N7sequant7ProductE" title="sequant::Product"><span class="n"><span class="pre">Product</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N7sequant7ProductaSERK7Product" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant7ProductaSERR7Product">
+<span id="_CPPv3N7sequant7ProductaSERR7Product"></span><span id="_CPPv2N7sequant7ProductaSERR7Product"></span><span id="sequant::Product::assign-operator__ProductRR"></span><span class="target" id="classsequant_1_1_product_1a3b52debf6129a99b73a7d8f8fa9e8116"></span><a class="reference internal" href="#_CPPv4N7sequant7ProductE" title="sequant::Product"><span class="n"><span class="pre">Product</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N7sequant7ProductE" title="sequant::Product"><span class="n"><span class="pre">Product</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N7sequant7ProductaSERR7Product" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant7Product7ProductE11ExprPtrList7Flatten">
+<span id="_CPPv3N7sequant7Product7ProductE11ExprPtrList7Flatten"></span><span id="_CPPv2N7sequant7Product7ProductE11ExprPtrList7Flatten"></span><span id="sequant::Product::Product__ExprPtrList.Flatten"></span><span class="target" id="classsequant_1_1_product_1af5a3c6605b4bd583fd12eb06870d301d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Product</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="typedef_namespacesequant_1a6ee11cff777cf1e50a07f23fa3eeaca8.html#_CPPv4N7sequant11ExprPtrListE" title="sequant::ExprPtrList"><span class="n"><span class="pre">ExprPtrList</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">factors</span></span>, <a class="reference internal" href="#_CPPv4N7sequant7Product7FlattenE" title="sequant::Product::Flatten"><span class="n"><span class="pre">Flatten</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">flatten_tag</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N7sequant7Product7FlattenE" title="sequant::Product::Flatten"><span class="n"><span class="pre">Flatten</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N7sequant7Product7Flatten3YesE" title="sequant::Product::Flatten::Yes"><span class="n"><span class="pre">Yes</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7sequant7Product7ProductE11ExprPtrList7Flatten" title="Link to this definition"></a><br /></dt>
+<dd><p>construct a <a class="reference internal" href="#classsequant_1_1_product"><span class="std std-ref">Product</span></a> out of zero or more factors (multiplied by 1) </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>factors</strong> – the factors </p></li>
+<li><p><strong>flatten_tag</strong> – if <a class="reference internal" href="#classsequant_1_1_product_1ac25a644738a9ae12b4162e39e0366b10a93cba07454f06a4a960172bbd6e2a435"><span class="std std-ref">Flatten::Yes</span></a>, flatten the factors </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I00EN7sequant7Product7ProductERR5Range7Flatten">
+<span id="_CPPv3I00EN7sequant7Product7ProductERR5Range7Flatten"></span><span id="_CPPv2I00EN7sequant7Product7ProductERR5Range7Flatten"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Range</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">enable_if_t</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">meta</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">is_range_v</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">decay_t</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I00EN7sequant7Product7ProductERR5Range7Flatten" title="sequant::Product::Product::Range"><span class="n"><span class="pre">Range</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="o"><span class="pre">&amp;&amp;</span></span><span class="w"> </span><span class="o"><span class="pre">!</span></span><span class="n"><span class="pre">meta</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">is_same_v</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I00EN7sequant7Product7ProductERR5Range7Flatten" title="sequant::Product::Product::Range"><span class="n"><span class="pre">Range</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="typedef_namespacesequant_1a6ee11cff777cf1e50a07f23fa3eeaca8.html#_CPPv4N7sequant11ExprPtrListE" title="sequant::ExprPtrList"><span class="n"><span class="pre">ExprPtrList</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="o"><span class="pre">&amp;&amp;</span></span><span class="w"> </span><span class="o"><span class="pre">!</span></span><span class="n"><span class="pre">meta</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">is_same_v</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I00EN7sequant7Product7ProductERR5Range7Flatten" title="sequant::Product::Product::Range"><span class="n"><span class="pre">Range</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I00EN7sequant7Product7ProductERR5Range7Flatten" title="sequant::Product::Product"><span class="n"><span class="pre">Product</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classsequant_1_1_product_1a109a17c843c4f71ef9cc51cdbdd281b5"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Product</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I00EN7sequant7Product7ProductERR5Range7Flatten" title="sequant::Product::Product::Range"><span class="n"><span class="pre">Range</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rng</span></span>, <a class="reference internal" href="#_CPPv4N7sequant7Product7FlattenE" title="sequant::Product::Flatten"><span class="n"><span class="pre">Flatten</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">flatten_tag</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N7sequant7Product7FlattenE" title="sequant::Product::Flatten"><span class="n"><span class="pre">Flatten</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N7sequant7Product7Flatten3YesE" title="sequant::Product::Flatten::Yes"><span class="n"><span class="pre">Yes</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00EN7sequant7Product7ProductERR5Range7Flatten" title="Link to this definition"></a><br /></dt>
+<dd><p>construct a <a class="reference internal" href="#classsequant_1_1_product"><span class="std std-ref">Product</span></a> out of zero or more factors (multiplied by 1) </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rng</strong> – a range of factors </p></li>
+<li><p><strong>flatten_tag</strong> – if <a class="reference internal" href="#classsequant_1_1_product_1ac25a644738a9ae12b4162e39e0366b10a93cba07454f06a4a960172bbd6e2a435"><span class="std std-ref">Flatten::Yes</span></a>, flatten the factors </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I000EN7sequant7Product7ProductE1TRR5Range7Flatten">
+<span id="_CPPv3I000EN7sequant7Product7ProductE1TRR5Range7Flatten"></span><span id="_CPPv2I000EN7sequant7Product7ProductE1TRR5Range7Flatten"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Range</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">enable_if_t</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">meta</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">is_range_v</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">decay_t</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I000EN7sequant7Product7ProductE1TRR5Range7Flatten" title="sequant::Product::Product::Range"><span class="n"><span class="pre">Range</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="o"><span class="pre">&amp;&amp;</span></span><span class="w"> </span><span class="o"><span class="pre">!</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">is_same_v</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">remove_reference_t</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I000EN7sequant7Product7ProductE1TRR5Range7Flatten" title="sequant::Product::Product::Range"><span class="n"><span class="pre">Range</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="typedef_namespacesequant_1a6ee11cff777cf1e50a07f23fa3eeaca8.html#_CPPv4N7sequant11ExprPtrListE" title="sequant::ExprPtrList"><span class="n"><span class="pre">ExprPtrList</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="o"><span class="pre">&amp;&amp;</span></span><span class="w"> </span><span class="o"><span class="pre">!</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">is_same_v</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">remove_reference_t</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I000EN7sequant7Product7ProductE1TRR5Range7Flatten" title="sequant::Product::Product::Range"><span class="n"><span class="pre">Range</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I000EN7sequant7Product7ProductE1TRR5Range7Flatten" title="sequant::Product::Product"><span class="n"><span class="pre">Product</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classsequant_1_1_product_1a9ff121c8b3a7ea417613b88fc23592f3"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Product</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I000EN7sequant7Product7ProductE1TRR5Range7Flatten" title="sequant::Product::Product::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">scalar</span></span>, <a class="reference internal" href="#_CPPv4I000EN7sequant7Product7ProductE1TRR5Range7Flatten" title="sequant::Product::Product::Range"><span class="n"><span class="pre">Range</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rng</span></span>, <a class="reference internal" href="#_CPPv4N7sequant7Product7FlattenE" title="sequant::Product::Flatten"><span class="n"><span class="pre">Flatten</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">flatten_tag</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N7sequant7Product7FlattenE" title="sequant::Product::Flatten"><span class="n"><span class="pre">Flatten</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N7sequant7Product7Flatten3YesE" title="sequant::Product::Flatten::Yes"><span class="n"><span class="pre">Yes</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I000EN7sequant7Product7ProductE1TRR5Range7Flatten" title="Link to this definition"></a><br /></dt>
+<dd><p>construct a <a class="reference internal" href="#classsequant_1_1_product"><span class="std std-ref">Product</span></a> out of zero or more factors (multiplied by 1) </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – a numeric type; it must be able to multiply <a class="reference internal" href="#classsequant_1_1_product_1afb8fe2671c49dbd9c1806706223fc280"><span class="std std-ref">Product::scalar_type</span></a></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>scalar</strong> – a scalar of type T </p></li>
+<li><p><strong>rng</strong> – a range of factors </p></li>
+<li><p><strong>flatten_tag</strong> – if <a class="reference internal" href="#classsequant_1_1_product_1ac25a644738a9ae12b4162e39e0366b10a93cba07454f06a4a960172bbd6e2a435"><span class="std std-ref">Flatten::Yes</span></a>, flatten the factors </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN7sequant7Product7ProductE1T11ExprPtrList7Flatten">
+<span id="_CPPv3I0EN7sequant7Product7ProductE1T11ExprPtrList7Flatten"></span><span id="_CPPv2I0EN7sequant7Product7ProductE1T11ExprPtrList7Flatten"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classsequant_1_1_product_1a7877f99cfcf3b09ac6b3a237fba7f764"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Product</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0EN7sequant7Product7ProductE1T11ExprPtrList7Flatten" title="sequant::Product::Product::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">scalar</span></span>, <a class="reference internal" href="typedef_namespacesequant_1a6ee11cff777cf1e50a07f23fa3eeaca8.html#_CPPv4N7sequant11ExprPtrListE" title="sequant::ExprPtrList"><span class="n"><span class="pre">ExprPtrList</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">factors</span></span>, <a class="reference internal" href="#_CPPv4N7sequant7Product7FlattenE" title="sequant::Product::Flatten"><span class="n"><span class="pre">Flatten</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">flatten_tag</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N7sequant7Product7FlattenE" title="sequant::Product::Flatten"><span class="n"><span class="pre">Flatten</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N7sequant7Product7Flatten3YesE" title="sequant::Product::Flatten::Yes"><span class="n"><span class="pre">Yes</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN7sequant7Product7ProductE1T11ExprPtrList7Flatten" title="Link to this definition"></a><br /></dt>
+<dd><p>construct a <a class="reference internal" href="#classsequant_1_1_product"><span class="std std-ref">Product</span></a> out of zero or more factors multiplied by a scalar </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – a numeric type; it must be able to multiply <a class="reference internal" href="#classsequant_1_1_product_1afb8fe2671c49dbd9c1806706223fc280"><span class="std std-ref">Product::scalar_type</span></a></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>scalar</strong> – a scalar of type T </p></li>
+<li><p><strong>factors</strong> – an initializer list of factors </p></li>
+<li><p><strong>flatten_tag</strong> – if <a class="reference internal" href="#classsequant_1_1_product_1ac25a644738a9ae12b4162e39e0366b10a93cba07454f06a4a960172bbd6e2a435"><span class="std std-ref">Flatten::Yes</span></a>, flatten the factors </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN7sequant7Product7ProductE8Iterator8Iterator7Flatten">
+<span id="_CPPv3I0EN7sequant7Product7ProductE8Iterator8Iterator7Flatten"></span><span id="_CPPv2I0EN7sequant7Product7ProductE8Iterator8Iterator7Flatten"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Iterator</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classsequant_1_1_product_1ab80704a53042957f7244c410c2bff668"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Product</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0EN7sequant7Product7ProductE8Iterator8Iterator7Flatten" title="sequant::Product::Product::Iterator"><span class="n"><span class="pre">Iterator</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">begin</span></span>, <a class="reference internal" href="#_CPPv4I0EN7sequant7Product7ProductE8Iterator8Iterator7Flatten" title="sequant::Product::Product::Iterator"><span class="n"><span class="pre">Iterator</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">end</span></span>, <a class="reference internal" href="#_CPPv4N7sequant7Product7FlattenE" title="sequant::Product::Flatten"><span class="n"><span class="pre">Flatten</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">flatten_tag</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N7sequant7Product7FlattenE" title="sequant::Product::Flatten"><span class="n"><span class="pre">Flatten</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N7sequant7Product7Flatten3YesE" title="sequant::Product::Flatten::Yes"><span class="n"><span class="pre">Yes</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN7sequant7Product7ProductE8Iterator8Iterator7Flatten" title="Link to this definition"></a><br /></dt>
+<dd><p>construct a <a class="reference internal" href="#classsequant_1_1_product"><span class="std std-ref">Product</span></a> out of a range of factors </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>begin</strong> – the begin iterator </p></li>
+<li><p><strong>end</strong> – the end iterator </p></li>
+<li><p><strong>flatten_tag</strong> – specifies whether (and how) to flatten the argument(s) </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I00EN7sequant7Product7ProductE1T8Iterator8Iterator7Flatten">
+<span id="_CPPv3I00EN7sequant7Product7ProductE1T8Iterator8Iterator7Flatten"></span><span id="_CPPv2I00EN7sequant7Product7ProductE1T8Iterator8Iterator7Flatten"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Iterator</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classsequant_1_1_product_1a34eba28e6a6fd93d1b2047add43c270e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Product</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I00EN7sequant7Product7ProductE1T8Iterator8Iterator7Flatten" title="sequant::Product::Product::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">scalar</span></span>, <a class="reference internal" href="#_CPPv4I00EN7sequant7Product7ProductE1T8Iterator8Iterator7Flatten" title="sequant::Product::Product::Iterator"><span class="n"><span class="pre">Iterator</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">begin</span></span>, <a class="reference internal" href="#_CPPv4I00EN7sequant7Product7ProductE1T8Iterator8Iterator7Flatten" title="sequant::Product::Product::Iterator"><span class="n"><span class="pre">Iterator</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">end</span></span>, <a class="reference internal" href="#_CPPv4N7sequant7Product7FlattenE" title="sequant::Product::Flatten"><span class="n"><span class="pre">Flatten</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">flatten_tag</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N7sequant7Product7FlattenE" title="sequant::Product::Flatten"><span class="n"><span class="pre">Flatten</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N7sequant7Product7Flatten3YesE" title="sequant::Product::Flatten::Yes"><span class="n"><span class="pre">Yes</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00EN7sequant7Product7ProductE1T8Iterator8Iterator7Flatten" title="Link to this definition"></a><br /></dt>
+<dd><p>construct a <a class="reference internal" href="#classsequant_1_1_product"><span class="std std-ref">Product</span></a> out of a range of factors </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – a numeric type; it must be able to multiply <a class="reference internal" href="#classsequant_1_1_product_1afb8fe2671c49dbd9c1806706223fc280"><span class="std std-ref">Product::scalar_type</span></a></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>scalar</strong> – a scalar of type T </p></li>
+<li><p><strong>begin</strong> – the begin iterator </p></li>
+<li><p><strong>end</strong> – the end iterator </p></li>
+<li><p><strong>flatten_tag</strong> – specifies whether (and how) to flatten the argument(s) </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN7sequant7Product5scaleER7Product1T">
+<span id="_CPPv3I0EN7sequant7Product5scaleE1T"></span><span id="_CPPv2I0EN7sequant7Product5scaleE1T"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classsequant_1_1_product_1a96f05113731b84b1001ca4cdea55c122"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N7sequant7ProductE" title="sequant::Product"><span class="n"><span class="pre">Product</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">scale</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0EN7sequant7Product5scaleER7Product1T" title="sequant::Product::scale::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">scalar</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN7sequant7Product5scaleER7Product1T" title="Link to this definition"></a><br /></dt>
+<dd><p>multiplies the product by <code class="docutils literal notranslate"><span class="pre">scalar</span></code> </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>scalar</strong> – a scalar by which to multiply the product </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">*this</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN7sequant7Product6appendER7Product1T7ExprPtr7Flatten">
+<span id="_CPPv3I0EN7sequant7Product6appendE1T7ExprPtr7Flatten"></span><span id="_CPPv2I0EN7sequant7Product6appendE1T7ExprPtr7Flatten"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classsequant_1_1_product_1ae60c73b504b15bb8dde8e0e762b7c59a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N7sequant7ProductE" title="sequant::Product"><span class="n"><span class="pre">Product</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">append</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0EN7sequant7Product6appendER7Product1T7ExprPtr7Flatten" title="sequant::Product::append::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">scalar</span></span>, <a class="reference internal" href="classsequant_1_1_expr_ptr.html#_CPPv4N7sequant7ExprPtrE" title="sequant::ExprPtr"><span class="n"><span class="pre">ExprPtr</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">factor</span></span>, <a class="reference internal" href="#_CPPv4N7sequant7Product7FlattenE" title="sequant::Product::Flatten"><span class="n"><span class="pre">Flatten</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">flatten_tag</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N7sequant7Product7FlattenE" title="sequant::Product::Flatten"><span class="n"><span class="pre">Flatten</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N7sequant7Product7Flatten3YesE" title="sequant::Product::Flatten::Yes"><span class="n"><span class="pre">Yes</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN7sequant7Product6appendER7Product1T7ExprPtr7Flatten" title="Link to this definition"></a><br /></dt>
+<dd><p>(post-)multiplies the product by <code class="docutils literal notranslate"><span class="pre">scalar</span></code> times <code class="docutils literal notranslate"><span class="pre">factor</span></code> </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scalar</strong> – a scalar by which to multiply the product </p></li>
+<li><p><strong>factor</strong> – a factor by which to multiply the product </p></li>
+<li><p><strong>flatten_tag</strong> – specifies whether (and how) to flatten the argument(s) </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">*this</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I000EN7sequant7Product6appendER7Product1TRR6Factor7Flatten">
+<span id="_CPPv3I000EN7sequant7Product6appendE1TRR6Factor7Flatten"></span><span id="_CPPv2I000EN7sequant7Product6appendE1TRR6Factor7Flatten"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Factor</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">enable_if_t</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">is_an_expr_v</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I000EN7sequant7Product6appendER7Product1TRR6Factor7Flatten" title="sequant::Product::append::Factor"><span class="n"><span class="pre">Factor</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classsequant_1_1_product_1a44fef9f61b4bac31d6ed3ccf4e4bde1b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N7sequant7ProductE" title="sequant::Product"><span class="n"><span class="pre">Product</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">append</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I000EN7sequant7Product6appendER7Product1TRR6Factor7Flatten" title="sequant::Product::append::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">scalar</span></span>, <a class="reference internal" href="#_CPPv4I000EN7sequant7Product6appendER7Product1TRR6Factor7Flatten" title="sequant::Product::append::Factor"><span class="n"><span class="pre">Factor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">factor</span></span>, <a class="reference internal" href="#_CPPv4N7sequant7Product7FlattenE" title="sequant::Product::Flatten"><span class="n"><span class="pre">Flatten</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">flatten_tag</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N7sequant7Product7FlattenE" title="sequant::Product::Flatten"><span class="n"><span class="pre">Flatten</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N7sequant7Product7Flatten3YesE" title="sequant::Product::Flatten::Yes"><span class="n"><span class="pre">Yes</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I000EN7sequant7Product6appendER7Product1TRR6Factor7Flatten" title="Link to this definition"></a><br /></dt>
+<dd><p>(post-)multiplies the product by <code class="docutils literal notranslate"><span class="pre">scalar</span></code> times <code class="docutils literal notranslate"><span class="pre">factor</span></code> </p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>if <code class="docutils literal notranslate"><span class="pre">factor</span></code> is a <a class="reference internal" href="#classsequant_1_1_product"><span class="std std-ref">Product</span></a>, it is flattened recursively </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scalar</strong> – a scalar by which to multiply the product </p></li>
+<li><p><strong>factor</strong> – a factor by which to multiply the product </p></li>
+<li><p><strong>flatten_tag</strong> – specifies whether (and how) to flatten the argument(s) </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">*this</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN7sequant7Product7prependER7Product1T7ExprPtr7Flatten">
+<span id="_CPPv3I0EN7sequant7Product7prependE1T7ExprPtr7Flatten"></span><span id="_CPPv2I0EN7sequant7Product7prependE1T7ExprPtr7Flatten"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classsequant_1_1_product_1ab06f102af23200f63d1f8e56e1d2983c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N7sequant7ProductE" title="sequant::Product"><span class="n"><span class="pre">Product</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">prepend</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0EN7sequant7Product7prependER7Product1T7ExprPtr7Flatten" title="sequant::Product::prepend::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">scalar</span></span>, <a class="reference internal" href="classsequant_1_1_expr_ptr.html#_CPPv4N7sequant7ExprPtrE" title="sequant::ExprPtr"><span class="n"><span class="pre">ExprPtr</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">factor</span></span>, <a class="reference internal" href="#_CPPv4N7sequant7Product7FlattenE" title="sequant::Product::Flatten"><span class="n"><span class="pre">Flatten</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">flatten_tag</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N7sequant7Product7FlattenE" title="sequant::Product::Flatten"><span class="n"><span class="pre">Flatten</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N7sequant7Product7Flatten3YesE" title="sequant::Product::Flatten::Yes"><span class="n"><span class="pre">Yes</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN7sequant7Product7prependER7Product1T7ExprPtr7Flatten" title="Link to this definition"></a><br /></dt>
+<dd><p>(pre-)multiplies the product by <code class="docutils literal notranslate"><span class="pre">scalar</span></code> times <code class="docutils literal notranslate"><span class="pre">factor</span></code> </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>this is less efficient than <a class="reference internal" href="#classsequant_1_1_product_1ae60c73b504b15bb8dde8e0e762b7c59a"><span class="std std-ref">append()</span></a></p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>if <code class="docutils literal notranslate"><span class="pre">factor</span></code> is a <a class="reference internal" href="#classsequant_1_1_product"><span class="std std-ref">Product</span></a>, it is flattened recursively </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scalar</strong> – a scalar by which to multiply the product </p></li>
+<li><p><strong>factor</strong> – a factor by which to multiply the product </p></li>
+<li><p><strong>flatten_tag</strong> – specifies whether (and how) to flatten the argument(s) </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">*this</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I000EN7sequant7Product7prependER7Product1TRR6Factor7Flatten">
+<span id="_CPPv3I000EN7sequant7Product7prependE1TRR6Factor7Flatten"></span><span id="_CPPv2I000EN7sequant7Product7prependE1TRR6Factor7Flatten"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Factor</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">enable_if_t</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">is_an_expr_v</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I000EN7sequant7Product7prependER7Product1TRR6Factor7Flatten" title="sequant::Product::prepend::Factor"><span class="n"><span class="pre">Factor</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classsequant_1_1_product_1a33efac8cda492b0504efdf385e728d66"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N7sequant7ProductE" title="sequant::Product"><span class="n"><span class="pre">Product</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">prepend</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I000EN7sequant7Product7prependER7Product1TRR6Factor7Flatten" title="sequant::Product::prepend::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">scalar</span></span>, <a class="reference internal" href="#_CPPv4I000EN7sequant7Product7prependER7Product1TRR6Factor7Flatten" title="sequant::Product::prepend::Factor"><span class="n"><span class="pre">Factor</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">factor</span></span>, <a class="reference internal" href="#_CPPv4N7sequant7Product7FlattenE" title="sequant::Product::Flatten"><span class="n"><span class="pre">Flatten</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">flatten_tag</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N7sequant7Product7FlattenE" title="sequant::Product::Flatten"><span class="n"><span class="pre">Flatten</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N7sequant7Product7Flatten3YesE" title="sequant::Product::Flatten::Yes"><span class="n"><span class="pre">Yes</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I000EN7sequant7Product7prependER7Product1TRR6Factor7Flatten" title="Link to this definition"></a><br /></dt>
+<dd><p>(pre-)multiplies the product by <code class="docutils literal notranslate"><span class="pre">scalar</span></code> times <code class="docutils literal notranslate"><span class="pre">factor</span></code> </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>this is less efficient than <a class="reference internal" href="#classsequant_1_1_product_1ae60c73b504b15bb8dde8e0e762b7c59a"><span class="std std-ref">append()</span></a></p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>if <code class="docutils literal notranslate"><span class="pre">factor</span></code> is a <a class="reference internal" href="#classsequant_1_1_product"><span class="std std-ref">Product</span></a>, it is flattened recursively </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scalar</strong> – a scalar by which to multiply the product </p></li>
+<li><p><strong>factor</strong> – a factor by which to multiply the product </p></li>
+<li><p><strong>flatten_tag</strong> – specifies whether (and how) to flatten the argument(s) </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">*this</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant7Product6scalarEv">
+<span id="_CPPv3NK7sequant7Product6scalarEv"></span><span id="_CPPv2NK7sequant7Product6scalarEv"></span><span id="sequant::Product::scalarC"></span><span class="target" id="classsequant_1_1_product_1ae84ac2b5b69bbdd8b8404de790ff2d89"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">scalar</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant7Product6scalarEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant7Product7is_zeroEv">
+<span id="_CPPv3NK7sequant7Product7is_zeroEv"></span><span id="_CPPv2NK7sequant7Product7is_zeroEv"></span><span id="sequant::Product::is_zeroC"></span><span class="target" id="classsequant_1_1_product_1a0983c8bfe428ef0db40dc4a7c31d4af4"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">is_zero</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant7Product7is_zeroEv" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><a class="reference internal" href="classsequant_1_1_constant.html#classsequant_1_1_constant_1a70493cdab910febd8caa3a451a4eb9ef"><span class="std std-ref"><span class="pre">Constant::is_zero</span></span></a><span class="pre">(this-&gt;</span><a class="reference internal" href="#classsequant_1_1_product_1ae84ac2b5b69bbdd8b8404de790ff2d89"><span class="std std-ref"><span class="pre">scalar()</span></span></a><span class="pre">)</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant7Product7factorsEv">
+<span id="_CPPv3NK7sequant7Product7factorsEv"></span><span id="_CPPv2NK7sequant7Product7factorsEv"></span><span id="sequant::Product::factorsC"></span><span class="target" id="classsequant_1_1_product_1a4626739974f3fd24680e0a2edd3a9011"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">factors</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant7Product7factorsEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant7Product7factorsEv">
+<span id="_CPPv3N7sequant7Product7factorsEv"></span><span id="_CPPv2N7sequant7Product7factorsEv"></span><span id="sequant::Product::factors"></span><span class="target" id="classsequant_1_1_product_1aea1f9ce0c92fa25c9be85b7ac47f785f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">auto</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">factors</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7sequant7Product7factorsEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant7Product6factorE6size_t">
+<span id="_CPPv3NK7sequant7Product6factorE6size_t"></span><span id="_CPPv2NK7sequant7Product6factorE6size_t"></span><span id="sequant::Product::factor__sC"></span><span class="target" id="classsequant_1_1_product_1ac26f8a35ca2e0728fe057b22b8d7ea35"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="classsequant_1_1_expr_ptr.html#_CPPv4N7sequant7ExprPtrE" title="sequant::ExprPtr"><span class="n"><span class="pre">ExprPtr</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">factor</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">i</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant7Product6factorE6size_t" title="Link to this definition"></a><br /></dt>
+<dd><p>Factor accessor </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>i</strong> – factor index </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>ith factor </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant7Product5emptyEv">
+<span id="_CPPv3NK7sequant7Product5emptyEv"></span><span id="_CPPv2NK7sequant7Product5emptyEv"></span><span id="sequant::Product::emptyC"></span><span class="target" id="classsequant_1_1_product_1a639ee722c94424518ef7c52c5ddc8e83"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">empty</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant7Product5emptyEv" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>true if the number of factors is zero </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant7Product14is_commutativeEv">
+<span id="_CPPv3NK7sequant7Product14is_commutativeEv"></span><span id="_CPPv2NK7sequant7Product14is_commutativeEv"></span><span id="sequant::Product::is_commutativeC"></span><span class="target" id="classsequant_1_1_product_1a4a5f38d4bb75776ee5b653297ef18419"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">is_commutative</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant7Product14is_commutativeEv" title="Link to this definition"></a><br /></dt>
+<dd><p>checks commutativity recursively </p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="classsequant_1_1_c_product.html#classsequant_1_1_c_product_1aea9b93ce47cf3f63de9ad03f4c8dca12"><span class="std std-ref">CProduct::is_commutative()</span></a> and <a class="reference internal" href="classsequant_1_1_n_c_product.html#classsequant_1_1_n_c_product_1a1a8029917bd784d121fe01e411ed219c"><span class="std std-ref">NCProduct::is_commutative()</span></a></p>
+</div>
+</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>this is memoizing </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>true if definitely commutative, false definitely not commutative </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant7Product7adjointEv">
+<span id="_CPPv3N7sequant7Product7adjointEv"></span><span id="_CPPv2N7sequant7Product7adjointEv"></span><span id="sequant::Product::adjoint"></span><span class="target" id="classsequant_1_1_product_1a9e9e55c78dec6dae9a04c47c767e8465"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">adjoint</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4N7sequant7Product7adjointEv" title="Link to this definition"></a><br /></dt>
+<dd><p>adjoint of a <a class="reference internal" href="#classsequant_1_1_product"><span class="std std-ref">Product</span></a> is a reversed product of adjoints of its factors, with complex-conjugated scalar </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant7Product8to_latexEv">
+<span id="_CPPv3NK7sequant7Product8to_latexEv"></span><span id="_CPPv2NK7sequant7Product8to_latexEv"></span><span id="sequant::Product::to_latexC"></span><span class="target" id="classsequant_1_1_product_1a7f8819971d3fc8c66063492a800e083d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">wstring</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">to_latex</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK7sequant7Product8to_latexEv" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the string representation of <code class="docutils literal notranslate"><span class="pre">this</span></code> in the LaTeX format </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant7Product8to_latexEb">
+<span id="_CPPv3NK7sequant7Product8to_latexEb"></span><span id="_CPPv2NK7sequant7Product8to_latexEb"></span><span id="sequant::Product::to_latex__bC"></span><span class="target" id="classsequant_1_1_product_1aab57f06b0fa19ead75368978ca71804e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">wstring</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">to_latex</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">negate</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant7Product8to_latexEb" title="Link to this definition"></a><br /></dt>
+<dd><p>just like <a class="reference internal" href="classsequant_1_1_expr.html#classsequant_1_1_expr_1afb469a8a7b1e366e2bdef75e97deff7b"><span class="std std-ref">Expr::to_latex()</span></a> , but can negate before conversion </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>negate</strong> – <strong>[in]</strong> if true, scalar will be before conversion </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant7Product10to_wolframEv">
+<span id="_CPPv3NK7sequant7Product10to_wolframEv"></span><span id="_CPPv2NK7sequant7Product10to_wolframEv"></span><span id="sequant::Product::to_wolframC"></span><span class="target" id="classsequant_1_1_product_1a672aec6dca147d4ee46d15a3bb476169"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">wstring</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">to_wolfram</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK7sequant7Product10to_wolframEv" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the string representation of <code class="docutils literal notranslate"><span class="pre">this</span></code> in the Wolfram Language format </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant7Product7type_idEv">
+<span id="_CPPv3NK7sequant7Product7type_idEv"></span><span id="_CPPv2NK7sequant7Product7type_idEv"></span><span id="sequant::Product::type_idC"></span><span class="target" id="classsequant_1_1_product_1a2af4a4966d40d98cb9801bbdaac136fc"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">type_id_type</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">type_id</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK7sequant7Product7type_idEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Computes and returns the derived type identifier <div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="classsequant_1_1_expr.html#classsequant_1_1_expr_1a11971a85b7a115d063b1d4c7e5b36ce9"><span class="std std-ref">Expr::get_type_id</span></a></p>
+</div>
+</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>this function must be overridden in the derived class </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the hash value for this <a class="reference internal" href="classsequant_1_1_expr.html#classsequant_1_1_expr"><span class="std std-ref">Expr</span></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant7Product5cloneEv">
+<span id="_CPPv3NK7sequant7Product5cloneEv"></span><span id="_CPPv2NK7sequant7Product5cloneEv"></span><span id="sequant::Product::cloneC"></span><span class="target" id="classsequant_1_1_product_1a346a70cf8384fae9e3ad2a0131fa81ca"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="classsequant_1_1_expr_ptr.html#_CPPv4N7sequant7ExprPtrE" title="sequant::ExprPtr"><span class="n"><span class="pre">ExprPtr</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">clone</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK7sequant7Product5cloneEv" title="Link to this definition"></a><br /></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>this does not flatten the product </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>an identical clone of this <a class="reference internal" href="#classsequant_1_1_product"><span class="std std-ref">Product</span></a> (a deep copy allocated on the heap) </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant7Product9deep_copyEv">
+<span id="_CPPv3NK7sequant7Product9deep_copyEv"></span><span id="_CPPv2NK7sequant7Product9deep_copyEv"></span><span id="sequant::Product::deep_copyC"></span><span class="target" id="classsequant_1_1_product_1a2b75f1338c3f73270dc10053f4ead1f2"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N7sequant7ProductE" title="sequant::Product"><span class="n"><span class="pre">Product</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">deep_copy</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant7Product9deep_copyEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant7ProductmLERK4Expr">
+<span id="_CPPv3N7sequant7ProductmLERK4Expr"></span><span id="_CPPv2N7sequant7ProductmLERK4Expr"></span><span id="sequant::Product::mul-assign-operator__ExprCR"></span><span class="target" id="classsequant_1_1_product_1a99f67c24c359ee6bd0a625eea74bf29c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="classsequant_1_1_expr.html#_CPPv4N7sequant4ExprE" title="sequant::Expr"><span class="n"><span class="pre">Expr</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">*=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="classsequant_1_1_expr.html#_CPPv4N7sequant4ExprE" title="sequant::Expr"><span class="n"><span class="pre">Expr</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">that</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4N7sequant7ProductmLERK4Expr" title="Link to this definition"></a><br /></dt>
+<dd><p>in-place multiply <code class="docutils literal notranslate"><span class="pre">*this</span></code> by <code class="docutils literal notranslate"><span class="pre">that</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span><span class="cpp-expr sig sig-inline cpp"><span class="n">std</span><span class="p">::</span><span class="n">logic_error</span></span></span> – if not implemented for this class, or cannot be implemented for the particular <code class="docutils literal notranslate"><span class="pre">that</span></code></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>reference to <code class="docutils literal notranslate"><span class="pre">*this</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant7Product13add_identicalERK7Product">
+<span id="_CPPv3N7sequant7Product13add_identicalERK7Product"></span><span id="_CPPv2N7sequant7Product13add_identicalERK7Product"></span><span id="sequant::Product::add_identical__ProductCR"></span><span class="target" id="classsequant_1_1_product_1a37b7909de557a7fa4b6e958d8f5f8f51"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">add_identical</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N7sequant7ProductE" title="sequant::Product"><span class="n"><span class="pre">Product</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7sequant7Product13add_identicalERK7Product" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant7Product13add_identicalERKNSt10shared_ptrI7ProductEE">
+<span id="_CPPv3N7sequant7Product13add_identicalERKNSt10shared_ptrI7ProductEE"></span><span id="_CPPv2N7sequant7Product13add_identicalERKNSt10shared_ptrI7ProductEE"></span><span id="sequant::Product::add_identical__std::shared_ptr:Product:CR"></span><span class="target" id="classsequant_1_1_product_1a83c2b303e49b47e8c18c12e0ab53e590"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">add_identical</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N7sequant7ProductE" title="sequant::Product"><span class="n"><span class="pre">Product</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7sequant7Product13add_identicalERKNSt10shared_ptrI7ProductEE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Valeev Research Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

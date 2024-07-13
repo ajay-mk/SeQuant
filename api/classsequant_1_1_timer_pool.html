@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Template Class TimerPool &mdash; SeQuant  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<link href="../_static/style.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SeQuant
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html">SeQuant: symbolic tensor algebra in C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#synopsis">Synopsis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#getting-started">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#build-harness">Build harness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#using">Using</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#id1">Getting Started</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#register-index-spaces">Register Index Spaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#quasiparticles">Quasiparticles</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#operators">Operators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#developers">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#acknowledgement">Acknowledgement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/install.html">SeQuant: installation guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#tl-dr">TL;DR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#configure">Configure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../source/install.html#useful-cmake-variables">Useful CMake variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#build">Build</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SeQuant</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Template Class TimerPool</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ajay-mk/SeQuant/blob/master/doc/sphinx/api/classsequant_1_1_timer_pool.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="template-class-timerpool">
+<span id="exhale-class-classsequant-1-1-timer-pool"></span><h1>Template Class TimerPool<a class="headerlink" href="#template-class-timerpool" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_SeQuant_core_timer.hpp.html#file-sequant-core-timer-hpp"><span class="std std-ref">File timer.hpp</span></a></p></li>
+</ul>
+<section id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Link to this heading"></a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I_6size_tEN7sequant9TimerPoolE">
+<span id="_CPPv3I_6size_tEN7sequant9TimerPoolE"></span><span id="_CPPv2I_6size_tEN7sequant9TimerPoolE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">N</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classsequant_1_1_timer_pool"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TimerPool</span></span></span><a class="headerlink" href="#_CPPv4I_6size_tEN7sequant9TimerPoolE" title="Link to this definition"></a><br /></dt>
+<dd><p><a class="reference internal" href="#classsequant_1_1_timer_pool"><span class="std std-ref">TimerPool</span></a> aggregates <code class="docutils literal notranslate"><span class="pre">N</span></code> C++11 “timers”; used to profile stages of a computation with high resolution </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>member functions are not reentrant, use one Timers object per thread </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>N</strong> – the number of timers </p>
+</dd>
+</dl>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant9TimerPool5dur_tE">
+<span id="_CPPv3N7sequant9TimerPool5dur_tE"></span><span id="_CPPv2N7sequant9TimerPool5dur_tE"></span><span id="sequant::TimerPool::dur_t"></span><span class="target" id="classsequant_1_1_timer_pool_1aa425ae674899a22d6c50104fc5b25eb3"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">chrono</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">duration</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">dur_t</span></span></span><a class="headerlink" href="#_CPPv4N7sequant9TimerPool5dur_tE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant9TimerPool7clock_tE">
+<span id="_CPPv3N7sequant9TimerPool7clock_tE"></span><span id="_CPPv2N7sequant9TimerPool7clock_tE"></span><span id="sequant::TimerPool::clock_t"></span><span class="target" id="classsequant_1_1_timer_pool_1a24c86832400195d328bd13c4e6a5a0c4"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">chrono</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">high_resolution_clock</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">clock_t</span></span></span><a class="headerlink" href="#_CPPv4N7sequant9TimerPool7clock_tE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant9TimerPool12time_point_tE">
+<span id="_CPPv3N7sequant9TimerPool12time_point_tE"></span><span id="_CPPv2N7sequant9TimerPool12time_point_tE"></span><span id="sequant::TimerPool::time_point_t"></span><span class="target" id="classsequant_1_1_timer_pool_1a0dd36f02a43e56f50539348bf5572316"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">chrono</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">time_point</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N7sequant9TimerPool7clock_tE" title="sequant::TimerPool::clock_t"><span class="n"><span class="pre">clock_t</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">time_point_t</span></span></span><a class="headerlink" href="#_CPPv4N7sequant9TimerPool12time_point_tE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant9TimerPool9TimerPoolEv">
+<span id="_CPPv3N7sequant9TimerPool9TimerPoolEv"></span><span id="_CPPv2N7sequant9TimerPool9TimerPoolEv"></span><span id="sequant::TimerPool::TimerPool"></span><span class="target" id="classsequant_1_1_timer_pool_1a0c06acffccea46f72909af0e292a4baf"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TimerPool</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7sequant9TimerPool9TimerPoolEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant9TimerPool16set_now_overheadE6size_t">
+<span id="_CPPv3N7sequant9TimerPool16set_now_overheadE6size_t"></span><span id="_CPPv2N7sequant9TimerPool16set_now_overheadE6size_t"></span><span id="sequant::TimerPool::set_now_overhead__s"></span><span class="target" id="classsequant_1_1_timer_pool_1a9aec0bd277718d80e2c2a9818bbc6032"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">set_now_overhead</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ns</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7sequant9TimerPool16set_now_overheadE6size_t" title="Link to this definition"></a><br /></dt>
+<dd><p>use this to report the overhead of <a class="reference internal" href="#classsequant_1_1_timer_pool_1ae91b4993fda63c27aadca039db51a4d8"><span class="std std-ref">now()</span></a> call; if set, the reported timings will be adjusted for this overhead </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>this is clearly compiler and system dependent, please measure carefully (turn off turboboost, etc.) </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ns</strong> – overhead in nanoseconds </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant9TimerPool5startE6size_t">
+<span id="_CPPv3N7sequant9TimerPool5startE6size_t"></span><span id="_CPPv2N7sequant9TimerPool5startE6size_t"></span><span id="sequant::TimerPool::start__s"></span><span class="target" id="classsequant_1_1_timer_pool_1a8e5fba6a7f842f25968c9fe07737253f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">start</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">t</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7sequant9TimerPool5startE6size_t" title="Link to this definition"></a><br /></dt>
+<dd><p>starts timer <code class="docutils literal notranslate"><span class="pre">t</span></code></p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant9TimerPool4stopE6size_t">
+<span id="_CPPv3N7sequant9TimerPool4stopE6size_t"></span><span id="_CPPv2N7sequant9TimerPool4stopE6size_t"></span><span id="sequant::TimerPool::stop__s"></span><span class="target" id="classsequant_1_1_timer_pool_1acf1d591aa9bc3c110e239c7a1e44bcff"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N7sequant9TimerPool5dur_tE" title="sequant::TimerPool::dur_t"><span class="n"><span class="pre">dur_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">stop</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">t</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7sequant9TimerPool4stopE6size_t" title="Link to this definition"></a><br /></dt>
+<dd><p>stops timer <code class="docutils literal notranslate"><span class="pre">t</span></code> </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the duration, corrected for overhead, elapsed since the last call to <code class="docutils literal notranslate"><span class="pre">start(t)</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant9TimerPool4readE6size_t">
+<span id="_CPPv3NK7sequant9TimerPool4readE6size_t"></span><span id="_CPPv2NK7sequant9TimerPool4readE6size_t"></span><span id="sequant::TimerPool::read__sC"></span><span class="target" id="classsequant_1_1_timer_pool_1a95c63f4994125bb859d6ede5f89e473c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">read</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">t</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7sequant9TimerPool4readE6size_t" title="Link to this definition"></a><br /></dt>
+<dd><p>reads value (in seconds) of timer <code class="docutils literal notranslate"><span class="pre">t</span></code> , converted to <code class="docutils literal notranslate"><span class="pre">double</span></code></p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant9TimerPool5clearEv">
+<span id="_CPPv3N7sequant9TimerPool5clearEv"></span><span id="_CPPv2N7sequant9TimerPool5clearEv"></span><span id="sequant::TimerPool::clear"></span><span class="target" id="classsequant_1_1_timer_pool_1a1fd0e20f1ceb905f16e19e29a3d490c6"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">clear</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7sequant9TimerPool5clearEv" title="Link to this definition"></a><br /></dt>
+<dd><p>resets timers to zero </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant9TimerPool3nowEv">
+<span id="_CPPv3N7sequant9TimerPool3nowEv"></span><span id="_CPPv2N7sequant9TimerPool3nowEv"></span><span id="sequant::TimerPool::now"></span><span class="target" id="classsequant_1_1_timer_pool_1ae91b4993fda63c27aadca039db51a4d8"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N7sequant9TimerPool12time_point_tE" title="sequant::TimerPool::time_point_t"><span class="n"><span class="pre">time_point_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">now</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7sequant9TimerPool3nowEv" title="Link to this definition"></a><br /></dt>
+<dd><p>returns the current time point </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Valeev Research Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

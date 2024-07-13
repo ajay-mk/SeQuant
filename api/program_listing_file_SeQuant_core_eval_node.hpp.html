@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Program Listing for File eval_node.hpp &mdash; SeQuant  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<link href="../_static/style.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SeQuant
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html">SeQuant: symbolic tensor algebra in C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#synopsis">Synopsis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#getting-started">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#build-harness">Build harness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#using">Using</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#id1">Getting Started</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#register-index-spaces">Register Index Spaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#quasiparticles">Quasiparticles</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#operators">Operators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#developers">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#acknowledgement">Acknowledgement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/install.html">SeQuant: installation guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#tl-dr">TL;DR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#configure">Configure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../source/install.html#useful-cmake-variables">Useful CMake variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#build">Build</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SeQuant</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Program Listing for File eval_node.hpp</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ajay-mk/SeQuant/blob/master/doc/sphinx/api/program_listing_file_SeQuant_core_eval_node.hpp.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="program-listing-for-file-eval-node-hpp">
+<span id="program-listing-file-sequant-core-eval-node-hpp"></span><h1>Program Listing for File eval_node.hpp<a class="headerlink" href="#program-listing-for-file-eval-node-hpp" title="Link to this heading"></a></h1>
+<p>↰ <a class="reference internal" href="file_SeQuant_core_eval_node.hpp.html#file-sequant-core-eval-node-hpp"><span class="std std-ref">Return to documentation for file</span></a> (<code class="docutils literal notranslate"><span class="pre">SeQuant/core/eval_node.hpp</span></code>)</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">//</span>
+<span class="c1">// Created by Bimal Gaudel on 5/24/21.</span>
+<span class="c1">//</span>
+
+<span class="cp">#ifndef SEQUANT_EVAL_NODE_HPP</span>
+<span class="cp">#define SEQUANT_EVAL_NODE_HPP</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;SeQuant/core/asy_cost.hpp&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;SeQuant/core/binary_node.hpp&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;SeQuant/core/eval_expr.hpp&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;SeQuant/core/math.hpp&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;SeQuant/core/tensor.hpp&gt;</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">sequant</span><span class="w"> </span><span class="p">{</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">void</span><span class="o">&gt;</span>
+<span class="k">constexpr</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">IsEvalExpr</span><span class="p">{};</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">constexpr</span><span class="w"> </span><span class="kt">bool</span>
+<span class="w">    </span><span class="n">IsEvalExpr</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">enable_if_t</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_convertible_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">EvalExpr</span><span class="o">&gt;&gt;&gt;</span><span class="p">{</span><span class="nb">true</span><span class="p">};</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">void</span><span class="o">&gt;</span>
+<span class="k">constexpr</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">IsEvalNode</span><span class="p">{};</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">constexpr</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">IsEvalNode</span><span class="o">&lt;</span><span class="n">FullBinaryNode</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">enable_if_t</span><span class="o">&lt;</span><span class="n">IsEvalExpr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;&gt;</span><span class="p">{</span>
+<span class="w">    </span><span class="nb">true</span><span class="p">};</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">constexpr</span><span class="w"> </span><span class="kt">bool</span>
+<span class="w">    </span><span class="n">IsEvalNode</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="n">FullBinaryNode</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">enable_if_t</span><span class="o">&lt;</span><span class="n">IsEvalExpr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;&gt;</span><span class="p">{</span><span class="nb">true</span><span class="p">};</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span>
+<span class="w">          </span><span class="k">typename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">enable_if_t</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_convertible_v</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">EvalExpr</span><span class="o">&gt;&gt;&gt;</span>
+<span class="k">using</span><span class="w"> </span><span class="n">EvalNode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FullBinaryNode</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">void</span><span class="o">&gt;</span>
+<span class="k">constexpr</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">IsIterableOfEvalNodes</span><span class="p">{};</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">Iterable</span><span class="o">&gt;</span>
+<span class="k">constexpr</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">IsIterableOfEvalNodes</span><span class="o">&lt;</span>
+<span class="w">    </span><span class="n">Iterable</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">enable_if_t</span><span class="o">&lt;</span><span class="n">IsEvalNode</span><span class="o">&lt;</span><span class="n">meta</span><span class="o">::</span><span class="n">range_value_t</span><span class="o">&lt;</span><span class="n">Iterable</span><span class="o">&gt;&gt;&gt;&gt;</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="nb">true</span><span class="p">;</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">ExprT</span><span class="p">,</span>
+<span class="w">          </span><span class="n">std</span><span class="o">::</span><span class="n">enable_if_t</span><span class="o">&lt;</span><span class="n">IsEvalExpr</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">ExprT</span><span class="o">&gt;&gt;</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="o">&gt;</span>
+<span class="n">EvalNode</span><span class="o">&lt;</span><span class="n">ExprT</span><span class="o">&gt;</span><span class="w"> </span><span class="n">eval_node</span><span class="p">(</span><span class="n">ExprPtr</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">expr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">using</span><span class="w"> </span><span class="n">ranges</span><span class="o">::</span><span class="n">accumulate</span><span class="p">;</span>
+<span class="w">  </span><span class="k">using</span><span class="w"> </span><span class="n">ranges</span><span class="o">::</span><span class="n">views</span><span class="o">::</span><span class="n">tail</span><span class="p">;</span>
+<span class="w">  </span><span class="k">using</span><span class="w"> </span><span class="n">ranges</span><span class="o">::</span><span class="n">views</span><span class="o">::</span><span class="n">transform</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">expr</span><span class="o">-&gt;</span><span class="n">is</span><span class="o">&lt;</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="p">())</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">EvalNode</span><span class="o">&lt;</span><span class="n">ExprT</span><span class="o">&gt;</span><span class="p">{</span><span class="n">ExprT</span><span class="p">{</span><span class="n">expr</span><span class="o">-&gt;</span><span class="n">as</span><span class="o">&lt;</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="p">()}};</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">expr</span><span class="o">-&gt;</span><span class="n">is</span><span class="o">&lt;</span><span class="n">Constant</span><span class="o">&gt;</span><span class="p">())</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">EvalNode</span><span class="o">&lt;</span><span class="n">ExprT</span><span class="o">&gt;</span><span class="p">{</span><span class="n">ExprT</span><span class="p">{</span><span class="n">expr</span><span class="o">-&gt;</span><span class="n">as</span><span class="o">&lt;</span><span class="n">Constant</span><span class="o">&gt;</span><span class="p">()}};</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">expr</span><span class="o">-&gt;</span><span class="n">is</span><span class="o">&lt;</span><span class="n">Variable</span><span class="o">&gt;</span><span class="p">())</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">EvalNode</span><span class="o">&lt;</span><span class="n">ExprT</span><span class="o">&gt;</span><span class="p">{</span><span class="n">ExprT</span><span class="p">{</span><span class="n">expr</span><span class="o">-&gt;</span><span class="n">as</span><span class="o">&lt;</span><span class="n">Variable</span><span class="o">&gt;</span><span class="p">()}};</span>
+<span class="w">  </span><span class="n">assert</span><span class="p">(</span><span class="n">expr</span><span class="o">-&gt;</span><span class="n">is</span><span class="o">&lt;</span><span class="n">Sum</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">expr</span><span class="o">-&gt;</span><span class="n">is</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">());</span>
+
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">subxprs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">expr</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ranges</span><span class="o">::</span><span class="n">views</span><span class="o">::</span><span class="n">transform</span><span class="p">([](</span><span class="k">auto</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">eval_node</span><span class="o">&lt;</span><span class="n">ExprT</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+<span class="w">  </span><span class="p">})</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ranges</span><span class="o">::</span><span class="n">to_vector</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">expr</span><span class="o">-&gt;</span><span class="n">is</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">prod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">expr</span><span class="o">-&gt;</span><span class="n">as</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">prod</span><span class="p">.</span><span class="n">scalar</span><span class="p">()</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="w">      </span><span class="n">subxprs</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="n">eval_node</span><span class="o">&lt;</span><span class="n">ExprT</span><span class="o">&gt;</span><span class="p">(</span><span class="n">ex</span><span class="o">&lt;</span><span class="n">Constant</span><span class="o">&gt;</span><span class="p">(</span><span class="n">prod</span><span class="p">.</span><span class="n">scalar</span><span class="p">())));</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">op</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">expr</span><span class="o">-&gt;</span><span class="n">is</span><span class="o">&lt;</span><span class="n">Sum</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">EvalOp</span><span class="o">::</span><span class="n">Sum</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">EvalOp</span><span class="o">::</span><span class="n">Prod</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">bnode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ranges</span><span class="o">::</span><span class="n">accumulate</span><span class="p">(</span>
+<span class="w">      </span><span class="n">ranges</span><span class="o">::</span><span class="n">views</span><span class="o">::</span><span class="n">tail</span><span class="p">(</span><span class="n">subxprs</span><span class="p">),</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="o">*</span><span class="n">subxprs</span><span class="p">.</span><span class="n">begin</span><span class="p">()),</span>
+<span class="w">      </span><span class="p">[</span><span class="n">op</span><span class="p">](</span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">lnode</span><span class="p">,</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">rnode</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">pxpr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ExprT</span><span class="p">{</span><span class="o">*</span><span class="n">lnode</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">rnode</span><span class="p">,</span><span class="w"> </span><span class="n">op</span><span class="p">};</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">EvalNode</span><span class="o">&lt;</span><span class="n">ExprT</span><span class="o">&gt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">pxpr</span><span class="p">),</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">lnode</span><span class="p">),</span>
+<span class="w">                               </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">rnode</span><span class="p">));</span>
+<span class="w">      </span><span class="p">});</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">bnode</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">EvalNodeT</span><span class="p">,</span>
+<span class="w">          </span><span class="n">std</span><span class="o">::</span><span class="n">enable_if_t</span><span class="o">&lt;</span><span class="n">IsEvalNode</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">EvalNodeT</span><span class="o">&gt;&gt;</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="o">&gt;</span>
+<span class="n">EvalNodeT</span><span class="w"> </span><span class="n">eval_node</span><span class="p">(</span><span class="n">ExprPtr</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">expr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">eval_node</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">EvalNodeT</span><span class="o">::</span><span class="n">value_type</span><span class="o">&gt;</span><span class="p">(</span><span class="n">expr</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">ExprT</span><span class="o">&gt;</span>
+<span class="n">ExprPtr</span><span class="w"> </span><span class="n">to_expr</span><span class="p">(</span><span class="n">EvalNode</span><span class="o">&lt;</span><span class="n">ExprT</span><span class="o">&gt;</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">node</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">op</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">node</span><span class="o">-&gt;</span><span class="n">op_type</span><span class="p">();</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">evxpr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">node</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">leaf</span><span class="p">())</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">evxpr</span><span class="p">.</span><span class="n">expr</span><span class="p">();</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">op</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">EvalOp</span><span class="o">::</span><span class="n">Prod</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">prod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Product</span><span class="p">{};</span>
+
+<span class="w">    </span><span class="n">ExprPtr</span><span class="w"> </span><span class="n">lexpr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">to_expr</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">left</span><span class="p">());</span>
+<span class="w">    </span><span class="n">ExprPtr</span><span class="w"> </span><span class="n">rexpr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">to_expr</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">right</span><span class="p">());</span>
+
+<span class="w">    </span><span class="n">prod</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">lexpr</span><span class="p">,</span><span class="w"> </span><span class="n">Product</span><span class="o">::</span><span class="n">Flatten</span><span class="o">::</span><span class="n">No</span><span class="p">);</span>
+<span class="w">    </span><span class="n">prod</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">rexpr</span><span class="p">,</span><span class="w"> </span><span class="n">Product</span><span class="o">::</span><span class="n">Flatten</span><span class="o">::</span><span class="n">No</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="o">!</span><span class="n">prod</span><span class="p">.</span><span class="n">empty</span><span class="p">());</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">prod</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">prod</span><span class="p">.</span><span class="n">factor</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">is</span><span class="o">&lt;</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">ex</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">(</span><span class="n">Product</span><span class="p">{</span><span class="n">prod</span><span class="p">.</span><span class="n">scalar</span><span class="p">(),</span><span class="w"> </span><span class="n">prod</span><span class="p">.</span><span class="n">factor</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">begin</span><span class="p">(),</span>
+<span class="w">                                 </span><span class="n">prod</span><span class="p">.</span><span class="n">factor</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">end</span><span class="p">(),</span><span class="w"> </span><span class="n">Product</span><span class="o">::</span><span class="n">Flatten</span><span class="o">::</span><span class="n">No</span><span class="p">});</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">ex</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">prod</span><span class="p">));</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">op</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">EvalOp</span><span class="o">::</span><span class="n">Sum</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="s">&quot;unsupported operation type&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ex</span><span class="o">&lt;</span><span class="n">Sum</span><span class="o">&gt;</span><span class="p">(</span><span class="n">Sum</span><span class="p">{</span><span class="n">to_expr</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">left</span><span class="p">()),</span><span class="w"> </span><span class="n">to_expr</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">right</span><span class="p">())});</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">ExprT</span><span class="o">&gt;</span>
+<span class="n">ExprPtr</span><span class="w"> </span><span class="n">linearize_eval_node</span><span class="p">(</span><span class="n">EvalNode</span><span class="o">&lt;</span><span class="n">ExprT</span><span class="o">&gt;</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">node</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">leaf</span><span class="p">())</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">to_expr</span><span class="p">(</span><span class="n">node</span><span class="p">);</span>
+
+<span class="w">  </span><span class="n">ExprPtr</span><span class="w"> </span><span class="n">lres</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">linearize_eval_node</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">left</span><span class="p">());</span>
+<span class="w">  </span><span class="n">ExprPtr</span><span class="w"> </span><span class="n">rres</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">linearize_eval_node</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">right</span><span class="p">());</span>
+
+<span class="w">  </span><span class="n">assert</span><span class="p">(</span><span class="n">lres</span><span class="p">);</span>
+<span class="w">  </span><span class="n">assert</span><span class="p">(</span><span class="n">rres</span><span class="p">);</span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">op_type</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">EvalOp</span><span class="o">::</span><span class="n">Sum</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">ex</span><span class="o">&lt;</span><span class="n">Sum</span><span class="o">&gt;</span><span class="p">(</span><span class="n">ExprPtrList</span><span class="p">{</span><span class="n">lres</span><span class="p">,</span><span class="w"> </span><span class="n">rres</span><span class="p">});</span>
+<span class="w">  </span><span class="n">assert</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">op_type</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">EvalOp</span><span class="o">::</span><span class="n">Prod</span><span class="p">);</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">ex</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">      </span><span class="n">Product</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">ExprPtrList</span><span class="p">{</span><span class="n">lres</span><span class="p">,</span><span class="w"> </span><span class="n">rres</span><span class="p">},</span><span class="w"> </span><span class="n">Product</span><span class="o">::</span><span class="n">Flatten</span><span class="o">::</span><span class="n">Yes</span><span class="p">});</span>
+<span class="p">}</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="p">{</span>
+
+<span class="k">enum</span><span class="w"> </span><span class="nc">NodePos</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">Right</span><span class="p">,</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="p">};</span>
+
+<span class="p">[[</span><span class="n">maybe_unused</span><span class="p">]]</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">occ_virt</span><span class="p">(</span><span class="n">Tensor</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">bk_rank</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">bra_rank</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">ket_rank</span><span class="p">();</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">nocc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ranges</span><span class="o">::</span><span class="n">count_if</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">const_braket</span><span class="p">(),</span><span class="w"> </span><span class="p">[](</span><span class="n">Index</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">idx</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">idx</span><span class="p">.</span><span class="n">space</span><span class="p">()</span><span class="w"> </span><span class="o">==</span>
+<span class="w">           </span><span class="n">get_default_context</span><span class="p">().</span><span class="n">index_space_registry</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">hole_space</span><span class="p">(</span>
+<span class="w">               </span><span class="n">idx</span><span class="p">.</span><span class="n">space</span><span class="p">().</span><span class="n">qns</span><span class="p">());</span>
+<span class="w">  </span><span class="p">});</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">nvirt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bk_rank</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">nocc</span><span class="p">;</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="n">nocc</span><span class="p">,</span><span class="w"> </span><span class="n">nvirt</span><span class="p">};</span>
+<span class="p">}</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ContractedIndexCount</span><span class="w"> </span><span class="p">{</span>
+<span class="w"> </span><span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">NodeT</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">enable_if_t</span><span class="o">&lt;</span><span class="n">IsEvalNode</span><span class="o">&lt;</span><span class="n">NodeT</span><span class="o">&gt;&gt;&gt;</span>
+<span class="w">  </span><span class="k">explicit</span><span class="w"> </span><span class="n">ContractedIndexCount</span><span class="p">(</span><span class="n">NodeT</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">L</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NodePos</span><span class="o">::</span><span class="n">Left</span><span class="p">;</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">R</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NodePos</span><span class="o">::</span><span class="n">Right</span><span class="p">;</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NodePos</span><span class="o">::</span><span class="n">This</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="n">n</span><span class="o">-&gt;</span><span class="n">is_tensor</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">n</span><span class="p">.</span><span class="n">left</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">is_tensor</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">n</span><span class="p">.</span><span class="n">right</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">is_tensor</span><span class="p">());</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="n">L</span><span class="p">,</span><span class="w"> </span><span class="n">R</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="p">})</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">auto</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">L</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">n</span><span class="p">.</span><span class="n">left</span><span class="p">()</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">R</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">n</span><span class="p">.</span><span class="n">right</span><span class="p">()</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">as_tensor</span><span class="p">();</span>
+<span class="w">      </span><span class="n">std</span><span class="o">::</span><span class="n">tie</span><span class="p">(</span><span class="n">occs_</span><span class="p">[</span><span class="n">p</span><span class="p">],</span><span class="w"> </span><span class="n">virts_</span><span class="p">[</span><span class="n">p</span><span class="p">])</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">occ_virt</span><span class="p">(</span><span class="n">t</span><span class="p">);</span>
+<span class="w">      </span><span class="n">ranks_</span><span class="p">[</span><span class="n">p</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">occs_</span><span class="p">[</span><span class="n">p</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">virts_</span><span class="p">[</span><span class="n">p</span><span class="p">];</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// no. of contractions in occupied index space (always a whole number)</span>
+<span class="w">    </span><span class="n">occ_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">occs_</span><span class="p">[</span><span class="n">L</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">occs_</span><span class="p">[</span><span class="n">R</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">occs_</span><span class="p">[</span><span class="n">T</span><span class="p">])</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// no. of contractions in virtual index space (always a whole number)</span>
+<span class="w">    </span><span class="n">virt_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">virts_</span><span class="p">[</span><span class="n">L</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">virts_</span><span class="p">[</span><span class="n">R</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">virts_</span><span class="p">[</span><span class="n">T</span><span class="p">])</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+
+<span class="w">    </span><span class="n">is_outerprod_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ranks_</span><span class="p">[</span><span class="n">L</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ranks_</span><span class="p">[</span><span class="n">R</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ranks_</span><span class="p">[</span><span class="n">T</span><span class="p">];</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="p">[[</span><span class="n">nodiscard</span><span class="p">]]</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">occ</span><span class="p">(</span><span class="n">NodePos</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">occs_</span><span class="p">[</span><span class="n">p</span><span class="p">];</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">  </span><span class="p">[[</span><span class="n">nodiscard</span><span class="p">]]</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">virt</span><span class="p">(</span><span class="n">NodePos</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">virts_</span><span class="p">[</span><span class="n">p</span><span class="p">];</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">  </span><span class="p">[[</span><span class="n">nodiscard</span><span class="p">]]</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">rank</span><span class="p">(</span><span class="n">NodePos</span><span class="w"> </span><span class="n">p</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">ranks_</span><span class="p">[</span><span class="n">p</span><span class="p">];</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">  </span><span class="p">[[</span><span class="n">nodiscard</span><span class="p">]]</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">occ</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">occ_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">  </span><span class="p">[[</span><span class="n">nodiscard</span><span class="p">]]</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">virt</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">virt_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">  </span><span class="p">[[</span><span class="n">nodiscard</span><span class="p">]]</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">is_outerpod</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">is_outerprod_</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">  </span><span class="p">[[</span><span class="n">nodiscard</span><span class="p">]]</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">unique_occs</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">occ</span><span class="p">(</span><span class="n">NodePos</span><span class="o">::</span><span class="n">Left</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">occ</span><span class="p">(</span><span class="n">NodePos</span><span class="o">::</span><span class="n">Right</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">occ</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="p">[[</span><span class="n">nodiscard</span><span class="p">]]</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">unique_virts</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">virt</span><span class="p">(</span><span class="n">NodePos</span><span class="o">::</span><span class="n">Left</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">virt</span><span class="p">(</span><span class="n">NodePos</span><span class="o">::</span><span class="n">Right</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">virt</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w"> </span><span class="k">private</span><span class="o">:</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="o">&gt;</span><span class="w"> </span><span class="n">occs_</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">};</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="o">&gt;</span><span class="w"> </span><span class="n">virts_</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">};</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">size_t</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ranks_</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">};</span>
+<span class="w">  </span><span class="kt">size_t</span><span class="w"> </span><span class="n">occ_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">size_t</span><span class="w"> </span><span class="n">virt_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">bool</span><span class="w"> </span><span class="n">is_outerprod_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="p">}</span><span class="w">  </span><span class="c1">// namespace</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">Flops</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">NodeT</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">enable_if_t</span><span class="o">&lt;</span><span class="n">IsEvalNode</span><span class="o">&lt;</span><span class="n">NodeT</span><span class="o">&gt;&gt;&gt;</span>
+<span class="w">  </span><span class="p">[[</span><span class="n">nodiscard</span><span class="p">]]</span><span class="w"> </span><span class="n">AsyCost</span><span class="w"> </span><span class="k">operator</span><span class="p">()(</span><span class="n">NodeT</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="p">.</span><span class="n">leaf</span><span class="p">())</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">AsyCost</span><span class="o">::</span><span class="n">zero</span><span class="p">();</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="o">-&gt;</span><span class="n">op_type</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">EvalOp</span><span class="o">::</span><span class="n">Prod</span><span class="w">  </span><span class="c1">//</span>
+<span class="w">        </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">n</span><span class="p">.</span><span class="n">left</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">is_tensor</span><span class="p">()</span><span class="w">      </span><span class="c1">//</span>
+<span class="w">        </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">n</span><span class="p">.</span><span class="n">right</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">is_tensor</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">auto</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">idx_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ContractedIndexCount</span><span class="p">{</span><span class="n">n</span><span class="p">};</span>
+<span class="w">      </span><span class="k">auto</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AsyCost</span><span class="p">{</span><span class="n">idx_count</span><span class="p">.</span><span class="n">unique_occs</span><span class="p">(),</span><span class="w"> </span><span class="n">idx_count</span><span class="p">.</span><span class="n">unique_virts</span><span class="p">()};</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">idx_count</span><span class="p">.</span><span class="n">is_outerpod</span><span class="p">()</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="o">-&gt;</span><span class="n">is_tensor</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// scalar times a tensor</span>
+<span class="w">      </span><span class="c1">// or a tensor plus a tensor</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">AsyCost</span><span class="p">{</span><span class="n">occ_virt</span><span class="p">(</span><span class="n">n</span><span class="o">-&gt;</span><span class="n">as_tensor</span><span class="p">())};</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="cm">/* scalar (+|*) scalar */</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">AsyCost</span><span class="o">::</span><span class="n">zero</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">Memory</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">NodeT</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">enable_if_t</span><span class="o">&lt;</span><span class="n">IsEvalNode</span><span class="o">&lt;</span><span class="n">NodeT</span><span class="o">&gt;&gt;&gt;</span>
+<span class="w">  </span><span class="p">[[</span><span class="n">nodiscard</span><span class="p">]]</span><span class="w"> </span><span class="n">AsyCost</span><span class="w"> </span><span class="k">operator</span><span class="p">()(</span><span class="n">NodeT</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">AsyCost</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">add_cost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="n">result</span><span class="p">](</span><span class="n">ExprPtr</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">expr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">result</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">expr</span><span class="p">.</span><span class="n">is</span><span class="o">&lt;</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">AsyCost</span><span class="p">{</span><span class="n">occ_virt</span><span class="p">(</span><span class="n">expr</span><span class="p">.</span><span class="n">as</span><span class="o">&lt;</span><span class="n">Tensor</span><span class="o">&gt;</span><span class="p">())}</span>
+<span class="w">                                  </span><span class="o">:</span><span class="w"> </span><span class="n">AsyCost</span><span class="o">::</span><span class="n">zero</span><span class="p">();</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="n">add_cost</span><span class="p">(</span><span class="n">n</span><span class="p">.</span><span class="n">left</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">expr</span><span class="p">());</span>
+<span class="w">    </span><span class="n">add_cost</span><span class="p">(</span><span class="n">n</span><span class="p">.</span><span class="n">right</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">expr</span><span class="p">());</span>
+<span class="w">    </span><span class="n">add_cost</span><span class="p">(</span><span class="n">n</span><span class="o">-&gt;</span><span class="n">expr</span><span class="p">());</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">FlopsWithSymm</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">NodeT</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">enable_if_t</span><span class="o">&lt;</span><span class="n">IsEvalNode</span><span class="o">&lt;</span><span class="n">NodeT</span><span class="o">&gt;&gt;&gt;</span>
+<span class="w">  </span><span class="p">[[</span><span class="n">nodiscard</span><span class="p">]]</span><span class="w"> </span><span class="n">AsyCost</span><span class="w"> </span><span class="k">operator</span><span class="p">()(</span><span class="n">NodeT</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">cost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Flops</span><span class="p">{}(</span><span class="n">n</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="p">.</span><span class="n">leaf</span><span class="p">()</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="p">(</span><span class="n">n</span><span class="o">-&gt;</span><span class="n">is_tensor</span><span class="p">()</span><span class="w">            </span><span class="c1">//</span>
+<span class="w">                      </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">n</span><span class="p">.</span><span class="n">left</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">is_tensor</span><span class="p">()</span><span class="w">  </span><span class="c1">//</span>
+<span class="w">                      </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">n</span><span class="p">.</span><span class="n">right</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">is_tensor</span><span class="p">()))</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">cost</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// confirmed:</span>
+<span class="w">    </span><span class="c1">// left, right and this node</span>
+<span class="w">    </span><span class="c1">// all have tensor expression</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="o">-&gt;</span><span class="n">as_tensor</span><span class="p">();</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">tsymm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">symmetry</span><span class="p">();</span>
+<span class="w">    </span><span class="c1">//</span>
+
+<span class="w">    </span><span class="c1">// ------</span>
+<span class="w">    </span><span class="c1">// the rules of cost reduction are taken from</span>
+<span class="w">    </span><span class="c1">//   doi:10.1016/j.procs.2012.04.044</span>
+<span class="w">    </span><span class="c1">// ------</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">tsymm</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">Symmetry</span><span class="o">::</span><span class="n">symm</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">tsymm</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">Symmetry</span><span class="o">::</span><span class="n">antisymm</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">auto</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">op</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="o">-&gt;</span><span class="n">op_type</span><span class="p">();</span>
+<span class="w">      </span><span class="k">auto</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">tbrank</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">bra_rank</span><span class="p">();</span>
+<span class="w">      </span><span class="k">auto</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">tkrank</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="n">ket_rank</span><span class="p">();</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">op</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">EvalOp</span><span class="o">::</span><span class="n">Sum</span><span class="p">)</span>
+<span class="w">        </span><span class="n">cost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tsymm</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">Symmetry</span><span class="o">::</span><span class="n">symm</span>
+<span class="w">                   </span><span class="o">?</span><span class="w"> </span><span class="n">cost</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">factorial</span><span class="p">(</span><span class="n">tbrank</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">factorial</span><span class="p">(</span><span class="n">tkrank</span><span class="p">))</span>
+<span class="w">                   </span><span class="o">:</span><span class="w"> </span><span class="n">cost</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">factorial</span><span class="p">(</span><span class="n">tbrank</span><span class="p">);</span>
+<span class="w">      </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">op</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">EvalOp</span><span class="o">::</span><span class="n">Prod</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">lsymm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">.</span><span class="n">left</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">as_tensor</span><span class="p">().</span><span class="n">symmetry</span><span class="p">();</span>
+<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">rsymm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">.</span><span class="n">right</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">as_tensor</span><span class="p">().</span><span class="n">symmetry</span><span class="p">();</span>
+<span class="w">        </span><span class="n">cost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">lsymm</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">rsymm</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">lsymm</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">Symmetry</span><span class="o">::</span><span class="n">nonsymm</span><span class="p">)</span>
+<span class="w">                   </span><span class="o">?</span><span class="w"> </span><span class="n">cost</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">factorial</span><span class="p">(</span><span class="n">tbrank</span><span class="p">)</span>
+<span class="w">                   </span><span class="o">:</span><span class="w"> </span><span class="n">cost</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">factorial</span><span class="p">(</span><span class="n">tbrank</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">factorial</span><span class="p">(</span><span class="n">tkrank</span><span class="p">));</span>
+<span class="w">      </span><span class="p">}</span><span class="w"> </span><span class="k">else</span>
+<span class="w">        </span><span class="n">assert</span><span class="p">(</span><span class="nb">false</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">               </span><span class="s">&quot;Unsupported evaluation operation for asymptotic cost &quot;</span>
+<span class="w">               </span><span class="s">&quot;computation.&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">cost</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">NodeT</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">F</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Flops</span><span class="p">,</span>
+<span class="w">          </span><span class="k">typename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">enable_if_t</span><span class="o">&lt;</span><span class="n">IsEvalNode</span><span class="o">&lt;</span><span class="n">NodeT</span><span class="o">&gt;&gt;</span><span class="p">,</span>
+<span class="w">          </span><span class="k">typename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">enable_if_t</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_invocable_r_v</span><span class="o">&lt;</span><span class="n">AsyCost</span><span class="p">,</span><span class="w"> </span><span class="n">F</span><span class="p">,</span><span class="w"> </span><span class="n">NodeT</span><span class="o">&gt;&gt;&gt;</span>
+<span class="n">AsyCost</span><span class="w"> </span><span class="n">asy_cost</span><span class="p">(</span><span class="n">NodeT</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">node</span><span class="p">,</span><span class="w"> </span><span class="n">F</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">cost_fn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{})</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">node</span><span class="p">.</span><span class="n">leaf</span><span class="p">()</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">cost_fn</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+<span class="w">                     </span><span class="o">:</span><span class="w"> </span><span class="n">asy_cost</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">left</span><span class="p">(),</span><span class="w"> </span><span class="n">cost_fn</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">                           </span><span class="n">asy_cost</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">right</span><span class="p">(),</span><span class="w"> </span><span class="n">cost_fn</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">cost_fn</span><span class="p">(</span><span class="n">node</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">NodeT</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">enable_if_t</span><span class="o">&lt;</span><span class="n">IsEvalNode</span><span class="o">&lt;</span><span class="n">NodeT</span><span class="o">&gt;&gt;&gt;</span>
+<span class="n">AsyCost</span><span class="w"> </span><span class="n">min_storage</span><span class="p">(</span><span class="n">NodeT</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">node</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AsyCost</span><span class="o">::</span><span class="n">zero</span><span class="p">();</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">visitor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="n">result</span><span class="p">](</span><span class="n">NodeT</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">cost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AsyCost</span><span class="o">::</span><span class="n">zero</span><span class="p">();</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="p">.</span><span class="n">leaf</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">n</span><span class="o">-&gt;</span><span class="n">is_tensor</span><span class="p">())</span>
+<span class="w">      </span><span class="n">cost</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AsyCost</span><span class="p">{</span><span class="n">occ_virt</span><span class="p">(</span><span class="n">n</span><span class="o">-&gt;</span><span class="n">as_tensor</span><span class="p">())};</span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">n</span><span class="p">.</span><span class="n">leaf</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">cost</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="p">.</span><span class="n">left</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">is_tensor</span><span class="p">()</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">AsyCost</span><span class="p">{</span><span class="n">occ_virt</span><span class="p">(</span><span class="n">n</span><span class="p">.</span><span class="n">left</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">as_tensor</span><span class="p">())}</span>
+<span class="w">                                     </span><span class="o">:</span><span class="w"> </span><span class="n">AsyCost</span><span class="o">::</span><span class="n">zero</span><span class="p">());</span>
+<span class="w">      </span><span class="n">cost</span><span class="w"> </span><span class="o">+=</span>
+<span class="w">          </span><span class="p">(</span><span class="n">n</span><span class="p">.</span><span class="n">right</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">is_tensor</span><span class="p">()</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">AsyCost</span><span class="p">{</span><span class="n">occ_virt</span><span class="p">(</span><span class="n">n</span><span class="p">.</span><span class="n">right</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">as_tensor</span><span class="p">())}</span>
+<span class="w">                                  </span><span class="o">:</span><span class="w"> </span><span class="n">AsyCost</span><span class="o">::</span><span class="n">zero</span><span class="p">());</span>
+<span class="w">      </span><span class="n">cost</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="o">-&gt;</span><span class="n">is_tensor</span><span class="p">()</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">AsyCost</span><span class="p">{</span><span class="n">occ_virt</span><span class="p">(</span><span class="n">n</span><span class="o">-&gt;</span><span class="n">as_tensor</span><span class="p">())}</span>
+<span class="w">                              </span><span class="o">:</span><span class="w"> </span><span class="n">AsyCost</span><span class="o">::</span><span class="n">zero</span><span class="p">());</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="c1">// do nothing</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="n">result</span><span class="p">,</span><span class="w"> </span><span class="n">cost</span><span class="p">);</span>
+<span class="w">  </span><span class="p">};</span>
+<span class="w">  </span><span class="n">node</span><span class="p">.</span><span class="n">visit</span><span class="p">(</span><span class="n">visitor</span><span class="p">);</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">}</span><span class="w">  </span><span class="c1">// namespace sequant</span>
+
+<span class="cp">#endif  </span><span class="c1">// SEQUANT_EVAL_NODE_HPP</span>
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Valeev Research Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

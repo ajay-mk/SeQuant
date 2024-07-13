@@ -1,0 +1,14 @@
+.. _exhale_function_namespacesequant_1a0f05ca2952728c46d8f94e76fa28be75:
+
+Function sequant::ket
+=====================
+
+- Defined in :ref:`file_SeQuant_core_abstract_tensor.hpp`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: sequant::ket()
+   :project: SeQuant

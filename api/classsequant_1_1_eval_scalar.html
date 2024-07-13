@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Template Class EvalScalar &mdash; SeQuant  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<link href="../_static/style.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SeQuant
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html">SeQuant: symbolic tensor algebra in C++</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#synopsis">Synopsis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#getting-started">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#build-harness">Build harness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#using">Using</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#id1">Getting Started</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#register-index-spaces">Register Index Spaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/readme.html#quasiparticles">Quasiparticles</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../source/readme.html#operators">Operators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#developers">Developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/readme.html#acknowledgement">Acknowledgement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source/install.html">SeQuant: installation guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#tl-dr">TL;DR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#configure">Configure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../source/install.html#useful-cmake-variables">Useful CMake variables</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../source/install.html#build">Build</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SeQuant</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Template Class EvalScalar</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ajay-mk/SeQuant/blob/master/doc/sphinx/api/classsequant_1_1_eval_scalar.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="template-class-evalscalar">
+<span id="exhale-class-classsequant-1-1-eval-scalar"></span><h1>Template Class EvalScalar<a class="headerlink" href="#template-class-evalscalar" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_SeQuant_domain_eval_eval_result.hpp.html#file-sequant-domain-eval-eval-result-hpp"><span class="std std-ref">File eval_result.hpp</span></a></p></li>
+</ul>
+<section id="inheritance-relationships">
+<h2>Inheritance Relationships<a class="headerlink" href="#inheritance-relationships" title="Link to this heading"></a></h2>
+<section id="base-type">
+<h3>Base Type<a class="headerlink" href="#base-type" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">sequant::EvalResult</span></code> (<a class="reference internal" href="classsequant_1_1_eval_result.html#exhale-class-classsequant-1-1-eval-result"><span class="std std-ref">Class EvalResult</span></a>)</p></li>
+</ul>
+</section>
+</section>
+<section id="class-documentation">
+<h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Link to this heading"></a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN7sequant10EvalScalarE">
+<span id="_CPPv3I0EN7sequant10EvalScalarE"></span><span id="_CPPv2I0EN7sequant10EvalScalarE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classsequant_1_1_eval_scalar"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EvalScalar</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">sequant</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="classsequant_1_1_eval_result.html#_CPPv4N7sequant10EvalResultE" title="sequant::EvalResult"><span class="n"><span class="pre">EvalResult</span></span></a><a class="headerlink" href="#_CPPv4I0EN7sequant10EvalScalarE" title="Link to this definition"></a><br /></dt>
+<dd><p><a class="reference internal" href="classsequant_1_1_eval_result.html#classsequant_1_1_eval_result"><span class="std std-ref">EvalResult</span></a> for a constant or a variable value. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – numeric type of the constant value (eg. double, complex&lt;double&gt;, etc.) </p>
+</dd>
+</dl>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant10EvalScalar4id_tE">
+<span id="_CPPv3N7sequant10EvalScalar4id_tE"></span><span id="_CPPv2N7sequant10EvalScalar4id_tE"></span><span class="target" id="classsequant_1_1_eval_scalar_1a28e2a5741371fd722ded1eaa27732d38"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">id_t</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><a class="headerlink" href="#_CPPv4N7sequant10EvalScalar4id_tE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant10EvalScalar10EvalScalarE1T">
+<span id="_CPPv3N7sequant10EvalScalar10EvalScalarE1T"></span><span id="_CPPv2N7sequant10EvalScalar10EvalScalarE1T"></span><span id="sequant::EvalScalar::EvalScalar__T"></span><span class="target" id="classsequant_1_1_eval_scalar_1a1df5f879df6efd747fba37c5c5aa3301"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EvalScalar</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0EN7sequant10EvalScalarE" title="sequant::EvalScalar::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">v</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N7sequant10EvalScalar10EvalScalarE1T" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant10EvalScalar5valueEv">
+<span id="_CPPv3NK7sequant10EvalScalar5valueEv"></span><span id="_CPPv2NK7sequant10EvalScalar5valueEv"></span><span id="sequant::EvalScalar::valueC"></span><span class="target" id="classsequant_1_1_eval_scalar_1a0d4d38f08d7d2e1544a96f0518e3b370"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN7sequant10EvalScalarE" title="sequant::EvalScalar::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">value</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK7sequant10EvalScalar5valueEv" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant10EvalScalar3sumERK10EvalResultRKNSt5arrayINSt3anyEXL3EEEE">
+<span id="_CPPv3NK7sequant10EvalScalar3sumERK10EvalResultRKNSt5arrayINSt3anyEXL3EEEE"></span><span id="_CPPv2NK7sequant10EvalScalar3sumERK10EvalResultRKNSt5arrayINSt3anyEX3EEE"></span><span id="sequant::EvalScalar::sum__EvalResultCR.std::array:std::any.3:CRC"></span><span class="target" id="classsequant_1_1_eval_scalar_1ac979dc3bd963a54b9745def94eba5b1b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="typedef_namespacesequant_1aaff28ffc714c2758a30dc54d7d4ee290.html#_CPPv4N7sequant5ERPtrE" title="sequant::ERPtr"><span class="n"><span class="pre">ERPtr</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">sum</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classsequant_1_1_eval_result.html#_CPPv4N7sequant10EvalResultE" title="sequant::EvalResult"><span class="n"><span class="pre">EvalResult</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">array</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">any</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK7sequant10EvalScalar3sumERK10EvalResultRKNSt5arrayINSt3anyEXL3EEEE" title="Link to this definition"></a><br /></dt>
+<dd><p><a class="reference internal" href="classsequant_1_1_sum.html#classsequant_1_1_sum"><span class="std std-ref">Sum</span></a> other <a class="reference internal" href="classsequant_1_1_eval_result.html#classsequant_1_1_eval_result"><span class="std std-ref">EvalResult</span></a> object with this object. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In std::array&lt;std::any, 3&gt; is expected to be [l,r,res] where the elements are the annotations for left, right and result respectively. </p>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant10EvalScalar4prodERK10EvalResultRKNSt5arrayINSt3anyEXL3EEEEN2TA6DeNestE">
+<span id="_CPPv3NK7sequant10EvalScalar4prodERK10EvalResultRKNSt5arrayINSt3anyEXL3EEEEN2TA6DeNestE"></span><span id="_CPPv2NK7sequant10EvalScalar4prodERK10EvalResultRKNSt5arrayINSt3anyEX3EEEN2TA6DeNestE"></span><span id="sequant::EvalScalar::prod__EvalResultCR.std::array:std::any.3:CR.TA::DeNestC"></span><span class="target" id="classsequant_1_1_eval_scalar_1afb4d6647fe50cba85d249ec00db69635"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="typedef_namespacesequant_1aaff28ffc714c2758a30dc54d7d4ee290.html#_CPPv4N7sequant5ERPtrE" title="sequant::ERPtr"><span class="n"><span class="pre">ERPtr</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">prod</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classsequant_1_1_eval_result.html#_CPPv4N7sequant10EvalResultE" title="sequant::EvalResult"><span class="n"><span class="pre">EvalResult</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">array</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">any</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">maybe_empty</span></span>, <span class="n"><span class="pre">TA</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">DeNest</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">DeNestFlag</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK7sequant10EvalScalar4prodERK10EvalResultRKNSt5arrayINSt3anyEXL3EEEEN2TA6DeNestE" title="Link to this definition"></a><br /></dt>
+<dd><p>Perform product binary operation with this object and other. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In std::array&lt;std::any, 3&gt; is expected to be [l,r,res] where the elements are the annotations for left, right and result respectively. </p>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant10EvalScalar7permuteERKNSt5arrayINSt3anyEXL2EEEE">
+<span id="_CPPv3NK7sequant10EvalScalar7permuteERKNSt5arrayINSt3anyEXL2EEEE"></span><span id="_CPPv2NK7sequant10EvalScalar7permuteERKNSt5arrayINSt3anyEX2EEE"></span><span id="sequant::EvalScalar::permute__std::array:std::any.2:CRC"></span><span class="target" id="classsequant_1_1_eval_scalar_1a1d188ed5a5f9239d4faefa58ec1e6fe5"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="typedef_namespacesequant_1aaff28ffc714c2758a30dc54d7d4ee290.html#_CPPv4N7sequant5ERPtrE" title="sequant::ERPtr"><span class="n"><span class="pre">ERPtr</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">permute</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">array</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">any</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">2</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK7sequant10EvalScalar7permuteERKNSt5arrayINSt3anyEXL2EEEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Permute this object according to the annotations in the argument. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In std::array&lt;std::any, 2&gt; is expected to be [pre,post] where the elements are the annotations for the eval result before permutation and after permutation respectively. </p>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant10EvalScalar11add_inplaceERK10EvalResult">
+<span id="_CPPv3N7sequant10EvalScalar11add_inplaceERK10EvalResult"></span><span id="_CPPv2N7sequant10EvalScalar11add_inplaceERK10EvalResult"></span><span id="sequant::EvalScalar::add_inplace__EvalResultCR"></span><span class="target" id="classsequant_1_1_eval_scalar_1a3a607f033426efd65f9d06746affff2c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">add_inplace</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="classsequant_1_1_eval_result.html#_CPPv4N7sequant10EvalResultE" title="sequant::EvalResult"><span class="n"><span class="pre">EvalResult</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4N7sequant10EvalScalar11add_inplaceERK10EvalResult" title="Link to this definition"></a><br /></dt>
+<dd><p>Add other <a class="reference internal" href="classsequant_1_1_eval_result.html#classsequant_1_1_eval_result"><span class="std std-ref">EvalResult</span></a> object into this object. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant10EvalScalar10symmetrizeERKN9container7svectorINSt5arrayI6size_tXL3EEEEEE">
+<span id="_CPPv3NK7sequant10EvalScalar10symmetrizeERKN9container7svectorINSt5arrayI6size_tXL3EEEEEE"></span><span id="_CPPv2NK7sequant10EvalScalar10symmetrizeERKN9container7svectorINSt5arrayI6size_tX3EEEEE"></span><span id="sequant::EvalScalar::symmetrize__container::svector:std::array:s.3::CRC"></span><span class="target" id="classsequant_1_1_eval_scalar_1a2ede45f5575c343517c44b4246ac31bb"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="typedef_namespacesequant_1aaff28ffc714c2758a30dc54d7d4ee290.html#_CPPv4N7sequant5ERPtrE" title="sequant::ERPtr"><span class="n"><span class="pre">ERPtr</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">symmetrize</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">container</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="typedef_namespacesequant_1_1container_1a811e88e20a4f0165d2043990f337d84f.html#_CPPv4I0_NSt6size_tEEN7sequant9container7svectorE" title="sequant::container::svector"><span class="n"><span class="pre">svector</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">array</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">size_t</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK7sequant10EvalScalar10symmetrizeERKN9container7svectorINSt5arrayI6size_tXL3EEEEEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Particle symmetrize this eval result according to the list of index groups. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>vector&lt;array&lt;size_t,3&gt;&gt; represents list of particle symmetry index groups. array&lt;size_t, 3&gt; is expected to be [b1, b2, len] where b1, and b2 are the zero-based positions of the tensor indices. [b1, b1+len) and [b2, b2+len) are two ranges that will be permuted simultaneously and at the equivalent positions. </p>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant10EvalScalar14antisymmetrizeERKN9container7svectorINSt5arrayI6size_tXL3EEEEEE">
+<span id="_CPPv3NK7sequant10EvalScalar14antisymmetrizeERKN9container7svectorINSt5arrayI6size_tXL3EEEEEE"></span><span id="_CPPv2NK7sequant10EvalScalar14antisymmetrizeERKN9container7svectorINSt5arrayI6size_tX3EEEEE"></span><span id="sequant::EvalScalar::antisymmetrize__container::svector:std::array:s.3::CRC"></span><span class="target" id="classsequant_1_1_eval_scalar_1a99d22483a79cd7a7f3e42c53708e4c27"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="typedef_namespacesequant_1aaff28ffc714c2758a30dc54d7d4ee290.html#_CPPv4N7sequant5ERPtrE" title="sequant::ERPtr"><span class="n"><span class="pre">ERPtr</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">antisymmetrize</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">container</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="typedef_namespacesequant_1_1container_1a811e88e20a4f0165d2043990f337d84f.html#_CPPv4I0_NSt6size_tEEN7sequant9container7svectorE" title="sequant::container::svector"><span class="n"><span class="pre">svector</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">array</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">size_t</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK7sequant10EvalScalar14antisymmetrizeERKN9container7svectorINSt5arrayI6size_tXL3EEEEEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Particle antisymmetrize this eval result according to the list of index groups. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>vector&lt;array&lt;size_t,3&gt;&gt; represents list of antisymmetric index groups. array&lt;size_t,3&gt; is expected to be [b1,b2,len] where b1, and b2 are the zero-based positions of the tensor indices. [b1, b1+len) and [b2, b2+len) are two ranges that will be permuted by keeping track of the parity (even/odd)-ness of the total permutation. </p>
+</div>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Valeev Research Group.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
