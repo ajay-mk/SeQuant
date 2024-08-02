@@ -6,6 +6,7 @@
 #include <SeQuant/core/parse.hpp>
 #include <SeQuant/core/tensor.hpp>
 #include <SeQuant/core/utility/indices.hpp>
+#include <SeQuant/core/utility/strong.hpp>
 
 #include <codecvt>
 #include <iostream>
@@ -148,12 +149,12 @@ TEST_CASE("Singleton", "[utilities]") {
     std::vector<std::thread> threads;
     for (int c = 0; c != 5; ++c)
       threads.emplace_back([]() {
-        CHECK(Singleton<S<EnableDefaultCtor>>::instance()->s() == 0);
+        CHECK(Singleton<S<EnableDefaultCtor>>::instance().s() == 0);
       });
     for (auto&& thr : threads) thr.join();
     CHECK_THROWS_AS(Singleton<S<EnableDefaultCtor>>::set_instance(1),
                     std::logic_error);
-    CHECK(Singleton<S<EnableDefaultCtor>>::instance()->s() == 0);
+    CHECK(Singleton<S<EnableDefaultCtor>>::instance().s() == 0);
   }
   // non-default-constructible Singleton
   {
@@ -161,9 +162,10 @@ TEST_CASE("Singleton", "[utilities]") {
       std::vector<std::thread> threads;
       for (int c = 0; c != 5; ++c)
         threads.emplace_back([]() {
-          CHECK_THROWS_AS(Singleton<S<DisableDefaultCtor>>::instance()->s(),
+          CHECK_THROWS_AS(Singleton<S<DisableDefaultCtor>>::instance().s(),
                           std::logic_error);
         });
+      CHECK(Singleton<S<DisableDefaultCtor>>::instance_ptr() == nullptr);
       for (auto&& thr : threads) thr.join();
     }
     CHECK_NOTHROW(Singleton<S<DisableDefaultCtor>>::set_instance(1));
@@ -171,10 +173,49 @@ TEST_CASE("Singleton", "[utilities]") {
       std::vector<std::thread> threads;
       for (int c = 0; c != 5; ++c)
         threads.emplace_back([]() {
-          CHECK(Singleton<S<DisableDefaultCtor>>::instance()->s() == 1);
+          CHECK(Singleton<S<DisableDefaultCtor>>::instance().s() == 1);
         });
       for (auto&& thr : threads) thr.join();
     }
-    CHECK(Singleton<S<DisableDefaultCtor>>::instance()->s() == 1);
+    CHECK(Singleton<S<DisableDefaultCtor>>::instance().s() == 1);
   }
+}
+
+TEST_CASE("StrongType", "[utilities]") {
+  using namespace sequant::detail;
+
+  struct A : strong_type_base<int, A> {
+    using strong_type_base::strong_type_base;
+  };
+
+  struct B : strong_type_base<int, B> {
+    using strong_type_base::strong_type_base;
+  };
+
+  struct C : strong_type_base<double, C> {
+    using strong_type_base::strong_type_base;
+  };
+
+  A a{1};
+  B b{2};
+  C c0, c1;
+
+  CHECK(a.value() == 1);
+  CHECK(int(a) == 1);
+  CHECK(b.value() == 2);
+  CHECK(c0.value() == double(c1));
+  CHECK(double(c0) == std::move(c1).value());
+
+  struct nondefault_constructible_int {
+    nondefault_constructible_int() = delete;
+    nondefault_constructible_int(int i) : value(i) {}
+    int value;
+  };
+
+  struct D : strong_type_base<nondefault_constructible_int, C> {
+    using strong_type_base::strong_type_base;
+  };
+
+  // "D d;" does not compile, but this does
+  D d(1);
 }
