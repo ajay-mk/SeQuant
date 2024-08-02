@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Expression Evaluation using SeQuant" href="eval.html" /><link rel="prev" title="Using SeQuant" href="using.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Interpreting and Evaluating Expressions" href="eval.html" /><link rel="prev" title="Using SeQuant" href="using.html" />
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2024.07.18 -->
-        <title>Coupled-Cluster Generator - SeQuant Documentation</title>
+        <title>Coupled-Cluster Class - SeQuant Documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=613ab9ff" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -179,7 +179,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -206,8 +206,8 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Advanced Topics</span></p>
 <ul class="current">
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Coupled-Cluster Generator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="eval.html">Expression Evaluation using SeQuant</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Coupled-Cluster Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="eval.html">Interpreting and Evaluating Expressions</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul>
@@ -252,14 +252,57 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="coupled-cluster-generator">
-<h1>Coupled-Cluster Generator<a class="headerlink" href="#coupled-cluster-generator" title="Link to this heading">¶</a></h1>
+          <section id="coupled-cluster-class">
+<h1>Coupled-Cluster Class<a class="headerlink" href="#coupled-cluster-class" title="Link to this heading">¶</a></h1>
+<p>SeQuant’s coupled-cluster (CC) class (see <a class="reference internal" href="../api/classsequant_1_1mbpt_1_1_c_c.html#_CPPv4N7sequant4mbpt2CCE" title="sequant::mbpt::CC"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">sequant::mbpt::CC</span></code></a>) supports derivations of ground and excited state methods,
+using traditional, unitary and orbital-optimized ansatze (see <a class="reference internal" href="../api/classsequant_1_1mbpt_1_1_c_c.html#_CPPv4N7sequant4mbpt2CC6AnsatzE" title="sequant::mbpt::CC::Ansatz"><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">sequant::mbpt::CC::Ansatz</span></code></a>).
+Expressions are generated in spin-orbital basis, and they can post-processed using SeQuant’s spin-tracing capabilities.</p>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading">¶</a></h2>
+<p>Here are some examples of using the CC class for deriving expressions.</p>
+<section id="cc-amplitude-equations">
+<h3>CC amplitude equations<a class="headerlink" href="#cc-amplitude-equations" title="Link to this heading">¶</a></h3>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">sequant</span><span class="o">::</span><span class="nn">mbpt</span><span class="p">;</span>
+<span class="c1">// Traditional CCSD</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">t_eqs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CC</span><span class="p">{</span><span class="mi">2</span><span class="p">}.</span><span class="n">t</span><span class="p">();</span>
+<span class="n">std</span><span class="o">::</span><span class="n">wcout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;R[1]: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">to_latex</span><span class="p">(</span><span class="n">t_eqs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span>
+<span class="w">           </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;R[2]: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">to_latex</span><span class="p">(</span><span class="n">t_eqs</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">l_eqs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CC</span><span class="p">{</span><span class="mi">2</span><span class="p">}.</span><span class="n">λ</span><span class="p">();</span>
+<span class="n">std</span><span class="o">::</span><span class="n">wcout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;L[1]: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">to_latex</span><span class="p">(</span><span class="n">l_eqs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span>
+<span class="w">           </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;L[2]: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">to_latex</span><span class="p">(</span><span class="n">l_eqs</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="c1">// Unitary CCSD</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">Ut_eqs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CC</span><span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">CC</span><span class="o">::</span><span class="n">Ansatz</span><span class="o">::</span><span class="n">U</span><span class="p">}.</span><span class="n">t</span><span class="p">();</span>
+<span class="n">std</span><span class="o">::</span><span class="n">wcout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;R[1]: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">to_latex</span><span class="p">(</span><span class="n">Ut_eqs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span>
+<span class="w">           </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;R[2]: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">to_latex</span><span class="p">(</span><span class="n">Ut_eqs</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="eom-cc-equations">
+<h3>EOM-CC equations<a class="headerlink" href="#eom-cc-equations" title="Link to this heading">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>EOM-CC methods only support traditional ansatz for now</p>
+</div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">sequant</span><span class="o">::</span><span class="nn">mbpt</span><span class="p">;</span>
+<span class="c1">// EE-EOM-CCSD</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">r_eqs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CC</span><span class="p">{</span><span class="mi">2</span><span class="p">}.</span><span class="n">eom_r</span><span class="p">(</span><span class="n">nₚ</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span><span class="w"> </span><span class="n">nₕ</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span>
+<span class="n">std</span><span class="o">::</span><span class="n">wcout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;R[1]: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">to_latex</span><span class="p">(</span><span class="n">r_eqs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span>
+<span class="w">           </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;R[2]: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">to_latex</span><span class="p">(</span><span class="n">r_eqs</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="spin-tracing-generated-expressions">
+<span id="spin-tracing"></span><h2>Spin-tracing generated expressions<a class="headerlink" href="#spin-tracing-generated-expressions" title="Link to this heading">¶</a></h2>
+</section>
 </section>
 
         </article>
@@ -272,7 +315,7 @@
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Expression Evaluation using SeQuant</div>
+                <div class="title">Interpreting and Evaluating Expressions</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -305,8 +348,32 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Coupled-Cluster Class</a><ul>
+<li><a class="reference internal" href="#examples">Examples</a><ul>
+<li><a class="reference internal" href="#cc-amplitude-equations">CC amplitude equations</a></li>
+<li><a class="reference internal" href="#eom-cc-equations">EOM-CC equations</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#spin-tracing-generated-expressions">Spin-tracing generated expressions</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
