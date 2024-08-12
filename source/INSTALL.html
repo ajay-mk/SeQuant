@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Using SeQuant" href="using.html" /><link rel="prev" title="SeQuant: Symbolic Tensor Algebra in C++" href="../index.html" />
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
-        <title>&lt;no title&gt; - SeQuant Documentation</title>
+        <title>Installation Guide - SeQuant Documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -182,7 +182,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -203,7 +203,8 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
-<ul>
+<ul class="current">
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Installation Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="using.html">Using SeQuant</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Advanced Topics</span></p>
@@ -253,13 +254,85 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          
+          <section class="tex2jax_ignore mathjax_ignore" id="installation-guide">
+<h1>Installation Guide<a class="headerlink" href="#installation-guide" title="Link to this heading">¶</a></h1>
+<section id="tl-dr">
+<h2>TL;DR<a class="headerlink" href="#tl-dr" title="Link to this heading">¶</a></h2>
+<p>While in the SeQuant source directory:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">-B</span> <span class="pre">build</span> <span class="pre">-S</span> <span class="pre">.</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">--build</span> <span class="pre">build</span> <span class="pre">--target</span> <span class="pre">check-sequant</span></code></p></li>
+</ul>
+</section>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>mandatory:</p>
+<ul>
+<li><p>CMake 3.15 or later</p></li>
+<li><p>a C++17 compiler</p></li>
+<li><p><a class="reference external" href="https://www.boost.org/">Boost</a>, version 1.81 or higher. <em>SeQuant can download and build Boost if configured with <code class="docutils literal notranslate"><span class="pre">Boost_FETCH_IF_MISSING=ON</span></code>, but this is not recommended.</em> The following non-header-only Boost libraries are required, hence Boost must be configured/built:</p>
+<ul>
+<li><p><a class="reference external" href="https://www.boost.org/doc/libs/master/libs/regex/doc/html/index.html">Boost.Regex</a></p></li>
+<li><p><a class="reference external" href="https://www.boost.org/doc/libs/master/libs/locale/doc/html/index.html">Boost.Locale</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://github.com/ericniebler/range-v3.git">Range-V3</a>, tag 0.12.0, <em>if not found, SeQuant will download and build Range-V3</em></p></li>
+</ul>
+</li>
+<li><p>optional:</p>
+<ul>
+<li><p>for building coupled-cluster evaluation tests:</p>
+<ul>
+<li><p><a class="reference external" href="https://github.com/ValeevGroup/tiledarray.git">TiledArray</a>, tag 3f6629db047417e814b75ad5069b7f4ce26428e7</p></li>
+</ul>
+</li>
+<li><p>for building <code class="docutils literal notranslate"><span class="pre">stcc*</span></code> example programs</p>
+<ul>
+<li><p><a class="reference external" href="http://eigen.tuxfamily.org/">Eigen</a>, version 3</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="configure">
+<h2>Configure<a class="headerlink" href="#configure" title="Link to this heading">¶</a></h2>
+<p>From the SeQuant source directory run the following command to configure the build harness:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">-B</span> <span class="pre">build</span> <span class="pre">-S</span> <span class="pre">.</span></code></p></li>
+</ul>
+<section id="useful-cmake-variables">
+<h3>Useful CMake variables<a class="headerlink" href="#useful-cmake-variables" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://cmake.org/cmake/help/latest/module/CTest.html"><code class="docutils literal notranslate"><span class="pre">BUILD_TESTING</span></code></a> — enables unit tests targets, e.g. <code class="docutils literal notranslate"><span class="pre">check-sequant</span></code> [default=ON]</p></li>
+<li><p><a class="reference external" href="https://cmake.org/cmake/help/latest/variable/CMAKE_LANG_COMPILER.html#variable:CMAKE_%3CLANG%3E_COMPILER"><code class="docutils literal notranslate"><span class="pre">CMAKE_CXX_COMPILER</span></code></a> — specifies the C++ compiler to use</p></li>
+<li><p><a class="reference external" href="https://cmake.org/cmake/help/latest/variable/CMAKE_PREFIX_PATH.html"><code class="docutils literal notranslate"><span class="pre">CMAKE_PREFIX_PATH</span></code></a> — this semicolon-separated list specifies search paths for dependencies (Boost, Range-V3, etc.)</p></li>
+<li><p><a class="reference external" href="https://cmake.org/cmake/help/latest/variable/CMAKE_INSTALL_PREFIX.html"><code class="docutils literal notranslate"><span class="pre">CMAKE_INSTALL_PREFIX</span></code></a> — the installation path for SeQuant</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SEQUANT_MIMALLOC</span></code> — use <a class="reference external" href="https://github.com/microsoft/mimalloc">mimalloc</a> for fast memory allocation</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SEQUANT_EVAL_TRACE</span></code> — enables tracing of expression interpretation; especially useful in combination with TiledArray’s memory tracing mechanism (configure TiledArray with <code class="docutils literal notranslate"><span class="pre">TA_TENSOR_MEM_PROFILE=ON</span></code> to enable that)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SEQUANT_PYTHON</span></code> — enables building of Pythin bindings</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Boost_FETCH_IF_MISSING</span></code> — if set to <code class="docutils literal notranslate"><span class="pre">ON</span></code>, SeQuant will download and build Boost if it is not found by <code class="docutils literal notranslate"><span class="pre">find_package(Boost</span> <span class="pre">...)</span></code>; this is not recommended. [default=OFF]</p></li>
+</ul>
+</section>
+</section>
+<section id="build">
+<h2>Build<a class="headerlink" href="#build" title="Link to this heading">¶</a></h2>
+<p>To build, test, and install SeQuant, run the following commands:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">--build</span> <span class="pre">build</span></code></p></li>
+<li><p>(optional) <code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">--build</span> <span class="pre">build</span> <span class="pre">--target</span> <span class="pre">check-sequant</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">--build</span> <span class="pre">build</span> <span class="pre">--target</span> <span class="pre">install</span></code></p></li>
+</ul>
+</section>
+</section>
+
         </article>
       </div>
       <footer>
@@ -306,8 +379,33 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Installation Guide</a><ul>
+<li><a class="reference internal" href="#tl-dr">TL;DR</a></li>
+<li><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li><a class="reference internal" href="#configure">Configure</a><ul>
+<li><a class="reference internal" href="#useful-cmake-variables">Useful CMake variables</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#build">Build</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
