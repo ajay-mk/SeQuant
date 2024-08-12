@@ -742,6 +742,8 @@ Functions
 
 - :ref:`exhale_function_namespacesequant_1ac9217c6b789b3d79193a54a6064d2b23`
 
+- :ref:`exhale_function_namespacesequant_1a80f616e9c6d19edacfcd8bed4a5fc2c1`
+
 - :ref:`exhale_function_namespacesequant_1adcc6b2bdbc08b4b884a9c7c8971b642b`
 
 - :ref:`exhale_function_namespacesequant_1a69c0f990e32a12156dc64e519f1dd7d0`
@@ -759,8 +761,6 @@ Functions
 - :ref:`exhale_function_namespacesequant_1a1de63e089c98cd5769ae3386851d632e`
 
 - :ref:`exhale_function_namespacesequant_1a676e65f12c192d787cf0399f7b33692c`
-
-- :ref:`exhale_function_namespacesequant_1a80f616e9c6d19edacfcd8bed4a5fc2c1`
 
 - :ref:`exhale_function_namespacesequant_1a0218117138934de953b2eec98fa83b13`
 
