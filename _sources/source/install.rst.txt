@@ -1,2 +1,2 @@
-.. include:: INSTALL.md
+.. include:: source/INSTALL.md
    :parser: myst_parser.sphinx_
