@@ -74,13 +74,13 @@ Functions
 
 - :ref:`exhale_function_namespacesequant_1_1mbpt_1a35157b2f39c73b38cbcb3914134e2143`
 
+- :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1a0e100a51a995b02bd3bd420749c21427`
+
 - :ref:`exhale_function_namespacesequant_1_1mbpt_1aecf410c31e905e98bad493306900b2fa`
 
 - :ref:`exhale_function_namespacesequant_1_1mbpt_1a6cd2be82b4b665371221aaa97259e5a3`
 
-- :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1aca74f1417232ad545883f39d51c95373`
-
-- :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1ae3872bc86eddfaf827173dd8bf3f5272`
+- :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1adee7a9fb19a7be03735505805680b7b6`
 
 - :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1af161234050fe577073b8bbd6c7e84932`
 
@@ -89,6 +89,10 @@ Functions
 - :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1a6c5129991470bb898128bf0afe47fc58`
 
 - :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1a71085738dbaeb28335934c1393032a9a`
+
+- :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1aca74f1417232ad545883f39d51c95373`
+
+- :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1ae3872bc86eddfaf827173dd8bf3f5272`
 
 - :ref:`exhale_function_namespacesequant_1_1mbpt_1afc8c0e61721e9d23ef85730471b7d5ce`
 
@@ -131,6 +135,10 @@ Functions
 - :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1a4c1fa777f64e1c1a086f05dd1c1aed7b`
 
 - :ref:`exhale_function_namespacesequant_1_1mbpt_1ac5e5ddeccd4147dd8c8452cba7cc3d06`
+
+- :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1a6eb224d07b96ee459e3720cdab99b3bd`
+
+- :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1ab5a51703fa1be2baf0e03afbba941858`
 
 - :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1a48425eefec4b9fb72ee4bc5cb21a438f`
 
@@ -208,9 +216,15 @@ Functions
 
 - :ref:`exhale_function_namespacesequant_1_1mbpt_1a38366e79beb952831356afb44f617917`
 
+- :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1a2aa12cc3398a9f11d41959df2f3a87c6`
+
 - :ref:`exhale_function_namespacesequant_1_1mbpt_1a64dab3314113412a43ad91e19ce9c9f5`
 
 - :ref:`exhale_function_namespacesequant_1_1mbpt_1a44c7f3b6121a859f5b3d965994dd0c92`
+
+- :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1affdb70142970393b313c3b90271be72d`
+
+- :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1ac8a9ab8a19cf9745f8d21bfc500a4bfc`
 
 - :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1ae3b03f40d3d015db21a0317b4f158fd1`
 
