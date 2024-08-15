@@ -35,7 +35,7 @@ Program Listing for File README.md
    - configure (from top SeQuant source dfirectory): `cmake -B build -S . -DCMAKE_INSTALL_PREFIX=/path/where/sequant/to/be/installed`
    - build and test: `cmake --build build --target install`
    
-   For detailed instructions see [SeQuant: Installation Guide](https://valeevgroup.github.io/SeQuant/install.html).
+   For detailed instructions see [SeQuant: Installation Guide](https://valeevgroup.github.io/SeQuant/installing.html).
    
    
    ## Build harness
