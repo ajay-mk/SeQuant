@@ -65,9 +65,9 @@ Functions
 ---------
 
 
-- :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1affdb70142970393b313c3b90271be72d`
-
 - :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1ac8a9ab8a19cf9745f8d21bfc500a4bfc`
+
+- :ref:`exhale_function_namespacesequant_1_1mbpt_1_1op_1affdb70142970393b313c3b90271be72d`
 
 
 Defines
