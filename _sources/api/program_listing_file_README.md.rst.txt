@@ -10,7 +10,7 @@ Program Listing for File README.md
 
 .. code-block:: markdown
 
-   # SeQuant: symbolic tensor algebra in C++
+   # SeQuant: Symbolic Tensor Algebra in C++
    
    [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)]()
    [![Linux/MacOS Build](https://github.com/ValeevGroup/SeQuant/actions/workflows/cmake.yml/badge.svg)](https://github.com/ValeevGroup/SeQuant/actions/workflows/cmake.yml)
