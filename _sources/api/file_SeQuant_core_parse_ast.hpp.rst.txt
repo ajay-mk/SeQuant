@@ -90,8 +90,6 @@ Functions
 ---------
 
 
-- :ref:`exhale_function_ast_8hpp_1abc32465f1db33ecd01dee6338751b446`
-
 - :ref:`exhale_function_ast_8hpp_1a40f60977f510d83b38bebc423bb27de9`
 
 - :ref:`exhale_function_ast_8hpp_1aa18db2677f2e4507fec03dbc5848ddb1`
@@ -106,6 +104,8 @@ Functions
 
 - :ref:`exhale_function_ast_8hpp_1a0988897a700222e8f62cbfb69e10f8f3`
 
+- :ref:`exhale_function_ast_8hpp_1abc32465f1db33ecd01dee6338751b446`
+
 
 Defines
 -------
@@ -118,5 +118,5 @@ Typedefs
 --------
 
 
-- :ref:`exhale_typedef_namespacesequant_1_1parse_1_1ast_1a2e8a7519e247ffb63b22774836e2bb3e`
+- :ref:`exhale_typedef_namespacesequant_1_1parse_1_1ast_1acd3cf08f1d81e9f101cd6d5d1b58c83b`
 
