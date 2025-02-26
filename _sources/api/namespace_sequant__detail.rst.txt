@@ -32,11 +32,17 @@ Classes
 
 - :ref:`exhale_struct_structsequant_1_1detail_1_1_no_discard`
 
+- :ref:`exhale_struct_structsequant_1_1detail_1_1not__in`
+
 - :ref:`exhale_struct_structsequant_1_1detail_1_1_null_normal_operator_canonicalizer_deregister`
 
 - :ref:`exhale_struct_structsequant_1_1detail_1_1_op_id_registrar`
 
 - :ref:`exhale_struct_structsequant_1_1detail_1_1rapid__simplify__visitor`
+
+- :ref:`exhale_struct_structsequant_1_1detail_1_1_swap_counter`
+
+- :ref:`exhale_struct_structsequant_1_1detail_1_1tuple__less`
 
 - :ref:`exhale_struct_structsequant_1_1detail_1_1zero__result`
 
@@ -62,6 +68,8 @@ Functions
 - :ref:`exhale_function_namespacesequant_1_1detail_1a6b853ac863527eb88053311da0695c4b`
 
 - :ref:`exhale_function_namespacesequant_1_1detail_1ae87ba67a68308a46131f3a2d0fa6cef6`
+
+- :ref:`exhale_function_namespacesequant_1_1detail_1a2c97759fbfac3617e06077487324f528`
 
 - :ref:`exhale_function_namespacesequant_1_1detail_1ad1808ad121aa7c24e54553a00152b18e`
 

@@ -36,6 +36,11 @@ Directories
 .. toctree::
    :maxdepth: 5
 
+   dir_SeQuant_core_tensor_network.rst
+
+.. toctree::
+   :maxdepth: 5
+
    dir_SeQuant_core_utility.rst
 
 .. toctree::
@@ -61,11 +66,6 @@ Directories
 Files
 *****
 
-
-.. toctree::
-   :maxdepth: 5
-
-   file_SeQuant_core_abstract_tensor.cpp.rst
 
 .. toctree::
    :maxdepth: 5
@@ -140,6 +140,11 @@ Files
 .. toctree::
    :maxdepth: 5
 
+   file_SeQuant_core_tensor_network_canonicals.hpp.rst
+
+.. toctree::
+   :maxdepth: 5
+
    file_SeQuant_domain_mbpt_models_cc.cpp.rst
 
 .. toctree::
@@ -200,11 +205,6 @@ Files
 .. toctree::
    :maxdepth: 5
 
-   file_SeQuant_domain_eval_eval.cpp.rst
-
-.. toctree::
-   :maxdepth: 5
-
    file_SeQuant_domain_eval_eval.hpp.rst
 
 .. toctree::
@@ -250,6 +250,16 @@ Files
 .. toctree::
    :maxdepth: 5
 
+   file_SeQuant_core_utility_expr_diff.cpp.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_SeQuant_core_utility_expr_diff.hpp.rst
+
+.. toctree::
+   :maxdepth: 5
+
    file_SeQuant_core_expr_fwd.hpp.rst
 
 .. toctree::
@@ -276,6 +286,11 @@ Files
    :maxdepth: 5
 
    file_SeQuant_domain_mbpt_fwd.hpp.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_SeQuant_core_hash.cpp.rst
 
 .. toctree::
    :maxdepth: 5
@@ -450,6 +465,11 @@ Files
 .. toctree::
    :maxdepth: 5
 
+   file_SeQuant_core_tensor_network_slot.hpp.rst
+
+.. toctree::
+   :maxdepth: 5
+
    file_SeQuant_core_space.hpp.rst
 
 .. toctree::
@@ -480,6 +500,11 @@ Files
 .. toctree::
    :maxdepth: 5
 
+   file_SeQuant_core_utility_swap.hpp.rst
+
+.. toctree::
+   :maxdepth: 5
+
    file_SeQuant_core_tag.hpp.rst
 
 .. toctree::
@@ -495,6 +520,16 @@ Files
 .. toctree::
    :maxdepth: 5
 
+   file_SeQuant_core_tensor_canonicalizer.cpp.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_SeQuant_core_tensor_canonicalizer.hpp.rst
+
+.. toctree::
+   :maxdepth: 5
+
    file_SeQuant_core_tensor_network.cpp.rst
 
 .. toctree::
@@ -505,7 +540,22 @@ Files
 .. toctree::
    :maxdepth: 5
 
+   file_SeQuant_core_tensor_network_v2.cpp.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_SeQuant_core_tensor_network_v2.hpp.rst
+
+.. toctree::
+   :maxdepth: 5
+
    file_SeQuant_core_timer.hpp.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_SeQuant_core_utility_tuple.hpp.rst
 
 .. toctree::
    :maxdepth: 5
@@ -521,6 +571,21 @@ Files
    :maxdepth: 5
 
    file_SeQuant_version.cpp.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_SeQuant_core_tensor_network_vertex.hpp.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_SeQuant_core_tensor_network_vertex_painter.cpp.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_SeQuant_core_tensor_network_vertex_painter.hpp.rst
 
 .. toctree::
    :maxdepth: 5

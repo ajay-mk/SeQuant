@@ -33,6 +33,14 @@ Includes
 
 - ``SeQuant/core/index.hpp`` (:ref:`file_SeQuant_core_index.hpp`)
 
+- ``SeQuant/core/tensor_canonicalizer.hpp`` (:ref:`file_SeQuant_core_tensor_canonicalizer.hpp`)
+
+- ``SeQuant/core/tensor_network/canonicals.hpp`` (:ref:`file_SeQuant_core_tensor_network_canonicals.hpp`)
+
+- ``SeQuant/core/tensor_network/slot.hpp`` (:ref:`file_SeQuant_core_tensor_network_slot.hpp`)
+
+- ``SeQuant/core/tensor_network/vertex.hpp`` (:ref:`file_SeQuant_core_tensor_network_vertex.hpp`)
+
 - ``cassert``
 
 - ``cstdlib``
@@ -45,7 +53,7 @@ Includes
 
 - ``string_view``
 
-- ``tuple``
+- ``tuple`` (:ref:`file_SeQuant_core_utility_tuple.hpp`)
 
 - ``utility`` (:ref:`file_SeQuant_core_utility_context.hpp`)
 
@@ -56,6 +64,8 @@ Includes
 Included By
 -----------
 
+
+- :ref:`file_SeQuant_core_eval_expr.cpp`
 
 - :ref:`file_SeQuant_core_expr.cpp`
 
@@ -76,12 +86,32 @@ Namespaces
 
 - :ref:`namespace_sequant`
 
+- :ref:`namespace_std`
+
 
 Classes
 -------
 
 
+- :ref:`exhale_struct_structsequant_1_1_tensor_network_1_1_edge_1_1_terminal`
+
 - :ref:`exhale_struct_structsequant_1_1_tensor_network_1_1_full_label_compare`
+
+- :ref:`exhale_struct_structsequant_1_1_tensor_network_1_1_graph_data`
+
+- :ref:`exhale_struct_structsequant_1_1_tensor_network_1_1_slot_canonicalization_metadata`
+
+- :ref:`exhale_struct_structstd_1_1tuple__element_3_010_00_01sequant_1_1_tensor_network_1_1_graph_data_01_4`
+
+- :ref:`exhale_struct_structstd_1_1tuple__element_3_011_00_01sequant_1_1_tensor_network_1_1_graph_data_01_4`
+
+- :ref:`exhale_struct_structstd_1_1tuple__element_3_012_00_01sequant_1_1_tensor_network_1_1_graph_data_01_4`
+
+- :ref:`exhale_struct_structstd_1_1tuple__element_3_013_00_01sequant_1_1_tensor_network_1_1_graph_data_01_4`
+
+- :ref:`exhale_struct_structstd_1_1tuple__element_3_014_00_01sequant_1_1_tensor_network_1_1_graph_data_01_4`
+
+- :ref:`exhale_struct_structstd_1_1tuple__size_3_01sequant_1_1_tensor_network_1_1_graph_data_01_4`
 
 - :ref:`exhale_class_classsequant_1_1_tensor_network`
 

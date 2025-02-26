@@ -31,6 +31,7 @@ Program Listing for File logger.hpp
      bool wick_stats = false;
      bool expand = false;
      bool canonicalize = false;
+     bool canonicalize_input_graph = false;
      bool canonicalize_dot = false;
      bool simplify = false;
      bool tensor_network = false;
@@ -58,6 +59,7 @@ Program Listing for File logger.hpp
    template <typename... Args>
    void write_log(Logger& l, Args const&... args) noexcept {
      ((*l.stream << args), ...);
+     (*l.stream).flush();
    }
    
    }  // namespace sequant

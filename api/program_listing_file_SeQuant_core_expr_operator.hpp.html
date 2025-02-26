@@ -7,7 +7,7 @@
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
         <title>Program Listing for File expr_operator.hpp - SeQuant Documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
@@ -276,12 +276,6 @@
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="n">left</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="o">*</span><span class="n">right</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="cp">#if __cplusplus &lt;= 201703L</span>
-<span class="kr">inline</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">!=</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">ExprPtr</span><span class="w"> </span><span class="o">&amp;</span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">ExprPtr</span><span class="w"> </span><span class="o">&amp;</span><span class="n">right</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="o">!</span><span class="p">(</span><span class="n">left</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">right</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="cp">#endif</span>
-
 <span class="kr">inline</span><span class="w"> </span><span class="n">ExprPtr</span><span class="w"> </span><span class="k">operator</span><span class="o">*</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">ExprPtr</span><span class="w"> </span><span class="o">&amp;</span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">ExprPtr</span><span class="w"> </span><span class="o">&amp;</span><span class="n">right</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">left</span><span class="p">.</span><span class="n">is</span><span class="o">&lt;</span><span class="n">Constant</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">right</span><span class="p">.</span><span class="n">is</span><span class="o">&lt;</span><span class="n">Constant</span><span class="o">&gt;</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">c_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">left</span><span class="o">-&gt;</span><span class="n">clone</span><span class="p">();</span>
@@ -382,7 +376,7 @@
             
             <a href="https://github.com/pradyunsg/furo">Furo</a>
             <div class="last-updated">
-              Last updated on Sep 29, 2024 2:55:33 PM</div>
+              Last updated on Feb 26, 2025 9:17:53 PM</div>
           </div>
           <div class="right-details">
             <div class="icons">

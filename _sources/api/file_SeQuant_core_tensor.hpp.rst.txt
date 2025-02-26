@@ -97,6 +97,10 @@ Included By
 
 - :ref:`file_SeQuant_core_tensor.cpp`
 
+- :ref:`file_SeQuant_core_tensor_network.cpp`
+
+- :ref:`file_SeQuant_core_utility_expr_diff.cpp`
+
 - :ref:`file_SeQuant_core_utility_indices.hpp`
 
 - :ref:`file_SeQuant_core_wick.hpp`
@@ -104,8 +108,6 @@ Included By
 - :ref:`file_SeQuant_domain_eval_eval.hpp`
 
 - :ref:`file_SeQuant_domain_mbpt_antisymmetrizer.hpp`
-
-- :ref:`file_SeQuant_domain_mbpt_convention.cpp`
 
 - :ref:`file_SeQuant_domain_mbpt_op.cpp`
 
@@ -135,6 +137,8 @@ Classes
 Functions
 ---------
 
+
+- :ref:`exhale_function_namespacesequant_1a38e1e232c0d81c6119d57edc4527a898`
 
 - :ref:`exhale_function_namespacesequant_1ae2c6c0d4c1b036b287a0df7a5752cab8`
 

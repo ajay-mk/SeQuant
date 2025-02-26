@@ -31,6 +31,8 @@ Includes
 
 - ``SeQuant/core/index.hpp`` (:ref:`file_SeQuant_core_index.hpp`)
 
+- ``SeQuant/core/op.hpp`` (:ref:`file_SeQuant_core_op.hpp`)
+
 - ``SeQuant/core/tensor.hpp`` (:ref:`file_SeQuant_core_tensor.hpp`)
 
 - ``stdexcept``
@@ -51,6 +53,8 @@ Included By
 
 - :ref:`file_SeQuant_core_parse_parse.cpp`
 
+- :ref:`file_SeQuant_domain_eval_eval.hpp`
+
 
 
 
@@ -66,11 +70,4 @@ Classes
 
 
 - :ref:`exhale_struct_structsequant_1_1_parse_error`
-
-
-Functions
----------
-
-
-- :ref:`exhale_function_namespacesequant_1a4b7f044ab8d87a437e88b04b116df367`
 

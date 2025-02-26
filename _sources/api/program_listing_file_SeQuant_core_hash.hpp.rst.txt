@@ -34,6 +34,8 @@ Program Listing for File hash.hpp
    
    namespace sequant {
    
+   class ExprPtr;
+   
    namespace hash {
    
    enum class Impl { BoostPre181 = 1, Boost181OrLater = 2 };
@@ -98,6 +100,8 @@ Program Listing for File hash.hpp
      return sequant_boost::hash_value(obj);
    }
    
+   std::size_t hash_value(const ExprPtr& expr);
+   
    // clang-format off
    // rationale:
    // boost::hash_combine is busted ... it dispatches to one of 3 implementations (all line numbers refer to boost 1.72.0):
@@ -145,6 +149,16 @@ Program Listing for File hash.hpp
        hash::combine(seed, *first);
      }
      //  assert(seed == seed_ref);
+   }
+   
+   template <typename It>
+   inline std::size_t range_unordered(It begin, It end) {
+     return sequant_boost::hash_unordered_range(begin, end);
+   }
+   
+   template <typename It>
+   inline void range_unordered(size_t& seed, It begin, It end) {
+     sequant_boost::hash_unordered_range(seed, begin, end);
    }
    
    template <typename It>

@@ -87,8 +87,6 @@ Included By
 -----------
 
 
-- :ref:`file_SeQuant_core_abstract_tensor.cpp`
-
 - :ref:`file_SeQuant_core_abstract_tensor.hpp`
 
 - :ref:`file_SeQuant_core_eval_expr.cpp`
@@ -100,6 +98,8 @@ Included By
 - :ref:`file_SeQuant_core_expr.cpp`
 
 - :ref:`file_SeQuant_core_expr_algorithm.hpp`
+
+- :ref:`file_SeQuant_core_hash.cpp`
 
 - :ref:`file_SeQuant_core_op.cpp`
 
@@ -125,9 +125,19 @@ Included By
 
 - :ref:`file_SeQuant_core_tensor.hpp`
 
+- :ref:`file_SeQuant_core_tensor_canonicalizer.cpp`
+
+- :ref:`file_SeQuant_core_tensor_canonicalizer.hpp`
+
 - :ref:`file_SeQuant_core_tensor_network.cpp`
 
 - :ref:`file_SeQuant_core_tensor_network.hpp`
+
+- :ref:`file_SeQuant_core_tensor_network_v2.cpp`
+
+- :ref:`file_SeQuant_core_tensor_network_v2.hpp`
+
+- :ref:`file_SeQuant_core_utility_expr_diff.cpp`
 
 - :ref:`file_SeQuant_core_utility_indices.hpp`
 
@@ -192,9 +202,9 @@ Functions
 ---------
 
 
-- :ref:`exhale_function_namespacesequant_1ade3116efc18d901007d72fdc0fc208ea`
-
 - :ref:`exhale_function_namespacesequant_1ab497a84be7129a4f02e4b2d3cd30fb77`
+
+- :ref:`exhale_function_namespacesequant_1ade3116efc18d901007d72fdc0fc208ea`
 
 - :ref:`exhale_function_namespacesequant_1a4fb2134f803040f97c457fd476d97c55`
 

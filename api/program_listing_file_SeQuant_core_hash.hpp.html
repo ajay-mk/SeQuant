@@ -7,7 +7,7 @@
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
         <title>Program Listing for File hash.hpp - SeQuant Documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
@@ -287,6 +287,8 @@
 
 <span class="k">namespace</span><span class="w"> </span><span class="nn">sequant</span><span class="w"> </span><span class="p">{</span>
 
+<span class="k">class</span><span class="w"> </span><span class="nc">ExprPtr</span><span class="p">;</span>
+
 <span class="k">namespace</span><span class="w"> </span><span class="nn">hash</span><span class="w"> </span><span class="p">{</span>
 
 <span class="k">enum</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Impl</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">BoostPre181</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">Boost181OrLater</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">};</span>
@@ -351,6 +353,8 @@
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">sequant_boost</span><span class="o">::</span><span class="n">hash_value</span><span class="p">(</span><span class="n">obj</span><span class="p">);</span>
 <span class="p">}</span>
 
+<span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">hash_value</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">ExprPtr</span><span class="o">&amp;</span><span class="w"> </span><span class="n">expr</span><span class="p">);</span>
+
 <span class="c1">// clang-format off</span>
 <span class="c1">// rationale:</span>
 <span class="c1">// boost::hash_combine is busted ... it dispatches to one of 3 implementations (all line numbers refer to boost 1.72.0):</span>
@@ -398,6 +402,16 @@
 <span class="w">    </span><span class="n">hash</span><span class="o">::</span><span class="n">combine</span><span class="p">(</span><span class="n">seed</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">first</span><span class="p">);</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="w">  </span><span class="c1">//  assert(seed == seed_ref);</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">It</span><span class="o">&gt;</span>
+<span class="kr">inline</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">range_unordered</span><span class="p">(</span><span class="n">It</span><span class="w"> </span><span class="n">begin</span><span class="p">,</span><span class="w"> </span><span class="n">It</span><span class="w"> </span><span class="n">end</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">sequant_boost</span><span class="o">::</span><span class="n">hash_unordered_range</span><span class="p">(</span><span class="n">begin</span><span class="p">,</span><span class="w"> </span><span class="n">end</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">It</span><span class="o">&gt;</span>
+<span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">range_unordered</span><span class="p">(</span><span class="kt">size_t</span><span class="o">&amp;</span><span class="w"> </span><span class="n">seed</span><span class="p">,</span><span class="w"> </span><span class="n">It</span><span class="w"> </span><span class="n">begin</span><span class="p">,</span><span class="w"> </span><span class="n">It</span><span class="w"> </span><span class="n">end</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">sequant_boost</span><span class="o">::</span><span class="n">hash_unordered_range</span><span class="p">(</span><span class="n">seed</span><span class="p">,</span><span class="w"> </span><span class="n">begin</span><span class="p">,</span><span class="w"> </span><span class="n">end</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">It</span><span class="o">&gt;</span>
@@ -460,7 +474,7 @@
             
             <a href="https://github.com/pradyunsg/furo">Furo</a>
             <div class="last-updated">
-              Last updated on Sep 29, 2024 2:55:33 PM</div>
+              Last updated on Feb 26, 2025 9:17:53 PM</div>
           </div>
           <div class="right-details">
             <div class="icons">

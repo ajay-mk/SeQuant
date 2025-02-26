@@ -30,16 +30,16 @@ Program Listing for File README.md
    performance of high-level languages not sufficient for practical use cases.
    SeQuant is written in C++ and is designed to be as efficient as possible without loss of generality.
    
-   See detailed documentation see [https://valeevgroup.github.io/SeQuant/](https://valeevgroup.github.io/SeQuant/).
+   See detailed documentation at [https://valeevgroup.github.io/SeQuant/](https://valeevgroup.github.io/SeQuant/).
    
    ## Installation
    
    The short version:
    
    - configure (from top SeQuant source dfirectory): `cmake -B build -S . -DCMAKE_INSTALL_PREFIX=/path/where/sequant/to/be/installed`
-   - build and test: `cmake --build build --target install`
+   - build and install: `cmake --build build --target install`
    
-   For detailed instructions see [SeQuant: Installation Guide](https://valeevgroup.github.io/SeQuant/installing.html).
+   For detailed instructions see [SeQuant: Installation Guide](https://valeevgroup.github.io/SeQuant/source/installing.html).
    
    
    ### Build harness
@@ -68,7 +68,7 @@ Program Listing for File README.md
    
    ## Developers
    
-   SeQuant is developed by the [Valeev Research Group](https://valeevgroup.github.io) in the Department of Chemistry at Virginia Tech.
+   The [Valeev Research Group (VRG)](https://valeevgroup.github.io) in the Department of Chemistry at Virginia Tech kickstarted the initial design and development of SeQuant. The ongoing development of SeQuant is driven by major [contributions](https://github.com/ValeevGroup/SeQuant/graphs/contributors) from VRG and the [Köhn Group](https://www.itheoc.uni-stuttgart.de/research/koehn) in the Department of Theoretical Chemistry at University of Stuttgart. 
    
    ## Acknowledgement
    

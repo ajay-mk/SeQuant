@@ -17,6 +17,7 @@ Program Listing for File eval.hpp
    #include <SeQuant/core/eval_node.hpp>
    #include <SeQuant/core/logger.hpp>
    #include <SeQuant/core/meta.hpp>
+   #include <SeQuant/core/parse.hpp>
    #include <SeQuant/core/tensor.hpp>
    #include <SeQuant/domain/eval/cache_manager.hpp>
    #include <SeQuant/domain/eval/eval_result.hpp>
@@ -24,6 +25,7 @@ Program Listing for File eval.hpp
    #include <btas/btas.h>
    #include <tiledarray.h>
    
+   #include <chrono>
    #include <range/v3/numeric.hpp>
    #include <range/v3/view.hpp>
    
@@ -35,6 +37,27 @@ Program Listing for File eval.hpp
    namespace sequant {
    
    namespace {
+   
+   template <typename F, typename... Args>
+   auto timed_eval(F&& fun, Args&&... args) {
+     using Clock = std::chrono::high_resolution_clock;
+     auto tstart = Clock::now();
+     auto&& res = std::forward<F>(fun)(std::forward<Args>(args)...);
+     auto tend = Clock::now();
+     return std::pair{std::move(res),
+                      std::chrono::duration<double>(tend - tstart)};
+   }
+   
+   template <
+       typename F, typename... Args,
+       std::enable_if_t<std::is_invocable_r_v<void, F, Args...>, bool> = true>
+   auto timed_eval_inplace(F&& fun, Args&&... args) {
+     using Clock = std::chrono::high_resolution_clock;
+     auto tstart = Clock::now();
+     std::forward<F>(fun)(std::forward<Args>(args)...);
+     auto tend = Clock::now();
+     return std::chrono::duration<double>(tend - tstart);
+   }
    
    template <typename... Args>
    void log_eval(Args const&... args) noexcept {
@@ -135,33 +158,29 @@ Program Listing for File eval.hpp
    
    class EvalExprTA final : public EvalExpr {
     public:
-     [[nodiscard]] std::string const& annot() const;
+     template <typename... Args, typename = std::enable_if_t<
+                                     std::is_constructible_v<EvalExpr, Args...>>>
+     EvalExprTA(Args&&... args) : EvalExpr{std::forward<Args>(args)...} {
+       annot_ = indices_annot();
+     }
    
-     explicit EvalExprTA(Tensor const&);
-   
-     explicit EvalExprTA(Constant const&);
-   
-     explicit EvalExprTA(Variable const&);
-   
-     EvalExprTA(EvalExprTA const&, EvalExprTA const&, EvalOp);
+     [[nodiscard]] inline auto const& annot() const noexcept { return annot_; }
    
     private:
      std::string annot_;
-   };  // class EvalExprTA
+   };
    
    class EvalExprBTAS final : public EvalExpr {
     public:
      using annot_t = container::svector<long>;
    
-     [[nodiscard]] annot_t const& annot() const noexcept;
+     template <typename... Args, typename = std::enable_if_t<
+                                     std::is_constructible_v<EvalExpr, Args...>>>
+     EvalExprBTAS(Args&&... args) : EvalExpr{std::forward<Args>(args)...} {
+       annot_ = index_hash(canon_indices()) | ranges::to<annot_t>;
+     }
    
-     explicit EvalExprBTAS(Tensor const&) noexcept;
-   
-     explicit EvalExprBTAS(Constant const&) noexcept;
-   
-     explicit EvalExprBTAS(Variable const&) noexcept;
-   
-     EvalExprBTAS(EvalExprBTAS const&, EvalExprBTAS const&, EvalOp) noexcept;
+     [[nodiscard]] inline annot_t const& annot() const noexcept { return annot_; }
    
     private:
      annot_t annot_;
@@ -179,11 +198,16 @@ Program Listing for File eval.hpp
              std::enable_if_t<IsLeafEvaluator<NodeT, Le>, bool> = true>
    ERPtr evaluate_core(NodeT const& node, Le const& le, Args&&... args) {
      if (node.leaf()) {
+   #ifdef SEQUANT_EVAL_TRACE
+       auto&& [res, time] = timed_eval(le, node);
        log_eval(node->is_constant()   ? "[CONSTANT] "
                 : node->is_variable() ? "[VARIABLE] "
                                       : "[TENSOR] ",
-                node->label(), "\n");
+                node->label(), "  ", time.count(), "\n");
+       return res;
+   #else
        return le(node);
+   #endif
      } else {
        ERPtr const left =
            evaluate_crust(node.left(), le, std::forward<Args>(args)...);
@@ -197,19 +221,33 @@ Program Listing for File eval.hpp
                                          node.right()->annot(), node->annot()};
    
        if (node->op_type() == EvalOp::Sum) {
+   #ifdef SEQUANT_EVAL_TRACE
+         auto&& [res, time] = timed_eval([&]() { return left->sum(*right, ann); });
          log_eval("[SUM] ", node.left()->label(), " + ", node.right()->label(),
-                  " = ", node->label(), "\n");
-   
+                  " = ", node->label(), "  ", time.count(), "\n");
+         return res;
+   #else
          return left->sum(*right, ann);
+   #endif
        } else {
          assert(node->op_type() == EvalOp::Prod);
-   
-         log_eval("[PRODUCT] ", node.left()->label(), " * ", node.right()->label(),
-                  " = ", node->label(), "\n");
          auto const de_nest =
              node.left()->tot() && node.right()->tot() && !node->tot();
+   
+   #ifdef SEQUANT_EVAL_TRACE
+         auto&& [res, time] = timed_eval([&]() {
+           return left->prod(*right, ann,
+                             de_nest ? TA::DeNest::True : TA::DeNest::False);
+         });
+   
+         log_eval("[PRODUCT] ", node.left()->label(), " * ", node.right()->label(),
+                  " = ", node->label(), "  ", time.count(), "\n");
+         return res;
+   #else
+   
          return left->prod(*right, ann,
                            de_nest ? TA::DeNest::True : TA::DeNest::False);
+   #endif
        }
      }
    }
@@ -220,17 +258,24 @@ Program Listing for File eval.hpp
      return evaluate_core(node, le);
    }
    
+   template <typename NodeT>
+   inline ERPtr mult_by_phase(NodeT const& node, ERPtr res) {
+     return node->canon_phase() == 1 ? res
+                                     : res->mult_by_phase(node->canon_phase());
+   }
+   
    template <typename NodeT, typename Le,
              std::enable_if_t<IsLeafEvaluator<NodeT, Le>, bool>>
    ERPtr evaluate_crust(NodeT const& node, Le const& le, CacheManager& cache) {
      auto const h = hash::value(*node);
      if (auto ptr = cache.access(h); ptr) {
        log_cache_access(h, cache);
-       return ptr;
+       return mult_by_phase(node, ptr);
      } else if (cache.exists(h)) {
-       auto ptr = cache.store(h, evaluate_core(node, le, cache));
+       auto ptr =
+           cache.store(h, mult_by_phase(node, evaluate_core(node, le, cache)));
        log_cache_store(h, cache);
-       return ptr;
+       return mult_by_phase(node, ptr);
      } else {
        return evaluate_core(node, le, cache);
      }
@@ -251,11 +296,30 @@ Program Listing for File eval.hpp
      auto end = std::end(nodes);
      assert(iter != end);
    
+   #ifdef SEQUANT_EVAL_TRACE
+     log_eval("[TERM] ", " ", to_string(deparse(to_expr(*iter))), "\n");
+   #endif
+   
      auto result = evaluate(*iter, le, std::forward<Args>(args)...);
+     auto const pnode_label = (*iter)->label();
    
      for (++iter; iter != end; ++iter) {
+   #ifdef SEQUANT_EVAL_TRACE
+       log_eval("[TERM] ", " ", to_string(deparse(to_expr(*iter))), "\n");
+   #endif
        auto right = evaluate(*iter, le, std::forward<Args>(args)...);
+   #ifdef SEQUANT_EVAL_TRACE
+       auto&& time = timed_eval_inplace([&]() { result->add_inplace(*right); });
+       log_eval("[ADD_INPLACE] ",  //
+                pnode_label,       //
+                " += ",            //
+                (*iter)->label(),  //
+                "  ",              //
+                time.count(),      //
+                "\n");
+   #else
        result->add_inplace(*right);
+   #endif
      }
    
      return result;
@@ -267,11 +331,21 @@ Program Listing for File eval.hpp
    auto evaluate(NodeT const& node,    //
                  Annot const& layout,  //
                  Le const& le, Args&&... args) {
+   #ifdef SEQUANT_EVAL_TRACE
+     log_eval("[TERM] ", " ", to_string(deparse(to_expr(node))), "\n");
+   #endif
      auto result = evaluate_crust(node, le, std::forward<Args>(args)...);
    
-     log_eval("[PERMUTE] ", node->label(), "\n");
+   #ifdef SEQUANT_EVAL_TRACE
+     auto&& [res, time] = timed_eval([&]() {
+       return result->permute(std::array<std::any, 2>{node->annot(), layout});
+     });
+     log_eval("[PERMUTE] ", node->label(), "  ", time.count(), "\n");
+     return res;
    
+   #else
      return result->permute(std::array<std::any, 2>{node->annot(), layout});
+   #endif
    }
    
    template <typename NodesT, typename Annot, typename Le, typename... Args,
@@ -286,64 +360,58 @@ Program Listing for File eval.hpp
      assert(iter != end);
      auto const pnode_label = (*iter)->label();
    
+   #ifdef SEQUANT_EVAL_TRACE
+     log_eval("[TERM] ", " ", to_string(deparse(to_expr(*iter))), "\n");
+   #endif
+   
      auto result = evaluate(*iter, layout, le, std::forward<Args>(args)...);
-   
      for (++iter; iter != end; ++iter) {
+   #ifdef SEQUANT_EVAL_TRACE
+       log_eval("[TERM] ", " ", to_string(deparse(to_expr(*iter))), "\n");
+   #endif
        auto right = evaluate(*iter, layout, le, std::forward<Args>(args)...);
+   #ifdef SEQUANT_EVAL_TRACE
+       auto&& time = timed_eval_inplace([&]() { result->add_inplace(*right); });
+       log_eval("[ADD_INPLACE] ",  //
+                pnode_label,       //
+                " += ",            //
+                (*iter)->label(),  //
+                "  ",              //
+                time.count(),      //
+                "\n");
    
-       log_eval("[ADD_INPLACE] ", (*iter)->label(), " += ", pnode_label, "\n");
-   
+   #else
        result->add_inplace(*right);
+   #endif
      }
      return result;
    }
    
    template <typename NodeT, typename Annot, typename Le, typename... Args>
-   auto evaluate_symm(NodeT const& node, Annot const& layout,
-                      container::svector<std::array<size_t, 3>> const& perm_groups,
-                      Le const& le, Args&&... args) {
-     container::svector<std::array<size_t, 3>> pgs;
-     if (perm_groups.empty()) {
-       // asked for symmetrization without specifying particle
-       // symmetric index ranges assume both bra indices and ket indices are
-       // symmetric in the particle exchange
-   
-       ExprPtr expr_ptr{};
-       if constexpr (IsIterableOfEvaluableNodes<NodeT>) {
-         expr_ptr = (*std::begin(node))->expr();
-       } else {
-         expr_ptr = node->expr();
-       }
-       assert(expr_ptr->is<Tensor>());
-       auto const& t = expr_ptr->as<Tensor>();
-       assert(t.bra_rank() == t.ket_rank());
-   
-       size_t const half_rank = t.bra_rank();
-       pgs = {{0, half_rank, half_rank}};
-     }
-   
+   auto evaluate_symm(NodeT const& node, Annot const& layout, Le const& le,
+                      Args&&... args) {
      auto result = evaluate(node, layout, le, std::forward<Args>(args)...);
    
-     log_eval("[SYMMETRIZE] (bra pos, ket pos, length) ",
-              perm_groups_string(perm_groups.empty() ? pgs : perm_groups), "\n");
-   
-     return result->symmetrize(perm_groups.empty() ? pgs : perm_groups);
+   #ifdef SEQUANT_EVAL_TRACE
+     auto&& [res, time] = timed_eval([&]() { return result->symmetrize(); });
+     log_eval("[SYMMETRIZE] (layout) ",  //
+              "(", layout, ") ",         //
+              time.count(),              //
+              "\n");
+     return res;
+   #else
+     return result->symmetrize();
+   #endif
    }
    
    template <typename NodeT, typename Annot, typename Le,
              typename... Args>
-   auto evaluate_antisymm(
-       NodeT const& node,                                             //
-       Annot const& layout,                                           //
-       container::svector<std::array<size_t, 3>> const& perm_groups,  //
-       Le const& le,                                                  //
-       Args&&... args) {
-     container::svector<std::array<size_t, 3>> pgs;
-     if (perm_groups.empty()) {
-       // asked for anti-symmetrization without specifying particle
-       // antisymmetric index ranges assume both bra indices and ket indices are
-       // antisymmetric in the particle exchange
-   
+   auto evaluate_antisymm(NodeT const& node,    //
+                          Annot const& layout,  //
+                          Le const& le,         //
+                          Args&&... args) {
+     size_t bra_rank;
+     {
        ExprPtr expr_ptr{};
        if constexpr (IsIterableOfEvaluableNodes<NodeT>) {
          expr_ptr = (*std::begin(node))->expr();
@@ -352,18 +420,21 @@ Program Listing for File eval.hpp
        }
        assert(expr_ptr->is<Tensor>());
        auto const& t = expr_ptr->as<Tensor>();
-       assert(t.bra_rank() == t.ket_rank());
-   
-       size_t const half_rank = t.bra_rank();
-       pgs = {{0, half_rank, half_rank}};
+       bra_rank = t.bra_rank();
      }
    
      auto result = evaluate(node, layout, le, std::forward<Args>(args)...);
-   
-     log_eval("[ANTISYMMETRIZE] (bra pos, ket pos, length) ",
-              perm_groups_string(perm_groups.empty() ? pgs : perm_groups), "\n");
-   
-     return result->antisymmetrize(perm_groups.empty() ? pgs : perm_groups);
+   #ifdef SEQUANT_EVAL_TRACE
+     auto&& [res, time] =
+         timed_eval([&]() { return result->antisymmetrize(bra_rank); });
+     log_eval("[ANTISYMMETRIZE] (bra rank, layout) ",  //
+              "(", bra_rank, ", ", layout, ") ",       //
+              time.count(),                            //
+              "\n");
+     return res;
+   #else
+     return result->antisymmetrize(bra_rank);
+   #endif
    }
    
    }  // namespace sequant
