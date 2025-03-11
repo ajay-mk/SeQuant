@@ -4,10 +4,3 @@
 Namespace sequant::@6
 =====================
 
-
-.. contents:: Contents
-   :local:
-   :backlinks: none
-
-
-

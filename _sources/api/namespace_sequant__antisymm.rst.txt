@@ -5,13 +5,6 @@ Namespace sequant::antisymm
 ===========================
 
 
-.. contents:: Contents
-   :local:
-   :backlinks: none
-
-
-
-
 
 Functions
 ---------

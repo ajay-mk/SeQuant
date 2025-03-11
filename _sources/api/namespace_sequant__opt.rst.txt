@@ -5,13 +5,6 @@ Namespace sequant::opt
 ======================
 
 
-.. contents:: Contents
-   :local:
-   :backlinks: none
-
-
-
-
 Detailed Description
 --------------------
 

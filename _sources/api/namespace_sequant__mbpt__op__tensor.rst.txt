@@ -10,13 +10,6 @@ the namespace containing tensor form of MBPT operators
 
 
 
-.. contents:: Contents
-   :local:
-   :backlinks: none
-
-
-
-
 
 Functions
 ---------

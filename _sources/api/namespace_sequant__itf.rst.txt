@@ -5,13 +5,6 @@ Namespace sequant::itf
 ======================
 
 
-.. contents:: Contents
-   :local:
-   :backlinks: none
-
-
-
-
 
 Namespaces
 ----------

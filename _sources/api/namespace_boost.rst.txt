@@ -5,13 +5,6 @@ Namespace boost
 ===============
 
 
-.. contents:: Contents
-   :local:
-   :backlinks: none
-
-
-
-
 
 Namespaces
 ----------

@@ -5,13 +5,6 @@ Namespace sequant::parse::transform
 ===================================
 
 
-.. contents:: Contents
-   :local:
-   :backlinks: none
-
-
-
-
 
 Functions
 ---------

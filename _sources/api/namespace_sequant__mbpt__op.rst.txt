@@ -10,13 +10,6 @@ the namespace containing MBPT operators
 
 
 
-.. contents:: Contents
-   :local:
-   :backlinks: none
-
-
-
-
 
 Namespaces
 ----------

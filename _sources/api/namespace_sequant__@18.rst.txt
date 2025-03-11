@@ -4,10 +4,3 @@
 Namespace sequant::@18
 ======================
 
-
-.. contents:: Contents
-   :local:
-   :backlinks: none
-
-
-

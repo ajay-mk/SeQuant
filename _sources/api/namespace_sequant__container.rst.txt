@@ -5,13 +5,6 @@ Namespace sequant::container
 ============================
 
 
-.. contents:: Contents
-   :local:
-   :backlinks: none
-
-
-
-
 
 Typedefs
 --------

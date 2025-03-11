@@ -5,13 +5,6 @@ Namespace sequant::@14
 ======================
 
 
-.. contents:: Contents
-   :local:
-   :backlinks: none
-
-
-
-
 
 Enums
 -----

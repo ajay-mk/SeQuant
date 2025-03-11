@@ -4,10 +4,3 @@
 Namespace container
 ===================
 
-
-.. contents:: Contents
-   :local:
-   :backlinks: none
-
-
-

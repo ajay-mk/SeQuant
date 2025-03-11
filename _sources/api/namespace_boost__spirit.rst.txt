@@ -5,13 +5,6 @@ Namespace boost::spirit
 =======================
 
 
-.. contents:: Contents
-   :local:
-   :backlinks: none
-
-
-
-
 
 Namespaces
 ----------
