@@ -1,0 +1,4 @@
+Wick Theorem
+==============
+
+This section will discuss the `WickTheorem` class (see :class:`sequant::core::WickTheorem`) and its usage.

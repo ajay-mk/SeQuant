@@ -7,7 +7,9 @@
     <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 --><title>Index - SeQuant Documentation</title>
 <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-treeview/bootstrap-treeview.min.css?v=8176a87d" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/fontawesome.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/solid.min.css" />
@@ -20,6 +22,7 @@
   body {
     --color-code-background: #f8f8f8;
   --color-code-foreground: black;
+  --sidebar-item-font-size: 0.95em;
   
   }
   @media not print {
@@ -200,15 +203,21 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+  <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="source/installing.html">Installation Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="source/using.html">Using SeQuant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user/installing.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user/using.html">Using SeQuant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user/docs.html">Building the Documentation</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Advanced Topics</span></p>
+<p class="caption" role="heading"><span class="caption-text">Advanced Documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="source/cc.html">Coupled-Cluster Class</a></li>
-<li class="toctree-l1"><a class="reference internal" href="source/eval.html">Interpreting and Evaluating Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user/cc.html">Coupled-Cluster Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user/eval.html">Interpreting and Evaluating Expressions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Internal Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="internal/tnc.html">Tensor Network Canonicalizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="internal/wick.html">Wick Theorem</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul class="current">
@@ -221,9 +230,7 @@
 <li class="toctree-l1"><a class="reference external" href="https://valeevgroup.github.io">Valeev Research Group</a></li>
 </ul>
 
-</div>
-</div>
-
+</div></div>
       </div>
       
     </div>
@@ -2126,12 +2133,12 @@
 </li>
         <li><a href="api/enum_namespacesequant_1_1mbpt_1a085298ac5894ca08279f64ead1348a31.html#_CPPv4N7sequant4mbpt10Convention2SRE">sequant::mbpt::Convention::SR (C++ enumerator)</a>
 </li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="api/enum_namespacesequant_1_1mbpt_1a7906af1f79606057e6c1710dc1b554e3.html#_CPPv4N7sequant4mbpt3CSVE">sequant::mbpt::CSV (C++ enum)</a>
 </li>
         <li><a href="api/enum_namespacesequant_1_1mbpt_1a7906af1f79606057e6c1710dc1b554e3.html#_CPPv4N7sequant4mbpt3CSV2NoE">sequant::mbpt::CSV::No (C++ enumerator)</a>
 </li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="api/enum_namespacesequant_1_1mbpt_1a7906af1f79606057e6c1710dc1b554e3.html#_CPPv4N7sequant4mbpt3CSV3YesE">sequant::mbpt::CSV::Yes (C++ enumerator)</a>
 </li>
         <li><a href="api/function_namespacesequant_1_1mbpt_1_1decompositions_1a11fde815eb91ac961717185b9daa6568.html#_CPPv4N7sequant4mbpt14decompositions16cumu2_to_densityEN7sequant7ExprPtrE">sequant::mbpt::decompositions::cumu2_to_density (C++ function)</a>
@@ -3300,6 +3307,16 @@
 </li>
         <li><a href="api/classsequant_1_1_tensor_network.html#_CPPv4N7sequant13TensorNetworkE">sequant::TensorNetwork (C++ class)</a>
 </li>
+        <li><a href="api/classsequant_1_1_tensor_network.html#_CPPv4N7sequant13TensorNetwork17BlissGraphOptionsE">sequant::TensorNetwork::BlissGraphOptions (C++ struct)</a>, <a href="api/structsequant_1_1_tensor_network_1_1_bliss_graph_options.html#_CPPv4N7sequant13TensorNetwork17BlissGraphOptionsE">[1]</a>
+</li>
+        <li><a href="api/classsequant_1_1_tensor_network.html#_CPPv4N7sequant13TensorNetwork17BlissGraphOptions22distinct_named_indicesE">sequant::TensorNetwork::BlissGraphOptions::distinct_named_indices (C++ member)</a>, <a href="api/structsequant_1_1_tensor_network_1_1_bliss_graph_options.html#_CPPv4N7sequant13TensorNetwork17BlissGraphOptions22distinct_named_indicesE">[1]</a>
+</li>
+        <li><a href="api/classsequant_1_1_tensor_network.html#_CPPv4N7sequant13TensorNetwork17BlissGraphOptions11make_labelsE">sequant::TensorNetwork::BlissGraphOptions::make_labels (C++ member)</a>, <a href="api/structsequant_1_1_tensor_network_1_1_bliss_graph_options.html#_CPPv4N7sequant13TensorNetwork17BlissGraphOptions11make_labelsE">[1]</a>
+</li>
+        <li><a href="api/classsequant_1_1_tensor_network.html#_CPPv4N7sequant13TensorNetwork17BlissGraphOptions14make_texlabelsE">sequant::TensorNetwork::BlissGraphOptions::make_texlabels (C++ member)</a>, <a href="api/structsequant_1_1_tensor_network_1_1_bliss_graph_options.html#_CPPv4N7sequant13TensorNetwork17BlissGraphOptions14make_texlabelsE">[1]</a>
+</li>
+        <li><a href="api/classsequant_1_1_tensor_network.html#_CPPv4N7sequant13TensorNetwork17BlissGraphOptions13named_indicesE">sequant::TensorNetwork::BlissGraphOptions::named_indices (C++ member)</a>, <a href="api/structsequant_1_1_tensor_network_1_1_bliss_graph_options.html#_CPPv4N7sequant13TensorNetwork17BlissGraphOptions13named_indicesE">[1]</a>
+</li>
         <li><a href="api/classsequant_1_1_tensor_network.html#_CPPv4N7sequant13TensorNetwork12canonicalizeERKN9container6vectorINSt7wstringEEEbPK15named_indices_t">sequant::TensorNetwork::canonicalize (C++ function)</a>
 </li>
         <li><a href="api/classsequant_1_1_tensor_network.html#_CPPv4N7sequant13TensorNetwork18canonicalize_slotsERKN9container6vectorINSt7wstringEEEPK15named_indices_tN28SlotCanonicalizationMetadata21named_index_compare_tE">sequant::TensorNetwork::canonicalize_slots (C++ function)</a>
@@ -3375,8 +3392,6 @@
         <li><a href="api/classsequant_1_1_tensor_network.html#_CPPv4N7sequant13TensorNetwork9GraphData11VertexColorE">sequant::TensorNetwork::GraphData::VertexColor (C++ type)</a>, <a href="api/structsequant_1_1_tensor_network_1_1_graph_data.html#_CPPv4N7sequant13TensorNetwork9GraphData11VertexColorE">[1]</a>
 </li>
         <li><a href="api/classsequant_1_1_tensor_network.html#_CPPv4NK7sequant13TensorNetwork7idxreplEv">sequant::TensorNetwork::idxrepl (C++ function)</a>
-</li>
-        <li><a href="api/classsequant_1_1_tensor_network.html#_CPPv4NK7sequant13TensorNetwork16make_bliss_graphEPK15named_indices_tb">sequant::TensorNetwork::make_bliss_graph (C++ function)</a>
 </li>
         <li><a href="api/classsequant_1_1_tensor_network.html#_CPPv4N7sequant13TensorNetwork8max_rankE">sequant::TensorNetwork::max_rank (C++ member)</a>
 </li>
@@ -3910,7 +3925,7 @@
             
             <a href="https://github.com/pradyunsg/furo">Furo</a>
             <div class="last-updated">
-              Last updated on Feb 26, 2025 9:17:53 PM</div>
+              Last updated on Mar 11, 2025 6:58:33 AM</div>
           </div>
           <div class="right-details">
             <div class="icons">
@@ -3934,5 +3949,6 @@
     <script src="_static/scripts/furo.js?v=5fa4622c"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/bootstrap-treeview/bootstrap-treeview.min.js?v=6a1e96b4"></script>
     </body>
 </html>

@@ -8,6 +8,11 @@ File tensor_network.hpp
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
 Definition (``SeQuant/core/tensor_network.hpp``)
 ------------------------------------------------
 
@@ -92,6 +97,8 @@ Namespaces
 Classes
 -------
 
+
+- :ref:`exhale_struct_structsequant_1_1_tensor_network_1_1_bliss_graph_options`
 
 - :ref:`exhale_struct_structsequant_1_1_tensor_network_1_1_edge_1_1_terminal`
 

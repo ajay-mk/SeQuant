@@ -3,13 +3,15 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Interpreting and Evaluating Expressions" href="eval.html" /><link rel="prev" title="Using SeQuant" href="using.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" />
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2024.08.06 -->
-        <title>Coupled-Cluster Class - SeQuant Documentation</title>
+        <title>Struct TensorNetwork::BlissGraphOptions - SeQuant Documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-treeview/bootstrap-treeview.min.css?v=8176a87d" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/fontawesome.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/solid.min.css" />
@@ -22,6 +24,7 @@
   body {
     --color-code-background: #f8f8f8;
   --color-code-foreground: black;
+  --sidebar-item-font-size: 0.95em;
   
   }
   @media not print {
@@ -202,15 +205,21 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+  <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="installing.html">Installation Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="using.html">Using SeQuant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/installing.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/using.html">Using SeQuant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/docs.html">Building the Documentation</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Advanced Topics</span></p>
-<ul class="current">
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Coupled-Cluster Class</a></li>
-<li class="toctree-l1"><a class="reference internal" href="eval.html">Interpreting and Evaluating Expressions</a></li>
+<p class="caption" role="heading"><span class="caption-text">Advanced Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user/cc.html">Coupled-Cluster Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/eval.html">Interpreting and Evaluating Expressions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Internal Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../internal/tnc.html">Tensor Network Canonicalizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../internal/wick.html">Wick Theorem</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul>
@@ -223,9 +232,7 @@
 <li class="toctree-l1"><a class="reference external" href="https://valeevgroup.github.io">Valeev Research Group</a></li>
 </ul>
 
-</div>
-</div>
-
+</div></div>
       </div>
       
     </div>
@@ -241,7 +248,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="../_sources/source/cc.rst.txt" title="View this page">
+  <a class="muted-link" href="../_sources/api/structsequant_1_1_tensor_network_1_1_bliss_graph_options.rst.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -260,50 +267,50 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="coupled-cluster-class">
-<h1>Coupled-Cluster Class<a class="headerlink" href="#coupled-cluster-class" title="Link to this heading">¶</a></h1>
-<p>SeQuant’s coupled-cluster (CC) class (see <a class="reference internal" href="../api/classsequant_1_1mbpt_1_1_c_c.html#_CPPv4N7sequant4mbpt2CCE" title="sequant::mbpt::CC"><code class="xref cpp cpp-class docutils literal notranslate"><span class="pre">sequant::mbpt::CC</span></code></a>) supports derivations of ground and excited state methods,
-using traditional, unitary and orbital-optimized ansatze (see <a class="reference internal" href="../api/classsequant_1_1mbpt_1_1_c_c.html#_CPPv4N7sequant4mbpt2CC6AnsatzE" title="sequant::mbpt::CC::Ansatz"><code class="xref cpp cpp-enum docutils literal notranslate"><span class="pre">sequant::mbpt::CC::Ansatz</span></code></a>).
-Expressions are generated in spin-orbital basis, and they can post-processed using SeQuant’s spin-tracing capabilities.</p>
-<section id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading">¶</a></h2>
-<p>Here are some examples of using the CC class for deriving expressions.</p>
-<section id="cc-amplitude-equations">
-<h3>CC amplitude equations<a class="headerlink" href="#cc-amplitude-equations" title="Link to this heading">¶</a></h3>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">sequant</span><span class="o">::</span><span class="nn">mbpt</span><span class="p">;</span>
-<span class="c1">// Traditional CCSD</span>
-<span class="k">auto</span><span class="w"> </span><span class="n">t_eqs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CC</span><span class="p">{</span><span class="mi">2</span><span class="p">}.</span><span class="n">t</span><span class="p">();</span>
-<span class="n">std</span><span class="o">::</span><span class="n">wcout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;R[1]: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">to_latex</span><span class="p">(</span><span class="n">t_eqs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span>
-<span class="w">           </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;R[2]: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">to_latex</span><span class="p">(</span><span class="n">t_eqs</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+          <section id="struct-tensornetwork-blissgraphoptions">
+<span id="exhale-struct-structsequant-1-1-tensor-network-1-1-bliss-graph-options"></span><h1>Struct TensorNetwork::BlissGraphOptions<a class="headerlink" href="#struct-tensornetwork-blissgraphoptions" title="Link to this heading">¶</a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_SeQuant_core_tensor_network.hpp.html#file-sequant-core-tensor-network-hpp"><span class="std std-ref">File tensor_network.hpp</span></a></p></li>
+</ul>
+<section id="nested-relationships">
+<h2>Nested Relationships<a class="headerlink" href="#nested-relationships" title="Link to this heading">¶</a></h2>
+<p>This struct is a nested type of <a class="reference internal" href="classsequant_1_1_tensor_network.html#exhale-class-classsequant-1-1-tensor-network"><span class="std std-ref">Class TensorNetwork</span></a>.</p>
+</section>
+<section id="struct-documentation">
+<h2>Struct Documentation<a class="headerlink" href="#struct-documentation" title="Link to this heading">¶</a></h2>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant13TensorNetwork17BlissGraphOptionsE">
+<span id="_CPPv3N7sequant13TensorNetwork17BlissGraphOptionsE"></span><span id="_CPPv2N7sequant13TensorNetwork17BlissGraphOptionsE"></span><span id="sequant::TensorNetwork::BlissGraphOptions"></span><span class="target" id="structsequant_1_1_tensor_network_1_1_bliss_graph_options"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">BlissGraphOptions</span></span></span><br /></dt>
+<dd><p>options for generating bliss Graph </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant13TensorNetwork17BlissGraphOptions13named_indicesE">
+<span id="_CPPv3N7sequant13TensorNetwork17BlissGraphOptions13named_indicesE"></span><span id="_CPPv2N7sequant13TensorNetwork17BlissGraphOptions13named_indicesE"></span><span id="sequant::TensorNetwork::BlissGraphOptions::named_indices__named_indices_tCP"></span><span class="target" id="structsequant_1_1_tensor_network_1_1_bliss_graph_options_1a9b624e2dfbc71fac2f478fe4fd781ea6"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="classsequant_1_1_tensor_network.html#_CPPv4N7sequant13TensorNetwork15named_indices_tE" title="sequant::TensorNetwork::named_indices_t"><span class="n"><span class="pre">named_indices_t</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">named_indices</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><br /></dt>
+<dd><p>pointer to the set of named indices (ordinarily, this includes all external indices); default is nullptr, which means use all external indices for named indices </p>
+</dd></dl>
 
-<span class="k">auto</span><span class="w"> </span><span class="n">l_eqs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CC</span><span class="p">{</span><span class="mi">2</span><span class="p">}.</span><span class="n">λ</span><span class="p">();</span>
-<span class="n">std</span><span class="o">::</span><span class="n">wcout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;L[1]: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">to_latex</span><span class="p">(</span><span class="n">l_eqs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span>
-<span class="w">           </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;L[2]: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">to_latex</span><span class="p">(</span><span class="n">l_eqs</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant13TensorNetwork17BlissGraphOptions22distinct_named_indicesE">
+<span id="_CPPv3N7sequant13TensorNetwork17BlissGraphOptions22distinct_named_indicesE"></span><span id="_CPPv2N7sequant13TensorNetwork17BlissGraphOptions22distinct_named_indicesE"></span><span id="sequant::TensorNetwork::BlissGraphOptions::distinct_named_indices__b"></span><span class="target" id="structsequant_1_1_tensor_network_1_1_bliss_graph_options_1a862c5e45a472185c1475bbec8ab26a1b"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">distinct_named_indices</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><br /></dt>
+<dd><p>if false, will use same color for all named indices that have same <a class="reference internal" href="classsequant_1_1_index.html#classsequant_1_1_index_1ae348f056ca506bf2d71e933b7ae7b2d9"><span class="std std-ref">Index::color()</span></a>, else will use distinct color for each </p>
+</dd></dl>
 
-<span class="c1">// Unitary CCSD</span>
-<span class="k">auto</span><span class="w"> </span><span class="n">Ut_eqs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CC</span><span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">CC</span><span class="o">::</span><span class="n">Ansatz</span><span class="o">::</span><span class="n">U</span><span class="p">}.</span><span class="n">t</span><span class="p">();</span>
-<span class="n">std</span><span class="o">::</span><span class="n">wcout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;R[1]: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">to_latex</span><span class="p">(</span><span class="n">Ut_eqs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span>
-<span class="w">           </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;R[2]: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">to_latex</span><span class="p">(</span><span class="n">Ut_eqs</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-</pre></div>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant13TensorNetwork17BlissGraphOptions11make_labelsE">
+<span id="_CPPv3N7sequant13TensorNetwork17BlissGraphOptions11make_labelsE"></span><span id="_CPPv2N7sequant13TensorNetwork17BlissGraphOptions11make_labelsE"></span><span id="sequant::TensorNetwork::BlissGraphOptions::make_labels__b"></span><span class="target" id="structsequant_1_1_tensor_network_1_1_bliss_graph_options_1a2e75d02d95475c65636c62894fdb0a5c"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">make_labels</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><br /></dt>
+<dd><p>if false, will not generate the labels </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant13TensorNetwork17BlissGraphOptions14make_texlabelsE">
+<span id="_CPPv3N7sequant13TensorNetwork17BlissGraphOptions14make_texlabelsE"></span><span id="_CPPv2N7sequant13TensorNetwork17BlissGraphOptions14make_texlabelsE"></span><span id="sequant::TensorNetwork::BlissGraphOptions::make_texlabels__b"></span><span class="target" id="structsequant_1_1_tensor_network_1_1_bliss_graph_options_1a937cf5683f011d0110743a54f18592ea"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">make_texlabels</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><br /></dt>
+<dd><p>if false, will not generate the TeX labels </p>
+</dd></dl>
+
 </div>
-</section>
-<section id="eom-cc-equations">
-<h3>EOM-CC equations<a class="headerlink" href="#eom-cc-equations" title="Link to this heading">¶</a></h3>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>EOM-CC methods only support traditional ansatz for now</p>
-</div>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">sequant</span><span class="o">::</span><span class="nn">mbpt</span><span class="p">;</span>
-<span class="c1">// EE-EOM-CCSD</span>
-<span class="k">auto</span><span class="w"> </span><span class="n">r_eqs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CC</span><span class="p">{</span><span class="mi">2</span><span class="p">}.</span><span class="n">eom_r</span><span class="p">(</span><span class="n">nₚ</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span><span class="w"> </span><span class="n">nₕ</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span>
-<span class="n">std</span><span class="o">::</span><span class="n">wcout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;R[1]: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">to_latex</span><span class="p">(</span><span class="n">r_eqs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span>
-<span class="w">           </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;R[2]: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">to_latex</span><span class="p">(</span><span class="n">r_eqs</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-</pre></div>
-</div>
-</section>
-</section>
-<section id="spin-tracing-generated-expressions">
-<span id="spin-tracing"></span><h2>Spin-tracing generated expressions<a class="headerlink" href="#spin-tracing-generated-expressions" title="Link to this heading">¶</a></h2>
+</dd></dl>
+
 </section>
 </section>
 
@@ -312,26 +319,8 @@ Expressions are generated in spin-orbital basis, and they can post-processed usi
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="eval.html">
-              <div class="page-info">
-                <div class="context">
-                  <span>Next</span>
-                </div>
-                <div class="title">Interpreting and Evaluating Expressions</div>
-              </div>
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-            </a>
-          <a class="prev-page" href="using.html">
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-              <div class="page-info">
-                <div class="context">
-                  <span>Previous</span>
-                </div>
-                
-                <div class="title">Using SeQuant</div>
-                
-              </div>
-            </a>
+          
+          
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -342,7 +331,7 @@ Expressions are generated in spin-orbital basis, and they can post-processed usi
             
             <a href="https://github.com/pradyunsg/furo">Furo</a>
             <div class="last-updated">
-              Last updated on Feb 26, 2025 9:17:53 PM</div>
+              Last updated on Mar 11, 2025 6:58:33 AM</div>
           </div>
           <div class="right-details">
             <div class="icons">
@@ -366,13 +355,18 @@ Expressions are generated in spin-orbital basis, and they can post-processed usi
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Coupled-Cluster Class</a><ul>
-<li><a class="reference internal" href="#examples">Examples</a><ul>
-<li><a class="reference internal" href="#cc-amplitude-equations">CC amplitude equations</a></li>
-<li><a class="reference internal" href="#eom-cc-equations">EOM-CC equations</a></li>
+<li><a class="reference internal" href="#">Struct TensorNetwork::BlissGraphOptions</a><ul>
+<li><a class="reference internal" href="#nested-relationships">Nested Relationships</a></li>
+<li><a class="reference internal" href="#struct-documentation">Struct Documentation</a><ul>
+<li><a class="reference internal" href="#_CPPv4N7sequant13TensorNetwork17BlissGraphOptionsE"><code class="docutils literal notranslate"><span class="pre">sequant::TensorNetwork::BlissGraphOptions</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N7sequant13TensorNetwork17BlissGraphOptions13named_indicesE"><code class="docutils literal notranslate"><span class="pre">named_indices</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N7sequant13TensorNetwork17BlissGraphOptions22distinct_named_indicesE"><code class="docutils literal notranslate"><span class="pre">distinct_named_indices</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N7sequant13TensorNetwork17BlissGraphOptions11make_labelsE"><code class="docutils literal notranslate"><span class="pre">make_labels</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N7sequant13TensorNetwork17BlissGraphOptions14make_texlabelsE"><code class="docutils literal notranslate"><span class="pre">make_texlabels</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#spin-tracing-generated-expressions">Spin-tracing generated expressions</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -390,5 +384,6 @@ Expressions are generated in spin-orbital basis, and they can post-processed usi
     <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/bootstrap-treeview/bootstrap-treeview.min.js?v=6a1e96b4"></script>
     </body>
 </html>
