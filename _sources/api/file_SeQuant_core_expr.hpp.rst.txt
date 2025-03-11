@@ -8,6 +8,11 @@ File expr.hpp
 
 .. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
 
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
 Definition (``SeQuant/core/expr.hpp``)
 --------------------------------------
 
@@ -171,13 +176,9 @@ Classes
 
 - :ref:`exhale_struct_structsequant_1_1_expr_1_1is__shared__ptr__of__expr_3_01_expr_ptr_00_01void_01_4`
 
-- :ref:`exhale_struct_structsequant_1_1_expr_1_1is__shared__ptr__of__expr_3_01std_1_1shared__ptr_3_01_t_01_4_00_01std_bb3533b4d54bb13a35fe574fcb225ae9`
-
 - :ref:`exhale_struct_structsequant_1_1_expr_1_1is__shared__ptr__of__expr__or__derived`
 
 - :ref:`exhale_struct_structsequant_1_1_expr_1_1is__shared__ptr__of__expr__or__derived_3_01_expr_ptr_00_01void_01_4`
-
-- :ref:`exhale_struct_structsequant_1_1_expr_1_1is__shared__ptr__of__expr__or__derived_3_01std_1_1shared__ptr_3_01_t_0b9041721e7914bd1fb6a6a0536a3b3b6`
 
 - :ref:`exhale_class_classsequant_1_1_constant`
 
@@ -202,9 +203,9 @@ Functions
 ---------
 
 
-- :ref:`exhale_function_namespacesequant_1ade3116efc18d901007d72fdc0fc208ea`
-
 - :ref:`exhale_function_namespacesequant_1ab497a84be7129a4f02e4b2d3cd30fb77`
+
+- :ref:`exhale_function_namespacesequant_1ade3116efc18d901007d72fdc0fc208ea`
 
 - :ref:`exhale_function_namespacesequant_1a4fb2134f803040f97c457fd476d97c55`
 
@@ -212,9 +213,9 @@ Functions
 
 - :ref:`exhale_function_namespacesequant_1a92238a447312a29368c42f7b9ac14bef`
 
-- :ref:`exhale_function_namespacesequant_1af4ece5a049a3d307e03f6b2af97697ab`
-
 - :ref:`exhale_function_namespacesequant_1ad600d7fe47c0c4f006149cd13a114bc5`
+
+- :ref:`exhale_function_namespacesequant_1af4ece5a049a3d307e03f6b2af97697ab`
 
 - :ref:`exhale_function_namespacesequant_1af4f19f545e6cd169b63cae9380ec8a40`
 
@@ -226,9 +227,9 @@ Functions
 
 - :ref:`exhale_function_namespacesequant_1a4f7a82ef79acb5f9253be6cf51a1bde0`
 
-- :ref:`exhale_function_namespacesequant_1a437ad10a56bd65379c519b985070f255`
-
 - :ref:`exhale_function_namespacesequant_1af0948cfc462ccc7967a31e2cf87318f6`
+
+- :ref:`exhale_function_namespacesequant_1a437ad10a56bd65379c519b985070f255`
 
 - :ref:`exhale_function_namespacesequant_1adcc6b2bdbc08b4b884a9c7c8971b642b`
 

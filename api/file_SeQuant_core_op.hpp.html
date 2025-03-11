@@ -9,7 +9,9 @@
         <title>File op.hpp - SeQuant Documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-treeview/bootstrap-treeview.min.css?v=8176a87d" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/fontawesome.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/solid.min.css" />
@@ -22,6 +24,7 @@
   body {
     --color-code-background: #f8f8f8;
   --color-code-foreground: black;
+  --sidebar-item-font-size: 0.95em;
   
   }
   @media not print {
@@ -202,15 +205,23 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+  <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../source/installing.html">Installation Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../source/using.html">Using SeQuant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/installing.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/using.html">Using SeQuant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/docs.html">Building the Documentation</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Advanced Topics</span></p>
+<p class="caption" role="heading"><span class="caption-text">Advanced Features</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../source/cc.html">Coupled-Cluster Class</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../source/eval.html">Interpreting and Evaluating Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/cc.html">Coupled-Cluster Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/spin_tracing.html">Spin Tracing Expressions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user/evaluation.html">Interpreting and Evaluating Expressions</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Internal Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../internal/docs_advanced.html">Documentation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../internal/tnc.html">Tensor Network Canonicalizer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../internal/wick.html">Wick Theorem</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
 <ul>
@@ -223,9 +234,7 @@
 <li class="toctree-l1"><a class="reference external" href="https://valeevgroup.github.io">Valeev Research Group</a></li>
 </ul>
 
-</div>
-</div>
-
+</div></div>
       </div>
       
     </div>
@@ -263,6 +272,18 @@
           <section id="file-op-hpp">
 <span id="file-sequant-core-op-hpp"></span><h1>File op.hpp<a class="headerlink" href="#file-op-hpp" title="Link to this heading">¶</a></h1>
 <p>↰ <a class="reference internal" href="dir_SeQuant_core.html#dir-sequant-core"><span class="std std-ref">Parent directory</span></a> (<code class="docutils literal notranslate"><span class="pre">SeQuant/core</span></code>)</p>
+<nav class="contents local" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#definition-sequant-core-op-hpp" id="id1">Definition (<code class="docutils literal notranslate"><span class="pre">SeQuant/core/op.hpp</span></code>)</a></p></li>
+<li><p><a class="reference internal" href="#includes" id="id2">Includes</a></p></li>
+<li><p><a class="reference internal" href="#included-by" id="id3">Included By</a></p></li>
+<li><p><a class="reference internal" href="#namespaces" id="id4">Namespaces</a></p></li>
+<li><p><a class="reference internal" href="#classes" id="id5">Classes</a></p></li>
+<li><p><a class="reference internal" href="#functions" id="id6">Functions</a></p></li>
+<li><p><a class="reference internal" href="#typedefs" id="id7">Typedefs</a></p></li>
+</ul>
+</nav>
 <section id="definition-sequant-core-op-hpp">
 <h2>Definition (<code class="docutils literal notranslate"><span class="pre">SeQuant/core/op.hpp</span></code>)<a class="headerlink" href="#definition-sequant-core-op-hpp" title="Link to this heading">¶</a></h2>
 <div class="toctree-wrapper compound">
@@ -363,9 +384,9 @@
 <li><p><a class="reference internal" href="function_namespacesequant_1a6f519687dbe407070b5068c0580e8821.html#exhale-function-namespacesequant-1a6f519687dbe407070b5068c0580e8821"><span class="std std-ref">Template Function sequant::normalize</span></a></p></li>
 <li><p><a class="reference internal" href="function_namespacesequant_1af350f7feb1a3a7d5cbe5f22b2e25a76a.html#exhale-function-namespacesequant-1af350f7feb1a3a7d5cbe5f22b2e25a76a"><span class="std std-ref">Template Function sequant::operator!=(const Op&lt;S&gt;&amp;, const Op&lt;S&gt;&amp;)</span></a></p></li>
 <li><p><a class="reference internal" href="function_namespacesequant_1a1b7fd49159294bfa5b46f309a8742286.html#exhale-function-namespacesequant-1a1b7fd49159294bfa5b46f309a8742286"><span class="std std-ref">Template Function sequant::operator&lt;(const Op&lt;S1&gt;&amp;, const Op&lt;S2&gt;&amp;)</span></a></p></li>
+<li><p><a class="reference internal" href="function_namespacesequant_1aec313efc5a2f86c70203f17953ee20e4.html#exhale-function-namespacesequant-1aec313efc5a2f86c70203f17953ee20e4"><span class="std std-ref">Template Function sequant::operator==(const Op&lt;S&gt;&amp;, const Op&lt;S&gt;&amp;)</span></a></p></li>
 <li><p><a class="reference internal" href="function_namespacesequant_1aaf7c742d3ac61b03615c69c67e462dc0.html#exhale-function-namespacesequant-1aaf7c742d3ac61b03615c69c67e462dc0"><span class="std std-ref">Template Function sequant::operator==(const Operator&lt;S&gt;&amp;, const Operator&lt;S&gt;&amp;)</span></a></p></li>
 <li><p><a class="reference internal" href="function_namespacesequant_1ad59caf9dc97b151ebf5f35038750b831.html#exhale-function-namespacesequant-1ad59caf9dc97b151ebf5f35038750b831"><span class="std std-ref">Template Function sequant::operator==(const NormalOperator&lt;S&gt;&amp;, const NormalOperator&lt;S&gt;&amp;)</span></a></p></li>
-<li><p><a class="reference internal" href="function_namespacesequant_1aec313efc5a2f86c70203f17953ee20e4.html#exhale-function-namespacesequant-1aec313efc5a2f86c70203f17953ee20e4"><span class="std std-ref">Template Function sequant::operator==(const Op&lt;S&gt;&amp;, const Op&lt;S&gt;&amp;)</span></a></p></li>
 <li><p><a class="reference internal" href="function_namespacesequant_1a6afa4fe4129c885aa2c4ad46252a66bb.html#exhale-function-namespacesequant-1a6afa4fe4129c885aa2c4ad46252a66bb"><span class="std std-ref">Template Function sequant::qpannihilator_space</span></a></p></li>
 <li><p><a class="reference internal" href="function_namespacesequant_1abae8eae397f4fa498bdc2486da8c7860.html#exhale-function-namespacesequant-1abae8eae397f4fa498bdc2486da8c7860"><span class="std std-ref">Template Function sequant::qpcreator_space</span></a></p></li>
 <li><p><a class="reference internal" href="function_namespacesequant_1a6b026a49ebe957077486f0b2dab5c84c.html#exhale-function-namespacesequant-1a6b026a49ebe957077486f0b2dab5c84c"><span class="std std-ref">Template Function sequant::to_latex(const NormalOperator&lt;S&gt;&amp;)</span></a></p></li>
@@ -404,7 +425,7 @@
             
             <a href="https://github.com/pradyunsg/furo">Furo</a>
             <div class="last-updated">
-              Last updated on Mar 11, 2025 11:40:45 PM</div>
+              Last updated on Mar 11, 2025 11:44:03 PM</div>
           </div>
           <div class="right-details">
             <div class="icons">
@@ -453,5 +474,6 @@
     <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/bootstrap-treeview/bootstrap-treeview.min.js?v=6a1e96b4"></script>
     </body>
 </html>

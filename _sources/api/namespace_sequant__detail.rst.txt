@@ -5,6 +5,13 @@ Namespace sequant::detail
 =========================
 
 
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+
+
+
 
 Classes
 -------
@@ -18,15 +25,9 @@ Classes
 
 - :ref:`exhale_struct_structsequant_1_1detail_1_1has__boost__hash__value`
 
-- :ref:`exhale_struct_structsequant_1_1detail_1_1has__boost__hash__value_3_01_t_00_01std_1_1void__t_3_01decltype_07seq36a582b8a5d5b63abb0d025aa8b8a9c0`
-
 - :ref:`exhale_struct_structsequant_1_1detail_1_1has__hash__value`
 
-- :ref:`exhale_struct_structsequant_1_1detail_1_1has__hash__value_3_01_t_00_01std_1_1void__t_3_01decltype_07hash__valu232d7e075f4e4c7b9ae22728891f494e`
-
 - :ref:`exhale_struct_structsequant_1_1detail_1_1has__hash__value__member__fn__helper`
-
-- :ref:`exhale_struct_structsequant_1_1detail_1_1has__hash__value__member__fn__helper_3_01_t_00_01std_1_1void__t_3_01d9a99bdda517383f729b2774fe7100dab`
 
 - :ref:`exhale_struct_structsequant_1_1detail_1_1_implicit_context_resetter`
 
@@ -57,13 +58,13 @@ Functions
 ---------
 
 
+- :ref:`exhale_function_namespacesequant_1_1detail_1ab08dabd364bf0e57c5c51c6d62f50473`
+
 - :ref:`exhale_function_namespacesequant_1_1detail_1a867aeabd5c138213924d003e90260750`
 
 - :ref:`exhale_function_namespacesequant_1_1detail_1a866c15b6b0da948abf0e99f5936eaacb`
 
 - :ref:`exhale_function_namespacesequant_1_1detail_1afce77ed7019ff0861143bd1f66fa0e5c`
-
-- :ref:`exhale_function_namespacesequant_1_1detail_1ab08dabd364bf0e57c5c51c6d62f50473`
 
 - :ref:`exhale_function_namespacesequant_1_1detail_1a6b853ac863527eb88053311da0695c4b`
 

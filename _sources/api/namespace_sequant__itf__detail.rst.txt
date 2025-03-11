@@ -5,6 +5,13 @@ Namespace sequant::itf::detail
 ==============================
 
 
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+
+
+
 
 Classes
 -------
