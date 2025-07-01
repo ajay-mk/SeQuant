@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-treeview/bootstrap-treeview.min.css?v=8176a87d" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/fontawesome.min.css" />
@@ -205,27 +206,29 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+  <p class="caption" role="heading"><span class="caption-text">User</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../user/installing.html">Installation Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../user/using.html">Using SeQuant</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../user/docs.html">Building the Documentation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../user/getting_started/index.html">Getting started</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Getting started</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../user/getting_started/wick.html">Wick’s Theorem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/getting_started/index_spaces.html">Register Index Spaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/getting_started/operators.html">Operators</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Advanced Features</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../user/cc.html">Coupled-Cluster Class</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../user/spin_tracing.html">Spin Tracing Expressions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../user/evaluation.html">Interpreting and Evaluating Expressions</a></li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../user/getting_started/installing.html">Installation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../user/guide/index.html">User Guide</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of User Guide</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../user/guide/operator.html">Operator Interface for Symbolic Many-Body Algebra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/guide/cc.html">Coupled-Cluster Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/guide/evaluation.html">Evaluation Trace Analysis Using Nushell</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Internal Documentation</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../internal/docs_advanced.html">Documentation Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../internal/tnc.html">Tensor Network Canonicalizer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../internal/wick.html">Wick Theorem</a></li>
+</li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">Developer</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../genindex.html">Index</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../developer/index.html">Developer docs</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Developer docs</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../developer/documentation.html">Documentation Guide</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../genindex.html">API reference</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">See Also</span></p>
 <ul>
@@ -336,6 +339,16 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4I00EN7sequant10IndexSpace10IndexSpaceERR1S8TypeAttr18QuantumNumbersAttrm">
 <span id="_CPPv3I00EN7sequant10IndexSpace10IndexSpaceERR1S8TypeAttr18QuantumNumbersAttrm"></span><span id="_CPPv2I00EN7sequant10IndexSpace10IndexSpaceERR1S8TypeAttr18QuantumNumbersAttrm"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">S</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">meta</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="typedef_namespacesequant_1_1meta_1ae13deb9570a416bc7095c50b42d60177.html#_CPPv4IDpEN7sequant4meta33EnableIfAllBasicStringConvertibleE" title="sequant::meta::EnableIfAllBasicStringConvertible"><span class="n"><span class="pre">EnableIfAllBasicStringConvertible</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I00EN7sequant10IndexSpace10IndexSpaceERR1S8TypeAttr18QuantumNumbersAttrm" title="sequant::IndexSpace::IndexSpace::S"><span class="n"><span class="pre">S</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classsequant_1_1_index_space_1a6454fc51c02577ac12b0a4e653a8f923"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IndexSpace</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I00EN7sequant10IndexSpace10IndexSpaceERR1S8TypeAttr18QuantumNumbersAttrm" title="sequant::IndexSpace::IndexSpace::S"><span class="n"><span class="pre">S</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">type_label</span></span>, <a class="reference internal" href="classsequant_1_1_type_attr.html#_CPPv4N7sequant8TypeAttrE" title="sequant::TypeAttr"><span class="n"><span class="pre">TypeAttr</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">typeattr</span></span>, <a class="reference internal" href="classsequant_1_1_quantum_numbers_attr.html#_CPPv4N7sequant18QuantumNumbersAttrE" title="sequant::QuantumNumbersAttr"><span class="n"><span class="pre">QuantumNumbersAttr</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">qnattr</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="classsequant_1_1_quantum_numbers_attr.html#_CPPv4N7sequant18QuantumNumbersAttrE" title="sequant::QuantumNumbersAttr"><span class="n"><span class="pre">QuantumNumbersAttr</span></span></a><span class="p"><span class="pre">{</span></span><span class="m"><span class="pre">0</span></span><span class="p"><span class="pre">}</span></span>, <span class="kt"><span class="pre">unsigned</span></span><span class="w"> </span><span class="kt"><span class="pre">long</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">approximate_size</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">10</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00EN7sequant10IndexSpace10IndexSpaceERR1S8TypeAttr18QuantumNumbersAttrm" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant10IndexSpace10IndexSpaceENSt11string_viewE">
+<span id="_CPPv3N7sequant10IndexSpace10IndexSpaceENSt11string_viewE"></span><span id="_CPPv2N7sequant10IndexSpace10IndexSpaceENSt11string_viewE"></span><span id="sequant::IndexSpace::IndexSpace__std::string_view"></span><span class="target" id="classsequant_1_1_index_space_1a01924ccb1b8ac0636d04454cedb523e1"></span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IndexSpace</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">label</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7sequant10IndexSpace10IndexSpaceENSt11string_viewE" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant10IndexSpace10IndexSpaceENSt12wstring_viewE">
+<span id="_CPPv3N7sequant10IndexSpace10IndexSpaceENSt12wstring_viewE"></span><span id="_CPPv2N7sequant10IndexSpace10IndexSpaceENSt12wstring_viewE"></span><span id="sequant::IndexSpace::IndexSpace__std::wstring_view"></span><span class="target" id="classsequant_1_1_index_space_1a3ed4b664dafe21ed6696e8042cc205d4"></span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IndexSpace</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">wstring_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">label</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7sequant10IndexSpace10IndexSpaceENSt12wstring_viewE" title="Link to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
@@ -687,13 +700,13 @@
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2024, Valeev Research Group
+                Copyright &#169; 2025, SeQuant developers
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             
             <a href="https://github.com/pradyunsg/furo">Furo</a>
             <div class="last-updated">
-              Last updated on Mar 12, 2025 1:01:20 AM</div>
+              Last updated on Jul 1, 2025 7:58:25 PM</div>
           </div>
           <div class="right-details">
             <div class="icons">
@@ -732,6 +745,8 @@
 <li><a class="reference internal" href="#_CPPv4N7sequant10IndexSpace10IndexSpaceEv"><code class="docutils literal notranslate"><span class="pre">IndexSpace()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4NK7sequant10IndexSpacecvbEv"><code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">bool()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4I00EN7sequant10IndexSpace10IndexSpaceERR1S8TypeAttr18QuantumNumbersAttrm"><code class="docutils literal notranslate"><span class="pre">IndexSpace()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N7sequant10IndexSpace10IndexSpaceENSt11string_viewE"><code class="docutils literal notranslate"><span class="pre">IndexSpace()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N7sequant10IndexSpace10IndexSpaceENSt12wstring_viewE"><code class="docutils literal notranslate"><span class="pre">IndexSpace()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N7sequant10IndexSpace10IndexSpaceERK10IndexSpace"><code class="docutils literal notranslate"><span class="pre">IndexSpace()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N7sequant10IndexSpace10IndexSpaceERR10IndexSpace"><code class="docutils literal notranslate"><span class="pre">IndexSpace()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N7sequant10IndexSpaceaSERK10IndexSpace"><code class="docutils literal notranslate"><span class="pre">operator=()</span></code></a></li>
@@ -808,6 +823,7 @@
     <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../_static/bootstrap-treeview/bootstrap-treeview.min.js?v=6a1e96b4"></script>
     </body>
 </html>

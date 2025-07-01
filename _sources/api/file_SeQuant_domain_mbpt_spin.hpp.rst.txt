@@ -36,9 +36,13 @@ Includes
 
 - ``SeQuant/core/index.hpp`` (:ref:`file_SeQuant_core_index.hpp`)
 
+- ``SeQuant/core/result_expr.hpp`` (:ref:`file_SeQuant_core_result_expr.hpp`)
+
 - ``SeQuant/core/tensor.hpp`` (:ref:`file_SeQuant_core_tensor.hpp`)
 
 - ``SeQuant/domain/mbpt/fwd.hpp`` (:ref:`file_SeQuant_domain_mbpt_fwd.hpp`)
+
+- ``SeQuant/domain/mbpt/space_qns.hpp`` (:ref:`file_SeQuant_domain_mbpt_space_qns.hpp`)
 
 - ``cassert``
 
@@ -76,18 +80,9 @@ Namespaces
 - :ref:`namespace_sequant__mbpt`
 
 
-Enums
------
-
-
-- :ref:`exhale_enum_namespacesequant_1_1mbpt_1aa81103a146de75a6c3517274e9f931f7`
-
-
 Functions
 ---------
 
-
-- :ref:`exhale_function_namespacesequant_1ac85d29e6ef81d2006f8d95c4b0990c79`
 
 - :ref:`exhale_function_namespacesequant_1_1mbpt_1a4608ea0875d63a4cca2fbc1596700374`
 

@@ -32,6 +32,8 @@ Includes
 
 - ``cassert``
 
+- ``cstdlib``
+
 - ``string`` (:ref:`file_SeQuant_core_utility_string.cpp`)
 
 
@@ -57,6 +59,8 @@ Included By
 - :ref:`file_SeQuant_core_parse_deparse.cpp`
 
 - :ref:`file_SeQuant_core_parse_parse.cpp`
+
+- :ref:`file_SeQuant_core_result_expr.hpp`
 
 - :ref:`file_SeQuant_core_space.hpp`
 

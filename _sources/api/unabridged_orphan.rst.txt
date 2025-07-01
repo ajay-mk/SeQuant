@@ -63,6 +63,11 @@ Directories
 
    dir_SeQuant_domain_mbpt_models.rst
 
+.. toctree::
+   :maxdepth: 5
+
+   dir_SeQuant_domain_mbpt_rules.rst
+
 Files
 *****
 
@@ -121,6 +126,16 @@ Files
    :maxdepth: 5
 
    file_SeQuant_core_binary_node.hpp.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_SeQuant_core_biorthogonalization.cpp.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_SeQuant_core_biorthogonalization.hpp.rst
 
 .. toctree::
    :maxdepth: 5
@@ -200,7 +215,27 @@ Files
 .. toctree::
    :maxdepth: 5
 
+   file_SeQuant_domain_mbpt_rules_csv.cpp.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_SeQuant_domain_mbpt_rules_csv.hpp.rst
+
+.. toctree::
+   :maxdepth: 5
+
    file_SeQuant_core_parse_deparse.cpp.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_SeQuant_domain_mbpt_rules_df.cpp.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_SeQuant_domain_mbpt_rules_df.hpp.rst
 
 .. toctree::
    :maxdepth: 5
@@ -220,17 +255,12 @@ Files
 .. toctree::
    :maxdepth: 5
 
+   file_SeQuant_domain_eval_eval_fwd.hpp.rst
+
+.. toctree::
+   :maxdepth: 5
+
    file_SeQuant_core_eval_node.hpp.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   file_SeQuant_domain_eval_eval_result.cpp.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   file_SeQuant_domain_eval_eval_result.hpp.rst
 
 .. toctree::
    :maxdepth: 5
@@ -240,22 +270,22 @@ Files
 .. toctree::
    :maxdepth: 5
 
+   file_SeQuant_core_utility_expr.cpp.rst
+
+.. toctree::
+   :maxdepth: 5
+
    file_SeQuant_core_expr.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
+   file_SeQuant_core_utility_expr.hpp.rst
+
+.. toctree::
+   :maxdepth: 5
+
    file_SeQuant_core_expr_algorithm.hpp.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   file_SeQuant_core_utility_expr_diff.cpp.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   file_SeQuant_core_utility_expr_diff.hpp.rst
 
 .. toctree::
    :maxdepth: 5
@@ -311,6 +341,11 @@ Files
    :maxdepth: 5
 
    file_SeQuant_core_index.hpp.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_SeQuant_core_index_space_registry.cpp.rst
 
 .. toctree::
    :maxdepth: 5
@@ -420,6 +455,11 @@ Files
 .. toctree::
    :maxdepth: 5
 
+   file_SeQuant_core_utility_permutation.hpp.rst
+
+.. toctree::
+   :maxdepth: 5
+
    file_SeQuant_core_ranges.hpp.rst
 
 .. toctree::
@@ -441,6 +481,26 @@ Files
    :maxdepth: 5
 
    file_README.md.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_SeQuant_domain_eval_result.cpp.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_SeQuant_domain_eval_result.hpp.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_SeQuant_core_result_expr.cpp.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_SeQuant_core_result_expr.hpp.rst
 
 .. toctree::
    :maxdepth: 5
@@ -470,7 +530,17 @@ Files
 .. toctree::
    :maxdepth: 5
 
+   file_SeQuant_core_space.cpp.rst
+
+.. toctree::
+   :maxdepth: 5
+
    file_SeQuant_core_space.hpp.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   file_SeQuant_domain_mbpt_space_qns.hpp.rst
 
 .. toctree::
    :maxdepth: 5

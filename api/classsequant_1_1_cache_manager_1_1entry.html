@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-treeview/bootstrap-treeview.min.css?v=8176a87d" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/fontawesome.min.css" />
@@ -205,27 +206,29 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+  <p class="caption" role="heading"><span class="caption-text">User</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../user/installing.html">Installation Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../user/using.html">Using SeQuant</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../user/docs.html">Building the Documentation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../user/getting_started/index.html">Getting started</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Getting started</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../user/getting_started/wick.html">Wick’s Theorem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/getting_started/index_spaces.html">Register Index Spaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/getting_started/operators.html">Operators</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Advanced Features</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../user/cc.html">Coupled-Cluster Class</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../user/spin_tracing.html">Spin Tracing Expressions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../user/evaluation.html">Interpreting and Evaluating Expressions</a></li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../user/getting_started/installing.html">Installation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../user/guide/index.html">User Guide</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of User Guide</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../user/guide/operator.html">Operator Interface for Symbolic Many-Body Algebra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/guide/cc.html">Coupled-Cluster Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/guide/evaluation.html">Evaluation Trace Analysis Using Nushell</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Internal Documentation</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../internal/docs_advanced.html">Documentation Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../internal/tnc.html">Tensor Network Canonicalizer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../internal/wick.html">Wick Theorem</a></li>
+</li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">Developer</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../genindex.html">Index</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../developer/index.html">Developer docs</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Developer docs</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../developer/documentation.html">Documentation Guide</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../genindex.html">API reference</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">See Also</span></p>
 <ul>
@@ -292,12 +295,12 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N7sequant12CacheManager5entry6accessEv">
-<span id="_CPPv3N7sequant12CacheManager5entry6accessEv"></span><span id="_CPPv2N7sequant12CacheManager5entry6accessEv"></span><span id="sequant::CacheManager::entry::access"></span><span class="target" id="classsequant_1_1_cache_manager_1_1entry_1a59d012ed34b64cc054a9fb29847277bf"></span><a class="reference internal" href="typedef_namespacesequant_1a436a4cd79515db56afff7b00dcd44e08.html#_CPPv4N7sequant5ERPtrE" title="sequant::ERPtr"><span class="n"><span class="pre">ERPtr</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">access</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N7sequant12CacheManager5entry6accessEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N7sequant12CacheManager5entry6accessEv"></span><span id="_CPPv2N7sequant12CacheManager5entry6accessEv"></span><span id="sequant::CacheManager::entry::access"></span><span class="target" id="classsequant_1_1_cache_manager_1_1entry_1a5313115c2e20e6d407920ab27126b7e6"></span><span class="n"><span class="pre">ResultPtr</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">access</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N7sequant12CacheManager5entry6accessEv" title="Link to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N7sequant12CacheManager5entry5storeE5ERPtr">
-<span id="_CPPv3N7sequant12CacheManager5entry5storeE5ERPtr"></span><span id="_CPPv2N7sequant12CacheManager5entry5storeE5ERPtr"></span><span id="sequant::CacheManager::entry::store__ERPtr"></span><span class="target" id="classsequant_1_1_cache_manager_1_1entry_1aadbebfef7ffacc9b18f6303c63212186"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">store</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="typedef_namespacesequant_1a436a4cd79515db56afff7b00dcd44e08.html#_CPPv4N7sequant5ERPtrE" title="sequant::ERPtr"><span class="n"><span class="pre">ERPtr</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">data</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N7sequant12CacheManager5entry5storeE5ERPtr" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N7sequant12CacheManager5entry5storeERR9ResultPtr">
+<span id="_CPPv3N7sequant12CacheManager5entry5storeERR9ResultPtr"></span><span id="_CPPv2N7sequant12CacheManager5entry5storeERR9ResultPtr"></span><span id="sequant::CacheManager::entry::store__ResultPtrRR"></span><span class="target" id="classsequant_1_1_cache_manager_1_1entry_1af5b58c4a344a77d3b2bf7bfdb9efd4e1"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">store</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ResultPtr</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">data</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N7sequant12CacheManager5entry5storeERR9ResultPtr" title="Link to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
@@ -313,6 +316,16 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK7sequant12CacheManager5entry14max_life_countEv">
 <span id="_CPPv3NK7sequant12CacheManager5entry14max_life_countEv"></span><span id="_CPPv2NK7sequant12CacheManager5entry14max_life_countEv"></span><span id="sequant::CacheManager::entry::max_life_countC"></span><span class="target" id="classsequant_1_1_cache_manager_1_1entry_1ad0fd4b71cfbbb519dc275b39c3f4928e"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">max_life_count</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK7sequant12CacheManager5entry14max_life_countEv" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant12CacheManager5entry13size_in_bytesEv">
+<span id="_CPPv3NK7sequant12CacheManager5entry13size_in_bytesEv"></span><span id="_CPPv2NK7sequant12CacheManager5entry13size_in_bytesEv"></span><span id="sequant::CacheManager::entry::size_in_bytesC"></span><span class="target" id="classsequant_1_1_cache_manager_1_1entry_1a0e3bf605f5ad246d58380e487be4a2b6"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size_in_bytes</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK7sequant12CacheManager5entry13size_in_bytesEv" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7sequant12CacheManager5entry5aliveEv">
+<span id="_CPPv3NK7sequant12CacheManager5entry5aliveEv"></span><span id="_CPPv2NK7sequant12CacheManager5entry5aliveEv"></span><span id="sequant::CacheManager::entry::aliveC"></span><span class="target" id="classsequant_1_1_cache_manager_1_1entry_1aeca7094526d78907ac6083184da9ebbe"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">alive</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK7sequant12CacheManager5entry5aliveEv" title="Link to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 </div>
@@ -332,13 +345,13 @@
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2024, Valeev Research Group
+                Copyright &#169; 2025, SeQuant developers
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             
             <a href="https://github.com/pradyunsg/furo">Furo</a>
             <div class="last-updated">
-              Last updated on Mar 12, 2025 1:01:20 AM</div>
+              Last updated on Jul 1, 2025 7:58:25 PM</div>
           </div>
           <div class="right-details">
             <div class="icons">
@@ -368,10 +381,12 @@
 <li><a class="reference internal" href="#_CPPv4N7sequant12CacheManager5entryE"><code class="docutils literal notranslate"><span class="pre">sequant::CacheManager::entry</span></code></a><ul>
 <li><a class="reference internal" href="#_CPPv4N7sequant12CacheManager5entry5entryE6size_t"><code class="docutils literal notranslate"><span class="pre">entry()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N7sequant12CacheManager5entry6accessEv"><code class="docutils literal notranslate"><span class="pre">access()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4N7sequant12CacheManager5entry5storeE5ERPtr"><code class="docutils literal notranslate"><span class="pre">store()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N7sequant12CacheManager5entry5storeERR9ResultPtr"><code class="docutils literal notranslate"><span class="pre">store()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N7sequant12CacheManager5entry5resetEv"><code class="docutils literal notranslate"><span class="pre">reset()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4NK7sequant12CacheManager5entry10life_countEv"><code class="docutils literal notranslate"><span class="pre">life_count()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4NK7sequant12CacheManager5entry14max_life_countEv"><code class="docutils literal notranslate"><span class="pre">max_life_count()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK7sequant12CacheManager5entry13size_in_bytesEv"><code class="docutils literal notranslate"><span class="pre">size_in_bytes()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK7sequant12CacheManager5entry5aliveEv"><code class="docutils literal notranslate"><span class="pre">alive()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -393,6 +408,7 @@
     <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../_static/bootstrap-treeview/bootstrap-treeview.min.js?v=6a1e96b4"></script>
     </body>
 </html>

@@ -48,11 +48,13 @@ Includes
 
 - ``SeQuant/core/index.hpp`` (:ref:`file_SeQuant_core_index.hpp`)
 
+- ``SeQuant/core/parse.hpp`` (:ref:`file_SeQuant_core_parse.hpp`)
+
 - ``SeQuant/core/tensor.hpp`` (:ref:`file_SeQuant_core_tensor.hpp`)
 
 - ``SeQuant/core/tensor_canonicalizer.hpp`` (:ref:`file_SeQuant_core_tensor_canonicalizer.hpp`)
 
-- ``SeQuant/core/tensor_network.hpp`` (:ref:`file_SeQuant_core_tensor_network.hpp`)
+- ``SeQuant/core/tensor_network_v2.hpp`` (:ref:`file_SeQuant_core_tensor_network_v2.hpp`)
 
 - ``SeQuant/core/utility/indices.hpp`` (:ref:`file_SeQuant_core_utility_indices.hpp`)
 
@@ -117,8 +119,6 @@ Functions
 ---------
 
 
-- :ref:`exhale_function_namespacesequant_1a4446f357e96ef4b660538abf33cc0623`
-
 - :ref:`exhale_function_namespacesequant_1aade921b9d1a013a42c0ca72104becbb9`
 
 - :ref:`exhale_function_namespacesequant_1acef35bcc23ec78efaa1439ecea0ee134`
@@ -127,7 +127,11 @@ Functions
 
 - :ref:`exhale_function_namespacesequant_1ac4580eebacaa46844d71f5e9b78a3b2d`
 
+- :ref:`exhale_function_namespacesequant_1a4446f357e96ef4b660538abf33cc0623`
+
 - :ref:`exhale_function_namespacesequant_1a18069ae79cd08320a75c1d427946dc49`
+
+- :ref:`exhale_function_namespacesequant_1_1dummy_1a3596b8e5fa12c4ed5dc014fda4612eee`
 
 - :ref:`exhale_function_namespacesequant_1_1dummy_1ac5ffee4773fb1a54d2f25800a819baab`
 

@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-treeview/bootstrap-treeview.min.css?v=8176a87d" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/fontawesome.min.css" />
@@ -205,27 +206,29 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+  <p class="caption" role="heading"><span class="caption-text">User</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../user/installing.html">Installation Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../user/using.html">Using SeQuant</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../user/docs.html">Building the Documentation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../user/getting_started/index.html">Getting started</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Getting started</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../user/getting_started/wick.html">Wick’s Theorem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/getting_started/index_spaces.html">Register Index Spaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/getting_started/operators.html">Operators</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Advanced Features</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../user/cc.html">Coupled-Cluster Class</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../user/spin_tracing.html">Spin Tracing Expressions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../user/evaluation.html">Interpreting and Evaluating Expressions</a></li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../user/getting_started/installing.html">Installation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../user/guide/index.html">User Guide</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of User Guide</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../user/guide/operator.html">Operator Interface for Symbolic Many-Body Algebra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/guide/cc.html">Coupled-Cluster Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/guide/evaluation.html">Evaluation Trace Analysis Using Nushell</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Internal Documentation</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../internal/docs_advanced.html">Documentation Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../internal/tnc.html">Tensor Network Canonicalizer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../internal/wick.html">Wick Theorem</a></li>
+</li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">Developer</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../genindex.html">Index</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../developer/index.html">Developer docs</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Developer docs</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../developer/documentation.html">Documentation Guide</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../genindex.html">API reference</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">See Also</span></p>
 <ul>
@@ -274,11 +277,18 @@
 <nav class="contents local" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#classes" id="id2">Classes</a></p></li>
-<li><p><a class="reference internal" href="#typedefs" id="id3">Typedefs</a></p></li>
-<li><p><a class="reference internal" href="#variables" id="id4">Variables</a></p></li>
+<li><p><a class="reference internal" href="#namespaces" id="id2">Namespaces</a></p></li>
+<li><p><a class="reference internal" href="#classes" id="id3">Classes</a></p></li>
+<li><p><a class="reference internal" href="#typedefs" id="id4">Typedefs</a></p></li>
+<li><p><a class="reference internal" href="#variables" id="id5">Variables</a></p></li>
 </ul>
 </nav>
+<section id="namespaces">
+<h2>Namespaces<a class="headerlink" href="#namespaces" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="namespace_sequant__meta__detail.html#namespace-sequant-meta-detail"><span class="std std-ref">Namespace sequant::meta::detail</span></a></p></li>
+</ul>
+</section>
 <section id="classes">
 <h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h2>
 <ul class="simple">
@@ -296,9 +306,6 @@
 <h2>Variables<a class="headerlink" href="#variables" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference internal" href="variable_namespacesequant_1_1meta_1aacddf4c95bac108b32c0e4a201d0a4ba.html#exhale-variable-namespacesequant-1-1meta-1aacddf4c95bac108b32c0e4a201d0a4ba"><span class="std std-ref">Variable sequant::meta::is_basic_string_convertible_v</span></a></p></li>
-<li><p><a class="reference internal" href="variable_namespacesequant_1_1meta_1a06efcb544309967c13c13b51718f5f69.html#exhale-variable-namespacesequant-1-1meta-1a06efcb544309967c13c13b51718f5f69"><span class="std std-ref">Variable sequant::meta::is_eval_expr</span></a></p></li>
-<li><p><a class="reference internal" href="variable_namespacesequant_1_1meta_1a4db74bbbf72d6b4dff3368bebab7c6aa.html#exhale-variable-namespacesequant-1-1meta-1a4db74bbbf72d6b4dff3368bebab7c6aa"><span class="std std-ref">Variable sequant::meta::is_eval_node</span></a></p></li>
-<li><p><a class="reference internal" href="variable_namespacesequant_1_1meta_1a5be0f972e1f1d2749d227f82a6c89661.html#exhale-variable-namespacesequant-1-1meta-1a5be0f972e1f1d2749d227f82a6c89661"><span class="std std-ref">Variable sequant::meta::is_eval_node_range</span></a></p></li>
 <li><p><a class="reference internal" href="variable_namespacesequant_1_1meta_1adcb303db8cd737ab8a4c7cb2675dd04e.html#exhale-variable-namespacesequant-1-1meta-1adcb303db8cd737ab8a4c7cb2675dd04e"><span class="std std-ref">Variable sequant::meta::is_full_binary_node</span></a></p></li>
 <li><p><a class="reference internal" href="variable_namespacesequant_1_1meta_1aa9b134f552d03cc66a152abc90c7deed.html#exhale-variable-namespacesequant-1-1meta-1aa9b134f552d03cc66a152abc90c7deed"><span class="std std-ref">Template Variable sequant::meta::is_full_binary_node&lt; FullBinaryNode&lt; T &gt; &gt;</span></a></p></li>
 <li><p><a class="reference internal" href="variable_namespacesequant_1_1meta_1a0b48e457ce05378839e56f26c4abe902.html#exhale-variable-namespacesequant-1-1meta-1a0b48e457ce05378839e56f26c4abe902"><span class="std std-ref">Variable sequant::meta::is_string_convertible_v</span></a></p></li>
@@ -320,13 +327,13 @@
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2024, Valeev Research Group
+                Copyright &#169; 2025, SeQuant developers
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             
             <a href="https://github.com/pradyunsg/furo">Furo</a>
             <div class="last-updated">
-              Last updated on Mar 12, 2025 1:01:20 AM</div>
+              Last updated on Jul 1, 2025 7:58:25 PM</div>
           </div>
           <div class="right-details">
             <div class="icons">
@@ -351,6 +358,7 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Namespace sequant::meta</a><ul>
+<li><a class="reference internal" href="#namespaces">Namespaces</a></li>
 <li><a class="reference internal" href="#classes">Classes</a></li>
 <li><a class="reference internal" href="#typedefs">Typedefs</a></li>
 <li><a class="reference internal" href="#variables">Variables</a></li>
@@ -371,6 +379,7 @@
     <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../_static/bootstrap-treeview/bootstrap-treeview.min.js?v=6a1e96b4"></script>
     </body>
 </html>

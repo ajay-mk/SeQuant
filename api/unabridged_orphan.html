@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=fd3f3429" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-treeview/bootstrap-treeview.min.css?v=8176a87d" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=302659d7" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/fontawesome.min.css" />
@@ -205,27 +206,29 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <p class="caption" role="heading"><span class="caption-text">Quickstart</span></p>
+  <p class="caption" role="heading"><span class="caption-text">User</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../user/installing.html">Installation Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../user/using.html">Using SeQuant</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../user/docs.html">Building the Documentation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../user/getting_started/index.html">Getting started</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Getting started</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../user/getting_started/wick.html">Wick’s Theorem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/getting_started/index_spaces.html">Register Index Spaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/getting_started/operators.html">Operators</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Advanced Features</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../user/cc.html">Coupled-Cluster Class</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../user/spin_tracing.html">Spin Tracing Expressions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../user/evaluation.html">Interpreting and Evaluating Expressions</a></li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../user/getting_started/installing.html">Installation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../user/guide/index.html">User Guide</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of User Guide</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../user/guide/operator.html">Operator Interface for Symbolic Many-Body Algebra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/guide/cc.html">Coupled-Cluster Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/guide/evaluation.html">Evaluation Trace Analysis Using Nushell</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Internal Documentation</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../internal/docs_advanced.html">Documentation Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../internal/tnc.html">Tensor Network Canonicalizer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../internal/wick.html">Wick Theorem</a></li>
+</li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">Developer</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../genindex.html">Index</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../developer/index.html">Developer docs</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Developer docs</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../developer/documentation.html">Documentation Guide</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../genindex.html">API reference</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">See Also</span></p>
 <ul>
@@ -364,6 +367,14 @@
 </li>
 </ul>
 </div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dir_SeQuant_domain_mbpt_rules.html">Directory rules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dir_SeQuant_domain_mbpt_rules.html#files">Files</a></li>
+</ul>
+</li>
+</ul>
+</div>
 </section>
 <section id="files">
 <h2>Files<a class="headerlink" href="#files" title="Link to this heading">¶</a></h2>
@@ -472,6 +483,7 @@
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_parse_ast_conversions.hpp.html#includes">Includes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_parse_ast_conversions.hpp.html#included-by">Included By</a></li>
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_parse_ast_conversions.hpp.html#namespaces">Namespaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_parse_ast_conversions.hpp.html#classes">Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_parse_ast_conversions.hpp.html#functions">Functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_parse_ast_conversions.hpp.html#typedefs">Typedefs</a></li>
 </ul>
@@ -536,6 +548,36 @@
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_binary_node.hpp.html#classes">Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_binary_node.hpp.html#functions">Functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_binary_node.hpp.html#variables">Variables</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="file_SeQuant_core_biorthogonalization.cpp.html">File biorthogonalization.cpp</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_biorthogonalization.cpp.html#definition-sequant-core-biorthogonalization-cpp">Definition (<code class="docutils literal notranslate"><span class="pre">SeQuant/core/biorthogonalization.cpp</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="program_listing_file_SeQuant_core_biorthogonalization.cpp.html">Program Listing for File biorthogonalization.cpp</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_biorthogonalization.cpp.html#includes">Includes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_biorthogonalization.cpp.html#namespaces">Namespaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_biorthogonalization.cpp.html#classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_biorthogonalization.cpp.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_biorthogonalization.cpp.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="file_SeQuant_core_biorthogonalization.hpp.html">File biorthogonalization.hpp</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_biorthogonalization.hpp.html#definition-sequant-core-biorthogonalization-hpp">Definition (<code class="docutils literal notranslate"><span class="pre">SeQuant/core/biorthogonalization.hpp</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="program_listing_file_SeQuant_core_biorthogonalization.hpp.html">Program Listing for File biorthogonalization.hpp</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_biorthogonalization.hpp.html#includes">Includes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_biorthogonalization.hpp.html#included-by">Included By</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_biorthogonalization.hpp.html#namespaces">Namespaces</a></li>
 </ul>
 </li>
 </ul>
@@ -766,6 +808,34 @@
 </div>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="file_SeQuant_domain_mbpt_rules_csv.cpp.html">File csv.cpp</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_mbpt_rules_csv.cpp.html#definition-sequant-domain-mbpt-rules-csv-cpp">Definition (<code class="docutils literal notranslate"><span class="pre">SeQuant/domain/mbpt/rules/csv.cpp</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="program_listing_file_SeQuant_domain_mbpt_rules_csv.cpp.html">Program Listing for File csv.cpp</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_mbpt_rules_csv.cpp.html#includes">Includes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_mbpt_rules_csv.cpp.html#namespaces">Namespaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_mbpt_rules_csv.cpp.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="file_SeQuant_domain_mbpt_rules_csv.hpp.html">File csv.hpp</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_mbpt_rules_csv.hpp.html#definition-sequant-domain-mbpt-rules-csv-hpp">Definition (<code class="docutils literal notranslate"><span class="pre">SeQuant/domain/mbpt/rules/csv.hpp</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="program_listing_file_SeQuant_domain_mbpt_rules_csv.hpp.html">Program Listing for File csv.hpp</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_mbpt_rules_csv.hpp.html#includes">Includes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_mbpt_rules_csv.hpp.html#included-by">Included By</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_mbpt_rules_csv.hpp.html#namespaces">Namespaces</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="file_SeQuant_core_parse_deparse.cpp.html">File deparse.cpp</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_parse_deparse.cpp.html#definition-sequant-core-parse-deparse-cpp">Definition (<code class="docutils literal notranslate"><span class="pre">SeQuant/core/parse/deparse.cpp</span></code>)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="program_listing_file_SeQuant_core_parse_deparse.cpp.html">Program Listing for File deparse.cpp</a></li>
@@ -780,16 +850,40 @@
 </div>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="file_SeQuant_domain_mbpt_rules_df.cpp.html">File df.cpp</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_mbpt_rules_df.cpp.html#definition-sequant-domain-mbpt-rules-df-cpp">Definition (<code class="docutils literal notranslate"><span class="pre">SeQuant/domain/mbpt/rules/df.cpp</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="program_listing_file_SeQuant_domain_mbpt_rules_df.cpp.html">Program Listing for File df.cpp</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_mbpt_rules_df.cpp.html#includes">Includes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_mbpt_rules_df.cpp.html#namespaces">Namespaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_mbpt_rules_df.cpp.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="file_SeQuant_domain_mbpt_rules_df.hpp.html">File df.hpp</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_mbpt_rules_df.hpp.html#definition-sequant-domain-mbpt-rules-df-hpp">Definition (<code class="docutils literal notranslate"><span class="pre">SeQuant/domain/mbpt/rules/df.hpp</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="program_listing_file_SeQuant_domain_mbpt_rules_df.hpp.html">Program Listing for File df.hpp</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_mbpt_rules_df.hpp.html#includes">Includes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_mbpt_rules_df.hpp.html#included-by">Included By</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_mbpt_rules_df.hpp.html#namespaces">Namespaces</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="file_SeQuant_domain_eval_eval.hpp.html">File eval.hpp</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_eval_eval.hpp.html#definition-sequant-domain-eval-eval-hpp">Definition (<code class="docutils literal notranslate"><span class="pre">SeQuant/domain/eval/eval.hpp</span></code>)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="program_listing_file_SeQuant_domain_eval_eval.hpp.html">Program Listing for File eval.hpp</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_eval_eval.hpp.html#includes">Includes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_eval_eval.hpp.html#namespaces">Namespaces</a></li>
-<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_eval_eval.hpp.html#classes">Classes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_eval_eval.hpp.html#functions">Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_eval_eval.hpp.html#variables">Variables</a></li>
 </ul>
 </li>
 </ul>
@@ -824,7 +918,21 @@
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_eval_expr.hpp.html#classes">Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_eval_expr.hpp.html#enums">Enums</a></li>
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_eval_expr.hpp.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_eval_expr.hpp.html#typedefs">Typedefs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_eval_expr.hpp.html#variables">Variables</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="file_SeQuant_domain_eval_eval_fwd.hpp.html">File eval_fwd.hpp</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_eval_eval_fwd.hpp.html#definition-sequant-domain-eval-eval-fwd-hpp">Definition (<code class="docutils literal notranslate"><span class="pre">SeQuant/domain/eval/eval_fwd.hpp</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="program_listing_file_SeQuant_domain_eval_eval_fwd.hpp.html">Program Listing for File eval_fwd.hpp</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_eval_eval_fwd.hpp.html#includes">Includes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_eval_eval_fwd.hpp.html#included-by">Included By</a></li>
 </ul>
 </li>
 </ul>
@@ -842,40 +950,7 @@
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_eval_node.hpp.html#classes">Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_eval_node.hpp.html#enums">Enums</a></li>
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_eval_node.hpp.html#functions">Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_eval_node.hpp.html#typedefs">Typedefs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_eval_node.hpp.html#variables">Variables</a></li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="file_SeQuant_domain_eval_eval_result.cpp.html">File eval_result.cpp</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_eval_eval_result.cpp.html#definition-sequant-domain-eval-eval-result-cpp">Definition (<code class="docutils literal notranslate"><span class="pre">SeQuant/domain/eval/eval_result.cpp</span></code>)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="program_listing_file_SeQuant_domain_eval_eval_result.cpp.html">Program Listing for File eval_result.cpp</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_eval_eval_result.cpp.html#includes">Includes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_eval_eval_result.cpp.html#namespaces">Namespaces</a></li>
-<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_eval_eval_result.cpp.html#functions">Functions</a></li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="file_SeQuant_domain_eval_eval_result.hpp.html">File eval_result.hpp</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_eval_eval_result.hpp.html#definition-sequant-domain-eval-eval-result-hpp">Definition (<code class="docutils literal notranslate"><span class="pre">SeQuant/domain/eval/eval_result.hpp</span></code>)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="program_listing_file_SeQuant_domain_eval_eval_result.hpp.html">Program Listing for File eval_result.hpp</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_eval_eval_result.hpp.html#includes">Includes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_eval_eval_result.hpp.html#included-by">Included By</a></li>
-<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_eval_eval_result.hpp.html#namespaces">Namespaces</a></li>
-<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_eval_eval_result.hpp.html#classes">Classes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_eval_eval_result.hpp.html#functions">Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_eval_eval_result.hpp.html#typedefs">Typedefs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_eval_eval_result.hpp.html#variables">Variables</a></li>
 </ul>
 </li>
 </ul>
@@ -890,6 +965,20 @@
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_expr.cpp.html#includes">Includes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_expr.cpp.html#namespaces">Namespaces</a></li>
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_expr.cpp.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="file_SeQuant_core_utility_expr.cpp.html">File expr.cpp</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_utility_expr.cpp.html#definition-sequant-core-utility-expr-cpp">Definition (<code class="docutils literal notranslate"><span class="pre">SeQuant/core/utility/expr.cpp</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="program_listing_file_SeQuant_core_utility_expr.cpp.html">Program Listing for File expr.cpp</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_utility_expr.cpp.html#includes">Includes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_utility_expr.cpp.html#namespaces">Namespaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_utility_expr.cpp.html#functions">Functions</a></li>
 </ul>
 </li>
 </ul>
@@ -914,6 +1003,20 @@
 </div>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="file_SeQuant_core_utility_expr.hpp.html">File expr.hpp</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_utility_expr.hpp.html#definition-sequant-core-utility-expr-hpp">Definition (<code class="docutils literal notranslate"><span class="pre">SeQuant/core/utility/expr.hpp</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="program_listing_file_SeQuant_core_utility_expr.hpp.html">Program Listing for File expr.hpp</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_utility_expr.hpp.html#includes">Includes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_utility_expr.hpp.html#included-by">Included By</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_utility_expr.hpp.html#namespaces">Namespaces</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="file_SeQuant_core_expr_algorithm.hpp.html">File expr_algorithm.hpp</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_expr_algorithm.hpp.html#definition-sequant-core-expr-algorithm-hpp">Definition (<code class="docutils literal notranslate"><span class="pre">SeQuant/core/expr_algorithm.hpp</span></code>)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="program_listing_file_SeQuant_core_expr_algorithm.hpp.html">Program Listing for File expr_algorithm.hpp</a></li>
@@ -924,34 +1027,6 @@
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_expr_algorithm.hpp.html#namespaces">Namespaces</a></li>
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_expr_algorithm.hpp.html#classes">Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_expr_algorithm.hpp.html#functions">Functions</a></li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="file_SeQuant_core_utility_expr_diff.cpp.html">File expr_diff.cpp</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_utility_expr_diff.cpp.html#definition-sequant-core-utility-expr-diff-cpp">Definition (<code class="docutils literal notranslate"><span class="pre">SeQuant/core/utility/expr_diff.cpp</span></code>)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="program_listing_file_SeQuant_core_utility_expr_diff.cpp.html">Program Listing for File expr_diff.cpp</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_utility_expr_diff.cpp.html#includes">Includes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_utility_expr_diff.cpp.html#namespaces">Namespaces</a></li>
-<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_utility_expr_diff.cpp.html#functions">Functions</a></li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="file_SeQuant_core_utility_expr_diff.hpp.html">File expr_diff.hpp</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_utility_expr_diff.hpp.html#definition-sequant-core-utility-expr-diff-hpp">Definition (<code class="docutils literal notranslate"><span class="pre">SeQuant/core/utility/expr_diff.hpp</span></code>)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="program_listing_file_SeQuant_core_utility_expr_diff.hpp.html">Program Listing for File expr_diff.hpp</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_utility_expr_diff.hpp.html#includes">Includes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_utility_expr_diff.hpp.html#included-by">Included By</a></li>
-<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_utility_expr_diff.hpp.html#namespaces">Namespaces</a></li>
 </ul>
 </li>
 </ul>
@@ -1024,6 +1099,8 @@
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_fwd.hpp.html#includes">Includes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_fwd.hpp.html#included-by">Included By</a></li>
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_fwd.hpp.html#namespaces">Namespaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_fwd.hpp.html#typedefs">Typedefs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_fwd.hpp.html#variables">Variables</a></li>
 </ul>
 </li>
 </ul>
@@ -1115,6 +1192,19 @@
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_index.hpp.html#functions">Functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_index.hpp.html#defines">Defines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_index.hpp.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="file_SeQuant_core_index_space_registry.cpp.html">File index_space_registry.cpp</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_index_space_registry.cpp.html#definition-sequant-core-index-space-registry-cpp">Definition (<code class="docutils literal notranslate"><span class="pre">SeQuant/core/index_space_registry.cpp</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="program_listing_file_SeQuant_core_index_space_registry.cpp.html">Program Listing for File index_space_registry.cpp</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_index_space_registry.cpp.html#includes">Includes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_index_space_registry.cpp.html#namespaces">Namespaces</a></li>
 </ul>
 </li>
 </ul>
@@ -1444,6 +1534,21 @@
 </div>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="file_SeQuant_core_utility_permutation.hpp.html">File permutation.hpp</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_utility_permutation.hpp.html#definition-sequant-core-utility-permutation-hpp">Definition (<code class="docutils literal notranslate"><span class="pre">SeQuant/core/utility/permutation.hpp</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="program_listing_file_SeQuant_core_utility_permutation.hpp.html">Program Listing for File permutation.hpp</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_utility_permutation.hpp.html#includes">Includes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_utility_permutation.hpp.html#included-by">Included By</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_utility_permutation.hpp.html#namespaces">Namespaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_utility_permutation.hpp.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="file_SeQuant_core_ranges.hpp.html">File ranges.hpp</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_ranges.hpp.html#definition-sequant-core-ranges-hpp">Definition (<code class="docutils literal notranslate"><span class="pre">SeQuant/core/ranges.hpp</span></code>)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="program_listing_file_SeQuant_core_ranges.hpp.html">Program Listing for File ranges.hpp</a></li>
@@ -1508,6 +1613,65 @@
 <li class="toctree-l3"><a class="reference internal" href="program_listing_file_README.md.html">Program Listing for File README.md</a></li>
 </ul>
 </li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="file_SeQuant_domain_eval_result.cpp.html">File result.cpp</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_eval_result.cpp.html#definition-sequant-domain-eval-result-cpp">Definition (<code class="docutils literal notranslate"><span class="pre">SeQuant/domain/eval/result.cpp</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="program_listing_file_SeQuant_domain_eval_result.cpp.html">Program Listing for File result.cpp</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_eval_result.cpp.html#includes">Includes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_eval_result.cpp.html#namespaces">Namespaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_eval_result.cpp.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="file_SeQuant_domain_eval_result.hpp.html">File result.hpp</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_eval_result.hpp.html#definition-sequant-domain-eval-result-hpp">Definition (<code class="docutils literal notranslate"><span class="pre">SeQuant/domain/eval/result.hpp</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="program_listing_file_SeQuant_domain_eval_result.hpp.html">Program Listing for File result.hpp</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_eval_result.hpp.html#includes">Includes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_eval_result.hpp.html#included-by">Included By</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_eval_result.hpp.html#namespaces">Namespaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_eval_result.hpp.html#classes">Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_eval_result.hpp.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_eval_result.hpp.html#variables">Variables</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="file_SeQuant_core_result_expr.cpp.html">File result_expr.cpp</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_result_expr.cpp.html#definition-sequant-core-result-expr-cpp">Definition (<code class="docutils literal notranslate"><span class="pre">SeQuant/core/result_expr.cpp</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="program_listing_file_SeQuant_core_result_expr.cpp.html">Program Listing for File result_expr.cpp</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_result_expr.cpp.html#includes">Includes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_result_expr.cpp.html#namespaces">Namespaces</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="file_SeQuant_core_result_expr.hpp.html">File result_expr.hpp</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_result_expr.hpp.html#definition-sequant-core-result-expr-hpp">Definition (<code class="docutils literal notranslate"><span class="pre">SeQuant/core/result_expr.hpp</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="program_listing_file_SeQuant_core_result_expr.hpp.html">Program Listing for File result_expr.hpp</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_result_expr.hpp.html#includes">Includes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_result_expr.hpp.html#included-by">Included By</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_result_expr.hpp.html#namespaces">Namespaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_result_expr.hpp.html#classes">Classes</a></li>
 </ul>
 </li>
 </ul>
@@ -1589,6 +1753,20 @@
 </div>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="file_SeQuant_core_space.cpp.html">File space.cpp</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_space.cpp.html#definition-sequant-core-space-cpp">Definition (<code class="docutils literal notranslate"><span class="pre">SeQuant/core/space.cpp</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="program_listing_file_SeQuant_core_space.cpp.html">Program Listing for File space.cpp</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_space.cpp.html#includes">Includes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_space.cpp.html#namespaces">Namespaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_space.cpp.html#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="file_SeQuant_core_space.hpp.html">File space.hpp</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_space.hpp.html#definition-sequant-core-space-hpp">Definition (<code class="docutils literal notranslate"><span class="pre">SeQuant/core/space.hpp</span></code>)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="program_listing_file_SeQuant_core_space.hpp.html">Program Listing for File space.hpp</a></li>
@@ -1599,8 +1777,21 @@
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_space.hpp.html#namespaces">Namespaces</a></li>
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_space.hpp.html#classes">Classes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_space.hpp.html#functions">Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_space.hpp.html#typedefs">Typedefs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_core_space.hpp.html#variables">Variables</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="file_SeQuant_domain_mbpt_space_qns.hpp.html">File space_qns.hpp</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_mbpt_space_qns.hpp.html#definition-sequant-domain-mbpt-space-qns-hpp">Definition (<code class="docutils literal notranslate"><span class="pre">SeQuant/domain/mbpt/space_qns.hpp</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="program_listing_file_SeQuant_domain_mbpt_space_qns.hpp.html">Program Listing for File space_qns.hpp</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_mbpt_space_qns.hpp.html#includes">Includes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_mbpt_space_qns.hpp.html#included-by">Included By</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_mbpt_space_qns.hpp.html#namespaces">Namespaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_mbpt_space_qns.hpp.html#enums">Enums</a></li>
 </ul>
 </li>
 </ul>
@@ -1629,7 +1820,6 @@
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_mbpt_spin.hpp.html#includes">Includes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_mbpt_spin.hpp.html#included-by">Included By</a></li>
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_mbpt_spin.hpp.html#namespaces">Namespaces</a></li>
-<li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_mbpt_spin.hpp.html#enums">Enums</a></li>
 <li class="toctree-l2"><a class="reference internal" href="file_SeQuant_domain_mbpt_spin.hpp.html#functions">Functions</a></li>
 </ul>
 </li>
@@ -2028,13 +2218,13 @@
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2024, Valeev Research Group
+                Copyright &#169; 2025, SeQuant developers
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             
             <a href="https://github.com/pradyunsg/furo">Furo</a>
             <div class="last-updated">
-              Last updated on Mar 12, 2025 1:01:20 AM</div>
+              Last updated on Jul 1, 2025 7:58:25 PM</div>
           </div>
           <div class="right-details">
             <div class="icons">
@@ -2082,6 +2272,7 @@
     <script src="../_static/scripts/furo.js?v=5fa4622c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
     <script src="../_static/bootstrap-treeview/bootstrap-treeview.min.js?v=6a1e96b4"></script>
     </body>
 </html>

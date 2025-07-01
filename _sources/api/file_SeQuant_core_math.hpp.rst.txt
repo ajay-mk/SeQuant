@@ -32,7 +32,9 @@ Includes
 
 - ``SeQuant/core/rational.hpp`` (:ref:`file_SeQuant_core_rational.hpp`)
 
-- ``assert.h``
+- ``atomic``
+
+- ``cassert``
 
 - ``cstddef``
 
@@ -41,6 +43,8 @@ Includes
 Included By
 -----------
 
+
+- :ref:`file_SeQuant_core_biorthogonalization.cpp`
 
 - :ref:`file_SeQuant_core_eval_node.hpp`
 

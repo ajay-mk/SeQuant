@@ -25,6 +25,8 @@ Program Listing for File tensor_network_v2.hpp
    #include <SeQuant/core/tensor_network/slot.hpp>
    #include <SeQuant/core/tensor_network/vertex.hpp>
    
+   #include <range/v3/range/traits.hpp>
+   
    #include <cassert>
    #include <cstdlib>
    #include <iosfwd>
@@ -175,6 +177,7 @@ Program Listing for File tensor_network_v2.hpp
        std::vector<std::optional<std::wstring>> vertex_texlabels;
        std::vector<VertexColor> vertex_colors;
        std::vector<VertexType> vertex_types;
+       container::map<Index, std::size_t> idx_to_vertex;
    
        Graph() = default;
    
@@ -202,7 +205,7 @@ Program Listing for File tensor_network_v2.hpp
                                      !std::is_base_of_v<Expr, ExprPtrRange>>>
      TensorNetworkV2(const ExprPtrRange &exprptr_range) {
        static_assert(
-           std::is_base_of_v<ExprPtr, typename ExprPtrRange::value_type>);
+           std::is_base_of_v<ExprPtr, ranges::range_value_t<ExprPtrRange>>);
        for (const ExprPtr &current : exprptr_range) {
          add_expr(*current);
        }
@@ -233,6 +236,18 @@ Program Listing for File tensor_network_v2.hpp
    
        std::shared_ptr<bliss::Graph> graph;
    
+       [[nodiscard]] size_t hash_value() const;
+   
+       [[nodiscard]] inline auto get_index_view() const {
+         return named_indices_canonical  //
+                | ranges::views::indirect;
+       }
+   
+       template <typename Cont>
+       auto get_indices() const {
+         return get_index_view() | ranges::to<Cont>;
+       }
+   
        std::int8_t phase = +1;  // +1 or -1
      };
    
@@ -254,9 +269,25 @@ Program Listing for File tensor_network_v2.hpp
        return ext_indices_;
      }
    
+     struct CreateGraphOptions {
+       const NamedIndexSet *named_indices = nullptr;
    
-     Graph create_graph(const NamedIndexSet *named_indices = nullptr,
-                        bool distinct_named_indices = true) const;
+       bool distinct_named_indices = true;
+   
+       bool make_labels = true;
+   
+       bool make_texlabels = true;
+   
+       bool make_idx_to_vertex = false;
+     };
+   
+   
+     Graph create_graph(const CreateGraphOptions &options = {
+                            .named_indices = nullptr,
+                            .distinct_named_indices = true,
+                            .make_labels = true,
+                            .make_texlabels = true,
+                            .make_idx_to_vertex = false}) const;
    
     private:
      container::svector<AbstractTensorPtr> tensors_;
