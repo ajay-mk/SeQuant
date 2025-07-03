@@ -175,11 +175,11 @@ Functions
 
 - :ref:`exhale_function_namespacesequant_1_1mbpt_1a6718b7ab3b1feafd83385424e9c5e2f0`
 
+- :ref:`exhale_function_namespacesequant_1_1mbpt_1acfa27645ec0f814f01319c8774427f07`
+
 - :ref:`exhale_function_namespacesequant_1_1mbpt_1ae73803f79b5a220ce58bef248ee9514a`
 
 - :ref:`exhale_function_namespacesequant_1_1mbpt_1a28cee5d3740dcb2c47b58c53ee195546`
-
-- :ref:`exhale_function_namespacesequant_1_1mbpt_1acfa27645ec0f814f01319c8774427f07`
 
 - :ref:`exhale_function_namespacesequant_1_1mbpt_1a4608ea0875d63a4cca2fbc1596700374`
 
