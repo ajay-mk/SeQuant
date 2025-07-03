@@ -1,4 +1,4 @@
-name: Benchmark PR
+name: PR Benchmark
 
 on:
   issue_comment:
@@ -6,63 +6,82 @@ on:
 
 jobs:
   benchmark:
-    if: github.event.issue.pull_request && contains(github.event.comment.body, '/benchmark')
-    runs-on: ubuntu-latest
+    if: github.event.issue.pull_request && contains(github.event.comment.body, '@bot run benchmark')
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
       pull-requests: write
 
+    env:
+      CXX: /usr/bin/g++-14
+      BUILD_CONFIG: >
+        -G Ninja
+        -DCMAKE_BUILD_TYPE=Release
+        -DBUILD_SHARED_LIBS=OFF
+        -DCMAKE_UNITY_BUILD=OFF
+        -DMPIEXEC_PREFLAGS='--bind-to;none;--allow-run-as-root'
+        -DCMAKE_PREFIX_PATH='/usr/local/opt/boost'
+        -DSEQUANT_TESTS=OFF
+        -DSEQUANT_EVAL_TESTS=OFF
+        -DSEQUANT_USE_SYSTEM_BOOST_HASH=OFF
+        -DCMAKE_CXX_STANDARD=20
+        -DCMAKE_CXX_EXTENSIONS=OFF
+        -DSEQUANT_BENCHMARKS=ON
+
     steps:
-      - name: Checkout PR branch
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.issue.pull_request.head.sha }}
 
-      - name: Set up CMake
-        uses: jwlawson/actions-setup-cmake@v1
-
-      - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y cmake g++ libbenchmark-dev
-
-      - name: Build and run benchmark on PR branch
+      - name: Install Ubuntu dependencies
         run: |
-          mkdir -p build && cd build
-          cmake ..
-          make benchmark_target
-          ./benchmark_target --benchmark_format=json > pr_bench.json
+          sudo apt-get update
+          sudo apt-get install -y ninja-build g++-14 liblapack-dev libboost-dev libboost-locale-dev libboost-random-dev libboost-regex-dev libeigen3-dev openmpi-bin libopenmpi-dev ccache libbenchmark-dev python3-pip
 
-      - name: Save PR benchmark result
-        uses: actions/upload-artifact@v4
-        with:
-          name: pr_bench
-          path: build/pr_bench.json
+      - name: Create build directory
+        run: cmake -E make_directory ${{github.workspace}}/build
+
+      - name: Configure CMake (PR branch)
+        working-directory: ${{github.workspace}}/build
+        run: cmake $GITHUB_WORKSPACE $BUILD_CONFIG
+
+      - name: Build benchmark target (PR branch)
+        working-directory: ${{github.workspace}}/build
+        run: cmake --build . --target benchmark_target
+
+      - name: Run benchmark (PR branch)
+        working-directory: ${{github.workspace}}/build
+        run: ./benchmarks/sequant_benchmarks --benchmark_format=json > pr_bench.json
 
       - name: Checkout base branch
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.issue.pull_request.base.sha }}
 
-      - name: Build and run benchmark on base branch
-        run: |
-          mkdir -p build && cd build
-          cmake ..
-          make benchmark_target
-          ./benchmark_target --benchmark_format=json > base_bench.json
+      - name: Create build directory (base)
+        run: cmake -E make_directory ${{github.workspace}}/build
 
-      - name: Save base benchmark result
-        uses: actions/upload-artifact@v4
-        with:
-          name: base_bench
-          path: build/base_bench.json
+      - name: Configure CMake (base branch)
+        working-directory: ${{github.workspace}}/build
+        run: cmake $GITHUB_WORKSPACE $BUILD_CONFIG
+
+      - name: Build benchmark target (base branch)
+        working-directory: ${{github.workspace}}/build
+        run: cmake --build . --target benchmark_target
+
+      - name: Run benchmark (base branch)
+        working-directory: ${{github.workspace}}/build
+        run: ./benchmarks/sequant_benchmarks --benchmark_format=json > base_bench.json
 
       - name: Download compare.py
         run: |
           curl -L -o compare.py https://raw.githubusercontent.com/google/benchmark/main/tools/compare.py
 
       - name: Compare benchmark results
+        working-directory: ${{github.workspace}}/build
         run: |
-          pip install numpy scipy
-          python compare.py base_bench.json pr_bench.json > cmp_results.txt
+          pip3 install numpy scipy
+          python3 ../compare.py base_bench.json pr_bench.json > cmp_results.txt
 
       - name: Post benchmark comparison as PR comment
         uses: actions/github-script@v6
@@ -70,7 +89,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const fs = require('fs');
-            const body = fs.readFileSync('cmp_results.txt', 'utf8');
+            const body = fs.readFileSync('${{github.workspace}}/build/cmp_results.txt', 'utf8');
             github.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
