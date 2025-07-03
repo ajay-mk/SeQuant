@@ -1,0 +1,79 @@
+name: Benchmark PR
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  benchmark:
+    if: github.event.issue.pull_request && contains(github.event.comment.body, '@bot run benchmark')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.issue.pull_request.head.sha }}
+
+      - name: Set up CMake
+        uses: jwlawson/actions-setup-cmake@v1
+
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y cmake g++ libbenchmark-dev
+
+      - name: Build and run benchmark on PR branch
+        run: |
+          mkdir -p build && cd build
+          cmake ..
+          make benchmark_target
+          ./benchmark_target --benchmark_format=json > pr_bench.json
+
+      - name: Save PR benchmark result
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr_bench
+          path: build/pr_bench.json
+
+      - name: Checkout base branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.issue.pull_request.base.sha }}
+
+      - name: Build and run benchmark on base branch
+        run: |
+          mkdir -p build && cd build
+          cmake ..
+          make benchmark_target
+          ./benchmark_target --benchmark_format=json > base_bench.json
+
+      - name: Save base benchmark result
+        uses: actions/upload-artifact@v4
+        with:
+          name: base_bench
+          path: build/base_bench.json
+
+      - name: Download compare.py
+        run: |
+          curl -L -o compare.py https://raw.githubusercontent.com/google/benchmark/main/tools/compare.py
+
+      - name: Compare benchmark results
+        run: |
+          pip install numpy scipy
+          python compare.py base_bench.json pr_bench.json > cmp_results.txt
+
+      - name: Post benchmark comparison as PR comment
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const body = fs.readFileSync('cmp_results.txt', 'utf8');
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `### Benchmark comparison\n\`\`\`\n${body}\n\`\`\``
+            });
