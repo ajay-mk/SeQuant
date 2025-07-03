@@ -183,11 +183,11 @@ Functions
 
 - :ref:`exhale_function_namespacesequant_1_1mbpt_1a4608ea0875d63a4cca2fbc1596700374`
 
+- :ref:`exhale_function_namespacesequant_1_1mbpt_1a7ab482903fc560710dee956768cf3859`
+
 - :ref:`exhale_function_namespacesequant_1_1mbpt_1aeba14ceb736042ab684545ac7debbee9`
 
 - :ref:`exhale_function_namespacesequant_1_1mbpt_1af6b4b030942b2d3377fb5935fe3f9b33`
-
-- :ref:`exhale_function_namespacesequant_1_1mbpt_1a7ab482903fc560710dee956768cf3859`
 
 - :ref:`exhale_function_namespacesequant_1_1mbpt_1aa154204f57996d1821a900a94006470d`
 
