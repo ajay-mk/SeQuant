@@ -1,3 +1,11 @@
+# Benchmark Comparison Workflow
+# 
+# Usage: Comment "/benchmark" on a PR to run benchmarks
+#
+# Security Note: This workflow currently allows fork PRs for GitHub-hosted runners.
+# When/If migrating to self-hosted runners, we should restrict this to prevent for security reasons.
+#
+
 name: Compare Benchmarks
 
 on:
@@ -11,6 +19,7 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
+      actions: read
 
     steps:
       - name: Get PR details
@@ -23,17 +32,41 @@ jobs:
               repo: context.repo.repo,
               pull_number: context.issue.number,
             });
+            const is_fork = pullRequest.head.repo.full_name !== pullRequest.base.repo.full_name;    
             return {
               base_sha: pullRequest.base.sha,
               head_sha: pullRequest.head.sha,
               base_ref: pullRequest.base.ref,
-              head_ref: pullRequest.head.ref
+              head_ref: pullRequest.head.ref,
+              head_repo_full_name: pullRequest.head.repo.full_name,
+              base_repo_full_name: pullRequest.base.repo.full_name,
+              is_fork: is_fork
             };
 
-      - name: Checkout repository
+      - name: Checkout base repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Add fork as remote and fetch (if needed)
+        if: fromJson(steps.pr.outputs.result).is_fork
+        run: |
+          echo "PR is from fork: ${{ fromJson(steps.pr.outputs.result).head_repo_full_name }}"
+          git remote add fork https://github.com/${{ fromJson(steps.pr.outputs.result).head_repo_full_name }}.git
+          git fetch fork
+
+      - name: Verify commits
+        run: |
+          echo "=== Git Remotes ==="
+          git remote -v
+          echo "=== Base commit ==="
+          echo "Base SHA: ${{ fromJson(steps.pr.outputs.result).base_sha }}"
+          git log --oneline -1 ${{ fromJson(steps.pr.outputs.result).base_sha }} 2>/dev/null || echo "Base commit not found locally"
+          echo "=== Head commit ==="
+          echo "Head SHA: ${{ fromJson(steps.pr.outputs.result).head_sha }}"
+          git log --oneline -1 ${{ fromJson(steps.pr.outputs.result).head_sha }} 2>/dev/null || echo "Head commit not found locally"
+          echo "=== Available branches ==="
+          git branch -a
 
       - name: Install Dependencies
         run: |
@@ -78,7 +111,7 @@ jobs:
             ${comparisonResults}
             \`\`\`
 
-            **Detailed benchmark data:** [View artifacts](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            #### Raw benchmark data:** [View artifacts](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
             ---
             `;
 
