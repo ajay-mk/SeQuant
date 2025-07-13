@@ -3,7 +3,7 @@
 # Usage: Comment "/benchmark" on a PR to run benchmarks
 #
 # Security Note: This workflow currently allows fork PRs for GitHub-hosted runners.
-# When/If migrating to self-hosted runners, we should restrict this to prevent for security reasons.
+# When/If migrating to self-hosted runners, we should restrict this for security reasons.
 #
 
 name: Compare Benchmarks
@@ -20,6 +20,7 @@ jobs:
       contents: read
       pull-requests: write
       actions: read
+      statuses: write
 
     steps:
       - name: Get PR details
@@ -42,6 +43,21 @@ jobs:
               base_repo_full_name: pullRequest.base.repo.full_name,
               is_fork: is_fork
             };
+
+      - name: Create status check
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prData = ${{ steps.pr.outputs.result }};
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: prData.head_sha,
+              state: 'pending',
+              target_url: `${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}`,
+              description: 'Running benchmark comparison...',
+              context: 'benchmark/compare'
+            });
 
       - name: Checkout base repository
         uses: actions/checkout@v4
@@ -122,11 +138,41 @@ jobs:
               body: commentBody
             });
 
+      - name: Update status check - Success
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prData = ${{ steps.pr.outputs.result }};
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: prData.head_sha,
+              state: 'success',
+              target_url: `${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}`,
+              description: 'Benchmark comparison completed successfully',
+              context: 'benchmark/compare'
+            });
+
       - name: Notify on Failure
         if: failure()
         uses: actions/github-script@v7
         with:
           script: |
+            const prData = ${{ steps.pr.outputs.result }};
+            
+            // Update status check to failed
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: prData.head_sha,
+              state: 'failure',
+              target_url: `${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}`,
+              description: 'Benchmark comparison failed',
+              context: 'benchmark/compare'
+            });
+            
+            // Post failure comment
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
