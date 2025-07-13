@@ -6,7 +6,7 @@ import sys
 import subprocess
 import json
 
-SILENT_OUTPUT = False # Set to True to suppress command line output
+SILENT_OUTPUT = True # Set to True to suppress command line output
 
 def run_command(command):
     subprocess.run(command, shell=True, check=True, capture_output=SILENT_OUTPUT, text=True)
