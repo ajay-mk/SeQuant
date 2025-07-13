@@ -1,13 +1,13 @@
 include(FindOrFetchGoogleBenchmark)
 
 add_executable(sequant_benchmarks
-	"canonicalize.cpp"
-	"coupled_cluster.cpp"
-	"main.cpp"
-	"simplify.cpp"
-	"spintrace.cpp"
-	"tensor_network.cpp"
-	"wick.cpp"
+        "canonicalize.cpp"
+        "coupled_cluster.cpp"
+        "main.cpp"
+        "simplify.cpp"
+        "spintrace.cpp"
+        "tensor_network.cpp"
+        "wick.cpp"
 )
 
 # The benchmark implementations contain a bunch of same-name symbol definition that
@@ -16,7 +16,12 @@ add_executable(sequant_benchmarks
 set_target_properties(sequant_benchmarks PROPERTIES UNITY_BUILD OFF)
 
 target_link_libraries(sequant_benchmarks
-	PRIVATE
-		benchmark::benchmark
-		SeQuant::SeQuant
+        PRIVATE
+        benchmark::benchmark
+        SeQuant::SeQuant
 )
+
+# benchmark target to just run cc
+add_executable(sequant_benchmark_cc "main.cpp" "coupled_cluster.cpp")
+set_target_properties(sequant_benchmark_cc PROPERTIES UNITY_BUILD OFF)
+target_link_libraries(sequant_benchmark_cc PRIVATE benchmark::benchmark SeQuant::SeQuant)
