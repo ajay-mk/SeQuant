@@ -11,6 +11,21 @@ SILENT_OUTPUT = True # Set to True to suppress command line output
 def run_command(command):
     subprocess.run(command, shell=True, check=True, capture_output=SILENT_OUTPUT, text=True)
 
+def get_current_git_state():
+    try:
+        # try branch name
+        result = subprocess.run("git symbolic-ref --short HEAD", shell=True,
+                                capture_output=True, text=True, check=True)
+        return result.stdout.strip()
+    except subprocess.CalledProcessError:
+        # else try commit hash (for detached state)
+        result = subprocess.run("git rev-parse HEAD", shell=True, check=True, capture_output=True, text=True)
+        return result.stdout.strip()
+
+def restore_git_state(original_git_state):
+    print(f"\nRestoring original git state: {original_git_state}")
+    run_command(f"git checkout {original_git_state}")
+
 def configure_and_build(commit, cmake_variables, benchmark_target):
     print(f"\nConfiguring and building commit: {commit}\n")
 
@@ -129,6 +144,9 @@ if __name__ == "__main__":
     print(f"Benchmark target: {benchmark_target}")
     print("**" * 50)
 
+    original_ref = get_current_git_state()
+    print(f"Original git reference: {original_ref}")
+
     # Define CMake variables
     cmake_variables = ["-G Ninja",
                        "-DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON",
@@ -142,14 +160,22 @@ if __name__ == "__main__":
     for var in cmake_variables:
         print(f"{var}")
 
-    # base commit
-    configure_and_build(base_commit, cmake_variables, benchmark_target)
-    run_benchmarks(base_commit, benchmark_target)
+    try:
+        # base commit
+        configure_and_build(base_commit, cmake_variables, benchmark_target)
+        run_benchmarks(base_commit, benchmark_target)
 
-    # head commit
-    configure_and_build(head_commit, cmake_variables, benchmark_target)
-    run_benchmarks(head_commit, benchmark_target)
+        # head commit
+        configure_and_build(head_commit, cmake_variables, benchmark_target)
+        run_benchmarks(head_commit, benchmark_target)
 
-    # Compare benchmarks
-    compare_benchmarks(base_commit, head_commit)
-    print("Benchmark comparison completed successfully.")
+        # Compare benchmarks
+        compare_benchmarks(base_commit, head_commit)
+        print("Benchmark comparison completed successfully.")
+
+    except Exception as e:
+        print(f"Error during benchmark execution: {e}")
+        sys.exit(1)
+    finally:
+        # restore original git state even if script fails
+        restore_git_state(original_ref)
