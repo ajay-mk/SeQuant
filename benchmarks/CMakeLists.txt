@@ -22,6 +22,7 @@ target_link_libraries(sequant_benchmarks
 )
 
 # benchmark target to just run cc
-add_executable(sequant_benchmark_cc "main.cpp" "coupled_cluster.cpp")
-set_target_properties(sequant_benchmark_cc PROPERTIES UNITY_BUILD OFF)
-target_link_libraries(sequant_benchmark_cc PRIVATE benchmark::benchmark SeQuant::SeQuant)
+add_custom_target(sequant_benchmark_cc
+    COMMAND sequant_benchmarks --benchmark_filter="cc_full"
+    DEPENDS sequant_benchmarks
+)
