@@ -127,8 +127,7 @@ jobs:
             ${comparisonResults}
             \`\`\`
 
-            #### Raw benchmark data:** [View artifacts](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
-            ---
+            #### [Full benchmark data](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
             `;
 
             github.rest.issues.createComment({
