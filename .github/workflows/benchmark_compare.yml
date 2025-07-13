@@ -1,0 +1,84 @@
+name: Compare Benchmarks
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  benchmark:
+    if: github.event.issue.pull_request && contains(github.event.comment.body, '/benchmark') && (github.event.comment.author_association == 'COLLABORATOR' || github.event.comment.author_association == 'MEMBER')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout Base Commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake ninja-build libboost-dev libboost-locale-dev libboost-random-dev libboost-regex-dev libeigen3-dev libmimalloc-dev
+
+      - name: Run Benchmark Script
+        working-directory: ${{ github.workspace }}
+        run: python3 bin/admin/benchmark_compare.py ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }}
+
+      - name: Upload Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-data
+          path: |
+            ${{ github.workspace }}/${{ github.event.pull_request.base.sha }}-results.json
+            ${{ github.workspace }}/${{ github.event.pull_request.head.sha }}-results.json
+            ${{ github.workspace }}/${{ github.event.pull_request.base.sha }}-${{ github.event.pull_request.head.sha }}-comparison.txt
+          retention-days: 30
+
+      - name: Post Results
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+
+            const comparisonFile = `${{ github.event.pull_request.base.sha }}-${{ github.event.pull_request.head.sha }}-comparison.txt`;
+            const comparisonPath = path.join('${{ github.workspace }}', comparisonFile);
+
+            let comparisonResults = '';
+            try {
+              comparisonResults = fs.readFileSync(comparisonPath, 'utf8');
+            } catch (error) {
+              comparisonResults = 'Error reading comparison results: ' + error.message;
+            }
+
+            const commentBody = `## Benchmark Comparison Results
+
+            \`\`\`
+            ${comparisonResults}
+            \`\`\`
+
+            **Detailed benchmark data:** [View artifacts](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            ---
+            `;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: commentBody
+            });
+
+      - name: Notify on Failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Benchmark comparison failed. Check the workflow logs for details.'
+            });
