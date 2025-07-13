@@ -40,7 +40,7 @@ def configure_and_build(commit, cmake_variables, benchmark_target):
 
 def run_benchmarks(commit, benchmark_target):
     print(f"Running benchmarks for commit: {commit}\n")
-    command = f"./build/benchmarks/{benchmark_target} --benchmark_out_format=json --benchmark_out={commit}-results.json"
+    command = f"./build/benchmarks/{benchmark_target} --benchmark_out_format=json --benchmark_time_unit=us --benchmark_out={commit}-results.json"
     run_command(command)
     print(f"Benchmarks for commit {commit} completed and results saved to {commit}-results.json\n")
 
