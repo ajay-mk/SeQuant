@@ -5,6 +5,7 @@ import os
 import sys
 import subprocess
 import json
+import argparse
 
 SILENT_OUTPUT = True # Set to True to suppress command line output
 
@@ -26,21 +27,21 @@ def restore_git_state(original_git_state):
     print(f"\nRestoring original git state: {original_git_state}")
     run_command(f"git checkout {original_git_state}")
 
-def configure_and_build(commit, cmake_variables, benchmark_target):
+def configure_and_build(commit, cmake_variables, benchmark_target, build_dir):
     print(f"\nConfiguring and building commit: {commit}\n")
 
     run_command(f"git checkout {commit}")
 
     cmake_vars_str = " ".join(cmake_variables)
-    command = f"cmake -S . -B build -DCMAKE_BUILD_TYPE=Release {cmake_vars_str}"
+    command = f"cmake -S . -B {build_dir} -DCMAKE_BUILD_TYPE=Release {cmake_vars_str}"
     run_command(command)
 
-    command = f"cmake --build build --target {benchmark_target} --clean-first"
+    command = f"cmake --build {build_dir} --target {benchmark_target} --clean-first"
     run_command(command)
 
-def run_benchmarks(commit, benchmark_target):
+def run_benchmarks(commit, benchmark_target, build_dir):
     print(f"Running benchmarks for commit: {commit}\n")
-    command = f"./build/benchmarks/{benchmark_target} --benchmark_out_format=json --benchmark_time_unit=us --benchmark_out={commit}-results.json"
+    command = f"./{build_dir}/benchmarks/{benchmark_target} --benchmark_out_format=json --benchmark_time_unit=us --benchmark_out={commit}-results.json"
     run_command(command)
     print(f"Benchmarks for commit {commit} completed and results saved to {commit}-results.json\n")
 
@@ -103,10 +104,6 @@ def compare_benchmarks(base_commit, head_commit, metric="cpu_time"):
     output_lines.append(f"{'Name':<60} {f'Base ({time_unit})':<15} {f'New ({time_unit})':<15} {f'Diff ({time_unit})':<15} {'% Diff':<10}")
     output_lines.append("-" * 125)
 
-    # header for console
-    # print(f"{'Name':<50} {f'Base ({time_unit})':<15} {f'New ({time_unit})':<15} {f'Diff ({time_unit})':<15} {'% Diff':<10}")
-    # print("-" * 100)
-
     # compare each benchmark
     for name in common_names:
         base_value = base_benchmarks[name][metric]
@@ -117,7 +114,6 @@ def compare_benchmarks(base_commit, head_commit, metric="cpu_time"):
         sign = "+" if percentage_diff > 0 else ""
 
         line = f"{name:<60} {base_value:<15.2f} {new_value:<15.2f} {diff:<15.2f} {sign}{percentage_diff:<9.2f}"
-        # print(line)
         output_lines.append(line)
 
     # Write to file
@@ -128,20 +124,29 @@ def compare_benchmarks(base_commit, head_commit, metric="cpu_time"):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) < 3:
-        print("Usage: python3 benchmark_compare.py <base_commit> <head_commit> [benchmark_target]")
-        sys.exit(1)
-
-    base_commit = sys.argv[1]
-    head_commit = sys.argv[2]
-    benchmark_target = sys.argv[3] if len(sys.argv) > 3 else "sequant_benchmarks"
+    parser = argparse.ArgumentParser(
+        description="Compare SeQuant benchmarks between two commits",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    
+    parser.add_argument("base_commit", help="Base commit SHA to compare against")
+    parser.add_argument("head_commit", help="Head commit SHA to compare")
+    parser.add_argument("--benchmark-target", "-t", 
+                       default="sequant_benchmarks",
+                       help="Benchmark target to build and run (default: sequant_benchmarks)")
+    parser.add_argument("--build-dir", "-b",
+                       default="build", 
+                       help="Build directory for CMake (default: build)")
+    
+    args = parser.parse_args()
 
     # print info
     print("**" * 50)
     print("SeQuant Benchmark Comparison Script\n")
-    print(f"Base commit: {base_commit}")
-    print(f"Head commit: {head_commit}")
-    print(f"Benchmark target: {benchmark_target}")
+    print(f"Base commit: {args.base_commit}")
+    print(f"Head commit: {args.head_commit}")
+    print(f"Benchmark target: {args.benchmark_target}")
+    print(f"Build directory: {args.build_dir}")
     print("**" * 50)
 
     original_ref = get_current_git_state()
@@ -162,15 +167,15 @@ if __name__ == "__main__":
 
     try:
         # base commit
-        configure_and_build(base_commit, cmake_variables, benchmark_target)
-        run_benchmarks(base_commit, benchmark_target)
+        configure_and_build(args.base_commit, cmake_variables, args.benchmark_target, args.build_dir)
+        run_benchmarks(args.base_commit, args.benchmark_target, args.build_dir)
 
         # head commit
-        configure_and_build(head_commit, cmake_variables, benchmark_target)
-        run_benchmarks(head_commit, benchmark_target)
+        configure_and_build(args.head_commit, cmake_variables, args.benchmark_target, args.build_dir)
+        run_benchmarks(args.head_commit, args.benchmark_target, args.build_dir)
 
         # Compare benchmarks
-        compare_benchmarks(base_commit, head_commit)
+        compare_benchmarks(args.base_commit, args.head_commit)
         print("Benchmark comparison completed successfully.")
 
     except Exception as e:
