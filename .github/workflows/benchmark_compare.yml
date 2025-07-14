@@ -19,7 +19,7 @@ on:
         type: number
 
 jobs:
-  benchmark:
+  setup:
     if: >
       (github.event_name == 'issue_comment' 
         && github.event.issue.pull_request 
@@ -27,12 +27,14 @@ jobs:
         && (github.event.comment.author_association == 'COLLABORATOR' || github.event.comment.author_association == 'MEMBER' || github.event.comment.author_association == 'OWNER')
       ) || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 5
     permissions:
       contents: read
       pull-requests: write
       actions: read
       statuses: write
+    outputs:
+      pr-data: ${{ steps.pr.outputs.result }}
 
     steps:
       - name: Get PR details
@@ -109,6 +111,26 @@ jobs:
           echo "=== Available branches ==="
           git branch -a
 
+  benchmark:
+    needs: setup
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout base repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Add fork as remote and fetch (if needed)
+        if: fromJson(needs.setup.outputs.pr-data).is_fork
+        run: |
+          echo "PR is from fork: ${{ fromJson(needs.setup.outputs.pr-data).head_repo_full_name }}"
+          git remote add fork https://github.com/${{ fromJson(needs.setup.outputs.pr-data).head_repo_full_name }}.git
+          git fetch fork
+
       - name: Install Dependencies
         run: |
           sudo apt-get update
@@ -116,17 +138,34 @@ jobs:
 
       - name: Run Benchmark Script
         working-directory: ${{ github.workspace }}
-        run: python3 bin/admin/benchmark_compare.py ${{ fromJson(steps.pr.outputs.result).base_sha }} ${{ fromJson(steps.pr.outputs.result).head_sha }}
+        run: python3 bin/admin/benchmark_compare.py ${{ fromJson(needs.setup.outputs.pr-data).base_sha }} ${{ fromJson(needs.setup.outputs.pr-data).head_sha }}
 
       - name: Upload Results
         uses: actions/upload-artifact@v4
         with:
           name: benchmark-data
           path: |
-            ${{ github.workspace }}/${{ fromJson(steps.pr.outputs.result).base_sha }}-results.json
-            ${{ github.workspace }}/${{ fromJson(steps.pr.outputs.result).head_sha }}-results.json
-            ${{ github.workspace }}/${{ fromJson(steps.pr.outputs.result).base_sha }}-${{ fromJson(steps.pr.outputs.result).head_sha }}-comparison.txt
+            ${{ github.workspace }}/${{ fromJson(needs.setup.outputs.pr-data).base_sha }}-results.json
+            ${{ github.workspace }}/${{ fromJson(needs.setup.outputs.pr-data).head_sha }}-results.json
+            ${{ github.workspace }}/${{ fromJson(needs.setup.outputs.pr-data).base_sha }}-${{ fromJson(needs.setup.outputs.pr-data).head_sha }}-comparison.txt
           retention-days: 30
+
+  report:
+    needs: [setup, benchmark]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: write
+      actions: read
+      statuses: write
+
+    steps:
+      - name: Download benchmark results
+        uses: actions/download-artifact@v4
+        with:
+          name: benchmark-data
+          path: .
 
       - name: Post Results
         uses: actions/github-script@v7
@@ -135,7 +174,7 @@ jobs:
             const fs = require('fs');
             const path = require('path');
 
-            const prData = ${{ steps.pr.outputs.result }};
+            const prData = ${{ fromJson(needs.setup.outputs.pr-data) }};
             const comparisonFile = `${prData.base_sha}-${prData.head_sha}-comparison.txt`;
             const comparisonPath = path.join('${{ github.workspace }}', comparisonFile);
 
@@ -167,7 +206,7 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const prData = ${{ steps.pr.outputs.result }};
+            const prData = ${{ fromJson(needs.setup.outputs.pr-data) }};
             await github.rest.repos.createCommitStatus({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -179,11 +218,11 @@ jobs:
             });
 
       - name: Notify on Failure
-        if: failure()
+        if: failure() || needs.setup.result == 'failure' || needs.benchmark.result == 'failure'
         uses: actions/github-script@v7
         with:
           script: |
-            const prData = ${{ steps.pr.outputs.result }};
+            const prData = ${{ fromJson(needs.setup.outputs.pr-data) }};
             
             // Update status check to failed
             await github.rest.repos.createCommitStatus({
