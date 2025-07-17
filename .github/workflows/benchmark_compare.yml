@@ -1,25 +1,34 @@
-# Benchmark Comparison Workflow
-# 
-# Usage: Comment "/benchmark" on a PR to run benchmarks
-#
-# Security Note: This workflow currently allows fork PRs for GitHub-hosted runners.
-# When/If migrating to self-hosted runners, we should restrict this to prevent for security reasons.
-#
-
 name: Compare Benchmarks
 
 on:
   issue_comment:
     types: [created]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'PR number to run benchmarks for'
+        required: true
+        type: number
+
+concurrency:
+  group: benchmark-${{ github.event.issue.number || github.event.inputs.pr_number }}
+  cancel-in-progress: true
 
 jobs:
   benchmark:
-    if: github.event.issue.pull_request && contains(github.event.comment.body, '/benchmark') && (github.event.comment.author_association == 'COLLABORATOR' || github.event.comment.author_association == 'MEMBER' || github.event.comment.author_association == 'OWNER')
+    if: >
+      (github.event_name == 'issue_comment' 
+        && github.event.issue.pull_request 
+        && contains(github.event.comment.body, '/benchmark') 
+        && (github.event.comment.author_association == 'COLLABORATOR' || github.event.comment.author_association == 'MEMBER' || github.event.comment.author_association == 'OWNER')
+      ) || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     permissions:
       contents: read
       pull-requests: write
       actions: read
+      statuses: write
 
     steps:
       - name: Get PR details
@@ -27,11 +36,23 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
+            let pullRequestNumber;
+            
+            if (context.eventName === 'workflow_dispatch') {
+              // Manual dispatch - use provided PR number
+              pullRequestNumber = parseInt('${{ github.event.inputs.pr_number }}');
+            } else {
+              // PR comment trigger - use PR number
+              pullRequestNumber = context.issue.number;
+            }
+            
+            // Fetch PR details
             const { data: pullRequest } = await github.rest.pulls.get({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              pull_number: context.issue.number,
+              pull_number: pullRequestNumber,
             });
+            
             const is_fork = pullRequest.head.repo.full_name !== pullRequest.base.repo.full_name;    
             return {
               base_sha: pullRequest.base.sha,
@@ -40,8 +61,24 @@ jobs:
               head_ref: pullRequest.head.ref,
               head_repo_full_name: pullRequest.head.repo.full_name,
               base_repo_full_name: pullRequest.base.repo.full_name,
-              is_fork: is_fork
+              is_fork: is_fork,
+              pr_number: pullRequestNumber
             };
+
+      - name: Create status check
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prData = ${{ steps.pr.outputs.result }};
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: prData.head_sha,
+              state: 'pending',
+              target_url: `${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}`,
+              description: 'Running benchmark comparison...',
+              context: 'comparing benchmarks'
+            });
 
       - name: Checkout base repository
         uses: actions/checkout@v4
@@ -60,13 +97,9 @@ jobs:
           echo "=== Git Remotes ==="
           git remote -v
           echo "=== Base commit ==="
-          echo "Base SHA: ${{ fromJson(steps.pr.outputs.result).base_sha }}"
-          git log --oneline -1 ${{ fromJson(steps.pr.outputs.result).base_sha }} 2>/dev/null || echo "Base commit not found locally"
+          echo "${{ fromJson(steps.pr.outputs.result).base_sha }}"
           echo "=== Head commit ==="
-          echo "Head SHA: ${{ fromJson(steps.pr.outputs.result).head_sha }}"
-          git log --oneline -1 ${{ fromJson(steps.pr.outputs.result).head_sha }} 2>/dev/null || echo "Head commit not found locally"
-          echo "=== Available branches ==="
-          git branch -a
+          echo "${{ fromJson(steps.pr.outputs.result).head_sha }}"
 
       - name: Install Dependencies
         run: |
@@ -84,7 +117,7 @@ jobs:
           path: |
             ${{ github.workspace }}/${{ fromJson(steps.pr.outputs.result).base_sha }}-results.json
             ${{ github.workspace }}/${{ fromJson(steps.pr.outputs.result).head_sha }}-results.json
-            ${{ github.workspace }}/${{ fromJson(steps.pr.outputs.result).base_sha }}-${{ fromJson(steps.pr.outputs.result).head_sha }}-comparison.txt
+            ${{ github.workspace }}/benchmark-comparison.txt
           retention-days: 30
 
       - name: Post Results
@@ -95,7 +128,7 @@ jobs:
             const path = require('path');
 
             const prData = ${{ steps.pr.outputs.result }};
-            const comparisonFile = `${prData.base_sha}-${prData.head_sha}-comparison.txt`;
+            const comparisonFile = `benchmark-comparison.txt`;
             const comparisonPath = path.join('${{ github.workspace }}', comparisonFile);
 
             let comparisonResults = '';
@@ -111,15 +144,30 @@ jobs:
             ${comparisonResults}
             \`\`\`
 
-            #### Raw benchmark data:** [View artifacts](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
-            ---
+            #### [Full benchmark data](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
             `;
 
             github.rest.issues.createComment({
-              issue_number: context.issue.number,
+              issue_number: prData.pr_number,
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: commentBody
+            });
+
+      - name: Update status check - Success
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prData = ${{ steps.pr.outputs.result }};
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: prData.head_sha,
+              state: 'success',
+              target_url: `${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}`,
+              description: 'Benchmark comparison completed successfully',
+              context: 'comparing benchmarks'
             });
 
       - name: Notify on Failure
@@ -127,8 +175,22 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
+            const prData = ${{ steps.pr.outputs.result }};
+            
+            // Update status check to failed
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: prData.head_sha,
+              state: 'failure',
+              target_url: `${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}`,
+              description: 'Benchmark comparison failed',
+              context: 'comparing benchmarks'
+            });
+            
+            // Post failure comment
             github.rest.issues.createComment({
-              issue_number: context.issue.number,
+              issue_number: prData.pr_number,
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: 'Benchmark comparison failed. Check the workflow logs for details.'
