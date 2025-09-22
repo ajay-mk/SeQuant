@@ -108,7 +108,7 @@ jobs:
 
       - name: Run Benchmark Script
         working-directory: ${{ github.workspace }}
-        run: python3 bin/admin/benchmark_compare.py ${{ fromJson(steps.pr.outputs.result).base_sha }} ${{ fromJson(steps.pr.outputs.result).head_sha }}
+        run: python3 bin/admin/benchmark_compare.py ${{ fromJson(steps.pr.outputs.result).base_sha }} ${{ fromJson(steps.pr.outputs.result).head_sha }} -c /home/runner/work/SeQuant/SeQuant/build/_deps/googlebenchmark-src/tools/compare.py
 
       - name: Upload Results
         uses: actions/upload-artifact@v4
