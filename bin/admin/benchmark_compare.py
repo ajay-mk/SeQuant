@@ -83,14 +83,17 @@ def compare_benchmarks(base_commit, head_commit, benchmark_target, build_dir, co
     # Find compare.py
     compare_script = find_google_benchmark_compare(compare_path)
 
-    # Run compare.py
+    # Create a temporary file for JSON output from compare.py
+    json_output_file = "benchmark-comparison-raw.json"
+
+    # Run compare.py with --dump-to-json flag
     cmd = [
         sys.executable,
         compare_script,
         "benchmarks",
         base_file,
         new_file,
-        "--json",
+        "-d", json_output_file,
     ]
     try:
         result = subprocess.run(
@@ -99,12 +102,19 @@ def compare_benchmarks(base_commit, head_commit, benchmark_target, build_dir, co
         )
     except subprocess.CalledProcessError as e:
         print("Error running compare.py:\n", e.stderr, file=sys.stderr)
+        print("Command:", ' '.join(cmd), file=sys.stderr)
         sys.exit(1)
 
+    # Read JSON from the file created by compare.py
     try:
-        data = json.loads(result.stdout)
-    except json.JSONDecodeError:
-        print("Failed to parse JSON output from compare.py", file=sys.stderr)
+        with open(json_output_file, 'r') as f:
+            data = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError) as e:
+        print(f"Failed to read or parse JSON from {json_output_file}", file=sys.stderr)
+        print(f"Error: {e}", file=sys.stderr)
+        print(f"Command: {' '.join(cmd)}", file=sys.stderr)
+        print(f"stderr: {result.stderr}", file=sys.stderr)
+        print(f"stdout: {result.stdout}", file=sys.stderr)
         sys.exit(1)
 
     # Format output
