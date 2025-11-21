@@ -110,6 +110,9 @@ PYBIND11_MODULE(_sequant, m) {
 
   py::class_<ExprPtr>(m, "ExprPtr")
       .def_property_readonly("latex", &ExprPtr::to_latex)
+      .def("size", &sequant::size,
+           "Returns the number of subexpressions (0 for atoms, >0 for "
+           "Sum/Product)")
       .def("__add__", [](const ExprPtr &l, const ExprPtr &r) { return l + r; })
       .def("__sub__", [](const ExprPtr &l, const ExprPtr &r) { return l - r; })
       .def("__mul__", [](const ExprPtr &l, const ExprPtr &r) { return l * r; });
@@ -118,6 +121,9 @@ PYBIND11_MODULE(_sequant, m) {
       .def_property_readonly("summands", &summands)
       .def_property_readonly("factors", &factors)
       .def_property_readonly("latex", &Expr::to_latex)
+      .def("size", &sequant::size,
+           "Returns the number of subexpressions (0 for atoms, >0 for "
+           "Sum/Product)")
       .def("__add__", [](const ExprPtr &l, const ExprPtr &r) { return l + r; })
       .def("__sub__", [](const ExprPtr &l, const ExprPtr &r) { return l - r; })
       .def("__mul__", [](const ExprPtr &l, const ExprPtr &r) { return l * r; })
