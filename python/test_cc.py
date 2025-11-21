@@ -5,7 +5,13 @@ Matches C++ tests in tests/unit/test_mbpt_cc.cpp
 """
 
 import unittest
-from _sequant.mbpt import CC, Ansatz, np, nh
+
+# Support both old and new import styles
+try:
+    from sequant.mbpt import CC, Ansatz, np, nh
+except ImportError:
+    # Fall back to direct _sequant import for backward compatibility
+    from _sequant.mbpt import CC, Ansatz, np, nh
 
 
 class TestCCSD(unittest.TestCase):

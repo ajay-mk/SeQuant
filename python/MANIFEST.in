@@ -1,0 +1,23 @@
+# Include documentation and examples
+include README.md
+include CC_PYTHON_BINDINGS.md
+include LICENSE
+
+# Include test files
+include test_*.py
+include examples_*.py
+
+# Include source files (for reference)
+recursive-include src *.cc *.h
+recursive-include include *.h
+
+# Include CMake files (for reference)
+include CMakeLists.txt
+
+# Exclude build artifacts
+global-exclude *.pyc
+global-exclude *.pyo
+global-exclude __pycache__
+global-exclude *.so
+global-exclude *.pyd
+global-exclude .DS_Store

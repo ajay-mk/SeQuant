@@ -4,6 +4,8 @@
 
 This document describes the Python bindings for the `mbpt::CC` class, which provides a derivation engine for coupled-cluster methods in SeQuant.
 
+> **Note on Import Styles:** SeQuant now provides a proper Python package structure. The new recommended import style is `from sequant.mbpt import CC`, but the old style `from _sequant.mbpt import CC` is still supported for backward compatibility. See [INSTALLATION.md](INSTALLATION.md) for setup instructions and [README.md](README.md) for more details on the package structure.
+
 ## What Was Added
 
 ### 1. Strong Types for Particle/Hole Counts
@@ -11,6 +13,10 @@ This document describes the Python bindings for the `mbpt::CC` class, which prov
 Added Python bindings for `nₚ` (number of particles) and `nₕ` (number of holes):
 
 ```python
+# New style (recommended)
+from sequant.mbpt import np, nh
+
+# Or old style (backward compatible)
 from _sequant.mbpt import np, nh
 
 n_particles = np(2)  # 2 particles
@@ -24,6 +30,10 @@ These strong types are required for EOM-CC methods to specify the operator manif
 Added the `Ansatz` enum with four types:
 
 ```python
+# New style (recommended)
+from sequant.mbpt import Ansatz
+
+# Or old style (backward compatible)
 from _sequant.mbpt import Ansatz
 
 # Traditional ansatz: exp(T)
@@ -44,9 +54,14 @@ Ansatz.oU
 Added the `size()` function for analyzing expressions:
 
 ```python
-import _sequant as sq
+# New style (recommended)
+import sequant as sq
+# Or old style: import _sequant as sq
 
-# Get number of terms in an expression
+# Method style (Pythonic)
+num_terms = expr.size()
+
+# Or function style
 num_terms = sq.size(expr)
 ```
 
@@ -113,7 +128,10 @@ Derives equation-of-motion CC equations for excited states
 ### Basic CCSD
 
 ```python
-from _sequant.mbpt import CC
+# New style (recommended)
+from sequant.mbpt import CC
+
+# Or old style: from _sequant.mbpt import CC
 
 # Create CCSD engine
 cc = CC(2)

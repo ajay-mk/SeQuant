@@ -20,7 +20,25 @@ set_target_properties(
   PROPERTIES
   #PREFIX ""
   OUTPUT_NAME _sequant
+  # Place the compiled module in the build directory
+  LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
   )
+
+# Copy Python package files to build directory
+add_custom_command(TARGET python-sequant POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${CMAKE_CURRENT_SOURCE_DIR}/sequant
+    ${CMAKE_CURRENT_BINARY_DIR}/sequant
+  COMMENT "Copying Python package files to build directory"
+)
+
+# Copy the compiled extension into the package
+add_custom_command(TARGET python-sequant POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -E copy
+    $<TARGET_FILE:python-sequant>
+    ${CMAKE_CURRENT_BINARY_DIR}/sequant/_sequant$<TARGET_FILE_SUFFIX:python-sequant>
+  COMMENT "Copying compiled extension into Python package"
+)
 
 if (BUILD_TESTING)
   add_test(sequant/unit/python/build "${CMAKE_COMMAND}" --build ${CMAKE_BINARY_DIR} --target python-sequant)

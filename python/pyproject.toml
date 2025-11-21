@@ -1,0 +1,59 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "cmake>=3.15"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sequant"
+version = "0.1.0"
+description = "Python interface to SeQuant library for symbolic tensor algebra"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "LGPL-3.0"}
+authors = [
+    {name = "The SeQuant Developers", email = "valeev@vt.edu"}
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS",
+    "Programming Language :: C++",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Chemistry",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+keywords = ["quantum chemistry", "tensor algebra", "coupled cluster", "many-body theory"]
+
+[project.urls]
+Homepage = "https://github.com/ValeevGroup/SeQuant"
+Documentation = "https://valeevgroup.github.io/SeQuant/"
+Repository = "https://github.com/ValeevGroup/SeQuant"
+Issues = "https://github.com/ValeevGroup/SeQuant/issues"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0",
+    "pytest-cov",
+    "black",
+    "mypy",
+]
+docs = [
+    "sphinx>=4.0",
+    "sphinx-rtd-theme",
+]
+
+[tool.black]
+line-length = 88
+target-version = ['py38', 'py39', 'py310', 'py311']
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false

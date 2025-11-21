@@ -6,8 +6,14 @@ These examples demonstrate how to use the CC class to derive various
 coupled cluster equations programmatically.
 """
 
-import _sequant as sq
-from _sequant.mbpt import CC, Ansatz, np, nh, H, T, A, VacuumAverage
+# Support both old and new import styles
+try:
+    import sequant as sq
+    from sequant.mbpt import CC, Ansatz, np, nh, H, T, A, VacuumAverage
+except ImportError:
+    # Fall back to direct _sequant import for backward compatibility
+    import _sequant as sq
+    from _sequant.mbpt import CC, Ansatz, np, nh, H, T, A, VacuumAverage
 
 
 def example_basic_ccsd():
