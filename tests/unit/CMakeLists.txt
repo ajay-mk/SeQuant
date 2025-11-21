@@ -13,6 +13,7 @@ add_executable(unit_tests-sequant ${BUILD_BY_DEFAULT}
     "test_export.cpp"
     "test_expr.cpp"
     "test_expr.cpp"
+    "test_format.cpp"
     "test_fusion.cpp"
     "test_index.cpp"
     "test_iterator.cpp"

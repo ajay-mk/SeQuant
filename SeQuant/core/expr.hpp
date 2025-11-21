@@ -20,4 +20,7 @@
 #include <SeQuant/core/expressions/traits.hpp>
 #include <SeQuant/core/expressions/variable.hpp>
 
+// Include format support for std::cout and std::format
+#include <SeQuant/core/format.hpp>
+
 #endif  // SEQUANT_EXPR_HPP
