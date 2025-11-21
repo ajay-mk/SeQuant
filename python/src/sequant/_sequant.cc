@@ -1,5 +1,6 @@
 #include <SeQuant/core/complex.hpp>
 #include <SeQuant/core/context.hpp>
+#include <SeQuant/core/expressions/expr_algorithms.hpp>
 #include <SeQuant/core/expressions/tensor.hpp>
 #include <SeQuant/core/index.hpp>
 #include <SeQuant/core/rational.hpp>
@@ -172,6 +173,10 @@ PYBIND11_MODULE(_sequant, m) {
   py::class_<Sum, std::shared_ptr<Sum>, Expr>(m, "Sum");
 
   m.def("simplify", &sequant::python::simplify);
+  m.def("size", &sequant::size,
+        "Returns the number of subexpressions in an expression.\n"
+        "Returns 0 for atoms (Constant, Tensor, etc.), >0 for Sum or Product.\n"
+        "For a Sum, this returns the number of summands.");
 
   python::mbpt::__init__(m.def_submodule("mbpt"));
 }

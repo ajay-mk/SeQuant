@@ -39,7 +39,26 @@ Ansatz.U
 Ansatz.oU
 ```
 
-### 3. CC Class
+### 3. Expression Utility Functions
+
+Added the `size()` function for analyzing expressions:
+
+```python
+import _sequant as sq
+
+# Get number of terms in an expression
+num_terms = sq.size(expr)
+```
+
+The `size()` function returns:
+- `0` for atomic expressions (Constant, Tensor, etc.)
+- `>0` for composite expressions (Sum, Product)
+- For a Sum, returns the number of summands
+- For a Product, returns the number of factors
+
+This is useful for testing and validating equation derivations.
+
+### 4. CC Class
 
 The main `CC` class for deriving coupled cluster equations:
 
@@ -251,6 +270,9 @@ latex_str = expr.latex
 # Simplify expression
 simplified = sq.simplify(expr)
 
+# Get the number of terms/subexpressions
+num_terms = sq.size(expr)  # Returns 0 for atoms, >0 for Sum/Product
+
 # Arithmetic operations
 result = expr1 + expr2
 result = expr1 * expr2
@@ -298,16 +320,20 @@ python python/examples_cc.py
    - Added `CC` class bindings with all methods
    - Added comprehensive docstrings
 
-2. `/home/user/SeQuant/python/test_sequant.py`
+2. `/home/user/SeQuant/python/src/sequant/_sequant.cc`
+   - Added include for `expr_algorithms.hpp`
+   - Added `size()` function binding for counting terms in expressions
+
+3. `/home/user/SeQuant/python/test_sequant.py`
    - Updated imports to include CC, Ansatz, np, nh
 
 ### Created Files:
 1. `/home/user/SeQuant/python/test_cc.py`
-   - Comprehensive unit tests for CC class
-   - Tests all ansatz types
-   - Tests all methods (t, lambda, t_pt, lambda_pt, eom_r, eom_l)
-   - Tests strong types
-   - Integration tests
+   - Unit tests matching C++ tests in `tests/unit/test_mbpt_cc.cpp`
+   - Tests CCSD T amplitude equations with exact term count validation
+   - Tests EOM-CC (EE, IP, EA) equations with size assertions
+   - Tests UCC equations
+   - 5 test classes with 10+ test methods
 
 2. `/home/user/SeQuant/python/examples_cc.py`
    - 11 detailed examples covering:
