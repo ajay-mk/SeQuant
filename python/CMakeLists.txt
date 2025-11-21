@@ -34,9 +34,9 @@ add_custom_command(TARGET python-sequant POST_BUILD
 
 # Copy the compiled extension into the package
 add_custom_command(TARGET python-sequant POST_BUILD
-  COMMAND ${CMAKE_COMMAND} -E copy
+  COMMAND ${CMAKE_COMMAND} -E copy_if_different
     $<TARGET_FILE:python-sequant>
-    ${CMAKE_CURRENT_BINARY_DIR}/sequant/_sequant$<TARGET_FILE_SUFFIX:python-sequant>
+    ${CMAKE_CURRENT_BINARY_DIR}/sequant/$<TARGET_FILE_NAME:python-sequant>
   COMMENT "Copying compiled extension into Python package"
 )
 
