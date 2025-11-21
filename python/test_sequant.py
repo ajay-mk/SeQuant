@@ -1,6 +1,7 @@
 import unittest
 import _sequant as sq
 from _sequant import Tensor, Sum, Product, Constant, Expr, zRational
+from _sequant.mbpt import CC, Ansatz, np, nh
 
 #sq.IndexSpace.occupied = "i"
 
