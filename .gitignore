@@ -70,3 +70,15 @@ build
 .vscode
 out
 run
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+*.pyd
