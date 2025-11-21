@@ -82,8 +82,7 @@ inline void __init__(py::module m) {
              "Traditional orbital-optimized (singles-free) ansatz")
       .value("U", sequant::mbpt::CC::Ansatz::U, "Unitary ansatz")
       .value("oU", sequant::mbpt::CC::Ansatz::oU,
-             "Unitary orbital-optimized (singles-free) ansatz")
-      .export_values();
+             "Unitary orbital-optimized (singles-free) ansatz");
 
   // CC class
   py::class_<sequant::mbpt::CC>(m, "CC")
