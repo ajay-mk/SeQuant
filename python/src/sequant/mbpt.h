@@ -4,6 +4,7 @@
 #include <SeQuant/domain/mbpt/convention.hpp>
 #include <SeQuant/domain/mbpt/models/cc.hpp>
 #include <SeQuant/domain/mbpt/op.hpp>
+#include <SeQuant/domain/mbpt/spin.hpp>
 
 #include <SeQuant/core/expr.hpp>
 #include <SeQuant/core/tensor_canonicalizer.hpp>
@@ -199,6 +200,72 @@ inline void __init__(py::module m) {
            "-------\n"
            "list of ExprPtr\n"
            "    Vector of left-side sigma equations");
+
+  // Biorthogonalization method enum
+  py::enum_<sequant::mbpt::BiorthogonalizationMethod>(
+      m, "BiorthogonalizationMethod")
+      .value("V1", sequant::mbpt::BiorthogonalizationMethod::V1,
+             "Standard biorthogonalization method")
+      .value("V2", sequant::mbpt::BiorthogonalizationMethod::V2,
+             "Improved Wang-Knizia biorthogonalization with NNS projector")
+      .export_values();
+
+  // Closed-shell CC spintrace options
+  py::class_<sequant::mbpt::ClosedShellCCSpintraceOptions>(
+      m, "ClosedShellCCSpintraceOptions")
+      .def(py::init<>())
+      .def_readwrite("method",
+                     &sequant::mbpt::ClosedShellCCSpintraceOptions::method,
+                     "Biorthogonalization method (V1 or V2), default is V2")
+      .def_readwrite(
+          "naive_spintrace",
+          &sequant::mbpt::ClosedShellCCSpintraceOptions::naive_spintrace,
+          "If True, use naive spintrace (exponential cost), default "
+          "is False");
+
+  // Spin-tracing functions
+  m.def("closed_shell_CC_spintrace", &sequant::mbpt::closed_shell_CC_spintrace,
+        py::arg("expr"),
+        py::arg("options") = sequant::mbpt::ClosedShellCCSpintraceOptions{},
+        "Spin-trace closed-shell CC equations\n\n"
+        "Transforms spin-free moments to biorthogonal form for closed-shell "
+        "references.\n\n"
+        "Parameters\n"
+        "----------\n"
+        "expr : ExprPtr\n"
+        "    Expression to spin-trace\n"
+        "options : ClosedShellCCSpintraceOptions, optional\n"
+        "    Options controlling biorthogonalization method\n\n"
+        "Returns\n"
+        "-------\n"
+        "ExprPtr\n"
+        "    Spin-traced expression\n\n"
+        "Examples\n"
+        "--------\n"
+        ">>> cc = CC(2)\n"
+        ">>> t_eqs = cc.t()\n"
+        ">>> t2_spin = closed_shell_CC_spintrace(t_eqs[2])\n");
+
+  m.def("open_shell_CC_spintrace", &sequant::mbpt::open_shell_CC_spintrace,
+        py::arg("expr"),
+        "Spin-trace open-shell CC equations\n\n"
+        "Uses minimal expansion of the antisymmetrizer for open-shell "
+        "references.\n\n"
+        "Parameters\n"
+        "----------\n"
+        "expr : ExprPtr\n"
+        "    Expression to spin-trace\n\n"
+        "Returns\n"
+        "-------\n"
+        "list of ExprPtr\n"
+        "    Vector of spin-traced expressions for each spin case\n\n"
+        "Examples\n"
+        "--------\n"
+        ">>> cc = CC(2)\n"
+        ">>> t_eqs = cc.t()\n"
+        ">>> t2_spin_cases = open_shell_CC_spintrace(t_eqs[2])\n"
+        ">>> for spin_case in t2_spin_cases:\n"
+        "...     print(spin_case.latex)\n");
 }
 
 }  // namespace sequant::python::mbpt
