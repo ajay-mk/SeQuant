@@ -225,3 +225,82 @@ TEST_CASE("Mixed usage - combining format and ostream", "[format][ostream][mixed
   REQUIRE(formatted.find("t") != std::string::npos);
   REQUIRE(streamed.find("t") != std::string::npos);
 }
+
+TEST_CASE("Custom format specs - LaTeX vs Code format", "[format][specs]") {
+  auto i = Index(L"i_1");
+  auto a = Index(L"a_2");
+  auto t = Tensor(L"H", {i}, {a});
+
+  SECTION("Index format specs") {
+    auto latex_fmt = std::format("{:l}", i);
+    auto code_fmt = std::format("{:c}", i);
+    auto default_fmt = std::format("{}", i);
+
+    // Default should equal LaTeX
+    REQUIRE(default_fmt == latex_fmt);
+
+    // Code format should just be the label
+    REQUIRE(code_fmt.find("i_1") != std::string::npos);
+  }
+
+  SECTION("Tensor format specs") {
+    auto latex_fmt = std::format("{:l}", t);
+    auto code_fmt = std::format("{:c}", t);
+    auto default_fmt = std::format("{}", t);
+
+    // Default should equal LaTeX
+    REQUIRE(default_fmt == latex_fmt);
+
+    // Code format should be bracket notation
+    REQUIRE(code_fmt.find("[") != std::string::npos);
+    REQUIRE(code_fmt.find(";") != std::string::npos);
+    REQUIRE(code_fmt.find("]") != std::string::npos);
+  }
+
+  SECTION("Product format specs") {
+    auto c1 = ex<Constant>(2);
+    auto c2 = ex<Constant>(3);
+    auto p = c1 * c2;
+
+    auto latex_fmt = std::format("{:l}", *p);
+    auto code_fmt = std::format("{:c}", *p);
+    auto default_fmt = std::format("{}", *p);
+
+    // Default should equal LaTeX
+    REQUIRE(default_fmt == latex_fmt);
+
+    // Both should contain something representing the product
+    REQUIRE_FALSE(latex_fmt.empty());
+    REQUIRE_FALSE(code_fmt.empty());
+  }
+
+  SECTION("Variable format specs") {
+    auto v = Variable(L"x");
+
+    auto latex_fmt = std::format("{:l}", v);
+    auto code_fmt = std::format("{:c}", v);
+    auto default_fmt = std::format("{}", v);
+
+    // Default should equal LaTeX
+    REQUIRE(default_fmt == latex_fmt);
+
+    // Both should contain 'x'
+    REQUIRE(latex_fmt.find("x") != std::string::npos);
+    REQUIRE(code_fmt.find("x") != std::string::npos);
+  }
+}
+
+TEST_CASE("External-interface compatibility", "[format][external]") {
+  // Test that code format matches what external-interface expects
+  auto i = Index(L"i");
+  auto a = Index(L"a");
+  auto t = Tensor(L"f", {i}, {a});
+
+  auto code_fmt = std::format("{:c}", t);
+
+  // Code format should be: "f[i;a;]"
+  REQUIRE(code_fmt.find("f") != std::string::npos);
+  REQUIRE(code_fmt.find("[") != std::string::npos);
+  REQUIRE(code_fmt.find(";") != std::string::npos);
+  REQUIRE(code_fmt.find("]") != std::string::npos);
+}
