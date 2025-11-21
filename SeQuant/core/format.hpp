@@ -8,7 +8,14 @@
 #include <SeQuant/core/asy_cost.hpp>
 #include <SeQuant/core/complex.hpp>
 #include <SeQuant/core/eval_expr.hpp>
-#include <SeQuant/core/expr.hpp>
+#include <SeQuant/core/expressions/expr.hpp>
+#include <SeQuant/core/expressions/expr_ptr.hpp>
+#include <SeQuant/core/expressions/tensor.hpp>
+#include <SeQuant/core/expressions/variable.hpp>
+#include <SeQuant/core/expressions/constant.hpp>
+#include <SeQuant/core/expressions/product.hpp>
+#include <SeQuant/core/expressions/sum.hpp>
+#include <SeQuant/core/expressions/result_expr.hpp>
 #include <SeQuant/core/index.hpp>
 #include <SeQuant/core/op.hpp>
 #include <SeQuant/core/rational.hpp>
