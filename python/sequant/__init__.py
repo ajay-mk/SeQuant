@@ -44,9 +44,23 @@ from _sequant import (
     Expr,
     # Canonicalization
     DefaultTensorCanonicalizer,
-    # Utility functions
+    # Expression manipulation functions
     simplify,
+    canonicalize,
+    expand,
+    flatten,
+    rapid_simplify,
     size,
+    # Context enums
+    Vacuum,
+    SPBasis,
+    # Context management
+    get_default_context,
+    set_vacuum,
+    set_spbasis,
+    get_vacuum,
+    get_spbasis,
+    reset_default_context,
 )
 
 # Create submodule aliases
@@ -61,9 +75,23 @@ __all__ = [
     # Core types
     "ExprPtr",
     "Expr",
-    # Functions
+    # Expression manipulation
     "simplify",
+    "canonicalize",
+    "expand",
+    "flatten",
+    "rapid_simplify",
     "size",
+    # Context enums
+    "Vacuum",
+    "SPBasis",
+    # Context management
+    "get_default_context",
+    "set_vacuum",
+    "set_spbasis",
+    "get_vacuum",
+    "get_spbasis",
+    "reset_default_context",
     # Canonicalization
     "DefaultTensorCanonicalizer",
     # Version

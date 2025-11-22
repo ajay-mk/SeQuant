@@ -1,3 +1,4 @@
+#include <SeQuant/core/attr.hpp>
 #include <SeQuant/core/complex.hpp>
 #include <SeQuant/core/context.hpp>
 #include <SeQuant/core/expressions/expr_algorithms.hpp>
@@ -62,6 +63,34 @@ py::object factors(ExprPtr &expr) {
 // disambiguates sequant::simplify
 ExprPtr &simplify(ExprPtr &expr) { return sequant::simplify(expr); }
 
+// Wrapper for canonicalize that returns a new ExprPtr
+ExprPtr canonicalize(const ExprPtr &expr) {
+  ExprPtr result = expr->clone();
+  sequant::canonicalize(result);
+  return result;
+}
+
+// Wrapper for expand that returns a new ExprPtr
+ExprPtr expand_expr(const ExprPtr &expr) {
+  ExprPtr result = expr->clone();
+  sequant::expand(result);
+  return result;
+}
+
+// Wrapper for flatten that returns a new ExprPtr
+ExprPtr flatten_expr(const ExprPtr &expr) {
+  ExprPtr result = expr->clone();
+  sequant::flatten(result);
+  return result;
+}
+
+// Wrapper for rapid_simplify that returns a new ExprPtr
+ExprPtr rapid_simplify_expr(const ExprPtr &expr) {
+  ExprPtr result = expr->clone();
+  sequant::rapid_simplify(result);
+  return result;
+}
+
 py::object rational_to_fraction(const rational &r) {
   py::object Fraction = py::module::import("fractions").attr("Fraction");
   return Fraction(numerator(r), denominator(r));
@@ -93,6 +122,90 @@ PYBIND11_NAMESPACE_END(PYBIND11_NAMESPACE)
 PYBIND11_MODULE(_sequant, m) {
   using namespace sequant;
   using namespace sequant::python;
+
+  // Context enums
+  py::enum_<Vacuum>(m, "Vacuum")
+      .value("Physical", Vacuum::Physical,
+             "Physical vacuum (all orbitals unoccupied)")
+      .value("SingleProduct", Vacuum::SingleProduct,
+             "Single-product (Fermi) vacuum")
+      .value("MultiProduct", Vacuum::MultiProduct, "Multi-product vacuum");
+
+  py::enum_<SPBasis>(m, "SPBasis")
+      .value("Spinor", SPBasis::Spinor, "Spin-orbital basis")
+      .value("Spinfree", SPBasis::Spinfree, "Spin-free basis");
+
+  // Context management functions
+  m.def(
+      "get_default_context",
+      []() -> const Context & { return get_default_context(); },
+      py::return_value_policy::reference,
+      "Get the default context\n\n"
+      "Returns\n"
+      "-------\n"
+      "Context\n"
+      "    The current default context");
+
+  m.def(
+      "set_vacuum",
+      [](Vacuum v) {
+        auto ctx = get_default_context();
+        ctx.set(v);
+        set_default_context(ctx);
+      },
+      py::arg("vacuum"),
+      "Set the vacuum type for the default context\n\n"
+      "Parameters\n"
+      "----------\n"
+      "vacuum : Vacuum\n"
+      "    Vacuum type (Physical, SingleProduct, or MultiProduct)\n\n"
+      "Examples\n"
+      "--------\n"
+      ">>> import sequant as sq\n"
+      ">>> sq.set_vacuum(sq.Vacuum.SingleProduct)  # Use Fermi vacuum");
+
+  m.def(
+      "set_spbasis",
+      [](SPBasis basis) {
+        auto ctx = get_default_context();
+        ctx.set(basis);
+        set_default_context(ctx);
+      },
+      py::arg("spbasis"),
+      "Set the single-particle basis for the default context\n\n"
+      "Parameters\n"
+      "----------\n"
+      "spbasis : SPBasis\n"
+      "    Basis type (Spinor or Spinfree)\n\n"
+      "Examples\n"
+      "--------\n"
+      ">>> import sequant as sq\n"
+      ">>> sq.set_spbasis(sq.SPBasis.Spinfree)  # Use spin-free basis");
+
+  m.def(
+      "get_vacuum",
+      []() { return get_default_context().vacuum(); },
+      "Get the current vacuum type\n\n"
+      "Returns\n"
+      "-------\n"
+      "Vacuum\n"
+      "    Current vacuum type");
+
+  m.def(
+      "get_spbasis",
+      []() { return get_default_context().spbasis(); },
+      "Get the current single-particle basis\n\n"
+      "Returns\n"
+      "-------\n"
+      "SPBasis\n"
+      "    Current basis type");
+
+  m.def(
+      "reset_default_context",
+      []() {
+        set_default_context(Context{});
+      },
+      "Reset the default context to initial defaults");
 
 #define SEQUANT_PYTHON_INDEXSPACE_TYPE_PROPERTY(TYPE, LABEL)                  \
   .def_property_static(                                                       \
@@ -179,7 +292,75 @@ PYBIND11_MODULE(_sequant, m) {
 
   py::class_<Sum, std::shared_ptr<Sum>, Expr>(m, "Sum");
 
-  m.def("simplify", &sequant::python::simplify);
+  m.def("simplify", &sequant::python::simplify,
+        "Simplify an expression by expansion, canonicalization, and "
+        "algebraic simplification\n\n"
+        "Parameters\n"
+        "----------\n"
+        "expr : ExprPtr\n"
+        "    Expression to simplify\n\n"
+        "Returns\n"
+        "-------\n"
+        "ExprPtr\n"
+        "    Simplified expression");
+
+  m.def("canonicalize", &sequant::python::canonicalize, py::arg("expr"),
+        "Canonicalize tensor indices in an expression\n\n"
+        "Applies index canonicalization rules to put tensors in a standard "
+        "form.\n\n"
+        "Parameters\n"
+        "----------\n"
+        "expr : ExprPtr\n"
+        "    Expression to canonicalize\n\n"
+        "Returns\n"
+        "-------\n"
+        "ExprPtr\n"
+        "    Canonicalized expression\n\n"
+        "Examples\n"
+        "--------\n"
+        ">>> import sequant as sq\n"
+        ">>> expr = ...  # some expression\n"
+        ">>> canonical = sq.canonicalize(expr)");
+
+  m.def("expand", &sequant::python::expand_expr, py::arg("expr"),
+        "Expand products of sums\n\n"
+        "Recursively expands products of sums into sums of products.\n\n"
+        "Parameters\n"
+        "----------\n"
+        "expr : ExprPtr\n"
+        "    Expression to expand\n\n"
+        "Returns\n"
+        "-------\n"
+        "ExprPtr\n"
+        "    Expanded expression");
+
+  m.def("flatten", &sequant::python::flatten_expr, py::arg("expr"),
+        "Flatten nested sums and products\n\n"
+        "Recursively flattens Sum of Sum's and Product of Product's.\n\n"
+        "Parameters\n"
+        "----------\n"
+        "expr : ExprPtr\n"
+        "    Expression to flatten\n\n"
+        "Returns\n"
+        "-------\n"
+        "ExprPtr\n"
+        "    Flattened expression");
+
+  m.def("rapid_simplify", &sequant::python::rapid_simplify_expr,
+        py::arg("expr"),
+        "Fast simplification without canonicalization\n\n"
+        "Applies cheap transformations like eliminating trivial math and "
+        "flattening,\n"
+        "but does not perform canonicalization.\n\n"
+        "Parameters\n"
+        "----------\n"
+        "expr : ExprPtr\n"
+        "    Expression to simplify\n\n"
+        "Returns\n"
+        "-------\n"
+        "ExprPtr\n"
+        "    Simplified expression");
+
   m.def("size",
         static_cast<std::size_t (*)(const ExprPtr &)>(&sequant::size),
         "Returns the number of subexpressions in an expression.\n"

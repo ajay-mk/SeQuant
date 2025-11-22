@@ -1,6 +1,7 @@
 #ifndef SEQUANT_PYTHON_MBPT_H
 #define SEQUANT_PYTHON_MBPT_H
 
+#include <SeQuant/domain/mbpt/context.hpp>
 #include <SeQuant/domain/mbpt/convention.hpp>
 #include <SeQuant/domain/mbpt/models/cc.hpp>
 #include <SeQuant/domain/mbpt/op.hpp>
@@ -33,6 +34,39 @@ inline void __init__(py::module m) {
   sequant::mbpt::load(sequant::mbpt::Convention::Minimal);
   sequant::TensorCanonicalizer::register_instance(
       std::make_shared<DefaultTensorCanonicalizer>());
+
+  // MBPT Context - CSV option
+  py::enum_<sequant::mbpt::CSV>(m, "CSV")
+      .value("Yes", sequant::mbpt::CSV::Yes,
+             "Use cluster-specific virtuals")
+      .value("No", sequant::mbpt::CSV::No,
+             "Do not use cluster-specific virtuals");
+
+  m.def(
+      "get_csv",
+      []() { return sequant::mbpt::get_default_mbpt_context().csv(); },
+      "Get the current CSV (cluster-specific virtuals) setting\n\n"
+      "Returns\n"
+      "-------\n"
+      "CSV\n"
+      "    Current CSV setting");
+
+  m.def(
+      "set_csv",
+      [](sequant::mbpt::CSV csv) {
+        sequant::mbpt::set_default_mbpt_context(
+            sequant::mbpt::Context(csv));
+      },
+      py::arg("csv"),
+      "Set CSV (cluster-specific virtuals) for MBPT calculations\n\n"
+      "Parameters\n"
+      "----------\n"
+      "csv : CSV\n"
+      "    Whether to use cluster-specific virtuals\n\n"
+      "Examples\n"
+      "--------\n"
+      ">>> from sequant.mbpt import set_csv, CSV\n"
+      ">>> set_csv(CSV.Yes)  # Enable cluster-specific virtuals");
 
   py::enum_<sequant::mbpt::OpType>(m, "OpType")
       .value("h", sequant::mbpt::OpType::h)

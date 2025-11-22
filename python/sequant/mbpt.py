@@ -21,6 +21,8 @@ BiorthogonalizationMethod
     Enum for biorthogonalization methods (V1, V2)
 ClosedShellCCSpintraceOptions
     Options for closed-shell CC spin-tracing
+CSV
+    Enum for cluster-specific virtuals option (Yes, No)
 
 Functions
 ---------
@@ -40,6 +42,10 @@ closed_shell_CC_spintrace(expr, options)
     Spin-trace closed-shell CC equations
 open_shell_CC_spintrace(expr)
     Spin-trace open-shell CC equations
+get_csv()
+    Get current CSV setting
+set_csv(csv)
+    Set CSV (cluster-specific virtuals) option
 
 Examples
 --------
@@ -77,6 +83,7 @@ from _sequant.mbpt import (
     OpType,
     Ansatz,
     BiorthogonalizationMethod,
+    CSV,
     # Classes
     CC,
     np,
@@ -92,6 +99,9 @@ from _sequant.mbpt import (
     VacuumAverage,
     closed_shell_CC_spintrace,
     open_shell_CC_spintrace,
+    # MBPT Context
+    get_csv,
+    set_csv,
 )
 
 __all__ = [
@@ -99,6 +109,7 @@ __all__ = [
     "OpType",
     "Ansatz",
     "BiorthogonalizationMethod",
+    "CSV",
     # Classes
     "CC",
     "np",
@@ -114,4 +125,7 @@ __all__ = [
     "VacuumAverage",
     "closed_shell_CC_spintrace",
     "open_shell_CC_spintrace",
+    # MBPT Context
+    "get_csv",
+    "set_csv",
 ]
