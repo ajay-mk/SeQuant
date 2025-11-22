@@ -227,6 +227,26 @@ PYBIND11_MODULE(_sequant, m) {
            static_cast<std::size_t (*)(const ExprPtr &)>(&sequant::size),
            "Returns the number of subexpressions (0 for atoms, >0 for "
            "Sum/Product)")
+      .def("_repr_latex_",
+           [](const ExprPtr &expr) {
+             return "$$" + expr.to_latex() + "$$";
+           },
+           "Jupyter notebook LaTeX representation")
+      .def("_repr_html_",
+           [](const ExprPtr &expr) {
+             return "<div style='font-size: 14px;'>$$" + expr.to_latex() +
+                    "$$</div>";
+           },
+           "Jupyter notebook HTML representation")
+      .def("__repr__",
+           [](const ExprPtr &expr) {
+             std::string latex = expr.to_latex();
+             if (latex.length() > 100) {
+               return latex.substr(0, 97) + "...";
+             }
+             return latex;
+           },
+           "String representation")
       .def("__add__", [](const ExprPtr &l, const ExprPtr &r) { return l + r; })
       .def("__sub__", [](const ExprPtr &l, const ExprPtr &r) { return l - r; })
       .def("__mul__", [](const ExprPtr &l, const ExprPtr &r) { return l * r; });
@@ -238,6 +258,26 @@ PYBIND11_MODULE(_sequant, m) {
       .def("size", static_cast<std::size_t (*)(const Expr &)>(&sequant::size),
            "Returns the number of subexpressions (0 for atoms, >0 for "
            "Sum/Product)")
+      .def("_repr_latex_",
+           [](const Expr &expr) {
+             return "$$" + expr.to_latex() + "$$";
+           },
+           "Jupyter notebook LaTeX representation")
+      .def("_repr_html_",
+           [](const Expr &expr) {
+             return "<div style='font-size: 14px;'>$$" + expr.to_latex() +
+                    "$$</div>";
+           },
+           "Jupyter notebook HTML representation")
+      .def("__repr__",
+           [](const Expr &expr) {
+             std::string latex = expr.to_latex();
+             if (latex.length() > 100) {
+               return latex.substr(0, 97) + "...";
+             }
+             return latex;
+           },
+           "String representation")
       .def("__add__", [](const ExprPtr &l, const ExprPtr &r) { return l + r; })
       .def("__sub__", [](const ExprPtr &l, const ExprPtr &r) { return l - r; })
       .def("__mul__", [](const ExprPtr &l, const ExprPtr &r) { return l * r; })

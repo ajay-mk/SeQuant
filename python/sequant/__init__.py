@@ -11,6 +11,8 @@ core
     Core expression and tensor manipulation
 mbpt
     Many-body perturbation theory specific functionality
+jupyter
+    Jupyter notebook utilities (optional, requires IPython)
 
 Examples
 --------
