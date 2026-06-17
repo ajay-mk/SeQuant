@@ -452,6 +452,22 @@ class PythonEinsumGeneratorBase : public Generator<Context> {
     return subscript;
   }
 
+  /// Build the backend-specific contraction call from a finished einsum
+  /// specification (e.g. "ij,jk->ik") and the operand variable names.
+  virtual std::string build_contraction_call(
+      const std::string &spec,
+      const std::vector<std::string> &tensor_names) const {
+    std::string call = module_prefix() + "einsum('" + spec + "'";
+    for (const std::string &name : tensor_names) {
+      call += ", " + name;
+    }
+    if (use_optimize_parameter()) {
+      call += ", optimize=True";
+    }
+    call += ")";
+    return call;
+  }
+
   /// Convert an expression to an einsum call
   std::string to_einsum_expr(const Expr &expr, const Tensor &result,
                              const Context &ctx) const {
@@ -477,18 +493,8 @@ class PythonEinsumGeneratorBase : public Generator<Context> {
       return scalar_factor.empty() ? std::string{"1"} : scalar_factor;
     }
 
-    // Build einsum call
-    std::string einsum_call = module_prefix() + "einsum('" + einsum_spec + "'";
-
-    for (const std::string &name : tensor_names) {
-      einsum_call += ", " + name;
-    }
-
-    if (use_optimize_parameter()) {
-      einsum_call += ", optimize=True";
-    }
-
-    einsum_call += ")";
+    // Build contraction call (backend-specific)
+    std::string einsum_call = build_contraction_call(einsum_spec, tensor_names);
 
     // Apply scalar factor if present
     if (!scalar_factor.empty() && scalar_factor != "1" &&
@@ -591,17 +597,7 @@ class PythonEinsumGeneratorBase : public Generator<Context> {
       einsum_spec += "->";
 
       std::string einsum_call =
-          module_prefix() + "einsum('" + einsum_spec + "'";
-
-      for (const std::string &name : tensor_names) {
-        einsum_call += ", " + name;
-      }
-
-      if (use_optimize_parameter()) {
-        einsum_call += ", optimize=True";
-      }
-
-      einsum_call += ")";
+          build_contraction_call(einsum_spec, tensor_names);
 
       if (!scalar_factor.empty() && scalar_factor != "1" &&
           scalar_factor != "1.0") {
