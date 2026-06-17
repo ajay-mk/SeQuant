@@ -91,6 +91,7 @@ using KnownGenerators = std::tuple<
     JuliaTensorKitGenerator<JuliaTensorKitGeneratorContext>,
     JuliaTensorOperationsGenerator<JuliaTensorOperationsGeneratorContext>,
     NumPyEinsumGenerator,
+    OptEinsumGenerator,
     PyTorchEinsumGenerator,
     ItfGenerator<ItfContext>
 >;
@@ -293,7 +294,7 @@ TEMPLATE_LIST_TEST_CASE("export_tests", "[export]", KnownGenerators) {
   REQUIRE(Index(L"i_1") < Index(L"a_1"));
 
   // Safe-guard that template magic works
-  const std::size_t n_generators = 7;
+  const std::size_t n_generators = 8;
 
   const std::set<std::string> known_formats =
       known_format_names(KnownGenerators{});

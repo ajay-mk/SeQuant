@@ -835,6 +835,54 @@ class PyTorchEinsumGenerator
   bool use_optimize_parameter() const override { return false; }
 };
 
+/// Generator for opt_einsum. Identical to the NumPy backend except that
+/// contractions are routed through a cached `contract_expression`, emitted as a
+/// module-level `_contract` helper. This caches the contraction path (and the
+/// per-step tensordot/BLAS dispatch) keyed on (spec, operand shapes), so path
+/// finding runs once per unique contraction and is reused across iterations.
+class OptEinsumGenerator : public NumPyEinsumGenerator {
+ private:
+  using Base = NumPyEinsumGenerator;
+
+ public:
+  OptEinsumGenerator() = default;
+  ~OptEinsumGenerator() = default;
+
+  std::string get_format_name() const override { return "Python (opt_einsum)"; }
+
+  void begin_export(const Context &ctx) override {
+    m_generated.clear();
+    if (ctx.generate_imports()) {
+      m_generated += "import numpy as np\n";
+      m_generated += "import os\n";
+      m_generated += "from opt_einsum import contract_expression\n\n";
+      m_generated += "_expr_cache = {}\n";
+      m_generated += "def _contract(spec, *operands):\n";
+      m_generated += "    key = (spec,) + tuple(op.shape for op in operands)\n";
+      m_generated += "    expr = _expr_cache.get(key)\n";
+      m_generated += "    if expr is None:\n";
+      m_generated +=
+          "        expr = contract_expression(spec, *(op.shape for op in "
+          "operands))\n";
+      m_generated += "        _expr_cache[key] = expr\n";
+      m_generated += "    return expr(*operands)\n\n";
+    }
+  }
+
+ protected:
+  // Emit `_contract('<spec>', name0, name1, ...)` instead of np.einsum(...).
+  std::string build_contraction_call(
+      const std::string &spec,
+      const std::vector<std::string> &tensor_names) const override {
+    std::string call = "_contract('" + spec + "'";
+    for (const std::string &name : tensor_names) {
+      call += ", " + name;
+    }
+    call += ")";
+    return call;
+  }
+};
+
 /// Backward compatibility alias - default to NumPy
 using PythonEinsumGenerator = NumPyEinsumGenerator;
 

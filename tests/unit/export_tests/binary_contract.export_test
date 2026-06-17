@@ -96,3 +96,27 @@ del A_vo
 np.save('I_oo.npy', I_oo)
 
 =================================================
+Python (opt_einsum)
+=================================================
+import numpy as np
+import os
+from opt_einsum import contract_expression
+
+_expr_cache = {}
+def _contract(spec, *operands):
+    key = (spec,) + tuple(op.shape for op in operands)
+    expr = _expr_cache.get(key)
+    if expr is None:
+        expr = contract_expression(spec, *(op.shape for op in operands))
+        _expr_cache[key] = expr
+    return expr(*operands)
+
+I_oo = np.zeros((nocc, nocc), order='F')
+A_vo = np.load('A_vo.npy')
+B_ov = np.load('B_ov.npy')
+I_oo += _contract('ai,ba->bi', A_vo, B_ov)
+del B_ov
+del A_vo
+np.save('I_oo.npy', I_oo)
+
+=================================================
