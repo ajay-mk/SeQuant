@@ -6,7 +6,7 @@
 
 using namespace sequant;
 
-static constexpr std::size_t nInputs = 6;
+static constexpr std::size_t n_inputs = 6;
 
 static ExprPtr get_expression(std::size_t i) {
   switch (i) {
@@ -45,4 +45,4 @@ static void bench_canonicalize(benchmark::State &state) {
   }
 }
 
-BENCHMARK(bench_canonicalize)->Name("canonicalize")->DenseRange(1, nInputs);
+BENCHMARK(bench_canonicalize)->Name("canonicalize")->DenseRange(1, n_inputs);

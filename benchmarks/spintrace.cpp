@@ -7,7 +7,7 @@
 
 using namespace sequant;
 
-static constexpr std::size_t nInputs = 2;
+static constexpr std::size_t n_inputs = 2;
 
 static ExprPtr get_expression(std::size_t i) {
   switch (i) {
@@ -41,10 +41,10 @@ static void spintrace(benchmark::State &state, bool assume_spinfree) {
 }
 
 BENCHMARK_CAPTURE(spintrace<false>, spintrace_remove_spin, true)
-    ->DenseRange(1, nInputs);
+    ->DenseRange(1, n_inputs);
 
 BENCHMARK_CAPTURE(spintrace<false>, spintrace_keep_spin, false)
-    ->DenseRange(1, nInputs);
+    ->DenseRange(1, n_inputs);
 
 BENCHMARK_CAPTURE(spintrace<true>, closed_shell_spintrace, true)
-    ->DenseRange(1, nInputs);
+    ->DenseRange(1, n_inputs);

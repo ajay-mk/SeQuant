@@ -17,7 +17,7 @@ using namespace sequant::mbpt;
 #ifdef SEQUANT_BENCH_MAX_WICK_INPUTS
 static constexpr std::size_t nInputs = SEQUANT_BENCH_MAX_WICK_INPUTS;
 #else
-static constexpr std::size_t nInputs = 5;
+static constexpr std::size_t n_inputs = 5;
 #endif
 
 template <Statistics stats>
@@ -98,30 +98,30 @@ static void wick(benchmark::State &state, bool full_conractions_only,
 
 BENCHMARK_CAPTURE(wick<Statistics::FermiDirac>, full_only_with_topology, true,
                   true)
-    ->DenseRange(1, nInputs);
+    ->DenseRange(1, n_inputs);
 BENCHMARK_CAPTURE(wick<Statistics::BoseEinstein>, full_only_with_topology, true,
                   true)
-    ->DenseRange(1, nInputs);
+    ->DenseRange(1, n_inputs);
 
 BENCHMARK_CAPTURE(wick<Statistics::FermiDirac>, full_only_without_topology,
                   true, false)
-    ->DenseRange(1, nInputs);
+    ->DenseRange(1, n_inputs);
 BENCHMARK_CAPTURE(wick<Statistics::BoseEinstein>, full_only_without_topology,
                   true, false)
-    ->DenseRange(1, nInputs);
+    ->DenseRange(1, n_inputs);
 
 BENCHMARK_CAPTURE(wick<Statistics::FermiDirac>, all_with_topology, false, true)
-    ->DenseRange(1, nInputs);
+    ->DenseRange(1, n_inputs);
 BENCHMARK_CAPTURE(wick<Statistics::BoseEinstein>, all_with_topology, false,
                   true)
-    ->DenseRange(1, nInputs);
+    ->DenseRange(1, n_inputs);
 
 BENCHMARK_CAPTURE(wick<Statistics::FermiDirac>, all_without_topology, false,
                   false)
-    ->DenseRange(1, nInputs);
+    ->DenseRange(1, n_inputs);
 BENCHMARK_CAPTURE(wick<Statistics::BoseEinstein>, all_without_topology, false,
                   false)
-    ->DenseRange(1, nInputs);
+    ->DenseRange(1, n_inputs);
 
 struct VacAvPair {
   using Connections = std::vector<std::pair<int, int>>;
@@ -129,7 +129,7 @@ struct VacAvPair {
   std::optional<Connections> connections;
 };
 
-static constexpr std::size_t nMbptInputs = 4;
+static constexpr std::size_t n_mbpt_inputs = 4;
 
 VacAvPair get_mbpt_expr(std::size_t i) {
   namespace t = sequant::mbpt::tensor;
@@ -174,6 +174,7 @@ static void mbpt_vac_av(benchmark::State &state, bool csv) {
   }
 }
 
-BENCHMARK_CAPTURE(mbpt_vac_av, mbpt_vac_av, false)->DenseRange(1, nMbptInputs);
+BENCHMARK_CAPTURE(mbpt_vac_av, mbpt_vac_av, false)
+    ->DenseRange(1, n_mbpt_inputs);
 BENCHMARK_CAPTURE(mbpt_vac_av, mbpt_vac_av_csv, true)
-    ->DenseRange(1, nMbptInputs);
+    ->DenseRange(1, n_mbpt_inputs);

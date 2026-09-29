@@ -6,7 +6,7 @@
 
 using namespace sequant;
 
-static constexpr std::size_t nInputs = 2;
+static constexpr std::size_t n_inputs = 2;
 
 static ExprPtr get_expression(std::size_t i) {
   switch (i) {
@@ -43,6 +43,6 @@ static void simplify(benchmark::State &state) {
   }
 }
 
-BENCHMARK(simplify<false>)->Name("simplify")->DenseRange(1, nInputs);
+BENCHMARK(simplify<false>)->Name("simplify")->DenseRange(1, n_inputs);
 
-BENCHMARK(simplify<true>)->Name("rapid_simplify")->DenseRange(1, nInputs);
+BENCHMARK(simplify<true>)->Name("rapid_simplify")->DenseRange(1, n_inputs);
