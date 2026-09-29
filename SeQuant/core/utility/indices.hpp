@@ -36,6 +36,11 @@
 namespace sequant {
 
 namespace detail {
+// svector has a defaulted second parameter, which Clang < 19 does not accept
+// for a template <class> class argument (P0522 is off by default there)
+template <typename T>
+using external_index_container = container::svector<T>;
+
 template <typename Range>
 struct NotIn {
   const Range& range;
@@ -501,8 +506,8 @@ std::string csv_labels(meta::range_of<Index> auto&& idxs) {
 ///
 /// @see get_bra_idx
 /// @see get_ket_idx
-template <template <class> class Container = container::svector,
-          template <class> class Group = container::svector>
+template <template <class> class Container = detail::external_index_container,
+          template <class> class Group = detail::external_index_container>
 Container<Group<SlottedIndex>> external_indices(const Expr& expr) {
   using HolderType = Container<Group<SlottedIndex>>;
 
@@ -606,8 +611,8 @@ Container<Group<SlottedIndex>> external_indices(const Expr& expr) {
 ///
 /// @see get_bra_idx
 /// @see get_ket_idx
-template <template <class> class Container = container::svector,
-          template <class> class Group = container::svector>
+template <template <class> class Container = detail::external_index_container,
+          template <class> class Group = detail::external_index_container>
 Container<Group<SlottedIndex>> external_indices(const ExprPtr& expr) {
   return external_indices<Container, Group>(*expr);
 }
