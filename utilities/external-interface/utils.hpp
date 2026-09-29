@@ -24,33 +24,33 @@ class IndexSpaceMeta {
 
   IndexSpaceMeta() = default;
 
-  std::size_t getSize(const sequant::IndexSpace &space) const;
+  std::size_t get_size(const sequant::IndexSpace &space) const;
 
-  std::size_t getSize(const sequant::Index &index) const;
+  std::size_t get_size(const sequant::Index &index) const;
 
-  std::string getName(const sequant::IndexSpace &space) const;
+  std::string get_name(const sequant::IndexSpace &space) const;
 
-  std::string getTag(const sequant::IndexSpace &space) const;
+  std::string get_tag(const sequant::IndexSpace &space) const;
 
-  void registerSpace(sequant::IndexSpace space, Entry entry);
+  void register_space(sequant::IndexSpace space, Entry entry);
 
  private:
-  std::map<sequant::IndexSpace, Entry> m_entries;
+  std::map<sequant::IndexSpace, Entry> entries_;
 };
 
 sequant::container::svector<sequant::container::svector<sequant::Index>>
-getExternalIndexPairs(const sequant::ExprPtr &expression);
+get_external_index_pairs(const sequant::ExprPtr &expression);
 
-bool needsSymmetrization(const sequant::ExprPtr &expression);
+bool needs_symmetrization(const sequant::ExprPtr &expression);
 
-sequant::ExprPtr generateResultSymmetrization(const sequant::ResultExpr &result,
-                                              std::wstring_view precursorName);
+sequant::ExprPtr generate_result_symmetrization(
+    const sequant::ResultExpr &result, std::wstring_view precursor_name);
 
-sequant::ExprPtr generateResultSymmetrization(const sequant::Tensor &result,
-                                              std::wstring_view precursorName);
+sequant::ExprPtr generate_result_symmetrization(
+    const sequant::Tensor &result, std::wstring_view precursor_name);
 
-sequant::ExprPtr generateResultSymmetrization(
-    std::wstring_view precursorName,
+sequant::ExprPtr generate_result_symmetrization(
+    std::wstring_view precursor_name,
     const sequant::IndexGroups<std::vector<sequant::Index>> &externals,
     const sequant::Tensor &ref);
 

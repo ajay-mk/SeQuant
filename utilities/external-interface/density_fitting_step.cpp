@@ -67,7 +67,7 @@ std::size_t DensityFittingStep::process(std::string_view id_prefix,
   for (const ResultExpr &expr : data.expressions) {
     ExprPtr result =
         mbpt::density_fit(expr.expression(), aux_space_,
-                          toUtf16(two_elec_int_label_), toUtf16(df_label_));
+                          to_utf16(two_elec_int_label_), to_utf16(df_label_));
 
     had_effect |= result != expr.expression();
     if (expr.produces_tensor()) {

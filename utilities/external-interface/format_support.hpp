@@ -45,10 +45,11 @@ struct std::formatter<sequant::Index> : std::formatter<std::string_view> {
   auto format(const sequant::Index &idx, FormatContext &ctx) const
       -> decltype(ctx.out()) {
     if (idx.has_proto_indices()) {
-      return std::format_to(ctx.out(), "{}", sequant::toUtf8(idx.full_label()));
+      return std::format_to(ctx.out(), "{}",
+                            sequant::to_utf8(idx.full_label()));
     }
 
-    return std::format_to(ctx.out(), "{}", sequant::toUtf8(idx.label()));
+    return std::format_to(ctx.out(), "{}", sequant::to_utf8(idx.label()));
   }
 };
 
@@ -65,7 +66,7 @@ struct std::formatter<sequant::Tensor> : std::formatter<std::string_view> {
     using namespace std::literals;
 
     return std::format_to(
-        ctx.out(), "{}[{};{};{}]", sequant::toUtf8(tensor.label()),
+        ctx.out(), "{}[{};{};{}]", sequant::to_utf8(tensor.label()),
         tensor.bra() | ::ranges::views::transform(idx_to_string) |
             ::ranges::views::join(", "sv) | ::ranges::to<std::string>(),
         tensor.ket() | ::ranges::views::transform(idx_to_string) |
@@ -81,7 +82,7 @@ struct std::formatter<sequant::Variable> : std::formatter<std::string_view> {
   template <typename FormatContext>
   auto format(const sequant::Variable &variable, FormatContext &ctx) const
       -> decltype(ctx.out()) {
-    return std::format_to(ctx.out(), "{}", sequant::toUtf8(variable.label()));
+    return std::format_to(ctx.out(), "{}", sequant::to_utf8(variable.label()));
   }
 };
 
@@ -185,7 +186,7 @@ struct std::formatter<sequant::ResultExpr> : std::formatter<std::string_view> {
   auto format(const sequant::ResultExpr &result, FormatContext &ctx) const
       -> decltype(ctx.out()) {
     std::string label =
-        result.has_label() ? sequant::toUtf8(result.label()) : "?";
+        result.has_label() ? sequant::to_utf8(result.label()) : "?";
 
     if (result.bra().empty() && result.ket().empty() && result.aux().empty()) {
       return std::format_to(ctx.out(), "{} =\n{}", label, result.expression());

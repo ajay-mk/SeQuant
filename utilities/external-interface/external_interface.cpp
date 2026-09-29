@@ -59,23 +59,23 @@ namespace sequant::util::extint {
 
 class ItfExportContext : public ItfContext {
  public:
-  ItfExportContext(const IndexSpaceMeta &meta) : m_meta(&meta) {}
+  ItfExportContext(const IndexSpaceMeta &meta) : meta_(&meta) {}
 
   std::string get_tag(const IndexSpace &space) const override {
-    SEQUANT_ASSERT(m_meta);
-    return m_meta->getTag(space);
+    SEQUANT_ASSERT(meta_);
+    return meta_->get_tag(space);
   }
 
   std::string get_name(const IndexSpace &space) const override {
-    SEQUANT_ASSERT(m_meta);
-    return m_meta->getName(space);
+    SEQUANT_ASSERT(meta_);
+    return meta_->get_name(space);
   }
 
  private:
-  const IndexSpaceMeta *m_meta = nullptr;
+  const IndexSpaceMeta *meta_ = nullptr;
 };
 
-ProcessingOptions extractProcessingOptions(
+ProcessingOptions extract_processing_options(
     const json &details, const ProcessingOptions &defaults = {}) {
   ProcessingOptions options = defaults;
 
@@ -181,34 +181,34 @@ ProcessingOptions extractProcessingOptions(
 }
 
 struct ExportOptions {
-  bool importResult = false;
-  bool createResult = false;
+  bool import_result = false;
+  bool create_result = false;
   std::variant<IndexBatching, std::vector<Index>> batching = {};
   std::size_t min_unbatched_indices = 2;
   std::size_t max_batched = std::numeric_limits<std::size_t>::max();
 };
 
-ExportNode<> prepareForExport(const ResultExpr &result,
-                              const ItfGenerator<ItfExportContext> &generator,
-                              ItfExportContext &ctx,
-                              const ExportOptions &opts) {
+ExportNode<> prepare_for_export(const ResultExpr &result,
+                                const ItfGenerator<ItfExportContext> &generator,
+                                ItfExportContext &ctx,
+                                const ExportOptions &opts) {
   ExportNode<> tree = to_export_tree(result);
 
   if (result.produces_tensor()) {
     SEQUANT_ASSERT(result.has_label());
     Tensor result_tensor = result.result_as_tensor();
     ctx.rewrite(result_tensor);
-    if (opts.importResult) {
+    if (opts.import_result) {
       ctx.set_import_name(result_tensor,
                           generator.get_name(result_tensor, ctx));
     }
-    if (opts.createResult) {
-      ctx.setLoadStrategy(result_tensor, LoadStrategy::Create, tree->id());
+    if (opts.create_result) {
+      ctx.set_load_strategy(result_tensor, LoadStrategy::Create, tree->id());
     } else {
-      ctx.setLoadStrategy(result_tensor, LoadStrategy::Load, tree->id());
+      ctx.set_load_strategy(result_tensor, LoadStrategy::Load, tree->id());
     }
 
-    std::vector<Index> batchIndices;
+    std::vector<Index> batch_indices;
     if (std::holds_alternative<IndexBatching>(opts.batching)) {
       switch (std::get<IndexBatching>(opts.batching)) {
         case IndexBatching::None:
@@ -219,72 +219,72 @@ ExportNode<> prepareForExport(const ResultExpr &result,
           auto indices = result_tensor.const_indices() |
                          std::ranges::views::reverse |
                          std::ranges::views::drop(opts.min_unbatched_indices);
-          batchIndices.insert(batchIndices.end(), indices.begin(),
-                              indices.end());
+          batch_indices.insert(batch_indices.end(), indices.begin(),
+                               indices.end());
           break;
         }
         case IndexBatching::Slowest: {
           auto indices = result_tensor.const_indices() |
                          std::ranges::views::drop(opts.min_unbatched_indices);
-          batchIndices.insert(batchIndices.end(), indices.begin(),
-                              indices.end());
+          batch_indices.insert(batch_indices.end(), indices.begin(),
+                               indices.end());
           break;
         }
       }
     } else {
-      batchIndices = std::get<decltype(batchIndices)>(opts.batching);
+      batch_indices = std::get<decltype(batch_indices)>(opts.batching);
     }
 
-    std::size_t num_batched = batchIndices.size();
-    ctx.set_batch_indices(std::move(batchIndices), tree->id());
+    std::size_t num_batched = batch_indices.size();
+    ctx.set_batch_indices(std::move(batch_indices), tree->id());
 
     if (num_batched > opts.max_batched) {
       // Ctx might sort batch indices in a preferential way
       const auto indices = ctx.batch_indices(tree->id());
-      batchIndices.assign(indices.begin(), indices.end());
-      batchIndices.resize(opts.max_batched);
-      ctx.set_batch_indices(std::move(batchIndices), tree->id());
+      batch_indices.assign(indices.begin(), indices.end());
+      batch_indices.resize(opts.max_batched);
+      ctx.set_batch_indices(std::move(batch_indices), tree->id());
     }
   } else {
-    if (opts.importResult) {
+    if (opts.import_result) {
       SEQUANT_ASSERT(result.has_label());
-      ctx.set_import_name(result.result_as_variable(), toUtf8(result.label()));
+      ctx.set_import_name(result.result_as_variable(), to_utf8(result.label()));
     }
-    if (opts.createResult) {
-      ctx.setLoadStrategy(result.result_as_variable(), LoadStrategy::Create,
-                          tree->id());
+    if (opts.create_result) {
+      ctx.set_load_strategy(result.result_as_variable(), LoadStrategy::Create,
+                            tree->id());
     } else {
-      ctx.setLoadStrategy(result.result_as_variable(), LoadStrategy::Load,
-                          tree->id());
+      ctx.set_load_strategy(result.result_as_variable(), LoadStrategy::Load,
+                            tree->id());
     }
   }
 
   return tree;
 }
 
-std::vector<ResultExpr> splitContributions(const ResultExpr &result) {
+std::vector<ResultExpr> split_contributions(const ResultExpr &result) {
   if (!result.expression()->is<Sum>()) {
     return {result};
   }
 
   SEQUANT_ASSERT(result.expression()->is<Sum>());
 
-  const Tensor resultTensor = result.result_as_tensor();
+  const Tensor result_tensor = result.result_as_tensor();
 
   std::vector<ResultExpr> contributions;
   contributions.reserve(result.expression()->size());
 
-  for (const ExprPtr &subExpr : result.expression()) {
-    contributions.emplace_back(resultTensor, subExpr);
+  for (const ExprPtr &sub_expr : result.expression()) {
+    contributions.emplace_back(result_tensor, sub_expr);
   }
 
   return contributions;
 }
 
-void generateITF(const json &blocks, std::string_view out_file,
-                 const ProcessingOptions &defaults,
-                 const IndexSpaceMeta &spaceMeta) {
-  ItfExportContext context(spaceMeta);
+void generate_itf(const json &blocks, std::string_view out_file,
+                  const ProcessingOptions &defaults,
+                  const IndexSpaceMeta &space_meta) {
+  ItfExportContext context(space_meta);
   // We assume index IDs start at 1
   context.set_index_id_offset(1);
 
@@ -298,13 +298,13 @@ void generateITF(const json &blocks, std::string_view out_file,
     const std::string block_name = current_block.at("name");
 
     const ProcessingOptions block_options =
-        extractProcessingOptions(current_block, defaults);
+        extract_processing_options(current_block, defaults);
 
     spdlog::debug("Processing ITF code block '{}'", block_name);
 
     container::svector<ExportNode<>> results;
 
-    std::set<std::variant<Tensor, Variable>> createdResults;
+    std::set<std::variant<Tensor, Variable>> created_results;
 
     for (const json &current_result : current_block.at("results")) {
       const std::string result_name = current_result.at("name");
@@ -331,7 +331,8 @@ void generateITF(const json &blocks, std::string_view out_file,
           sequant::deserialize<sequant::ResultExpr>(input, deserialize_opts);
 
       if (current_result.contains("name")) {
-        result.set_label(toUtf16(current_result.at("name").get<std::string>()));
+        result.set_label(
+            to_utf16(current_result.at("name").get<std::string>()));
       }
 
       if (current_result.contains("replace")) {
@@ -374,71 +375,71 @@ void generateITF(const json &blocks, std::string_view out_file,
       }
 
       const ProcessingOptions result_options =
-          extractProcessingOptions(current_result, block_options);
+          extract_processing_options(current_result, block_options);
 
-      std::vector<ResultExpr> resultParts =
-          result_options.term_by_term ? splitContributions(result)
+      std::vector<ResultExpr> result_parts =
+          result_options.term_by_term ? split_contributions(result)
                                       : std::vector<ResultExpr>{result};
 
-      std::unordered_set<Tensor> tensorsToSymmetrize;
+      std::unordered_set<Tensor> tensors_to_symmetrize;
 
-      for (const ResultExpr &contribution : resultParts) {
-        if (resultParts.size() > 1) {
+      for (const ResultExpr &contribution : result_parts) {
+        if (result_parts.size() > 1) {
           spdlog::debug("Current contribution:\n{}", contribution);
         }
 
-        for (ResultExpr &current : postProcess(contribution, result_options)) {
+        for (ResultExpr &current : post_process(contribution, result_options)) {
           spdlog::debug("Fully processed equation is:\n{}", current);
 
           if (*current.expression() == Constant(0)) {
             continue;
           }
 
-          const bool createResult = [&]() {
+          const bool create_result = [&]() {
             // We only want to create a given result once to not overwrite
             // previous contributions
             if (contribution.produces_tensor()) {
-              if (createdResults.find(current.result_as_tensor()) ==
-                  createdResults.end()) {
-                createdResults.insert(current.result_as_tensor());
+              if (created_results.find(current.result_as_tensor()) ==
+                  created_results.end()) {
+                created_results.insert(current.result_as_tensor());
                 return true;
               }
-            } else if (createdResults.find(current.result_as_variable()) ==
-                       createdResults.end()) {
-              createdResults.insert(current.result_as_variable());
+            } else if (created_results.find(current.result_as_variable()) ==
+                       created_results.end()) {
+              created_results.insert(current.result_as_variable());
               return true;
             }
 
             return false;
           }();
 
-          if (needsSymmetrization(current.expression())) {
+          if (needs_symmetrization(current.expression())) {
             std::optional<ExprPtr> symmetrizer =
                 pop_tensor(current.expression(), reserved::symm_label());
             SEQUANT_ASSERT(symmetrizer.has_value());
 
-            Tensor resultTensor(current.label(), bra(current.bra()),
-                                ket(current.ket()), aux(current.aux()),
-                                current.symmetry(), current.braket_symmetry(),
-                                current.column_symmetry());
-            tensorsToSymmetrize.insert(resultTensor);
+            Tensor result_tensor(current.label(), bra(current.bra()),
+                                 ket(current.ket()), aux(current.aux()),
+                                 current.symmetry(), current.braket_symmetry(),
+                                 current.column_symmetry());
+            tensors_to_symmetrize.insert(result_tensor);
 
             current.set_label(current.label() + L"u");
 
             spdlog::debug("After popping S tensor:\n{}", current);
 
-            results.push_back(prepareForExport(
+            results.push_back(prepare_for_export(
                 current, itfgen, context,
-                {.importResult = false,
-                 .createResult = createResult,
+                {.import_result = false,
+                 .create_result = create_result,
                  .batching = result_options.batching,
                  .min_unbatched_indices = result_options.min_unbatched_indices,
                  .max_batched = result_options.max_batched_indices}));
           } else {
-            results.push_back(prepareForExport(
+            results.push_back(prepare_for_export(
                 current, itfgen, context,
-                {.importResult = current_result.value("import", true),
-                 .createResult = createResult,
+                {.import_result = current_result.value("import", true),
+                 .create_result = create_result,
                  .batching = result_options.batching,
                  .min_unbatched_indices = result_options.min_unbatched_indices,
                  .max_batched = result_options.max_batched_indices}));
@@ -446,18 +447,18 @@ void generateITF(const json &blocks, std::string_view out_file,
         }
       }
 
-      for (const Tensor &current : tensorsToSymmetrize) {
-        ExprPtr symmetrization = generateResultSymmetrization(
+      for (const Tensor &current : tensors_to_symmetrize) {
+        ExprPtr symmetrization = generate_result_symmetrization(
             current, std::wstring(current.label()) + L"u");
 
-        ResultExpr symmetrizedResult(current, std::move(symmetrization));
+        ResultExpr symmetrized_result(current, std::move(symmetrization));
 
-        spdlog::debug("Result symmetrization via\n{}", symmetrizedResult);
+        spdlog::debug("Result symmetrization via\n{}", symmetrized_result);
 
-        results.push_back(prepareForExport(
-            symmetrizedResult, itfgen, context,
-            {.importResult = current_result.value("import", true),
-             .createResult = true,
+        results.push_back(prepare_for_export(
+            symmetrized_result, itfgen, context,
+            {.import_result = current_result.value("import", true),
+             .create_result = true,
              .batching = result_options.batching,
              .min_unbatched_indices = result_options.min_unbatched_indices,
              .max_batched = result_options.max_batched_indices}));
@@ -572,36 +573,37 @@ void generateITF(const json &blocks, std::string_view out_file,
   }
 
   export_groups(groups, generator, context);
-  std::string itfCode = generator.get_generated_code();
+  std::string itf_code = generator.get_generated_code();
 
   std::ofstream output(out_file.data());
-  output << itfCode;
+  output << itf_code;
 }
 
-void generateCode(const json &details, const IndexSpaceMeta &spaceMeta) {
+void generate_code(const json &details, const IndexSpaceMeta &space_meta) {
   const std::string format = details.at("output_format");
   const std::string out_path = details.at("output_path");
 
-  ProcessingOptions defaultOptions;
+  ProcessingOptions default_options;
   if (details.contains("default_options")) {
-    defaultOptions = extractProcessingOptions(details.at("default_options"));
+    default_options = extract_processing_options(details.at("default_options"));
   }
 
   if (boost::iequals(format, "itf")) {
-    generateITF(details.at("code_blocks"), out_path, defaultOptions, spaceMeta);
+    generate_itf(details.at("code_blocks"), out_path, default_options,
+                 space_meta);
   } else {
     throw Exception("Unknown code generation target format '" +
                     std::string(format) + "'");
   }
 }
 
-void registerIndexSpaces(const json &spaces, IndexSpaceMeta &meta,
-                         std::size_t version) {
+void register_index_spaces(const json &spaces, IndexSpaceMeta &meta,
+                           std::size_t version) {
   IndexSpaceRegistry &registry =
       *get_default_context().mutable_index_space_registry();
 
-  std::vector<std::pair<std::wstring, IndexSpaceMeta::Entry>> spaceList;
-  spaceList.reserve(spaces.size());
+  std::vector<std::pair<std::wstring, IndexSpaceMeta::Entry>> space_list;
+  space_list.reserve(spaces.size());
 
   for (std::size_t i = 0; i < spaces.size(); ++i) {
     const json &current = spaces.at(i);
@@ -612,31 +614,31 @@ void registerIndexSpaces(const json &spaces, IndexSpaceMeta &meta,
       throw Exception("Index space sizes must be > 0");
     }
 
-    std::wstring label = toUtf16(current.at("label").get<std::string>());
+    std::wstring label = to_utf16(current.at("label").get<std::string>());
     Field field =
         current.value("real_valued", false) ? Field::Real : Field::Complex;
     registry.add(label, type, size, field,
                  IndexSpace::QuantumNumbers{mbpt::Spin::any});
 
-    spdlog::debug("Registered index '{}' with size {}", toUtf8(label), size);
+    spdlog::debug("Registered index '{}' with size {}", to_utf8(label), size);
 
     if (version == 1) {
       IndexSpaceMeta::Entry entry;
       entry.name = current.at("name").get<std::string>();
       entry.tag = current.at("tag").get<std::string>();
 
-      spaceList.push_back(std::make_pair(std::move(label), std::move(entry)));
+      space_list.push_back(std::make_pair(std::move(label), std::move(entry)));
     }
   }
 
   mbpt::add_fermi_spin(registry);
 
-  for (auto &[label, entry] : spaceList) {
-    meta.registerSpace(Index(label + L"_1").space(), std::move(entry));
+  for (auto &[label, entry] : space_list) {
+    meta.register_space(Index(label + L"_1").space(), std::move(entry));
   }
 }
 
-void process(const json &driver, IndexSpaceMeta &spaceMeta) {
+void process(const json &driver, IndexSpaceMeta &space_meta) {
   if (!driver.contains("index_spaces")) {
     throw Exception("Missing index_spaces definition");
   }
@@ -650,13 +652,13 @@ void process(const json &driver, IndexSpaceMeta &spaceMeta) {
     throw Exception("driver_format_version has a minimum value of 1");
   }
 
-  registerIndexSpaces(driver.at("index_spaces"), spaceMeta, version);
+  register_index_spaces(driver.at("index_spaces"), space_meta, version);
 
   if (version == 1) {
     if (driver.contains("code_generation")) {
       const json &details = driver.at("code_generation");
 
-      generateCode(details, spaceMeta);
+      generate_code(details, space_meta);
     }
   } else if (version == 2) {
     if (!driver.contains("steps")) {
@@ -672,7 +674,7 @@ void process(const json &driver, IndexSpaceMeta &spaceMeta) {
   }
 }
 
-void generalSetup() {
+void general_setup() {
   TensorCanonicalizer::set_cardinal_tensor_labels(
       mbpt::cardinal_tensor_labels());
 }
@@ -691,7 +693,7 @@ int main(int argc, char **argv) {
   // to use the new names.
   ctx.set(CanonicalizeOptions{.method = CanonicalizationMethod::Complete});
   set_default_context(ctx);
-  util::extint::generalSetup();
+  util::extint::general_setup();
 
   CLI::App app(
       "Interface for reading in equations generated outside of SeQuant");
@@ -725,7 +727,7 @@ int main(int argc, char **argv) {
     spdlog::set_level(spdlog::level::debug);
   }
 
-  IndexSpaceMeta spaceMeta;
+  IndexSpaceMeta space_meta;
 
   try {
     std::ifstream in(driver);
@@ -734,7 +736,7 @@ int main(int argc, char **argv) {
         json::parse(in, /*callback*/ nullptr, /*allow_exceptions*/ true,
                     /*skip_comments*/ true);
 
-    util::extint::process(driver_info, spaceMeta);
+    util::extint::process(driver_info, space_meta);
   } catch (const std::exception &e) {
     spdlog::error("Unexpected error: {}", e.what());
     return 1;

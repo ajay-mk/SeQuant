@@ -22,7 +22,7 @@
 #include <SeQuant/core/tensor_canonicalizer.hpp>
 #include <SeQuant/core/utility/exception.hpp>
 #include <SeQuant/core/utility/expr.hpp>
-#include <SeQuant/core/utility/string.hpp>     // toUtf16
+#include <SeQuant/core/utility/string.hpp>     // to_utf16
 #include <SeQuant/domain/mbpt/convention.hpp>  // make_min_sr_spaces
 
 #include <filesystem>
@@ -148,7 +148,7 @@ void setup_context(const Config& cfg) {
     if (IndexSpace* sp = isr->retrieve_ptr(key)) sp->field(field);
 
   for (const auto& [label, size] : cfg.sizes) {
-    IndexSpace* sp = isr->retrieve_ptr(toUtf16(label));
+    IndexSpace* sp = isr->retrieve_ptr(to_utf16(label));
     if (!sp) throw Exception("unknown index space: " + label);
     sp->approximate_size(size);
   }
@@ -236,10 +236,10 @@ OptimizeOptions make_opts(const Config& cfg) {
   o.objective_function = objective_of(cfg.optimize.objective);
   o.reorder =
       cfg.optimize.reorder ? ReorderSum::Reorder : ReorderSum::NoReorder;
-  o.CSE.subnet = cfg.optimize.cse_subnet;
+  o.cse.subnet = cfg.optimize.cse_subnet;
   // volatile leaf (label match), MPQC-style volatile weighting.
   if (!cfg.optimize.volatile_leaf.empty()) {
-    const std::wstring vl = toUtf16(cfg.optimize.volatile_leaf);
+    const std::wstring vl = to_utf16(cfg.optimize.volatile_leaf);
     o.batch_policy.is_volatile_leaf = [vl](const Tensor& t) {
       return t.label() == vl;
     };
@@ -326,7 +326,7 @@ SimResult simulate_cache(
   for (const auto& [name, cell] : results)
     for (const auto& tree : cell.trees) forest.push_back(tree);
 
-  const std::wstring vl = toUtf16(cfg.optimize.volatile_leaf);
+  const std::wstring vl = to_utf16(cfg.optimize.volatile_leaf);
   auto is_volatile = [vl](const TreeNode& n) { return is_leaf_labeled(n, vl); };
   auto cm = cache_manager(
       forest, is_volatile, cfg.cache.min_repeats,

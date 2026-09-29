@@ -65,7 +65,7 @@ int main(int argc, char **argv) {
   }
 
   for (std::size_t i = 1; i < static_cast<std::size_t>(argc); ++i) {
-    std::wstring current = toUtf16(argv[i]);
+    std::wstring current = to_utf16(argv[i]);
     if (current == L"--help") {
       print_help();
       return 0;

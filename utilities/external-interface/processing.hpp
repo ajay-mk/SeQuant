@@ -43,7 +43,7 @@ struct ProcessingOptions {
   std::size_t max_batched_indices = std::numeric_limits<std::size_t>::max();
 };
 
-sequant::container::svector<sequant::ResultExpr> postProcess(
+sequant::container::svector<sequant::ResultExpr> post_process(
     sequant::ResultExpr expression, const ProcessingOptions &options = {});
 
 #endif

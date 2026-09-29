@@ -18,8 +18,8 @@
 
 using namespace sequant;
 
-container::svector<ResultExpr> postProcess(ResultExpr result,
-                                           const ProcessingOptions &options) {
+container::svector<ResultExpr> post_process(ResultExpr result,
+                                            const ProcessingOptions &options) {
   if (result.expression().is<Constant>() ||
       result.expression().is<Variable>()) {
     return {result};

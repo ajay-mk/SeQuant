@@ -56,19 +56,19 @@ bool matches_recursively(const Expr &expr, Predicate &&predicate) {
 }
 
 struct ContainsRule : ExpressionFilter::Rule {
-  ContainsRule(ExprMatcher matcher) : matcher_(std::move(matcher)) {}
+  ContainsRule(ExprMatcher matcher) : matcher(std::move(matcher)) {}
 
   bool matches(const Expr &expr) const override {
-    return matches_recursively(
-        expr, [&](const Expr &sub) { return sub == matcher_; });
+    return matches_recursively(expr,
+                               [&](const Expr &sub) { return sub == matcher; });
   }
 
-  ExprMatcher matcher_;
+  ExprMatcher matcher;
 };
 
 struct LabelRule : ExpressionFilter::Rule {
   LabelRule(std::vector<std::wregex> patterns)
-      : patterns_(std::move(patterns)) {}
+      : patterns(std::move(patterns)) {}
 
   bool matches(const Expr &expr) const override {
     return matches_recursively(expr, [&](const Expr &sub) {
@@ -78,13 +78,13 @@ struct LabelRule : ExpressionFilter::Rule {
 
       std::wstring_view label = sub.as<Labeled>().label();
 
-      return std::ranges::any_of(patterns_, [&](const std::wregex &pattern) {
+      return std::ranges::any_of(patterns, [&](const std::wregex &pattern) {
         return std::regex_match(label.begin(), label.end(), pattern);
       });
     });
   }
 
-  std::vector<std::wregex> patterns_;
+  std::vector<std::wregex> patterns;
 };
 
 SEQUANT_EXTINT_REGISTER_STEP_TYPE(FilterStep);
@@ -158,7 +158,7 @@ std::unique_ptr<ExpressionFilter::Rule> parse_contains_label(
     }
 
     try {
-      patterns.emplace_back(toUtf16(value.get<std::string>()));
+      patterns.emplace_back(to_utf16(value.get<std::string>()));
     } catch (const std::regex_error &e) {
       throw Exception("Invalid label regex '" + value.get<std::string>() +
                       "': " + e.what());

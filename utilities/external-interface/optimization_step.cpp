@@ -61,9 +61,9 @@ void OptimizationStep::set_options(const nlohmann::json &options) {
       }
 
       if (value == "none") {
-        options_.CSE.subnet = false;
+        options_.cse.subnet = false;
       } else if (value == "subnet") {
-        options_.CSE.subnet = true;
+        options_.cse.subnet = true;
       } else {
         throw Exception("Invalid value for " + kind() + " option '" + key +
                         "': '" + value.get<std::string>() + "'");

@@ -16,71 +16,72 @@
 
 using namespace sequant;
 
-std::size_t IndexSpaceMeta::getSize(const IndexSpace &space) const {
+std::size_t IndexSpaceMeta::get_size(const IndexSpace &space) const {
   return space.approximate_size();
 }
 
-std::size_t IndexSpaceMeta::getSize(const Index &index) const {
-  return getSize(index.space());
+std::size_t IndexSpaceMeta::get_size(const Index &index) const {
+  return get_size(index.space());
 }
 
-std::string IndexSpaceMeta::getName(const IndexSpace &space) const {
-  auto iter = m_entries.find(space);
-  if (iter == m_entries.end()) {
+std::string IndexSpaceMeta::get_name(const IndexSpace &space) const {
+  auto iter = entries_.find(space);
+  if (iter == entries_.end()) {
     throw Exception("No known name for index space " +
-                    toUtf8(space.base_key()));
+                    to_utf8(space.base_key()));
   }
 
   return iter->second.name;
 }
 
-std::string IndexSpaceMeta::getTag(const IndexSpace &space) const {
-  auto iter = m_entries.find(space);
-  if (iter == m_entries.end()) {
-    throw Exception("No known tag for index space " + toUtf8(space.base_key()));
+std::string IndexSpaceMeta::get_tag(const IndexSpace &space) const {
+  auto iter = entries_.find(space);
+  if (iter == entries_.end()) {
+    throw Exception("No known tag for index space " +
+                    to_utf8(space.base_key()));
   }
 
   return iter->second.tag;
 }
 
-void IndexSpaceMeta::registerSpace(IndexSpace space, Entry entry) {
-  m_entries.insert({std::move(space), std::move(entry)});
+void IndexSpaceMeta::register_space(IndexSpace space, Entry entry) {
+  entries_.insert({std::move(space), std::move(entry)});
 }
 
-container::svector<container::svector<Index> > getExternalIndexPairs(
+container::svector<container::svector<Index> > get_external_index_pairs(
     const Tensor &tensor) {
-  container::svector<container::svector<Index> > externalPairs;
+  container::svector<container::svector<Index> > external_pairs;
 
   auto zipped = ranges::views::zip(tensor.bra(), tensor.ket());
 
   for (const auto &current : zipped) {
-    externalPairs.push_back({current.first, current.second});
+    external_pairs.push_back({current.first, current.second});
   }
 
   for (std::size_t i = zipped.size(); i < tensor.bra_rank(); ++i) {
-    externalPairs.push_back({tensor.bra()[i]});
+    external_pairs.push_back({tensor.bra()[i]});
   }
 
   for (std::size_t i = zipped.size(); i < tensor.ket_rank(); ++i) {
-    externalPairs.push_back({tensor.ket()[i]});
+    external_pairs.push_back({tensor.ket()[i]});
   }
 
   for (const Index &current : tensor.aux()) {
-    externalPairs.push_back({current});
+    external_pairs.push_back({current});
   }
 
-  return externalPairs;
+  return external_pairs;
 }
 
-container::svector<container::svector<Index> > getExternalIndexPairs(
+container::svector<container::svector<Index> > get_external_index_pairs(
     const ExprPtr &expression) {
   if (expression->is<Tensor>()) {
-    return getExternalIndexPairs(expression->as<Tensor>());
+    return get_external_index_pairs(expression->as<Tensor>());
   }
 
   if (expression->is<Sum>()) {
     // External indices are expected to be the same across summands
-    return getExternalIndexPairs(expression->as<Sum>().summand(0));
+    return get_external_index_pairs(expression->as<Sum>().summand(0));
   }
 
   const Product &product = expression->as<Product>();
@@ -89,35 +90,37 @@ container::svector<container::svector<Index> > getExternalIndexPairs(
       (product.at(0).as<Tensor>().label() == reserved::antisymm_label() ||
        product.at(0).as<Tensor>().label() == reserved::symm_label())) {
     // Special case in the presence of an (anti)symmetrizer operator
-    return getExternalIndexPairs(product.at(0).as<Tensor>());
+    return get_external_index_pairs(product.at(0).as<Tensor>());
   }
 
   IndexGroups groups = get_unique_indices(expression);
-  container::svector<container::svector<Index> > externalPairs;
+  container::svector<container::svector<Index> > external_pairs;
 
-  auto visitor = [&groups, &externalPairs](const ExprPtr &expr) {
+  auto visitor = [&groups, &external_pairs](const ExprPtr &expr) {
     SEQUANT_ASSERT(expr.is<Tensor>());
 
     const Tensor &tensor = expr.as<Tensor>();
 
     for (std::size_t i = 0; i < std::min(tensor.bra_rank(), tensor.ket_rank());
          ++i) {
-      const Index &braIdx = tensor.bra()[i];
-      const Index &ketIdx = tensor.ket()[i];
+      const Index &bra_idx = tensor.bra()[i];
+      const Index &ket_idx = tensor.ket()[i];
 
-      const bool braIsExternal = std::find(groups.bra.begin(), groups.bra.end(),
-                                           braIdx) != groups.bra.end();
-      const bool ketIsExternal = std::find(groups.ket.begin(), groups.ket.end(),
-                                           ketIdx) != groups.ket.end();
+      const bool bra_is_external =
+          std::find(groups.bra.begin(), groups.bra.end(), bra_idx) !=
+          groups.bra.end();
+      const bool ket_is_external =
+          std::find(groups.ket.begin(), groups.ket.end(), ket_idx) !=
+          groups.ket.end();
 
-      if (braIsExternal && ketIsExternal) {
+      if (bra_is_external && ket_is_external) {
         // Bra and ket index are paired -> keep them paired in external index
         // list
-        externalPairs.push_back({braIdx, ketIdx});
-      } else if (braIsExternal) {
-        externalPairs.push_back({braIdx});
-      } else if (ketIsExternal) {
-        externalPairs.push_back({ketIdx});
+        external_pairs.push_back({bra_idx, ket_idx});
+      } else if (bra_is_external) {
+        external_pairs.push_back({bra_idx});
+      } else if (ket_is_external) {
+        external_pairs.push_back({ket_idx});
       }
     }
   };
@@ -125,32 +128,32 @@ container::svector<container::svector<Index> > getExternalIndexPairs(
   expression->visit(visitor, true);
 
   for (Index &current : groups.aux) {
-    externalPairs.push_back({std::move(current)});
+    external_pairs.push_back({std::move(current)});
   }
 
-  return externalPairs;
+  return external_pairs;
 }
 
-bool needsSymmetrization(const sequant::ExprPtr &expression) {
-  bool containsSymmetrizer = false;
+bool needs_symmetrization(const sequant::ExprPtr &expression) {
+  bool contains_symmetrizer = false;
   // Note: the assumption is that we never encounter cases where only part of
   // the expression requires symmetrization
   expression->visit(
-      [&containsSymmetrizer](const ExprPtr &expr) {
+      [&contains_symmetrizer](const ExprPtr &expr) {
         // Right now symmetrizer operators are represented as tensor objects
         // with name "S"
         if (expr.is<Tensor>() &&
             expr.as<Tensor>().label() == reserved::symm_label()) {
-          containsSymmetrizer = true;
+          contains_symmetrizer = true;
         }
       },
       true);
 
-  return containsSymmetrizer;
+  return contains_symmetrizer;
 }
 
-sequant::ExprPtr generateResultSymmetrization(const ResultExpr &result,
-                                              std::wstring_view precursorName) {
+sequant::ExprPtr generate_result_symmetrization(
+    const ResultExpr &result, std::wstring_view precursor_name) {
   IndexGroups<std::vector<Index> > externals;
 
   for (const auto &[bra, ket] :
@@ -159,12 +162,12 @@ sequant::ExprPtr generateResultSymmetrization(const ResultExpr &result,
     externals.ket.push_back(ket);
   }
 
-  return generateResultSymmetrization(precursorName, externals,
-                                      result.result_as_tensor());
+  return generate_result_symmetrization(precursor_name, externals,
+                                        result.result_as_tensor());
 }
 
-sequant::ExprPtr generateResultSymmetrization(const Tensor &result,
-                                              std::wstring_view precursorName) {
+sequant::ExprPtr generate_result_symmetrization(
+    const Tensor &result, std::wstring_view precursor_name) {
   SEQUANT_ASSERT(result.bra_rank() == result.ket_rank());
 
   IndexGroups<std::vector<Index> > externals;
@@ -174,11 +177,11 @@ sequant::ExprPtr generateResultSymmetrization(const Tensor &result,
     externals.ket.push_back(ket);
   }
 
-  return generateResultSymmetrization(precursorName, externals, result);
+  return generate_result_symmetrization(precursor_name, externals, result);
 }
 
-sequant::ExprPtr generateResultSymmetrization(
-    std::wstring_view precursorName,
+sequant::ExprPtr generate_result_symmetrization(
+    std::wstring_view precursor_name,
     const sequant::IndexGroups<std::vector<sequant::Index> > &externals,
     const Tensor &ref) {
   SEQUANT_ASSERT(externals.bra.size() == externals.ket.size());
@@ -186,18 +189,18 @@ sequant::ExprPtr generateResultSymmetrization(
   // Note: we're only symmetrizing over bra-ket, not over auxiliary indices
   ExprPtr symmetrization = ex<Sum>(ExprPtrList{});
   for (std::size_t i = 0; i < externals.bra.size(); ++i) {
-    std::vector<Index> symBra;
-    std::vector<Index> symKet;
+    std::vector<Index> sym_bra;
+    std::vector<Index> sym_ket;
 
     for (std::size_t j = 0; j < externals.ket.size(); ++j) {
-      symBra.push_back(externals.bra[(i + j) % externals.bra.size()]);
-      symKet.push_back(externals.ket[(i + j) % externals.ket.size()]);
+      sym_bra.push_back(externals.bra[(i + j) % externals.bra.size()]);
+      sym_ket.push_back(externals.ket[(i + j) % externals.ket.size()]);
     }
 
     symmetrization +=
         rational(1, externals.bra.size()) *
-        ex<Tensor>(precursorName, bra(std::move(symBra)),
-                   ket(std::move(symKet)), aux(externals.aux), ref.symmetry(),
+        ex<Tensor>(precursor_name, bra(std::move(sym_bra)),
+                   ket(std::move(sym_ket)), aux(externals.aux), ref.symmetry(),
                    ref.braket_symmetry(), ref.column_symmetry());
   }
 

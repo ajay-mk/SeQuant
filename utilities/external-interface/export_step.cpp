@@ -279,13 +279,13 @@ std::size_t ExportStep::run(std::string_view, ExecutionContext &exctx,
           }
 
           if (created_tensors.find(result) == created_tensors.end()) {
-            genctx.setLoadStrategy(result, LoadStrategy::Create,
-                                   current_node->id());
+            genctx.set_load_strategy(result, LoadStrategy::Create,
+                                     current_node->id());
 
             created_tensors.emplace(std::move(result));
           } else {
-            genctx.setLoadStrategy(result, LoadStrategy::Load,
-                                   current_node->id());
+            genctx.set_load_strategy(result, LoadStrategy::Load,
+                                     current_node->id());
           }
         } else {
           SEQUANT_ASSERT(current_node->is_variable());
@@ -297,13 +297,13 @@ std::size_t ExportStep::run(std::string_view, ExecutionContext &exctx,
           }
 
           if (created_variables.find(result) == created_variables.end()) {
-            genctx.setLoadStrategy(result, LoadStrategy::Create,
-                                   current_node->id());
+            genctx.set_load_strategy(result, LoadStrategy::Create,
+                                     current_node->id());
 
             created_variables.emplace(std::move(result));
           } else {
-            genctx.setLoadStrategy(result, LoadStrategy::Load,
-                                   current_node->id());
+            genctx.set_load_strategy(result, LoadStrategy::Load,
+                                     current_node->id());
           }
         }
       }
@@ -495,10 +495,10 @@ std::vector<ExpressionGroup<>> ExportStep::prepare_expressions(
                 ? ZeroStrategy::ZeroOnReuse | ZeroStrategy::ZeroOnCreate
                 : ZeroStrategy::ZeroOnCreate;
         if (current.tree->is_tensor()) {
-          genctx.setZeroStrategy(current.tree->as_tensor(), strategy);
+          genctx.set_zero_strategy(current.tree->as_tensor(), strategy);
         } else {
           SEQUANT_ASSERT(current.tree->is_variable());
-          genctx.setZeroStrategy(current.tree->as_variable(), strategy);
+          genctx.set_zero_strategy(current.tree->as_variable(), strategy);
         }
       }
 
@@ -534,8 +534,8 @@ std::vector<ExpressionGroup<>> ExportStep::prepare_expressions(
 
       SEQUANT_ASSERT(it != group.rend());
 
-      ResultExpr symmetrization(
-          symm_res, generateResultSymmetrization(symm_res, unsymm_res.label()));
+      ResultExpr symmetrization(symm_res, generate_result_symmetrization(
+                                              symm_res, unsymm_res.label()));
 
       const auto batch_indices = genctx.batch_indices((*it)->id());
 
