@@ -9,15 +9,15 @@
 
 namespace sequant::mbpt {
 
-antisymm_element::antisymm_element(ExprPtr ex_) {
-  current_product = ex_;
-  SEQUANT_ASSERT(ex_->is<Product>());
+AntisymmElement::AntisymmElement(ExprPtr input_expr) {
+  current_product_ = input_expr;
+  SEQUANT_ASSERT(input_expr->is<Product>());
   Constant::scalar_type starting_constant = 1;
   unsigned long begining_index = 0;
-  for (auto it = begin(*ex_); it != end(*ex_); it++) {
+  for (auto it = begin(*input_expr); it != end(*input_expr); it++) {
     if (it->get()->is<Tensor>()) {
       auto factor = it->get()->as<Tensor>();
-      index_group.push_back(
+      index_group_.push_back(
           {begining_index, begining_index + factor.bra_rank()});
       begining_index += factor.bra_rank();
       SEQUANT_ASSERT(factor.bra_rank() == factor.ket_rank());
@@ -31,7 +31,7 @@ antisymm_element::antisymm_element(ExprPtr ex_) {
 
     else if (it->get()->is<FNOperator>()) {
       auto factor = it->get()->as<FNOperator>();
-      index_group.push_back(
+      index_group_.push_back(
           {begining_index, begining_index + factor.nannihilators()});
       begining_index += factor.nannihilators();
       SEQUANT_ASSERT(factor.ncreators() == factor.nannihilators());
@@ -46,8 +46,8 @@ antisymm_element::antisymm_element(ExprPtr ex_) {
     }
   }
 
-  unique_bras_list = gen_antisymm_unique(sorted_bra_indices);
-  unique_kets_list = gen_antisymm_unique(sorted_ket_indices);
+  unique_bras_list_ = gen_antisymm_unique(sorted_bra_indices);
+  unique_kets_list_ = gen_antisymm_unique(sorted_ket_indices);
 
   auto new_sum = ex<Constant>(0);
 
@@ -68,15 +68,16 @@ antisymm_element::antisymm_element(ExprPtr ex_) {
         return value;
       };
 
-  for (int i = 0; i < unique_bras_list.size(); i++) {
-    for (int j = 0; j < unique_kets_list.size(); j++) {  // product level
+  for (int i = 0; i < unique_bras_list_.size(); i++) {
+    for (int j = 0; j < unique_kets_list_.size(); j++) {  // product level
 
       auto new_product =
-          ex<Constant>(unique_kets_list[i].first * unique_bras_list[j].first *
+          ex<Constant>(unique_kets_list_[i].first * unique_bras_list_[j].first *
                        starting_constant);
 
       int index_label_pos = 0;
-      for (auto it = begin(*ex_); it != end(*ex_); it++) {  // factor level
+      for (auto it = begin(*input_expr); it != end(*input_expr);
+           it++) {  // factor level
         if (it->get()->is<Constant>()) {
         }  // constant already captured in the first loop.
         else if (it->get()->is<Tensor>()) {
@@ -85,8 +86,8 @@ antisymm_element::antisymm_element(ExprPtr ex_) {
           std::vector<Index> new_bras;
           std::vector<Index> new_kets;
           for (auto k = 0; k < old_tensor.rank(); k++) {  // index level
-            new_bras.push_back(unique_bras_list[i].second[index_label_pos]);
-            new_kets.push_back(unique_kets_list[j].second[index_label_pos]);
+            new_bras.push_back(unique_bras_list_[i].second[index_label_pos]);
+            new_kets.push_back(unique_kets_list_[j].second[index_label_pos]);
             index_label_pos++;
           }
           // mbpt tensors are particle (column) symmetric
@@ -98,16 +99,16 @@ antisymm_element::antisymm_element(ExprPtr ex_) {
         }
 
         else if (it->get()->is<FNOperator>()) {
-          auto old_Nop = it->get()->as<FNOperator>();
+          auto old_op = it->get()->as<FNOperator>();
           std::vector<Index> new_anni;
           std::vector<Index> new_crea;
-          for (auto k = 0; k < old_Nop.rank(); k++) {
-            new_anni.push_back(unique_bras_list[i].second[index_label_pos]);
-            new_crea.push_back(unique_kets_list[j].second[index_label_pos]);
+          for (auto k = 0; k < old_op.rank(); k++) {
+            new_anni.push_back(unique_bras_list_[i].second[index_label_pos]);
+            new_crea.push_back(unique_kets_list_[j].second[index_label_pos]);
             index_label_pos++;
           }
-          auto new_Nop = ex<FNOperator>(cre(new_crea), ann(new_anni));
-          new_product = new_product * new_Nop;
+          auto new_op = ex<FNOperator>(cre(new_crea), ann(new_anni));
+          new_product = new_product * new_op;
           // std::wcout << "product:  " << to_latex(new_product) << std::endl;
           new_product->canonicalize();
         }
@@ -131,7 +132,7 @@ antisymm_element::antisymm_element(ExprPtr ex_) {
 
 template <typename T>
 std::vector<std::pair<int, std::vector<T>>>
-antisymm_element::gen_antisymm_unique(std::vector<T> ordered_indices) {
+AntisymmElement::gen_antisymm_unique(std::vector<T> ordered_indices) {
   std::vector<std::pair<int, std::vector<T>>> result;
   // next_permutation needs an ordered list. works for integers quite well.
   // Easiest to map T to an integer corresponding to its position in a vector
@@ -150,7 +151,7 @@ antisymm_element::gen_antisymm_unique(std::vector<T> ordered_indices) {
     auto is_canonical_sign =
         [this, &parity](const auto& indices) -> std::pair<bool, bool> {
       for (auto& group :
-           this->index_group) {  // There is only one sorted possibility in a
+           this->index_group_) {  // There is only one sorted possibility in a
         // set (tensor) considering that no index
         // label should be the same.
         if (!is_sorted(indices.begin() + group.first,
@@ -176,12 +177,12 @@ antisymm_element::gen_antisymm_unique(std::vector<T> ordered_indices) {
   return result;
 }
 
-antisymmetrize::antisymmetrize(ExprPtr s) {
+Antisymmetrize::Antisymmetrize(ExprPtr s) {
   if (s->is<Sum>()) {
     for (auto&& product :
          s->as<Sum>().summands()) {  // for each element in the sum
       if (product->is<Product>()) {
-        antisymm_element ele(
+        AntisymmElement ele(
             product);  // calculate the sum of all the valid permutations for
         // each term. each object here should only live until
         // this loop ends.
@@ -191,7 +192,7 @@ antisymmetrize::antisymmetrize(ExprPtr s) {
       }
     }
   } else if (s->is<Product>()) {
-    antisymm_element answer(ex<Product>(s->as<Product>()));
+    AntisymmElement answer(ex<Product>(s->as<Product>()));
     result = answer.result;
   } else {
     result = s;

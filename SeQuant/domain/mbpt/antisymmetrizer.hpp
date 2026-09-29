@@ -19,22 +19,22 @@ namespace sequant::mbpt {
 /// differing only by internal tensor antisymmetry are non-unique. i.e.
 /// \f$ a^{i_1 i_2}_{a_1 a_2} = - a^{i_2 i_1}_{a_1 a_2} \f$.
 /// RHS is non-unique in this context.
-class antisymm_element {
+class AntisymmElement {
   using IndexGroup = std::pair<size_t, size_t>;
 
  private:
   std::vector<IndexGroup>
-      index_group;  // where each tensor begins and ends. assumes particle
-                    // conserving ops. needed to keep track of canonical
-                    // ordering
+      index_group_;  // where each tensor begins and ends. assumes particle
+                     // conserving ops. needed to keep track of canonical
+                     // ordering
   std::vector<std::pair<int, std::vector<Index>>>
-      unique_bras_list;  // list of unique bra orderings with associated integer
-                         // for the sign
+      unique_bras_list_;  // list of unique bra orderings with associated
+                          // integer for the sign
   std::vector<std::pair<int, std::vector<Index>>>
-      unique_kets_list;  // list of unique ket orderings with associated integer
-                         // for the sign
-  ExprPtr current_product;  // used to keep track of the original expression
-                            // recieved by the constructor
+      unique_kets_list_;     // list of unique ket orderings with associated
+                             // integer for the sign
+  ExprPtr current_product_;  // used to keep track of the original expression
+                             // recieved by the constructor
 
   /// generates all possible permutations while observing the canonical ordering
   /// of each tensor/operator function kept general to work with other data
@@ -48,12 +48,12 @@ class antisymm_element {
 
  public:
   // takes a sequant::ExprPtr and generates all antisymmetric unique
-  // permutations of that expression. requires that ex_ is a product expression
-  // at this point
-  // @param ex_ as product
+  // permutations of that expression. requires that input_expr is a product
+  // expression at this point
+  // @param input_expr as product
   // populates a result ExprPtr that the user can grab. result is in general a
   // Sum.
-  antisymm_element(ExprPtr ex_);
+  AntisymmElement(ExprPtr input_expr);
 
   std::vector<Index> sorted_bra_indices;  // The original order of the upper
                                           // indices on a given term
@@ -62,12 +62,12 @@ class antisymm_element {
   ExprPtr result;
 };
 
-/// @brief simple class to call antisymm_element on only products
-class antisymmetrize {
+/// @brief simple class to call AntisymmElement on only products
+class Antisymmetrize {
  public:
   ExprPtr result = ex<Constant>(0);
 
-  antisymmetrize(ExprPtr s);
+  Antisymmetrize(ExprPtr s);
 };
 
 namespace antisymm {
@@ -107,7 +107,7 @@ ExprPtr max_similarity(const std::vector<Index>& original_upper,
 
 /// not a general spin-summing procedure, implementation for a known singlet
 /// state for the prefactor rules to apply.
-/// @param original_upper an antisymm_element object strictly so
+/// @param original_upper an AntisymmElement object strictly so
 /// the original ordering of the indices is known
 /// @param original_lower bool singlet_state? the looping rules and
 /// contraction prefactors are a direct result of the singlet state

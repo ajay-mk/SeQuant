@@ -99,7 +99,7 @@ std::wstring spinannotation_add(WS&& label, Spin s) {
 /// replaces spin annotation to
 template <typename WS, typename = std::enable_if_t<
                            meta::is_wstring_or_view_v<std::decay_t<WS>>>>
-std::wstring spinannotation_replacе(WS&& label, Spin s) {
+std::wstring spinannotation_replace(WS&& label, Spin s) {
   auto label_sf = spinannotation_remove(std::forward<WS>(label));
   return spinannotation_add(label_sf, s);
 }

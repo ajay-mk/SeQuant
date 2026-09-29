@@ -66,7 +66,7 @@ Index make_index_with_spincase(const Index& idx, mbpt::Spin s) {
 
   IndexSpace space;
   // try looking up space in registry
-  const auto label = mbpt::spinannotation_replacе(idx.space().base_key(), s);
+  const auto label = mbpt::spinannotation_replace(idx.space().base_key(), s);
   if (auto isr = get_default_context().index_space_registry()) {
     auto* space_ptr = isr->retrieve_ptr(label);
     if (space_ptr && space_ptr->type() == idx.space().type() &&
@@ -88,18 +88,18 @@ Index make_index_with_spincase(const Index& idx, mbpt::Spin s) {
 template <typename Container, typename TraceFunction, typename... Args>
 [[nodiscard]] Container wrap_trace(const ResultExpr& expr,
                                    TraceFunction&& tracer, Args&&... args) {
-  bool searchForNonEquivalentResults = expr.symmetry() != Symmetry::Nonsymm;
-  searchForNonEquivalentResults &=
+  bool search_for_non_equivalent_results = expr.symmetry() != Symmetry::Nonsymm;
+  search_for_non_equivalent_results &=
       expr.bra().size() > 1 || expr.ket().size() > 1;
-  const bool brasSameSpace = std::all_of(
+  const bool bras_same_space = std::all_of(
       expr.bra().begin(), expr.bra().end(),
       [&](const Index& idx) { return idx.space() == expr.bra()[0].space(); });
-  const bool ketsSameSpace = std::all_of(
+  const bool kets_same_space = std::all_of(
       expr.ket().begin(), expr.ket().end(),
       [&](const Index& idx) { return idx.space() == expr.ket()[0].space(); });
-  searchForNonEquivalentResults &= !brasSameSpace && !ketsSameSpace;
+  search_for_non_equivalent_results &= !bras_same_space && !kets_same_space;
 
-  if (!searchForNonEquivalentResults) {
+  if (!search_for_non_equivalent_results) {
     ResultExpr traced = expr.clone();
     traced.expression() = tracer(
         traced.expression(),
@@ -114,71 +114,71 @@ template <typename Container, typename TraceFunction, typename... Args>
   SEQUANT_ASSERT(expr.symmetry() == Symmetry::Antisymm ||
                  expr.symmetry() == Symmetry::Symm);
 
-  const bool permuteBra = expr.bra().size() >= expr.ket().size();
-  auto permIndices = permuteBra ? expr.bra() : expr.ket();
-  const std::size_t unchangedSize =
-      permuteBra ? expr.ket().size() : expr.bra().size();
+  const bool permute_bra = expr.bra().size() >= expr.ket().size();
+  auto perm_indices = permute_bra ? expr.bra() : expr.ket();
+  const std::size_t unchanged_size =
+      permute_bra ? expr.ket().size() : expr.bra().size();
 
   [[maybe_unused]] auto get_phase = [](auto container) {
     return bubble_sort_parity(container, std::less<Index>{});
   };
 
-  const int initialSign = bubble_sort_parity(permIndices, std::less<Index>{});
+  const int initial_sign = bubble_sort_parity(perm_indices, std::less<Index>{});
 
   container::svector<container::set<std::pair<IndexSpace, IndexSpace>>>
-      idxPairings;
+      idx_pairings;
 
-  Container resultSet;
+  Container result_set;
 
-  // For next_permutation to work in this context, permIndices must be sorted
-  SEQUANT_ASSERT(std::is_sorted(permIndices.begin(), permIndices.end()));
+  // For next_permutation to work in this context, perm_indices must be sorted
+  SEQUANT_ASSERT(std::is_sorted(perm_indices.begin(), perm_indices.end()));
 
   int parity = 0;
   do {
-    const int permutationSign = parity == 0 ? initialSign : -initialSign;
-    SEQUANT_ASSERT(permutationSign == get_phase(permIndices) * initialSign);
-    const int currentSign =
-        expr.symmetry() == Symmetry::Antisymm ? permutationSign : 1;
+    const int permutation_sign = parity == 0 ? initial_sign : -initial_sign;
+    SEQUANT_ASSERT(permutation_sign == get_phase(perm_indices) * initial_sign);
+    const int current_sign =
+        expr.symmetry() == Symmetry::Antisymm ? permutation_sign : 1;
 
-    container::set<std::pair<IndexSpace, IndexSpace>> currentPairing;
+    container::set<std::pair<IndexSpace, IndexSpace>> current_pairing;
 
-    for (std::size_t i = 0; i < unchangedSize; ++i) {
-      if (permuteBra) {
-        currentPairing.insert(
-            std::make_pair(permIndices[i].space(), expr.ket()[i].space()));
+    for (std::size_t i = 0; i < unchanged_size; ++i) {
+      if (permute_bra) {
+        current_pairing.insert(
+            std::make_pair(perm_indices[i].space(), expr.ket()[i].space()));
       } else {
-        currentPairing.insert(
-            std::make_pair(expr.bra()[i].space(), permIndices[i].space()));
+        current_pairing.insert(
+            std::make_pair(expr.bra()[i].space(), perm_indices[i].space()));
       }
     }
 
-    for (std::size_t i = unchangedSize; i < permIndices.size(); ++i) {
-      currentPairing.insert(
-          std::make_pair(permIndices[i].space(), IndexSpace::null));
+    for (std::size_t i = unchanged_size; i < perm_indices.size(); ++i) {
+      current_pairing.insert(
+          std::make_pair(perm_indices[i].space(), IndexSpace::null));
     }
 
-    if (std::find(idxPairings.begin(), idxPairings.end(), currentPairing) !=
-        idxPairings.end()) {
+    if (std::find(idx_pairings.begin(), idx_pairings.end(), current_pairing) !=
+        idx_pairings.end()) {
       continue;
     }
 
     // Found a new index pairing
-    idxPairings.push_back(currentPairing);
+    idx_pairings.push_back(current_pairing);
 
     ExprPtr expression = expr.expression().clone();
 
-    expression *= ex<Constant>(currentSign);
+    expression *= ex<Constant>(current_sign);
     expression = simplify(expression);
 
     ResultExpr result = [&]() {
       SEQUANT_ASSERT(expr.has_label());
-      if (permuteBra) {
-        return ResultExpr(bra(permIndices), ket(expr.ket()), aux(expr.aux()),
+      if (permute_bra) {
+        return ResultExpr(bra(perm_indices), ket(expr.ket()), aux(expr.aux()),
                           expr.symmetry(), expr.braket_symmetry(),
                           expr.column_symmetry(), expr.label(),
                           std::move(expression));
       } else {
-        return ResultExpr(bra(expr.bra()), ket(permIndices), aux(expr.aux()),
+        return ResultExpr(bra(expr.bra()), ket(perm_indices), aux(expr.aux()),
                           expr.symmetry(), expr.braket_symmetry(),
                           expr.column_symmetry(), expr.label(),
                           std::move(expression));
@@ -192,11 +192,11 @@ template <typename Container, typename TraceFunction, typename... Args>
 
     result.set_symmetry(Symmetry::Nonsymm);
 
-    resultSet.push_back(std::move(result));
-  } while (next_permutation_parity(parity, permIndices.begin(),
-                                   permIndices.end(), std::less<Index>{}));
+    result_set.push_back(std::move(result));
+  } while (next_permutation_parity(parity, perm_indices.begin(),
+                                   perm_indices.end(), std::less<Index>{}));
 
-  return resultSet;
+  return result_set;
 }
 
 }  // namespace detail
@@ -1433,21 +1433,23 @@ std::vector<ExprPtr> open_shell_spintrace_impl(
 
   // return true if a product is spin-symmetric
   auto spin_symm_product = [](const Product& product) {
-    container::svector<Index> cBra, cKet;  // concat Bra and concat Ket
+    container::svector<Index> concat_bra, concat_ket;
     for (auto& term : product) {
       if (term->is<Tensor>()) {
         auto tnsr = term->as<Tensor>();
-        cBra.insert(cBra.end(), tnsr.bra().begin(), tnsr.bra().end());
-        cKet.insert(cKet.end(), tnsr.ket().begin(), tnsr.ket().end());
+        concat_bra.insert(concat_bra.end(), tnsr.bra().begin(),
+                          tnsr.bra().end());
+        concat_ket.insert(concat_ket.end(), tnsr.ket().begin(),
+                          tnsr.ket().end());
       } else if (term->is<Product>() || term->is<Sum>()) {
         throw Exception(
             "Nested Product and Sum not supported in spin_symm_product");
       }
     }
-    SEQUANT_ASSERT(cKet.size() == cBra.size());
+    SEQUANT_ASSERT(concat_ket.size() == concat_bra.size());
 
-    auto i_ket = cKet.begin();
-    for (auto& b : cBra) {
+    auto i_ket = concat_ket.begin();
+    for (auto& b : concat_bra) {
       if (b.space().qns() != i_ket->space().qns()) return false;
       ++i_ket;
     }

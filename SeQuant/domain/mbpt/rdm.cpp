@@ -31,27 +31,27 @@ constexpr TensorSymmetries hermitian_particle_symmetric{
 constexpr TensorSymmetries particle_symmetric{.column = ColumnSymmetry::Symm};
 }  // namespace
 
-ExprPtr cumu_to_density(ExprPtr ex_) {
-  SEQUANT_ASSERT(ex_->is<Tensor>());
-  SEQUANT_ASSERT(ex_->as<Tensor>().rank() == 1);
-  SEQUANT_ASSERT(ex_->as<Tensor>().label() == rdm_cumulant_label());
-  auto down_0 = ex_->as<Tensor>().ket()[0];
-  auto up_0 = ex_->as<Tensor>().bra()[0];
+ExprPtr cumu_to_density(ExprPtr input_expr) {
+  SEQUANT_ASSERT(input_expr->is<Tensor>());
+  SEQUANT_ASSERT(input_expr->as<Tensor>().rank() == 1);
+  SEQUANT_ASSERT(input_expr->as<Tensor>().label() == rdm_cumulant_label());
+  auto down_0 = input_expr->as<Tensor>().ket()[0];
+  auto up_0 = input_expr->as<Tensor>().bra()[0];
 
   auto density = ex<Tensor>(rdm_label(), bra{up_0}, ket{down_0},
                             hermitian_particle_symmetric);
   return density;
 }
 
-sequant::ExprPtr cumu2_to_density(sequant::ExprPtr ex_) {
-  SEQUANT_ASSERT(ex_->is<Tensor>());
-  SEQUANT_ASSERT(ex_->as<Tensor>().rank() == 2);
-  SEQUANT_ASSERT(ex_->as<Tensor>().label() == rdm_cumulant_label());
+sequant::ExprPtr cumu2_to_density(sequant::ExprPtr input_expr) {
+  SEQUANT_ASSERT(input_expr->is<Tensor>());
+  SEQUANT_ASSERT(input_expr->as<Tensor>().rank() == 2);
+  SEQUANT_ASSERT(input_expr->as<Tensor>().label() == rdm_cumulant_label());
 
-  auto down_0 = ex_->as<Tensor>().ket()[0];
-  auto up_0 = ex_->as<Tensor>().bra()[0];
-  auto down_1 = ex_->as<Tensor>().ket()[1];
-  auto up_1 = ex_->as<Tensor>().bra()[1];
+  auto down_0 = input_expr->as<Tensor>().ket()[0];
+  auto up_0 = input_expr->as<Tensor>().bra()[0];
+  auto down_1 = input_expr->as<Tensor>().ket()[1];
+  auto up_1 = input_expr->as<Tensor>().bra()[1];
 
   auto density2 = ex<Tensor>(rdm_label(), bra{up_0, up_1}, ket{down_0, down_1},
                              hermitian_particle_symmetric);
@@ -60,21 +60,21 @@ sequant::ExprPtr cumu2_to_density(sequant::ExprPtr ex_) {
   auto density_2 = ex<Tensor>(rdm_label(), bra{up_1}, ket{down_1},
                               hermitian_particle_symmetric);
 
-  auto d1_d2 = antisymmetrize(density_1 * density_2);
+  auto d1_d2 = Antisymmetrize(density_1 * density_2);
   return density2 + ex<Constant>(-1) * d1_d2.result;
 }
 
-ExprPtr cumu3_to_density(ExprPtr ex_) {
-  SEQUANT_ASSERT(ex_->is<Tensor>());
-  SEQUANT_ASSERT(ex_->as<Tensor>().rank() == 3);
-  SEQUANT_ASSERT(ex_->as<Tensor>().label() == rdm_cumulant_label());
+ExprPtr cumu3_to_density(ExprPtr input_expr) {
+  SEQUANT_ASSERT(input_expr->is<Tensor>());
+  SEQUANT_ASSERT(input_expr->as<Tensor>().rank() == 3);
+  SEQUANT_ASSERT(input_expr->as<Tensor>().label() == rdm_cumulant_label());
 
-  auto down_0 = ex_->as<Tensor>().ket()[0];
-  auto up_0 = ex_->as<Tensor>().bra()[0];
-  auto down_1 = ex_->as<Tensor>().ket()[1];
-  auto up_1 = ex_->as<Tensor>().bra()[1];
-  auto down_2 = ex_->as<Tensor>().ket()[2];
-  auto up_2 = ex_->as<Tensor>().bra()[2];
+  auto down_0 = input_expr->as<Tensor>().ket()[0];
+  auto up_0 = input_expr->as<Tensor>().bra()[0];
+  auto down_1 = input_expr->as<Tensor>().ket()[1];
+  auto up_1 = input_expr->as<Tensor>().bra()[1];
+  auto down_2 = input_expr->as<Tensor>().ket()[2];
+  auto up_2 = input_expr->as<Tensor>().bra()[2];
 
   auto cumulant2 =
       ex<Tensor>(rdm_cumulant_label(), bra{up_1, up_2}, ket{down_1, down_2},
@@ -90,7 +90,7 @@ ExprPtr cumu3_to_density(ExprPtr ex_) {
                  ket{down_0, down_1, down_2}, hermitian_particle_symmetric);
 
   auto d1_d2 =
-      antisymmetrize(density_1 * density_2 * density_3 + density_1 * cumulant2);
+      Antisymmetrize(density_1 * density_2 * density_3 + density_1 * cumulant2);
   auto temp_result = density3 * ex<Constant>(-1) * d1_d2.result;
 
   for (auto&& product : temp_result->as<Sum>().summands()) {
@@ -114,12 +114,13 @@ ExprPtr cumu3_to_density(ExprPtr ex_) {
   return temp_result;
 }
 
-ExprPtr one_body_sub(ExprPtr ex_) {  // J. Chem. Phys. 132, 234107 (2010);
+ExprPtr one_body_sub(
+    ExprPtr input_expr) {  // J. Chem. Phys. 132, 234107 (2010);
   // https://doi.org/10.1063/1.3439395 eqn 15 for
-  SEQUANT_ASSERT(ex_->is<FNOperator>());
-  SEQUANT_ASSERT(ex_->as<FNOperator>().rank() == 1);
-  auto down_0 = ex_->as<FNOperator>().annihilators()[0].index();
-  auto up_0 = ex_->as<FNOperator>().creators()[0].index();
+  SEQUANT_ASSERT(input_expr->is<FNOperator>());
+  SEQUANT_ASSERT(input_expr->as<FNOperator>().rank() == 1);
+  auto down_0 = input_expr->as<FNOperator>().annihilators()[0].index();
+  auto up_0 = input_expr->as<FNOperator>().creators()[0].index();
 
   const auto a = ex<FNOperator>(cre({up_0}), ann({down_0}));
   const auto cumu1 = ex<Tensor>(rdm_cumulant_label(), bra{down_0}, ket{up_0},
@@ -130,17 +131,18 @@ ExprPtr one_body_sub(ExprPtr ex_) {  // J. Chem. Phys. 132, 234107 (2010);
 }
 
 ExprPtr two_body_decomp(
-    ExprPtr ex_, bool /*approx*/) {  // J. Chem. Phys. 132, 234107 (2010);
+    ExprPtr input_expr,
+    bool /*approx*/) {  // J. Chem. Phys. 132, 234107 (2010);
   // https://doi.org/10.1063/1.3439395
   // eqn 16 for \tilde{a}^{pr}_{qs}
-  SEQUANT_ASSERT(ex_->is<FNOperator>());
-  SEQUANT_ASSERT(ex_->as<FNOperator>().rank() == 2);
+  SEQUANT_ASSERT(input_expr->is<FNOperator>());
+  SEQUANT_ASSERT(input_expr->as<FNOperator>().rank() == 2);
 
-  auto down_0 = ex_->as<FNOperator>().annihilators()[0].index();
-  auto down_1 = ex_->as<FNOperator>().annihilators()[1].index();
+  auto down_0 = input_expr->as<FNOperator>().annihilators()[0].index();
+  auto down_1 = input_expr->as<FNOperator>().annihilators()[1].index();
 
-  auto up_0 = ex_->as<FNOperator>().creators()[0].index();
-  auto up_1 = ex_->as<FNOperator>().creators()[1].index();
+  auto up_0 = input_expr->as<FNOperator>().creators()[0].index();
+  auto up_1 = input_expr->as<FNOperator>().creators()[1].index();
 
   const auto cumu1 = ex<Tensor>(rdm_cumulant_label(), bra{down_0}, ket{up_0},
                                 hermitian_particle_symmetric);
@@ -156,26 +158,26 @@ ExprPtr two_body_decomp(
   auto term2 = cumu1 * cumu2;
   auto term3 = double_cumu;
 
-  auto sum_of_terms = antisymmetrize(term1 + term2 + term3);
+  auto sum_of_terms = Antisymmetrize(term1 + term2 + term3);
   sum_of_terms.result = ex<Constant>(-1) * sum_of_terms.result;
   auto result = a2 + sum_of_terms.result;
   return (result);
 }
 
 std::pair<ExprPtr, std::pair<std::vector<Index>, std::vector<Index>>>
-three_body_decomp(ExprPtr ex_, bool approx) {
-  SEQUANT_ASSERT(ex_->is<FNOperator>());
-  SEQUANT_ASSERT(ex_->as<FNOperator>().rank() == 3);
+three_body_decomp(ExprPtr input_expr, bool approx) {
+  SEQUANT_ASSERT(input_expr->is<FNOperator>());
+  SEQUANT_ASSERT(input_expr->as<FNOperator>().rank() == 3);
 
-  auto down_0 = ex_->as<FNOperator>().annihilators()[0].index();
-  auto down_1 = ex_->as<FNOperator>().annihilators()[1].index();
-  auto down_2 = ex_->as<FNOperator>().annihilators()[2].index();
+  auto down_0 = input_expr->as<FNOperator>().annihilators()[0].index();
+  auto down_1 = input_expr->as<FNOperator>().annihilators()[1].index();
+  auto down_2 = input_expr->as<FNOperator>().annihilators()[2].index();
 
   std::vector<Index> initial_lower{down_0, down_1, down_2};
 
-  auto up_0 = ex_->as<FNOperator>().creators()[0].index();
-  auto up_1 = ex_->as<FNOperator>().creators()[1].index();
-  auto up_2 = ex_->as<FNOperator>().creators()[2].index();
+  auto up_0 = input_expr->as<FNOperator>().creators()[0].index();
+  auto up_1 = input_expr->as<FNOperator>().creators()[1].index();
+  auto up_2 = input_expr->as<FNOperator>().creators()[2].index();
 
   std::vector<Index> initial_upper{up_0, up_1, up_2};
 
@@ -199,7 +201,7 @@ three_body_decomp(ExprPtr ex_, bool approx) {
   auto a1_cumu2 = a1 * two_body_cumu;
 
   auto cumu1_cumu2 = cumulant * two_body_cumu;
-  auto sum_of_terms = antisymmetrize(a_cumulant + cumulant_3x + a1_cumu1_cumu2 +
+  auto sum_of_terms = Antisymmetrize(a_cumulant + cumulant_3x + a1_cumu1_cumu2 +
                                      a1_cumu2 + cumu1_cumu2);
 
   if (!approx) {
@@ -250,14 +252,14 @@ three_body_decomp(ExprPtr ex_, bool approx) {
 }
 
 std::pair<ExprPtr, std::pair<std::vector<Index>, std::vector<Index>>>
-three_body_decomposition(ExprPtr ex_, int rank, bool fast) {
+three_body_decomposition(ExprPtr input_expr, int rank, bool fast) {
   std::pair<std::vector<Index>, std::vector<Index>> initial_pairing;
   if (rank == 3) {
-    auto ex_pair = three_body_decomp(ex_);
-    ex_ = ex_pair.first;
+    auto ex_pair = three_body_decomp(input_expr);
+    input_expr = ex_pair.first;
     initial_pairing = ex_pair.second;
-    simplify(ex_);
-    for (auto&& product : ex_->as<Sum>().summands()) {
+    simplify(input_expr);
+    for (auto&& product : input_expr->as<Sum>().summands()) {
       if (product->is<Product>()) {
         for (auto&& factor : product->as<Product>().factors()) {
           if (factor->is<Tensor>()) {
@@ -278,21 +280,21 @@ three_body_decomposition(ExprPtr ex_, int rank, bool fast) {
         }
       }
     }
-    simplify(ex_);
+    simplify(input_expr);
 
   } else if (rank == 2) {
     if (fast) {
-      SEQUANT_ASSERT(ex_->is<FNOperator>());
+      SEQUANT_ASSERT(input_expr->is<FNOperator>());
       // FNOp does not store a list of indices so I have to do this
-      auto down_0 = ex_->as<FNOperator>().annihilators()[0].index();
-      auto down_1 = ex_->as<FNOperator>().annihilators()[1].index();
-      auto down_2 = ex_->as<FNOperator>().annihilators()[2].index();
+      auto down_0 = input_expr->as<FNOperator>().annihilators()[0].index();
+      auto down_1 = input_expr->as<FNOperator>().annihilators()[1].index();
+      auto down_2 = input_expr->as<FNOperator>().annihilators()[2].index();
 
       std::vector<Index> initial_lower{down_0, down_1, down_2};
 
-      auto up_0 = ex_->as<FNOperator>().creators()[0].index();
-      auto up_1 = ex_->as<FNOperator>().creators()[1].index();
-      auto up_2 = ex_->as<FNOperator>().creators()[2].index();
+      auto up_0 = input_expr->as<FNOperator>().creators()[0].index();
+      auto up_1 = input_expr->as<FNOperator>().creators()[1].index();
+      auto up_2 = input_expr->as<FNOperator>().creators()[2].index();
 
       std::vector<Index> initial_upper{up_0, up_1, up_2};
       initial_pairing.first = initial_lower;
@@ -308,11 +310,11 @@ three_body_decomposition(ExprPtr ex_, int rank, bool fast) {
       auto result = DE2 + D2E - ex<Constant>(2) * DDE;
       return {result, initial_pairing};
     }
-    auto ex_pair = three_body_decomp(ex_, true);
-    ex_ = ex_pair.first;
+    auto ex_pair = three_body_decomp(input_expr, true);
+    input_expr = ex_pair.first;
     initial_pairing = ex_pair.second;
-    simplify(ex_);
-    for (auto&& product : ex_->as<Sum>().summands()) {
+    simplify(input_expr);
+    for (auto&& product : input_expr->as<Sum>().summands()) {
       if (product->is<Product>()) {
         for (auto&& factor : product->as<Product>().factors()) {
           if (factor->is<Tensor>()) {
@@ -332,15 +334,15 @@ three_body_decomposition(ExprPtr ex_, int rank, bool fast) {
         }
       }
     }
-    simplify(ex_);
+    simplify(input_expr);
     // std::wcout << " cumulant replacment: " << to_latex_align(_ex,20, 7) <<
     // std::endl;
   } else if (rank == 1) {
-    auto ex_pair = three_body_decomp(ex_, true);
-    ex_ = ex_pair.first;
+    auto ex_pair = three_body_decomp(input_expr, true);
+    input_expr = ex_pair.first;
     initial_pairing = ex_pair.second;
-    simplify(ex_);
-    for (auto&& product : ex_->as<Sum>().summands()) {
+    simplify(input_expr);
+    for (auto&& product : input_expr->as<Sum>().summands()) {
       if (product->is<Product>()) {
         for (auto&& factor : product->as<Product>().factors()) {
           if (factor->is<Tensor>()) {
@@ -357,11 +359,11 @@ three_body_decomposition(ExprPtr ex_, int rank, bool fast) {
         }
       }
     }
-    simplify(ex_);
+    simplify(input_expr);
   } else {
     throw Exception("rank not supported!");
   }
-  return {ex_, initial_pairing};
+  return {input_expr, initial_pairing};
 }
 
 ExprPtr three_body_substitution(ExprPtr& input, int rank, bool fast) {

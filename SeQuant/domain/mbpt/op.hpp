@@ -198,7 +198,7 @@ class Operator<void, S> : public Expr, public Labeled {
 using FOperatorBase = FOperator<void>;
 using BOperatorBase = BOperator<void>;
 
-struct default_qns_tag {};
+struct DefaultQnsTag {};
 
 // clang-format off
 /// Tracks changes in \c N quantum numbers
@@ -215,7 +215,7 @@ struct default_qns_tag {};
 /// \tparam Tag a tag type to distinguish different instances of QuantumNumberChange<N>
 /// \tparam QNV the quantum number value type, defaults to \c std::int64_t
 // clang-format on
-template <typename QNV = std::int64_t, typename Tag = default_qns_tag>
+template <typename QNV = std::int64_t, typename Tag = DefaultQnsTag>
 class QuantumNumberChange
     : public container::svector<
           boost::numeric::interval<std::make_signed_t<QNV>>, 8> {

@@ -32,7 +32,7 @@ ExprPtr VacuumAverage(const ExprPtr& e, const PyEVOptions& opts) {
     sequant::mbpt::OpConnections<std::wstring> result;
     result.reserve(pairs.size());
     for (const auto& [a, b] : pairs) {
-      result.emplace_back(sequant::toUtf16(a), sequant::toUtf16(b));
+      result.emplace_back(sequant::to_utf16(a), sequant::to_utf16(b));
     }
     return result;
   };

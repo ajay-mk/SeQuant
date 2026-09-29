@@ -125,7 +125,7 @@ int main(int argc, char* argv[]) {
   tpool.stop(0);
 
   std::wcout << "UCC equations [rank=" << N
-             << ",expansion=" << sequant::toUtf16(expansion_str)
+             << ",expansion=" << sequant::to_utf16(expansion_str)
              << ",hbar_comm_rank=" << RANK << "] computed in " << tpool.read(0)
              << " seconds" << std::endl;
 

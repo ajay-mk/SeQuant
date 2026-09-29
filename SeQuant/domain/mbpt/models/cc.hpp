@@ -107,7 +107,7 @@ class CC {
   [[nodiscard]] CC with(F&& mutate) const {
     auto o = opts_;
     std::forward<F>(mutate)(o);
-    return CC(N, o);
+    return CC(n_, o);
   }
 
   /// @return true if singles amplitudes are excluded from \f$ \hat{T} \f$ and
@@ -280,7 +280,7 @@ class CC {
       size_t rank = 1, std::optional<size_t> comm_rank = std::nullopt) const;
 
  private:
-  size_t N;
+  size_t n_;
   Options opts_;
 
   /// @brief assembles the right-hand UCC EOM equations

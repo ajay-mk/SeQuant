@@ -27,38 +27,38 @@ void try_main() {
                                 ann{Index(L"a_2"), Index(L"a_3")});
   auto a_cumulant = cumulant * a;
   std::wcout << "a_cumulant " << to_latex_align(a_cumulant) << std::endl;
-  antisymmetrize _a_cumulant(a_cumulant);
+  Antisymmetrize _a_cumulant(a_cumulant);
   std::wcout << to_latex_align(_a_cumulant.result) << std::endl;
 
   auto cumulant2 = ex<Tensor>(rdm_cumulant_label(), bra{L"a_2"}, ket{L"i_2"});
   auto cumulant3 = ex<Tensor>(rdm_cumulant_label(), bra{L"a_3"}, ket{L"i_3"});
   auto cumulant_3x = cumulant * cumulant2 * cumulant3;
   std::wcout << "cumulant_3x " << to_latex_align(cumulant_3x) << std::endl;
-  antisymmetrize _cumulant_3x(cumulant_3x);
+  Antisymmetrize _cumulant_3x(cumulant_3x);
   std::wcout << to_latex_align(_cumulant_3x.result) << std::endl;
 
   auto a1 = ex<FNOperator>(cre{Index(L"i_1")}, ann{Index(L"a_1")});
   auto a1_cumu1_cumu2 = a1 * cumulant2 * cumulant3;
   std::wcout << "a1 y1 y2 " << to_latex_align(a1_cumu1_cumu2) << std::endl;
-  antisymmetrize _a1_cumu1_cumu2(a1_cumu1_cumu2);
+  Antisymmetrize _a1_cumu1_cumu2(a1_cumu1_cumu2);
   std::wcout << to_latex_align(_a1_cumu1_cumu2.result) << std::endl;
 
   auto two_body_cumu = ex<Tensor>(rdm_cumulant_label(), bra{L"a_2", L"a_3"},
                                   ket{L"i_2", L"i_3"});
   auto a1_cumu2 = a1 * two_body_cumu;
   std::wcout << " a1 y2 " << to_latex_align(a1_cumu2) << std::endl;
-  antisymmetrize _a1_cumu2(a1_cumu2);
+  Antisymmetrize _a1_cumu2(a1_cumu2);
   std::wcout << to_latex_align(_a1_cumu2.result) << std::endl;
 
   auto cumu1_cumu2 = cumulant * two_body_cumu;
   std::wcout << " y1 y2 " << to_latex_align(cumu1_cumu2) << std::endl;
-  antisymmetrize _cumu1_cumu2(cumu1_cumu2);
+  Antisymmetrize _cumu1_cumu2(cumu1_cumu2);
   std::wcout << to_latex_align(_cumu1_cumu2.result) << std::endl;
 
   auto cumu3 = ex<Tensor>(rdm_cumulant_label(), bra{L"a_1", L"a_2", L"a_3"},
                           ket{L"i_1", L"i_2", L"i_3"});
   std::wcout << " y3 " << to_latex_align(cumu3) << std::endl;
-  antisymmetrize _cumu3(cumu3);
+  Antisymmetrize _cumu3(cumu3);
   std::wcout << to_latex_align(_cumu3.result) << std::endl;
 
   auto antisymm_test =

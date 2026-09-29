@@ -63,7 +63,7 @@ std::pair<std::shared_ptr<Sum>, std::shared_ptr<Sum>> screen_terms(
 
 CC::CC(size_t n) : CC(n, Options{}) {}
 
-CC::CC(size_t n, const Options& opts) : N(n), opts_(opts) {
+CC::CC(size_t n, const Options& opts) : n_(n), opts_(opts) {
   if (opts_.hbar_expansion == HbarExpansion::Bernoulli &&
       opts_.ansatz != Ansatz::U)
     throw Exception("CC: Bernoulli expansion requires the U ansatz");
@@ -110,12 +110,13 @@ ExprPtr CC::hbar(std::optional<size_t> truncation_rank) const {
       truncation_rank.value_or(opts_.hbar_comm_rank.value_or(4));
 
   if (opts_.hbar_expansion == HbarExpansion::Bernoulli)
-    return bernoulli::hbar(N, truncation, skip_singles());
+    return bernoulli::hbar(n_, truncation, skip_singles());
 
   // for a non-unitary ansatz this is the cheaper connected-product form, which
   // is only equivalent to the commutator once the caller supplies operator
   // connectivity to ref_av (see lst_options() and the @warning on hbar())
-  auto result = mbpt::lst(H(), T(N, skip_singles()), truncation, lst_options());
+  auto result =
+      mbpt::lst(H(), T(n_, skip_singles()), truncation, lst_options());
 
   // Apply the optional singles-only transform after the primary BCH series.
   if (opts_.hbar_singles_comm_rank > 0) {
@@ -143,7 +144,7 @@ ExprPtr CC::energy(std::optional<size_t> comm_rank) const {
 }
 
 std::vector<ExprPtr> CC::t(size_t pmax, size_t pmin) const {
-  pmax = (pmax == std::numeric_limits<size_t>::max() ? N : pmax);
+  pmax = (pmax == std::numeric_limits<size_t>::max() ? n_ : pmax);
   SEQUANT_ASSERT(pmax >= pmin, "pmax should be >= pmin");
 
   // Bernoulli: the hbar expansion is at tensor level, project and call the
@@ -206,7 +207,7 @@ std::vector<ExprPtr> CC::λ() const {
   auto hbar = this->hbar(commutator_rank -
                          1);  // -1 because of the connection with the projector
 
-  auto lhbar = simplify((1 + Λ(N, skip_singles())) * hbar);
+  auto lhbar = simplify((1 + Λ(n_, skip_singles())) * hbar);
 
   const auto op_connect = concat(default_op_connections(), {{L"h", asymm},
                                                             {L"f", asymm},
@@ -215,20 +216,20 @@ std::vector<ExprPtr> CC::λ() const {
                                                             {L"f", symm},
                                                             {L"g", symm}});
 
-  std::vector<ExprPtr> result(N + 1);
+  std::vector<ExprPtr> result(n_ + 1);
 
   // element 0: λ pseudoenergy, computed as the CC energy with T → Λ⁺.
   {
     // connected form; the ref_av below supplies the connectivity that makes it
     // equivalent to the commutator, here {h,f,f̃,g} with λ⁺ rather than with t
-    const auto hbar_λ = mbpt::lst(H(), adjoint(Λ(N, skip_singles())),
+    const auto hbar_λ = mbpt::lst(H(), adjoint(Λ(n_, skip_singles())),
                                   commutator_rank, lst_options());
     result.at(0) = this->ref_av(
         hbar_λ, {{L"h", L"λ⁺"}, {L"f", L"λ⁺"}, {L"f̃", L"λ⁺"}, {L"g", L"λ⁺"}});
   }
 
   // 2. project onto each manifold, screen, lower to tensor form and wick it
-  for (auto p = N; p >= 1; --p) {
+  for (auto p = n_; p >= 1; --p) {
     // 2.a. screen out terms that cannot give nonzero after projection onto
     // <P|
     std::shared_ptr<Sum>
@@ -276,13 +277,13 @@ ExprPtr CC::rdm(size_t rank, std::optional<size_t> comm_rank) const {
   // connected-product form; the {ã,t} connectivity handed to ref_av below is
   // what makes it equivalent to the explicit commutator.
   const auto commutator_rank = comm_rank.value_or(
-      unitary() ? opts_.hbar_comm_rank.value() : std::min(2 * rank, rank + N));
-  auto bar =
-      mbpt::lst(replacer, T(N, skip_singles()), commutator_rank, lst_options());
+      unitary() ? opts_.hbar_comm_rank.value() : std::min(2 * rank, rank + n_));
+  auto bar = mbpt::lst(replacer, T(n_, skip_singles()), commutator_rank,
+                       lst_options());
 
   // 3. reference expectation value with the ansatz's left wavefunction:
   // γ = <0|(1+Λ) e^{-σ} ã e^{σ}|0>; the unitary ansatz drops Λ.
-  auto expr = unitary() ? bar : simplify((1 + Λ(N, skip_singles())) * bar);
+  auto expr = unitary() ? bar : simplify((1 + Λ(n_, skip_singles())) * bar);
   const auto connect =
       unitary() ? mbpt::OpConnections<std::wstring>{}
                 : mbpt::OpConnections<std::wstring>{{L"ã", L"t"}, {L"t", L"ã"}};
@@ -315,7 +316,7 @@ std::vector<ExprPtr> CC::tʼ(size_t rank, size_t order,
       opts_.pertbar_comm_rank.value_or(h1_truncate_default);
   const auto h1_bar =
       mbpt::lst(Hʼ(rank, {.order = order, .nbatch = nbatch}),
-                T(N, skip_singles()), h1_truncate_at, lst_options());
+                T(n_, skip_singles()), h1_truncate_at, lst_options());
 
   // construct [hbar, Tʼ(1)]
   const auto hbar_truncate_at = opts_.hbar_comm_rank.value_or(
@@ -328,9 +329,9 @@ std::vector<ExprPtr> CC::tʼ(size_t rank, size_t order,
   if (unitary()) {
     // for unitary ansatz, we need to compute the commutator [hbar, Tʼ],
     // otherwise just hbar * Tʼ is sufficient because ref_av uses connectivity
-    hbar_pert = commutator(hbar, Tʼ(N, {.order = order, .nbatch = nbatch}));
+    hbar_pert = commutator(hbar, Tʼ(n_, {.order = order, .nbatch = nbatch}));
   } else {
-    hbar_pert = hbar * Tʼ(N, {.order = order, .nbatch = nbatch});
+    hbar_pert = hbar * Tʼ(n_, {.order = order, .nbatch = nbatch});
   }
 
   // [Eq. 34, WIREs Comput Mol Sci. 2019; 9:e1406]
@@ -346,8 +347,8 @@ std::vector<ExprPtr> CC::tʼ(size_t rank, size_t order,
                {{L"h", L"t¹"}, {L"f", L"t¹"}, {L"g", L"t¹"}, {L"h¹", L"t"}});
   }
 
-  std::vector<ExprPtr> result(N + 1);
-  for (auto p = N; p >= 1; --p) {
+  std::vector<ExprPtr> result(n_ + 1);
+  for (auto p = n_; p >= 1; --p) {
     const auto freq_term =
         L"ω" * P(nₚ(p)) * op::tʼ(p, {.order = order, .nbatch = nbatch});
     result.at(p) =
@@ -381,15 +382,16 @@ std::vector<ExprPtr> CC::λʼ(size_t rank, size_t order,
   // supplies the connectivity that makes it equivalent to the commutator
   const auto h1_bar =
       mbpt::lst(Hʼ(rank, {.order = order, .nbatch = nbatch}),
-                T(N, skip_singles()), h1_truncate_at, lst_options());
+                T(n_, skip_singles()), h1_truncate_at, lst_options());
 
   // construct [hbar, T(1)]
   const auto hbar_pert =
-      this->hbar(3) * Tʼ(N, {.order = order, .nbatch = nbatch});
+      this->hbar(3) * Tʼ(n_, {.order = order, .nbatch = nbatch});
 
   // [Eq. 35, WIREs Comput Mol Sci. 2019; 9:e1406]
-  const auto expr = simplify((1 + Λ(N, skip_singles())) * (h1_bar + hbar_pert) +
-                             Λʼ(N, {.order = order, .nbatch = nbatch}) * hbar);
+  const auto expr =
+      simplify((1 + Λ(n_, skip_singles())) * (h1_bar + hbar_pert) +
+               Λʼ(n_, {.order = order, .nbatch = nbatch}) * hbar);
 
   // connectivity:
   // t and t1 with {h,f,g}
@@ -409,8 +411,8 @@ std::vector<ExprPtr> CC::λʼ(size_t rank, size_t order,
                                                             {L"h¹", asymm},
                                                             {L"h¹", symm}});
 
-  std::vector<ExprPtr> result(N + 1);
-  for (auto p = N; p >= 1; --p) {
+  std::vector<ExprPtr> result(n_ + 1);
+  for (auto p = n_; p >= 1; --p) {
     const auto freq_term =
         L"ω" * op::λʼ(p, {.order = order, .nbatch = nbatch}) * P(nₚ(-p));
     result.at(p) =
@@ -474,7 +476,7 @@ std::vector<ExprPtr> CC::eom_r_ucc(
     it->second = hbar(k);
     if (tensor_level)
       it->second =
-          bernoulli::detail::R_part(it->second, N, skip_singles() ? 2 : 1);
+          bernoulli::detail::R_part(it->second, n_, skip_singles() ? 2 : 1);
   }
   auto bra_of = [tensor_level](std::int64_t p, std::int64_t h) {
     return tensor_level ? op::tensor::δl(nₚ(p), nₕ(h)) : op::δl(nₚ(p), nₕ(h));

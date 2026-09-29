@@ -1614,9 +1614,10 @@ SECTION("Open-shell spin-tracing") {
         input, IdxGroupList{{L"i_1", L"a_1"}, {L"i_2", L"a_2"}});
     REQUIRE(result.size() == 3);
     REQUIRE(
-        toUtf8(to_latex(result[0])) ==
-        toUtf8(L"{{{\\frac{1}{2}}}{\\bar{g}^{{i↑_1}{i↑_2}}_{{i↑_3}{a↑_1}}}{t^{{"
-               L"i↑_3}}_{{a↑_2}}}}"));
+        to_utf8(to_latex(result[0])) ==
+        to_utf8(
+            L"{{{\\frac{1}{2}}}{\\bar{g}^{{i↑_1}{i↑_2}}_{{i↑_3}{a↑_1}}}{t^{{"
+            L"i↑_3}}_{{a↑_2}}}}"));
     REQUIRE(to_latex(result[1]) ==
             L"{{{-\\frac{1}{2}}}{g^{{i↑_1}{i↓_2}}_{{a↑_1}{i↓_1}}}{t^{{i↓_1}}_"
             L"{{a↓_2}}}}");
@@ -1857,7 +1858,7 @@ SECTION("ResultExpr") {
         {L"a1,u1,i1;i2,u2,a2", 6}, {L"a1,a2,u1;i1,i2,u2", 2}};
     for (const auto& [slots, count] : slots_and_counts)
       for (std::wstring symm : {L"A", L"S"}) {
-        CAPTURE(toUtf8(slots), toUtf8(symm));
+        CAPTURE(to_utf8(slots), to_utf8(symm));
         const ResultExpr input = deserialize<ResultExpr>(
             L"R{" + slots + L"}:" + symm + L" = g{" + slots + L"}:" + symm);
         auto reference = [&](const ResultExpr& result) {

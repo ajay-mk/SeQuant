@@ -11,11 +11,11 @@
 namespace sequant::mbpt {
 void OpRegistry::validate_op(const std::wstring& op) const {
   if (!reserved::is_nonreserved(op)) {
-    throw Exception("mbpt::OpRegistry::add: operator " + toUtf8(op) +
+    throw Exception("mbpt::OpRegistry::add: operator " + to_utf8(op) +
                     " uses a reserved label");
   }
   if (this->contains(op)) {
-    throw Exception("mbpt::OpRegistry::add: operator " + toUtf8(op) +
+    throw Exception("mbpt::OpRegistry::add: operator " + to_utf8(op) +
                     " already exists in registry");
   }
 }
@@ -50,7 +50,7 @@ OpRegistry& OpRegistry::set_hermiticity(const std::wstring& op,
                                         Hermiticity hermiticity) {
   if (!this->contains(op)) {
     throw Exception("mbpt::OpRegistry::set_hermiticity: operator " +
-                    toUtf8(op) + " does not exist in registry");
+                    to_utf8(op) + " does not exist in registry");
   }
   herm_overrides_->insert_or_assign(op, hermiticity);
   return *this;
@@ -58,7 +58,7 @@ OpRegistry& OpRegistry::set_hermiticity(const std::wstring& op,
 
 OpRegistry& OpRegistry::remove(const std::wstring& op) {
   if (!this->contains(op)) {
-    throw Exception("mbpt::OpRegistry::remove: operator " + toUtf8(op) +
+    throw Exception("mbpt::OpRegistry::remove: operator " + to_utf8(op) +
                     " does not exist in registry");
   }
   ops_->erase(op);
@@ -73,7 +73,7 @@ bool OpRegistry::contains(const std::wstring& op) const {
 OpClass OpRegistry::to_class(const std::wstring& op) const {
   auto it = ops_->find(op);
   if (it == ops_->end()) {
-    throw Exception("mbpt::OpRegistry::to_class: operator " + toUtf8(op) +
+    throw Exception("mbpt::OpRegistry::to_class: operator " + to_utf8(op) +
                     " does not exist in registry");
   }
   return it->second;

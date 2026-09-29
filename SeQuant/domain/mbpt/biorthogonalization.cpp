@@ -29,7 +29,7 @@
 namespace sequant::mbpt {
 
 template <typename T>
-struct compare_first_less {
+struct CompareFirstLess {
   bool operator()(const T& lhs, const T& rhs) const {
     return lhs.first < rhs.first;
   }
@@ -141,7 +141,7 @@ Eigen::Matrix<sequant::rational, Eigen::Dynamic, Eigen::Dynamic>
 make_hardcoded_biorthogonalizer_matrix(
     const std::vector<sequant::rational>& first_row, std::size_t n_particles) {
   const auto n = first_row.size();
-  Eigen::Matrix<sequant::rational, Eigen::Dynamic, Eigen::Dynamic> M(n, n);
+  Eigen::Matrix<sequant::rational, Eigen::Dynamic, Eigen::Dynamic> m(n, n);
 
   for (std::size_t row = 0; row < n; ++row) {
     for (std::size_t col = 0; col < n; ++col) {
@@ -151,10 +151,10 @@ make_hardcoded_biorthogonalizer_matrix(
       col_perm->preMultiply(row_perm);
 
       std::size_t source_idx = perm::rank(col_perm, n_particles);
-      M(row, col) = first_row[source_idx];
+      m(row, col) = first_row[source_idx];
     }
   }
-  return M;
+  return m;
 }
 
 Eigen::Matrix<sequant::rational, Eigen::Dynamic, Eigen::Dynamic>
@@ -198,8 +198,8 @@ Eigen::MatrixXd permutational_overlap_matrix(std::size_t n_particles) {
   // The matrix only contains integer entries but all operations we want to do
   // with the matrix will (in general) require non-integer scalars which in
   // Eigen only works if you start from a non-integer matrix.
-  Eigen::MatrixXd M(n, n);
-  M.setZero();
+  Eigen::MatrixXd m(n, n);
+  m.setZero();
 
   // TODO: Can we fill the entire matrix only by knowing the entries of one
   // row/column? For n_particles < 4, every consecutive col/row is only rotated
@@ -210,7 +210,7 @@ Eigen::MatrixXd permutational_overlap_matrix(std::size_t n_particles) {
 
     // The identity permutation always has as many disjoint cycles as the number
     // of elements it acts on
-    M(row, row) = std::pow(-2, n_particles);
+    m(row, row) = std::pow(-2, n_particles);
 
     for (std::size_t col = row + 1; col < n; ++col) {
       // Get permutation that transforms the permutation of rank1 into the one
@@ -223,18 +223,18 @@ Eigen::MatrixXd permutational_overlap_matrix(std::size_t n_particles) {
 
       auto entry = std::pow(-2, n_cycles);
 
-      M(row, col) = entry;
-      M(col, row) = entry;
+      m(row, col) = entry;
+      m(col, row) = entry;
     }
   }
 
   if (n_particles % 2 != 0) {
-    M *= -1;
+    m *= -1;
   }
 
-  SEQUANT_ASSERT(M.isApprox(M.transpose()));
+  SEQUANT_ASSERT(m.isApprox(m.transpose()));
 
-  return M;
+  return m;
 }
 
 Eigen::MatrixXd compute_biorthogonalizer_matrix(std::size_t n_particles,
@@ -267,16 +267,16 @@ Eigen::MatrixXd compute_biorthogonalizer_matrix(std::size_t n_particles,
 
 void sort_pairings(ParticlePairings& pairing) {
   std::stable_sort(pairing.begin(), pairing.end(),
-                   compare_first_less<IndexPair>{});
+                   CompareFirstLess<IndexPair>{});
 }
 
 std::size_t rank_transformation_perms(const ParticlePairings& reference,
                                       const ParticlePairings& current) {
   SEQUANT_ASSERT(reference.size() == current.size());
   SEQUANT_ASSERT(std::is_sorted(reference.begin(), reference.end(),
-                                compare_first_less<IndexPair>{}));
+                                CompareFirstLess<IndexPair>{}));
   SEQUANT_ASSERT(std::is_sorted(current.begin(), current.end(),
-                                compare_first_less<IndexPair>{}));
+                                CompareFirstLess<IndexPair>{}));
 
   perm::Permutation perm = perm::computeTransformationPermutation(
       reference, current, [](const IndexPair& lhs, const IndexPair& rhs) {
@@ -296,10 +296,10 @@ ExprPtr create_expr_for(const ParticlePairings& ref_pairing,
   SEQUANT_ASSERT(std::all_of(
       pairings.begin(), pairings.end(), [](const ParticlePairings& pairing) {
         return std::is_sorted(pairing.begin(), pairing.end(),
-                              compare_first_less<IndexPair>{});
+                              CompareFirstLess<IndexPair>{});
       }));
   SEQUANT_ASSERT(std::is_sorted(ref_pairing.begin(), ref_pairing.end(),
-                                compare_first_less<IndexPair>{}));
+                                CompareFirstLess<IndexPair>{}));
 
   container::set<std::pair<IndexSpace, IndexSpace>> ref_space_pairing;
   ref_space_pairing.reserve(ref_pairing.size());
