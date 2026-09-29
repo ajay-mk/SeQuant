@@ -9,14 +9,14 @@ cost objective — and two self-contained refinements shipped on top of it. It c
 </user/guide/optimize>` and the :doc:`batched-evaluation architecture page <batched_evaluation>`, neither of which go into this level of
 detail.
 
-The ``CostModel`` concept and driver
+The ``cost_model`` concept and driver
 ----------------------------------------
 
 The DP itself — the subset lattice, the bipartition enumeration, and the bookkeeping to turn a set of per-subset decisions back into a
 contraction sequence — is implemented once, in :func:`sequant::opt::detail::solve_single_term` and
 :func:`sequant::opt::detail::run_single_term_opt`. What varies between cost objectives is only the recurrence: how expensive a given
 contraction is, and how to combine per-subset results. That variation point is factored out as a C++20 concept,
-:concept:`sequant::opt::detail::CostModel`, requiring a type to provide:
+:concept:`sequant::opt::detail::cost_model`, requiring a type to provide:
 
 - two associated types, ``State`` (a DP cell) and ``Context`` (precomputed tables and mutable scratch), and
 - six methods: ``build_context``, ``leaf``, ``init``, ``relax`` (the recurrence step, called once per candidate bipartition of a

@@ -12,23 +12,23 @@ Two execution strategies
 Numeric evaluation is reached through :func:`sequant::evaluate`, dispatched by ``BatchPolicy::scheduler``
 (:class:`sequant::BatchScheduler`) onto one of two strategies:
 
-- **``forest_descent``** (the default): each equation in a forest is evaluated independently, one tree at a time, by the original
+- **``ForestDescent``** (the default): each equation in a forest is evaluated independently, one tree at a time, by the original
   tree-walking evaluator. Batching is realized by a *custom evaluator* (:func:`sequant::make_batched_custom_evaluator`, or the
   ``BatchPolicy``-driven adapter :func:`sequant::make_evaluator`) installed on the node cache: when the walk reaches a node whose
   contracted or external mode is batchable, the custom evaluator re-enters the subtree once per slice and accumulates/scatters the
   partial results, instead of letting a single one-shot contraction run.
-- **``ordered``**: the entire forest is fused into one `DAG <https://en.wikipedia.org/wiki/Directed_acyclic_graph>`_ and driven by a single, explicitly-scheduled, table-driven walk
-  (``SeQuant/core/eval/ordered_executor.hpp``). Its advantage over per-tree ``forest_descent`` is cross-equation sharing: a value that
+- **``Ordered``**: the entire forest is fused into one `DAG <https://en.wikipedia.org/wiki/Directed_acyclic_graph>`_ and driven by a single, explicitly-scheduled, table-driven walk
+  (``SeQuant/core/eval/ordered_executor.hpp``). Its advantage over per-tree ``ForestDescent`` is cross-equation sharing: a value that
   is structurally identical across several equations in the forest — a common intermediate contraction, or a batch loop over the same
   index — is identified once and built once, rather than rebuilt independently inside every tree that needs it.
 
-Both strategies produce the same numeric result for the same ``BatchPolicy``; ``ordered`` exists to recover the sharing that
+Both strategies produce the same numeric result for the same ``BatchPolicy``; ``Ordered`` exists to recover the sharing that
 per-tree evaluation cannot see, at the cost of a more involved scheduling pipeline, described below.
 
-The ``ordered`` pipeline
+The ``Ordered`` pipeline
 ----------------------------
 
-Evaluating a forest under ``BatchScheduler::ordered`` proceeds through four stages, each with its own SeQuant header:
+Evaluating a forest under ``BatchScheduler::Ordered`` proceeds through four stages, each with its own SeQuant header:
 
 1. **Loop identity** (``SeQuant/core/eval/dag_scope.hpp``, ``peak_profile.hpp``, ``lifetime_mask.hpp``). Before anything is scheduled,
    every physical batch loop implied by the cost model's decision needs a stable identity distinct from where it happens to sit in any
@@ -56,7 +56,7 @@ Evaluating a forest under ``BatchScheduler::ordered`` proceeds through four stag
 A correctness caveat for sparse backends
 ---------------------------------------------
 
-Some numeric backends (TiledArray in particular) screen individual result tiles against a norm bound (typically a `Cauchy–Schwarz
+Some numeric backends (TiledArray in particular) screen individual result tiles against a norm bound (typically a `Cauchy-Schwarz
 <https://en.wikipedia.org/wiki/Cauchy%E2%80%93Schwarz_inequality>`_ bound) computed for the *full* contraction. Evaluating only a fraction of a
 batched reduction and comparing each partial result against that same full-contraction bound can wrongly discard tiles that would have
 survived the complete sum — silently dropping a real contribution. The executor therefore accepts a *scope guard* factory (instantiated once
@@ -69,12 +69,12 @@ slightly-wrong numeric result.
 Current scope
 ----------------
 
-As of this writing, the ``ordered`` pipeline does not: choose the fusion of loop instances optimally where producer/consumer
+As of this writing, the ``Ordered`` pipeline does not: choose the fusion of loop instances optimally where producer/consumer
 connectivity allows more than one valid choice (a valid, but not necessarily optimal, choice is recorded); reorder loop nesting across
 index spaces for cost (the realized nesting order follows how the loops were discovered, not a separate cost search); make a
 cost-aware choice between materializing and recomputing a value across a forced pass split (a pass split always materializes); or
 share a transient value across multiple reads (an unrecorded intermediate is recomputed inside every production tree that needs it).
 It also supports scattering into at most one position of one value per loop instance; a schedule that would require more throws rather
 than silently doing the wrong thing. None of this affects correctness — every one of these is a possible future efficiency
-improvement, not a currently-missing correctness guarantee — but they bound how much benefit ``ordered`` scheduling can currently
+improvement, not a currently-missing correctness guarantee — but they bound how much benefit ``Ordered`` scheduling can currently
 realize relative to a hypothetical, fully cost-optimal fusion.

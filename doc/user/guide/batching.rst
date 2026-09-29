@@ -75,8 +75,8 @@ Executing a batched plan
 Once ``optimize()`` has annotated an expression with a batching decision, actually *running* it numerically needs a real tensor backend
 (TiledArray, BTAS, or TAPP) and is reached through the same :func:`sequant::evaluate` entry points used for any other evaluation, plus
 :func:`sequant::make_evaluator` to adapt a ``BatchPolicy`` into the evaluator SeQuant's cache consults. Two execution strategies are
-available, selected by ``BatchPolicy::scheduler``: the default ``BatchScheduler::forest_descent`` evaluates one equation at a time, while
-``BatchScheduler::ordered`` fuses an entire forest of equations into a single schedule so a value shared across several equations is
+available, selected by ``BatchPolicy::scheduler``: the default ``BatchScheduler::ForestDescent`` evaluates one equation at a time, while
+``BatchScheduler::Ordered`` fuses an entire forest of equations into a single schedule so a value shared across several equations is
 built once rather than once per equation. Because these entry points are backend-dependent, they are outside the scope of a
 backend-agnostic example here; the internal architecture behind both strategies is documented for contributors in
 :doc:`/developer/batched_evaluation`, and the cost model driving the decisions above in :doc:`/developer/cost_model`.

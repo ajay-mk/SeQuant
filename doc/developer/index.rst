@@ -9,6 +9,7 @@ calls.
 .. toctree::
    :maxdepth: 2
 
+   coding_style
    documentation
    wick
    tnc
