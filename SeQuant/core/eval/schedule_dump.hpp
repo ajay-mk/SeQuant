@@ -115,7 +115,7 @@ void sched_json_index_array(Range const& r, std::ostream& os) {
   for (auto const& ix : r) {
     if (!first) os << ',';
     first = false;
-    os << '"' << sched_json_escape(sequant::toUtf8(ix.full_label())) << '"';
+    os << '"' << sched_json_escape(sequant::to_utf8(ix.full_label())) << '"';
   }
   os << ']';
 }
@@ -138,7 +138,7 @@ void schedule_ir_json_node(Node const& n, std::ostream& os) {
 
   std::string ident;
   try {
-    ident = sequant::toUtf8(sequant::io::serialization::to_string(n->expr()));
+    ident = sequant::to_utf8(sequant::io::serialization::to_string(n->expr()));
   } catch (...) {
     ident.clear();
   }
@@ -160,7 +160,7 @@ void schedule_ir_json_node(Node const& n, std::ostream& os) {
       if (!first) os << ',';
       first = false;
       os << "{\"index\":\""
-         << sched_json_escape(sequant::toUtf8(ix.full_label()))
+         << sched_json_escape(sequant::to_utf8(ix.full_label()))
          << "\",\"mode\":\"" << sched_mode_name(knd) << "\"}";
     }
   }

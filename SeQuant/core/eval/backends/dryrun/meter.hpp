@@ -139,8 +139,8 @@ struct MeterReport {
   std::vector<HomeFidelity> home_fidelity;  ///< sorted: builds desc
 
   BatchScheduler scheduler =
-      BatchScheduler::forest_descent;  ///< which executor this report
-                                       ///< describes
+      BatchScheduler::ForestDescent;  ///< which executor this report
+                                      ///< describes
 };
 
 ///
@@ -447,7 +447,7 @@ inline MeterReport meter(std::vector<EvalNodeDryRun> const& forest,
   if (trace) logger.eval.stream = trace;
   logger.eval.node_meta = make_node_meta(rich);
 
-  // Forest descent (BatchScheduler::forest_descent) needs the same batched
+  // Forest descent (BatchScheduler::ForestDescent) needs the same batched
   // custom evaluator MPQC's wet forest path installs (cck.ipp's `else`
   // branch, `cache.set_custom_evaluator(sequant::make_evaluator(ctx.
   // batch_policy, yielder, make_scope_guard))`): without it, plain
@@ -473,7 +473,7 @@ inline MeterReport meter(std::vector<EvalNodeDryRun> const& forest,
   // production dry-run predictor: measured 458x low on the C60 fixture) and
   // (b) make meter() itself ODR-divergent between a TU that defines
   // SEQUANT_EVAL_TRACE and one that does not.
-  if (policy.scheduler == BatchScheduler::forest_descent)
+  if (policy.scheduler == BatchScheduler::ForestDescent)
     cache.set_custom_evaluator(sequant::make_evaluator<Trace::On>(
         policy, yield, sequant::make_no_scope_guard{}));
 

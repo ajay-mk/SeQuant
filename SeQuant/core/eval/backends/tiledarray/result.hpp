@@ -74,12 +74,12 @@ struct FenceReporter {
                 << "\n";
   }
 };
-inline FenceReporter fence_reporter_{};
+inline FenceReporter fence_reporter{};
 
 // Wire PhaseTimer's boundary barrier to a TA world fence so per-region phase
 // timers cannot misattribute async (deferred) work across regions. Runs only
 // under SEQUANT_UT_PHASE (PhaseTimer::Scope calls barrier() only when enabled).
-inline const bool phase_fence_installed_ = [] {
+inline const bool phase_fence_installed = [] {
   ::sequant::eval::PhaseTimer::fence_hook() = [] {
     TA::get_default_world().gop.fence();
     ::sequant::detail::note_fence();
@@ -245,11 +245,12 @@ auto particle_antisymmetrize_ta(TA::DistArray<Args...> const& arr,
                              : (is_bra ? range_annot + "," + other_annot
                                        : other_annot + "," + range_annot);
 
-      typename decltype(result)::numeric_type p_ = parity == 0 ? 1 : -1;
+      typename decltype(result)::numeric_type parity_sign =
+          parity == 0 ? 1 : -1;
       if (result.is_initialized()) {
-        result(lannot) += p_ * input_arr(annot);
+        result(lannot) += parity_sign * input_arr(annot);
       } else {
-        result(lannot) = p_ * input_arr(annot);
+        result(lannot) = parity_sign * input_arr(annot);
       }
     };
     antisymmetric_permutation(ParticleRange{range_perm.begin(), range_rank},
@@ -666,7 +667,7 @@ class ResultTensorTA final : public Result {
 
   [[nodiscard]] ResultPtr prod(Result const& other,
                                std::array<std::any, 3> const& annot,
-                               DeNest DeNestFlag) const override {
+                               DeNest de_nest_flag) const override {
     auto const a = annot_wrap{annot};
 
     if (other.is<ResultScalar<numeric_type>>()) {
@@ -700,7 +701,7 @@ class ResultTensorTA final : public Result {
       // potential T * ToT
       auto annot_swap = annot;
       std::swap(annot_swap[0], annot_swap[1]);
-      return other.prod(*this, annot_swap, DeNestFlag);
+      return other.prod(*this, annot_swap, de_nest_flag);
     }
 
     // confirmed: other.is<this_type>() is true
@@ -903,7 +904,7 @@ class ResultTensorOfTensorTA final : public Result {
 
   [[nodiscard]] ResultPtr prod(Result const& other,
                                std::array<std::any, 3> const& annot,
-                               DeNest DeNestFlag) const override {
+                               DeNest de_nest_flag) const override {
     auto const a = annot_wrap{annot};
 
     if (other.is<ResultScalar<numeric_type>>()) {
@@ -942,14 +943,14 @@ class ResultTensorOfTensorTA final : public Result {
       log_ta_tensor_host_memory_use();
       return eval_result<this_type>(std::move(result));
 
-    } else if (other.is<this_type>() && DeNestFlag == DeNest::True) {
+    } else if (other.is<this_type>() && de_nest_flag == DeNest::True) {
       // ToT * ToT -> T
       auto result = TA::einsum<TA::DeNest::True>(
           get<ArrayT>()(a.lannot), other.get<ArrayT>()(a.rannot), a.this_annot);
       log_ta_tensor_host_memory_use();
       return eval_result<that_type>(std::move(result));
 
-    } else if (other.is<this_type>() && DeNestFlag == DeNest::False) {
+    } else if (other.is<this_type>() && de_nest_flag == DeNest::False) {
       // ToT * ToT -> ToT
       auto result = TA::einsum(get<ArrayT>()(a.lannot),
                                other.get<ArrayT>()(a.rannot), a.this_annot);

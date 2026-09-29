@@ -98,10 +98,11 @@ auto particle_antisymmetrize_btas(btas::Tensor<Args...> const& arr,
           is_bra ? concat(range_perm, other_perm) | ranges::to<perm_t>()
                  : concat(other_perm, range_perm) | ranges::to<perm_t>();
 
-      typename decltype(result)::numeric_type p_ = parity == 0 ? 1 : -1;
+      typename decltype(result)::numeric_type parity_sign =
+          parity == 0 ? 1 : -1;
       btas::Tensor<Args...> temp;
       btas::permute(input_arr, lannot, temp, annot);
-      btas::scal(p_, temp);
+      btas::scal(parity_sign, temp);
       result += temp;
     };
 

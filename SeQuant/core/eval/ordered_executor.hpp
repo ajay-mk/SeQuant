@@ -591,7 +591,7 @@ template <typename Modes>
 [[nodiscard]] std::string dag_scope(Modes&& modes) {
   return join_strings<std::string>(
       std::forward<Modes>(modes), ",",
-      [](Index const& m) { return toUtf8(m.space().base_key()); });
+      [](Index const& m) { return to_utf8(m.space().base_key()); });
 }
 
 /// value id -> forest node: the node of \p vmap whose value key is that of
@@ -861,7 +861,7 @@ void run_ordered_contracted_block(
     log::log("BatchGroup", "Begin",
              std::format("{} steps over {} batches of {} {}",
                          block.steps.size(), batches.size(),
-                         toUtf8(std::wstring(block.axis.space().base_key())),
+                         to_utf8(std::wstring(block.axis.space().base_key())),
                          log::scope_annot(s)));
   }
   {
@@ -870,7 +870,7 @@ void run_ordered_contracted_block(
       std::cerr << "ORDERED_RUN_BLOCK {\"kind\":\""
                 << (block.kind == BatchModeType::External ? "external"
                                                           : "contracted")
-                << "\",\"mode\":\"" << toUtf8(block.axis.full_label())
+                << "\",\"mode\":\"" << to_utf8(block.axis.full_label())
                 << "\",\"depth\":" << block.level.depth
                 << ",\"slot\":" << block.level.loop_slot
                 << ",\"lat\":" << block.latitude_ordinal
@@ -2007,7 +2007,7 @@ namespace sequant {
 /// reaches this driver only by supplying a \c BatchPolicy explicitly; every
 /// other call resolves to the policy-free overload.
 ///
-/// \p policy.scheduler == BatchScheduler::ordered builds the schedule from
+/// \p policy.scheduler == BatchScheduler::Ordered builds the schedule from
 /// \p forest's own placement and drives the ordered executor -- see
 /// \c eval::evaluate_ordered, to which \p mode_order and \p make_scope_guard
 /// are forwarded verbatim.
@@ -2026,7 +2026,7 @@ ResultPtr evaluate(Nodes const& forest, BatchPolicy const& policy,
                    CacheManager<N, FHC>& cache,
                    std::initializer_list<std::wstring> mode_order = {},
                    ScopeGuardFactory make_scope_guard = {}) {
-  if (policy.scheduler != BatchScheduler::ordered)
+  if (policy.scheduler != BatchScheduler::Ordered)
     return evaluate<EvalTrace>(forest, layout, leaf_evaluator, cache);
 
   // An empty batch_target_size is guarded the same way make_evaluator(policy,

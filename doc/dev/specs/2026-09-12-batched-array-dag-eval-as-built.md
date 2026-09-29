@@ -183,7 +183,7 @@ is no post-DP external placement pass.
 | `batch_spectator_indices` | admits external modes as nestable cell modes; without it the DP opens none |
 | `persistent_only` | decline to batch any subtree holding a volatile leaf (default off: batch across the board) |
 | `accumulation_factor` | in-flight batch-contribution footprint multiplier |
-| `scheduler` | `forest_descent` (default, legacy) or `ordered` (this pipeline) |
+| `scheduler` | `ForestDescent` (default, legacy) or `Ordered` (this pipeline) |
 | `peak_threshold` | budget in BYTES; a finite value is what ENABLES batching at all |
 
 ## 5. Loop identity and occurrence facts
@@ -463,7 +463,7 @@ treated like a violation.
 
 `ordered_executor.hpp`. `sequant::evaluate(forest, policy, layout, leaf_evaluator,
 cache, mode_order, make_scope_guard)` routes on `policy.scheduler`;
-`BatchScheduler::ordered` goes to `eval::evaluate_ordered`, which builds schedule and
+`BatchScheduler::Ordered` goes to `eval::evaluate_ordered`, which builds schedule and
 table, validates the table (`assert_valid_cell_table` THROWS on any violation), and
 walks the block tree.
 
@@ -648,7 +648,7 @@ box.
 
 ### 12.1 The batched forest descent
 
-`BatchScheduler::forest_descent` remains the DEFAULT and is kept for now: an
+`BatchScheduler::ForestDescent` remains the DEFAULT and is kept for now: an
 unconditional forward to the pre-existing `sequant::evaluate(forest, layout,
 leaf_evaluator, cache)` overload (`eval.hpp`), with no schedule built and nothing from
 sections 5-8 running. It evaluates one tree at a time, hoists a value to an enclosing

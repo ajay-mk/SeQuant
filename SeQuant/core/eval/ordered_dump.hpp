@@ -226,7 +226,7 @@ inline void dump_use_induced(std::size_t value_h, Index const& mode,
                              std::size_t pos, std::size_t loop,
                              std::size_t consumer_h) {
   std::cerr << "[useinduced] value_h=" << value_h
-            << " M=" << toUtf8(mode.full_label()) << " pos=" << pos
+            << " M=" << to_utf8(mode.full_label()) << " pos=" << pos
             << " loop=" << loop << " consumer_h=" << consumer_h << "\n";
 }
 
@@ -291,7 +291,7 @@ void dump_cells_of(Table const& table, Rich const& rich,
       std::cerr << "pos" << p << "@d" << k.depth << "#" << k.loop_slot << " ";
     std::cerr << "} carried={";
     for (auto const& ix : rich.cells[c.value_id].carried)
-      std::cerr << toUtf8(std::wstring(ix.full_label())) << ' ';
+      std::cerr << to_utf8(std::wstring(ix.full_label())) << ' ';
     std::cerr << "} pia=" << c.produce_if_absent
               << " persistent=" << c.persistent << "\n";
   }
@@ -309,7 +309,7 @@ void dump_occs_of(Table const& table, Rich const& rich,
       point_to[rich.cells[vid].occurrences[o].point] = {vid, o};
   auto const labels = [](container::svector<Index> const& c) {
     std::string s;
-    for (auto const& ix : c) s += toUtf8(std::wstring(ix.full_label())) + " ";
+    for (auto const& ix : c) s += to_utf8(std::wstring(ix.full_label())) + " ";
     return s;
   };
   for (std::size_t vid : want) {
@@ -392,7 +392,7 @@ void dump_read(std::size_t consumer, Cell const& ccell, std::size_t vid,
 /// steps', its descendants' and its outputs') was already resident.
 inline void dump_block_skipped(Index const& axis, std::size_t depth,
                                int loop_slot) {
-  std::cerr << "[BLOCK] axis=" << toUtf8(axis.full_label())
+  std::cerr << "[BLOCK] axis=" << to_utf8(axis.full_label())
             << " depth=" << depth << " slot=" << loop_slot
             << " SKIPPED WHOLE (every production resident)" << std::endl;
 }
@@ -401,7 +401,7 @@ inline void dump_block_skipped(Index const& axis, std::size_t depth,
 inline void dump_block_build(Index const& axis, std::size_t lo, std::size_t hi,
                              std::size_t vid, std::size_t cell,
                              std::size_t hash) {
-  std::cerr << "[BLOCK] axis=" << toUtf8(axis.full_label()) << " batch=[" << lo
+  std::cerr << "[BLOCK] axis=" << to_utf8(axis.full_label()) << " batch=[" << lo
             << "," << hi << ") BUILD vid=" << vid << " cell=" << cell
             << " hash=" << hash << std::endl;
 }
@@ -411,7 +411,7 @@ inline void dump_block_assemble(Index const& axis, std::size_t lo,
                                 std::size_t hi, std::size_t vid,
                                 std::size_t cell, std::size_t src,
                                 bool is_sum) {
-  std::cerr << "[BLOCK] axis=" << toUtf8(axis.full_label()) << " batch=[" << lo
+  std::cerr << "[BLOCK] axis=" << to_utf8(axis.full_label()) << " batch=[" << lo
             << "," << hi << ") ASSEMBLE vid=" << vid << " cell=" << cell
             << " src=" << src << " kind=" << (is_sum ? "SUM" : "SCATTER")
             << std::endl;

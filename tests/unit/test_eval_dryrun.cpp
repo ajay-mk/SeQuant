@@ -376,7 +376,7 @@ bool is_df_batchable(Index const& ix) {
 
 // Diagnostic ([.]): does the order-aware ordered-key DP actually ENGAGE on the
 // real C60 giant, or does build_cells' m>7 fallback (enumeration blowup guard)
-// make it inert? Prints m (# batchable indices), ordered, nCells. Fast: only
+// make it inert? Prints m (# batchable indices), ordered, n_cells. Fast: only
 // Regression (fast, no DP solve): is_valid must ACCEPT a CSV (proto-indexed)
 // residual Sum. is_valid's Sum check compares each summand's external indices;
 // the slot-only get_unique_indices it used ignores proto-indices, so an occ
@@ -634,8 +634,8 @@ TEST_CASE("ordered-key C60 giant: does order_aware engage (m vs cap)?",
   auto ctx = model.build_context(net, targets);
   std::wcerr << L"[ordered-key-c60-m] giant (summand " << gi << L", "
              << giant->as<Product>().factors().size() << L" factors): m="
-             << ctx.m << L" ordered=" << ctx.ordered << L" nCells="
-             << ctx.nCells << L" (nB=" << ctx.nB << L")\n";
+             << ctx.m << L" ordered=" << ctx.ordered << L" n_cells="
+             << ctx.n_cells << L" (nB=" << ctx.nB << L")\n";
 }
 
 // Diagnostic + regression ([.]): scan EVERY summand of the C60 CSV-CCSD doubles
@@ -4268,11 +4268,11 @@ TEST_CASE(
   REQUIRE(result);
 
   auto const report = assemble_report(cache, mon, rich, forest, is_volatile,
-                                      sequant::BatchScheduler::forest_descent);
+                                      sequant::BatchScheduler::ForestDescent);
 
   CHECK(report.builds_total > 0);
   CHECK_FALSE(report.home_fidelity.empty());
-  CHECK(report.scheduler == sequant::BatchScheduler::forest_descent);
+  CHECK(report.scheduler == sequant::BatchScheduler::ForestDescent);
 
   // EXEC/COST SPLIT: exec is threaded BuildRecord -> tally_build ->
   // assemble_report independently of (and not swapped with) flops -- both
@@ -4308,7 +4308,7 @@ TEST_CASE(
 // forest descent, chosen by BatchPolicy::scheduler) through the sizing
 // backend with its own metered cache, rather than a hand-rolled proxy of one.
 // This forest carries a genuine Contracted batch axis (a_3, the "aux"-analog):
-// with scheduler == BatchScheduler::ordered, the driver entry
+// with scheduler == BatchScheduler::Ordered, the driver entry
 // (ordered_executor.hpp) rebuilds a schedule with ONE realized batch loop
 // from that stamp and drives the executor's nested batch-scratch caches
 // (a Task-1 coverage gap -- no earlier [meter] test exercised a multi-level
@@ -4365,16 +4365,16 @@ TEST_CASE(
   };
 
   // ---- ordered: exercises the nested batch-scratch walk. ----
-  policy.scheduler = sequant::BatchScheduler::ordered;
+  policy.scheduler = sequant::BatchScheduler::Ordered;
   auto const ord_report = meter(forest, policy, regime, cfg);
   CHECK(ord_report.peak_bytes > 0.0);
   CHECK(ord_report.builds_total > 0);
-  CHECK(ord_report.scheduler == sequant::BatchScheduler::ordered);
+  CHECK(ord_report.scheduler == sequant::BatchScheduler::Ordered);
 
   // ---- forest descent: the SAME forest/policy, scheduler reset. ----
-  policy.scheduler = sequant::BatchScheduler::forest_descent;
+  policy.scheduler = sequant::BatchScheduler::ForestDescent;
   auto const fd_report = meter(forest, policy, regime, cfg);
   CHECK(fd_report.peak_bytes > 0.0);
   CHECK(fd_report.builds_total > 0);
-  CHECK(fd_report.scheduler == sequant::BatchScheduler::forest_descent);
+  CHECK(fd_report.scheduler == sequant::BatchScheduler::ForestDescent);
 }

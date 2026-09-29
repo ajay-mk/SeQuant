@@ -267,7 +267,7 @@ class Result {
   ///
   [[nodiscard]] virtual ResultPtr prod(Result const&,
                                        std::array<std::any, 3> const&,
-                                       DeNest DeNestFlag) const = 0;
+                                       DeNest de_nest_flag) const = 0;
 
   ///
   /// \brief Permute this object according to the annotations in the argument.
@@ -465,7 +465,7 @@ class ResultScalar final : public Result {
 
   [[nodiscard]] ResultPtr prod(Result const& other,
                                std::array<std::any, 3> const& maybe_empty,
-                               DeNest DeNestFlag) const override {
+                               DeNest de_nest_flag) const override {
     if (other.is<ResultScalar<T>>()) {
       auto const& o = other.as<ResultScalar<T>>();
       auto p = value() * o.value();
@@ -474,9 +474,9 @@ class ResultScalar final : public Result {
 
       return eval_result<ResultScalar<T>>(value() * o.value());
     } else {
-      auto maybe_empty_ = maybe_empty;
-      std::swap(maybe_empty_[0], maybe_empty_[1]);
-      return other.prod(*this, maybe_empty_, DeNestFlag);
+      auto permuted_indices = maybe_empty;
+      std::swap(permuted_indices[0], permuted_indices[1]);
+      return other.prod(*this, permuted_indices, de_nest_flag);
     }
   }
 

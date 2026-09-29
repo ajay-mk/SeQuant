@@ -1002,11 +1002,11 @@ inline bool mode_is_external(RichSchedule const& rich, Index const& mode) {
   // resolved back to the parent value_id.
   auto const g = detail::ordered_schedule_dep_graph(rich);
   auto const& value_id_of = g.value_id_of;
-  static container::svector<std::size_t> const kNoDeps{};
+  static container::svector<std::size_t> const no_deps{};
   auto const requires_of =
       [&](std::size_t vid) -> container::svector<std::size_t> const& {
     auto const it = g.depends_on.find(vid);
-    return it == g.depends_on.end() ? kNoDeps : it->second;
+    return it == g.depends_on.end() ? no_deps : it->second;
   };
 
   // The fusion-assigned loop_slot (compute_dag_boulevard) of a
@@ -1148,9 +1148,9 @@ inline bool mode_is_external(RichSchedule const& rich, Index const& mode) {
         auto const b = item_of.find(pair.second);
         if (a == item_of.end() || b == item_of.end()) continue;
         if (indeg[a->second] == 0 && indeg[b->second] == 0) continue;
-        msg += " [" + toUtf8(pair.first.first) + "#" +
+        msg += " [" + to_utf8(pair.first.first) + "#" +
                std::to_string(pair.first.second) + " > " +
-               toUtf8(pair.second.first) + "#" +
+               to_utf8(pair.second.first) + "#" +
                std::to_string(pair.second.second) + " by v" +
                std::to_string(witness) + "]";
       }

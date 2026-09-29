@@ -242,11 +242,11 @@ TEST_CASE("ordered executor asserts the cell table before evaluating",
 
 // The same equivalence, but reached through the BatchPolicy-gated dispatch
 // entry (sequant::evaluate(Nodes const&, BatchPolicy const&, ...),
-// ordered_executor.hpp) with policy.scheduler == BatchScheduler::ordered -- the
+// ordered_executor.hpp) with policy.scheduler == BatchScheduler::Ordered -- the
 // actual caller-facing seam SP3 Task 1 wires up, rather than calling
 // evaluate_ordered_schedule directly as the test above does.
 TEST_CASE(
-    "BatchPolicy::scheduler == BatchScheduler::ordered routes through the "
+    "BatchPolicy::scheduler == BatchScheduler::Ordered routes through the "
     "ordered executor and matches forest descent",
     "[ordered-executor]") {
   std::vector<ScalarNode> forest{scalar_tree(L"2 * a * b - c"),
@@ -258,7 +258,7 @@ TEST_CASE(
   double const expected = reference->as<ResultScalar<double>>().value();
 
   sequant::BatchPolicy policy;
-  policy.scheduler = sequant::BatchScheduler::ordered;
+  policy.scheduler = sequant::BatchScheduler::Ordered;
 
   auto cache = sequant::CacheManager<ScalarNode>::empty();
   ResultPtr const got = sequant::evaluate(
@@ -270,7 +270,7 @@ TEST_CASE(
 }
 
 // Flag-off byte-identical guard: with policy.scheduler left at its default
-// (BatchScheduler::forest_descent), the BatchPolicy-gated dispatch entry must
+// (BatchScheduler::ForestDescent), the BatchPolicy-gated dispatch entry must
 // take the forest-descent arm (an unconditional forward to
 // sequant::evaluate(Nodes const&, layout, leaf_evaluator, cache)) -- i.e.
 // the ordered branch must not disturb it when the scheduler is not set to
@@ -284,7 +284,7 @@ TEST_CASE(
   ScalarLeafEvaluator const yield{{{L"a", 2.0}, {L"b", -3.5}, {L"c", 7.25}}};
 
   sequant::BatchPolicy const policy;  // scheduler defaults to forest_descent
-  CHECK(policy.scheduler == sequant::BatchScheduler::forest_descent);
+  CHECK(policy.scheduler == sequant::BatchScheduler::ForestDescent);
 
   auto cache = sequant::CacheManager<ScalarNode>::empty();
   ResultPtr const got = sequant::evaluate(
@@ -1195,7 +1195,7 @@ TEST_CASE(
       std::string s;
       if (vid < rich.cells.size())
         for (auto const& x : rich.cells[vid].carried)
-          s += sequant::toUtf8(x.full_label()) + " ";
+          s += sequant::to_utf8(x.full_label()) + " ";
       return s;
     };
     auto sliced_str = [&](std::size_t vid) {
@@ -1205,7 +1205,7 @@ TEST_CASE(
             vmap_dump.find(sequant::eval::value_key_of(rich.cells[vid]));
         if (it != vmap_dump.end())
           for (auto const& x : (*it->second)->sliced_modes())
-            s += sequant::toUtf8(x.full_label()) + " ";
+            s += sequant::to_utf8(x.full_label()) + " ";
       }
       return s;
     };
@@ -1213,7 +1213,7 @@ TEST_CASE(
       std::string s;
       if (vid < rich.cells.size())
         for (auto const& x : rich.cells[vid].home_modes)
-          s += sequant::toUtf8(x.full_label()) + " ";
+          s += sequant::to_utf8(x.full_label()) + " ";
       return s;
     };
     std::function<void(sequant::eval::ScopeBlock const&, int)> dump =
@@ -1221,7 +1221,7 @@ TEST_CASE(
           std::string ind(2 * d, ' ');
           if (d > 0)
             std::cerr << ind
-                      << "BLOCK axis=" << sequant::toUtf8(b.axis.full_label())
+                      << "BLOCK axis=" << sequant::to_utf8(b.axis.full_label())
                       << " kind="
                       << (b.kind == sequant::BatchModeType::External ? "EXT"
                                                                      : "CON")
@@ -1265,10 +1265,10 @@ TEST_CASE(
                     << " h=" << (c->hash_value() % 100000u)
                     << " leaf=" << (int)c.leaf() << " carried=[";
           for (auto const& x : c->canon_indices())
-            std::cerr << sequant::toUtf8(x.full_label()) << " ";
+            std::cerr << sequant::to_utf8(x.full_label()) << " ";
           std::cerr << "] sliced=[";
           for (auto const& x : c->sliced_modes())
-            std::cerr << sequant::toUtf8(x.full_label()) << " ";
+            std::cerr << sequant::to_utf8(x.full_label()) << " ";
           std::cerr << "]\n";
         };
         std::cerr << "[children] parent h=" << (h % 100000u) << "\n";
@@ -1291,10 +1291,10 @@ TEST_CASE(
             vmap_dump.find(sequant::eval::value_key_of(rich.cells[vid]));
         if (it != vmap_dump.end())
           for (auto const& x : (*it->second)->sliced_modes())
-            v.push_back(sequant::toUtf8(x.full_label()));
+            v.push_back(sequant::to_utf8(x.full_label()));
       } else if (vid < rich.cells.size()) {
         for (auto const& x : rich.cells[vid].carried)
-          v.push_back(sequant::toUtf8(x.full_label()));
+          v.push_back(sequant::to_utf8(x.full_label()));
       }
       return v;
     };
@@ -1324,7 +1324,7 @@ TEST_CASE(
             check_value(ovid, encl, "OUT");
           // builds & nested blocks live inside b -> b's own axis encloses them
           // (the root scope, d==0, opens no loop)
-          if (d > 0) encl.push_back(sequant::toUtf8(b.axis.full_label()));
+          if (d > 0) encl.push_back(sequant::to_utf8(b.axis.full_label()));
           for (auto const& s : b.steps) {
             if (auto const* bs =
                     std::get_if<sequant::eval::BuildStep>(&s.value))
@@ -1366,12 +1366,12 @@ TEST_CASE(
         if (n.leaf()) return;
         bool opens_i1 = false;
         for (auto const& [ix, k] : n->batch_loops_opened_here())
-          if (sequant::toUtf8(ix.full_label()) == "i_1") opens_i1 = true;
+          if (sequant::to_utf8(ix.full_label()) == "i_1") opens_i1 = true;
         bool const i1_here = i1_open_above || opens_i1;
         if (auto it = tag.find(n->hash_value()); it != tag.end()) {
           bool carries = false;
           for (auto const& x : n->canon_indices())
-            if (sequant::toUtf8(x.full_label()) == "i_1") carries = true;
+            if (sequant::to_utf8(x.full_label()) == "i_1") carries = true;
           occ[n->hash_value()].push_back(
               std::string("(open_above=") + (i1_open_above ? "Y" : "n") +
               " opens_here=" + (opens_i1 ? "Y" : "n") +
@@ -1428,11 +1428,11 @@ TEST_CASE(
         std::cerr << "  vid=" << vid << " h=" << (rich.cells[vid].hash % 100000)
                   << " per_axis={";
         for (auto const& ac : cl.per_axis)
-          std::cerr << sequant::toUtf8(ac.axis.full_label()) << ":"
+          std::cerr << sequant::to_utf8(ac.axis.full_label()) << ":"
                     << role_name(ac.role) << " ";
         std::cerr << "} home_floor={";
         for (auto const& x : cl.home_floor)
-          std::cerr << sequant::toUtf8(x.full_label()) << " ";
+          std::cerr << sequant::to_utf8(x.full_label()) << " ";
         std::cerr << "}\n";
       }
       std::cerr << "=== END PER_AXIS / HOME_FLOOR ===\n";
@@ -3155,7 +3155,7 @@ TEST_CASE(
 // b3 (2026-08-12 eager-home-release plan, Task b): dry == wet schedule
 // EQUIVALENCE for the ordered executor. b1 fixed a real dry-run/wet-run
 // fidelity bug in meter.hpp: the custom-evaluator install used to fire for
-// BatchScheduler::ordered too (ordered was not distinguishable from
+// BatchScheduler::Ordered too (ordered was not distinguishable from
 // forest_descent by that single negated check), routing
 // the dry ordered replay's root-level BuildSteps through the FOREST custom
 // evaluator instead of evaluate_ordered_schedule's own run_ordered_
@@ -3211,7 +3211,7 @@ TEST_CASE(
   auto cm = std::make_shared<sequant::eval::dryrun::CostModel const>(regime);
 
   // EXACT MPQC aux-only config (make_csv_batch_policy, aux_target=256), plus
-  // the b0 enum-based scheduler selection: BatchScheduler::ordered.
+  // the b0 enum-based scheduler selection: BatchScheduler::Ordered.
   sequant::BatchPolicy policy;
   policy.is_batchable_contracted_index = [](sequant::Index const& ix) {
     return ix.space().base_key() == L"Κ";
@@ -3229,7 +3229,7 @@ TEST_CASE(
   policy.accumulation_factor = 1.0;
   policy.persistent_only = false;
   policy.peak_threshold = 1e11;
-  policy.scheduler = sequant::BatchScheduler::ordered;
+  policy.scheduler = sequant::BatchScheduler::Ordered;
 
   auto axes_map = std::make_shared<std::unordered_map<
       sequant::Expr const*,
@@ -3353,7 +3353,7 @@ TEST_CASE(
 
   CHECK(direct_mon.hwmark_bytes > 0);
   CHECK(meter_report.peak_bytes > 0.0);
-  CHECK(meter_report.scheduler == sequant::BatchScheduler::ordered);
+  CHECK(meter_report.scheduler == sequant::BatchScheduler::Ordered);
 
   // THE payoff: dry (meter) == wet-style (direct) peak, exactly. If these
   // disagree, that is a REAL remaining dry/wet fidelity gap -- do not loosen

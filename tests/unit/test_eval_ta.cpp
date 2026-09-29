@@ -253,7 +253,7 @@ class rand_tensor_yield {
   /// Per-space tile size override (SEQUANT_UT_TILE_<space base key>, e.g.
   /// SEQUANT_UT_TILE_i=1 SEQUANT_UT_TILE_x=168); falls back to max_tile_.
   size_t tile_for(std::wstring const& bk) const {
-    std::string key = "SEQUANT_UT_TILE_" + sequant::toUtf8(bk);
+    std::string key = "SEQUANT_UT_TILE_" + sequant::to_utf8(bk);
     if (char const* e = std::getenv(key.c_str()); e && std::atol(e) > 0)
       return static_cast<size_t>(std::atol(e));
     return max_tile_;
@@ -423,7 +423,7 @@ class rand_tensor_yield {
     std::string const stored = slot_annot(sl);
     auto const serve = [&](ResultPtr const& base) -> ResultPtr {
       if (std::getenv("SEQUANT_UT_YIELD_DIAG"))
-        std::cerr << "[yield] key=" << sequant::toUtf8(label)
+        std::cerr << "[yield] key=" << sequant::to_utf8(label)
                   << " stored=" << stored << " requested=" << requested
                   << " base_layout=" << base->layout_desc() << std::endl;
       if (requested == stored) return base;
@@ -2426,7 +2426,7 @@ TEST_CASE(
   std::string target;
   for (auto const& ix : forest[0]->canon_indices()) {
     if (!target.empty()) target += ",";
-    target += sequant::toUtf8(ix.full_label());
+    target += sequant::to_utf8(ix.full_label());
   }
 
   auto const ref = evaluate(forest, target, yield_)->get<TArrayD>();
@@ -2547,7 +2547,7 @@ TEST_CASE(
   std::string target;
   for (auto const& ix : forest[0]->canon_indices()) {
     if (!target.empty()) target += ",";
-    target += sequant::toUtf8(ix.full_label());
+    target += sequant::to_utf8(ix.full_label());
   }
 
   auto const ref = evaluate(forest, target, yield_)->get<TArrayD>();
@@ -2691,7 +2691,7 @@ TEST_CASE(
   std::string target;
   for (auto const& ix : forest[0]->canon_indices()) {
     if (!target.empty()) target += ",";
-    target += sequant::toUtf8(ix.full_label());
+    target += sequant::to_utf8(ix.full_label());
   }
 
   auto const ref = evaluate(forest, target, yield_)->get<TArrayD>();
@@ -6213,22 +6213,22 @@ void dump_annotations(sequant::FullBinaryNode<sequant::EvalExprTA> const& n,
   std::string pad(2 * depth, ' ');
   std::string res;
   for (auto const& ix : n->canon_indices()) {
-    res += sequant::toUtf8(ix.full_label());
+    res += sequant::to_utf8(ix.full_label());
     res += ' ';
   }
   std::string bh;
   for (auto const& [ix, knd] : n->node_slice_mask()) {
-    bh += sequant::toUtf8(ix.full_label());
+    bh += sequant::to_utf8(ix.full_label());
     bh += (knd == BatchModeType::External ? ":ext " : ":con ");
   }
   std::string sm;
   for (auto const& ix : n->sliced_modes()) {
-    sm += sequant::toUtf8(ix.full_label());
+    sm += sequant::to_utf8(ix.full_label());
     sm += ' ';
   }
   std::string ident;
   try {
-    ident = sequant::toUtf8(sequant::io::serialization::to_string(n->expr()));
+    ident = sequant::to_utf8(sequant::io::serialization::to_string(n->expr()));
   } catch (...) {
     ident = "?";
   }
@@ -6329,7 +6329,7 @@ TEST_CASE("dp_external_placement_correctness",
       std::cerr << "  node_axes[" << j << "] oa=" << node_axes[j].order_aware
                 << " naxes=" << node_axes[j].axes.size() << " :";
       for (auto const& [ix, knd] : node_axes[j].axes)
-        std::cerr << " " << toUtf8(ix.full_label())
+        std::cerr << " " << to_utf8(ix.full_label())
                   << (knd == BatchModeType::External ? ":ext" : ":con");
       std::cerr << "\n";
     }

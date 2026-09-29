@@ -412,7 +412,7 @@ std::string scope_annot(BatchContext const& active) {
   std::string scope;
   for (auto const& e : active) {
     if (!scope.empty()) scope += ",";
-    scope += toUtf8(e.axis.space().base_key());
+    scope += to_utf8(e.axis.space().base_key());
   }
   return std::format("scope={{{}}}", scope);
 }
@@ -435,7 +435,7 @@ std::string slice_home_annot(Node const& node, BatchContext const& active) {
   std::string canon, sliced;
   auto const& idxs = node->canon_indices();
   for (auto const& ix : idxs) {
-    canon += toUtf8(ix.full_label());
+    canon += to_utf8(ix.full_label());
     canon += " ";
   }
   container::svector<std::size_t> spos;
@@ -446,7 +446,7 @@ std::string slice_home_annot(Node const& node, BatchContext const& active) {
   std::sort(spos.begin(), spos.end());
   for (auto const p : spos)
     sliced += std::format("{}:{} ", p,
-                          toUtf8(std::wstring(idxs[p].space().base_key())));
+                          to_utf8(std::wstring(idxs[p].space().base_key())));
   auto annot = std::format("canon=[{}] sliced=[{}] {}", canon, sliced,
                            scope_annot(active));
   // Append any schedule-derived per-node metadata (e.g. the value's home
@@ -783,7 +783,7 @@ template <Trace EvalTrace = Trace::Default, meta::can_evaluate Node, typename N,
           Index const& ix = entry.axis;
           auto const& blk = entry.range;
           if (find_leaf_carrying(node, ix).has_value()) {
-            slice_sig += toUtf8(ix.full_label());
+            slice_sig += to_utf8(ix.full_label());
             slice_sig += ':';
             slice_sig += std::to_string(blk.first);
             slice_sig += ';';
@@ -1059,7 +1059,7 @@ void note_fresh_build(Node const& node, CacheManager<N, FHC>& cache) {
       // per block of it is avoidable recompute. find_leaf_carrying works in
       // the node's own label space, so no alpha-renaming reconciliation.
       bool const dep = find_leaf_carrying(node, ix).has_value();
-      os << (first ? "" : ",") << "[\"" << toUtf8(ix.full_label()) << "\","
+      os << (first ? "" : ",") << "[\"" << to_utf8(ix.full_label()) << "\","
          << blk.first << "," << (dep ? 1 : 0) << "]";
       first = false;
     }
@@ -1388,7 +1388,7 @@ ResultPtr evaluate(Node const& node,           //
 
   std::string xpr;
   if constexpr (detail::trace(EvalTrace)) {
-    xpr = toUtf8(io::serialization::to_string(to_expr(node)));
+    xpr = to_utf8(io::serialization::to_string(to_expr(node)));
     log::term(log::TermMode::Begin, xpr);
   }
 
@@ -2382,12 +2382,12 @@ template <Trace EvalTrace = Trace::Default, typename F,
     if (log::printing()) {
       std::string annot;
       for (auto const& [ix, knd] : node->node_slice_mask()) {
-        annot += toUtf8(ix.full_label());
+        annot += to_utf8(ix.full_label());
         annot += (knd == BatchModeType::External ? ":ext " : ":con ");
       }
       std::string res;
       for (auto const& ix : node->canon_indices()) {
-        res += toUtf8(ix.full_label());
+        res += to_utf8(ix.full_label());
         res += " ";
       }
       auto scope_ctx = cache.batch_context();
@@ -2396,7 +2396,7 @@ template <Trace EvalTrace = Trace::Default, typename F,
           "BatchAxes",
           std::format("depth={} picked={}:{} nbatches={} annot=[{}] "
                       "result=[{}] {}",
-                      depth, toUtf8(K.full_label()),
+                      depth, to_utf8(K.full_label()),
                       picked_kind == BatchModeType::External ? "ext" : "con",
                       batches.size(), annot, res, log::scope_annot(scope_ctx)));
     }
@@ -2456,7 +2456,7 @@ template <Trace EvalTrace = Trace::Default, typename F,
         // is in fact legitimate (1/nblocks of the work). Gated on printing() so
         // it is inert unless a trace is being emitted.
         if (log::printing())
-          log::log("BatchIter", toUtf8(std::wstring(K.full_label())), e_lo);
+          log::log("BatchIter", to_utf8(std::wstring(K.full_label())), e_lo);
         bs.cache.reset();
         // Extend the enclosing batch context by this block and set it on the
         // scratch, so the re-entry's Enter-stage slice-on-use (and its own
@@ -2579,7 +2579,7 @@ template <Trace EvalTrace = Trace::Default, typename F,
       for (auto const& layer : layers)
         for (auto const& mk : layer)
           log::log("BatchMember",
-                   toUtf8(io::serialization::to_string(to_expr(*mk.first))));
+                   to_utf8(io::serialization::to_string(to_expr(*mk.first))));
     }
     {
       // Structured BatchGroup for the visualizer: the co-evaluation unit (its
@@ -2593,7 +2593,7 @@ template <Trace EvalTrace = Trace::Default, typename F,
         std::cerr << "SCHEDULE_RUN_GROUP {\"kind\":\""
                   << (picked_kind == BatchModeType::External ? "external"
                                                              : "contracted")
-                  << "\",\"mode\":\"" << toUtf8(K.full_label())
+                  << "\",\"mode\":\"" << to_utf8(K.full_label())
                   << "\",\"blocks\":" << batches.size() << ",\"members\":[";
         bool gfirst = true;
         for (auto const& layer : layers)
@@ -2650,7 +2650,7 @@ template <Trace EvalTrace = Trace::Default, typename F,
         // (single-mode-per-level) nesting. Gated on printing() so it is inert
         // unless a trace is being emitted.
         if (log::printing())
-          log::log("BatchIter", toUtf8(std::wstring(K.full_label())), e_lo);
+          log::log("BatchIter", to_utf8(std::wstring(K.full_label())), e_lo);
         bs.cache.reset();
         for (std::size_t m = 0; m != layer.size(); ++m) {
           auto const& [mem, Km] = layer[m];

@@ -64,9 +64,9 @@ class ContractedIndexCount {
   using Counts = AsyCost::ExponentMap;
 
   explicit ContractedIndexCount(meta::eval_node auto const& n) {
-    auto const L = NodePos::Left;
-    auto const R = NodePos::Right;
-    auto const T = NodePos::This;
+    auto const left_pos = NodePos::Left;
+    auto const right_pos = NodePos::Right;
+    auto const this_pos = NodePos::This;
 
     SEQUANT_ASSERT(n->is_tensor() && n.left()->is_tensor() &&
                    n.right()->is_tensor());
@@ -76,8 +76,11 @@ class ContractedIndexCount {
     // tensors (a contracted index appears in both operands; a batched index in
     // all three), so each is counted exactly once below.
     container::set<Index> distinct;
-    for (auto p : {L, R, T}) {
-      auto const& t = (p == L ? n.left() : p == R ? n.right() : n)->as_tensor();
+    for (auto p : {left_pos, right_pos, this_pos}) {
+      auto const& t = (p == left_pos    ? n.left()
+                       : p == right_pos ? n.right()
+                                        : n)
+                          ->as_tensor();
       auto const counts = space_counts(t);
       ranks_[p] = 0;
       for (auto const& [_, c] : counts) ranks_[p] += c;
@@ -86,7 +89,7 @@ class ContractedIndexCount {
 
     // An outer product contracts nothing, so the result keeps all operand
     // indices and the ranks add up exactly.
-    is_outerprod_ = ranks_[L] + ranks_[R] == ranks_[T];
+    is_outerprod_ = ranks_[left_pos] + ranks_[right_pos] == ranks_[this_pos];
 
     // Cost exponent per space = number of distinct indices touching that space.
     for (auto const& idx : distinct) ++unique_[idx.space()];

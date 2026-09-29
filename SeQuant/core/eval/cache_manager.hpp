@@ -164,7 +164,7 @@ struct LookupMeter {
                    calls() ? static_cast<double>(nanos()) / calls() : 0.0);
     }
   };
-  inline static Reporter reporter_{};
+  inline static Reporter reporter{};
 };
 
 /// \brief diagnostic (analysis-only, off by default): scoped wall-clock timer
@@ -239,7 +239,7 @@ struct PhaseTimer {
                      e.first / 1e9, static_cast<unsigned long long>(e.second));
     }
   };
-  inline static Reporter reporter_{};
+  inline static Reporter reporter{};
 };
 
 /// \brief diagnostic (analysis-only, off by default): splits CC-eval wall into
@@ -367,7 +367,7 @@ struct EvalImplTimeline {
                    PhaseTimer::barrier_count(), PhaseTimer::barrier_ns() / 1e9);
     }
   };
-  inline static Reporter reporter_{};
+  inline static Reporter reporter{};
 };
 
 /// \brief diagnostic (analysis-only, off by default): counts actual builds at
@@ -453,7 +453,7 @@ struct BuildMeter {
       }
     }
   };
-  inline static Reporter reporter_{};
+  inline static Reporter reporter{};
 };
 
 /// \brief diagnostic (analysis-only, off by default): measures def-to-use
@@ -565,7 +565,7 @@ struct DefUseMeter {
       }
     }
   };
-  inline static Reporter reporter_{};
+  inline static Reporter reporter{};
 };
 
 /// \brief Values that survive \c CacheManager::reset() across repeated
@@ -800,13 +800,13 @@ class CacheManager {
   using hasher_type = eval::CachedValueHasher<TreeNode, force_hash_collisions>;
   using comparator_type = eval::CachedValueEqual<TreeNode>;
 
-  class entry {
+  class Entry {
    private:
-    size_t max_life;
+    size_t max_life_;
 
-    size_t life_c;
+    size_t life_c_;
 
-    ResultPtr data_p;
+    ResultPtr data_p_;
 
     /// Lazily-computed, memoized data_p->size_in_bytes(): disengaged until the
     /// size is first queried, then computed once and cached until data_p is
@@ -833,16 +833,16 @@ class CacheManager {
     bool stored_this_eval_ = false;
 
    public:
-    explicit entry(size_t count, bool persistent = false) noexcept
-        : max_life{count},
-          life_c{count},
-          data_p{nullptr},
+    explicit Entry(size_t count, bool persistent = false) noexcept
+        : max_life_{count},
+          life_c_{count},
+          data_p_{nullptr},
           persistent_{persistent} {}
 
     [[nodiscard]] ResultPtr access() noexcept {
-      if (!data_p) return nullptr;
-      if (persistent_) return data_p;  // never drain a persistent entry
-      if (decay() == 0) {              // last use: release the data
+      if (!data_p_) return nullptr;
+      if (persistent_) return data_p_;  // never drain a persistent entry
+      if (decay() == 0) {               // last use: release the data
         size_bytes_.reset();
         // The value has now been fully consumed and released, so a later
         // store() of this key is a fresh re-production (e.g. the CCk energy
@@ -853,9 +853,9 @@ class CacheManager {
         // access draining the value in between) leaves the flag set and still
         // trips.
         stored_this_eval_ = false;
-        return std::move(data_p);
+        return std::move(data_p_);
       }
-      return data_p;
+      return data_p_;
     }
 
     // Not noexcept: SEQUANT_ASSERT below can throw (SEQUANT_ASSERT_BEHAVIOR
@@ -890,34 +890,34 @@ class CacheManager {
               "resident cell and rebuilt it) -- cache-fill-once violated");
         stored_this_eval_ = true;
       }
-      data_p = std::move(data);
+      data_p_ = std::move(data);
       size_bytes_
           .reset();  // (re)computed lazily on demand; see size_in_bytes()
     }
 
     void reset() noexcept {
-      life_c = max_life;
+      life_c_ = max_life_;
       stored_this_eval_ = false;
       if (!persistent_) {  // persistent data (and its size) survives reset()
-        data_p = nullptr;
+        data_p_ = nullptr;
         size_bytes_.reset();
       }
     }
 
     [[nodiscard]] bool persistent() const noexcept { return persistent_; }
 
-    [[nodiscard]] size_t life_count() const noexcept { return life_c; }
+    [[nodiscard]] size_t life_count() const noexcept { return life_c_; }
 
-    [[nodiscard]] size_t max_life_count() const noexcept { return max_life; }
+    [[nodiscard]] size_t max_life_count() const noexcept { return max_life_; }
 
     [[nodiscard]] size_t size_in_bytes() const noexcept {
-      if (!data_p) return 0;
+      if (!data_p_) return 0;
       if (!size_bytes_)
-        size_bytes_ = data_p->size_in_bytes();  // lazy, memoized
+        size_bytes_ = data_p_->size_in_bytes();  // lazy, memoized
       return *size_bytes_;
     }
 
-    [[nodiscard]] bool alive() const noexcept { return data_p ? true : false; }
+    [[nodiscard]] bool alive() const noexcept { return data_p_ ? true : false; }
 
     /// \return true iff this entry currently holds the same buffer (pointer
     ///         identity) as @p other. A sliced/permuted/phase-shifted read of
@@ -926,24 +926,24 @@ class CacheManager {
     ///         (whose bytes are then already counted, and must not be added
     ///         again).
     [[nodiscard]] bool holds(ResultPtr const& other) const noexcept {
-      return data_p && data_p.get() == other.get();
+      return data_p_ && data_p_.get() == other.get();
     }
 
    private:
     [[nodiscard]] int decay() noexcept {
-      return life_c > 0 ? static_cast<int>(--life_c) : 0;
+      return life_c_ > 0 ? static_cast<int>(--life_c_) : 0;
     }
 
   };  // entry
 
   // Not noexcept: forwards to entry::store(), which is not noexcept (see
   // there).
-  ResultPtr store_and_access(entry& ent, ResultPtr&& data) {
+  ResultPtr store_and_access(Entry& ent, ResultPtr&& data) {
     ent.store(std::move(data), strict_fill_once_);
     return ent.access();
   }
 
-  std::unordered_map<cache_key_type, entry, hasher_type, comparator_type>
+  std::unordered_map<cache_key_type, Entry, hasher_type, comparator_type>
       cache_map_;
 
   /// Diagnostic: per-distinct-value build tally (see BuildTally), keyed by the
@@ -1291,11 +1291,11 @@ class CacheManager {
   /// reset() is the correct lifetime boundary for a hoisted invariant.
   void ensure_hoist_slot(key_type const& key) {
     cache_map_.try_emplace(
-        key, entry{std::numeric_limits<size_t>::max(), /*persistent=*/false});
+        key, Entry{std::numeric_limits<size_t>::max(), /*persistent=*/false});
   }
 
   /// Default persistence classifier: every entry is non-persistent (NP).
-  struct all_non_persistent {
+  struct AllNonPersistent {
     bool operator()(key_type const&) const noexcept { return false; }
   };
 
@@ -1307,12 +1307,12 @@ class CacheManager {
   /// \note P nodes should be registered with whatever use-count is convenient
   ///       (it is not consulted for P entries) and may have a count of 1 even
   ///       though NP caching only registers nodes repeated min_repeats times.
-  template <typename Iterable, typename PersistencePred = all_non_persistent>
+  template <typename Iterable, typename PersistencePred = AllNonPersistent>
     requires(!std::same_as<std::remove_cvref_t<Iterable>, CacheManager>)
   explicit CacheManager(Iterable&& decaying,
                         PersistencePred is_persistent = {}) noexcept {
     for (auto&& [k, c] : decaying)
-      cache_map_.try_emplace(k, entry{c, is_persistent(k)});
+      cache_map_.try_emplace(k, Entry{c, is_persistent(k)});
   }
 
   ///
@@ -1686,8 +1686,8 @@ class CacheManager {
     using ranges::views::values;
     return ranges::accumulate(cache_map_                            //
                                   | values                          //
-                                  | filter(&entry::alive)           //
-                                  | transform(&entry::life_count),  //
+                                  | filter(&Entry::alive)           //
+                                  | transform(&Entry::life_count),  //
                               size_t{0});
   }
 
@@ -1698,7 +1698,7 @@ class CacheManager {
     using ranges::views::transform;
     using ranges::views::values;
     return ranges::accumulate(
-        cache_map_ | values | transform(&entry::size_in_bytes), size_t{0});
+        cache_map_ | values | transform(&Entry::size_in_bytes), size_t{0});
   }
 
   ///
@@ -1797,7 +1797,7 @@ auto cache_manager(meta::eval_node_range auto const& nodes,
 ///
 /// Default footprint accessor for cache_manager: reports zero footprint for
 /// every node, so the footprint gate is inert (combined with max_footprint==0).
-struct zero_footprint {
+struct ZeroFootprint {
   double operator()(auto const&) const noexcept { return 0.; }
 };
 
@@ -1845,7 +1845,7 @@ struct zero_footprint {
 /// mask, including every node on the off path) is admitted.
 /// \see CacheManager, cache_manager
 template <bool force_hash_collisions = false,
-          typename FootprintOf = zero_footprint>
+          typename FootprintOf = ZeroFootprint>
 auto cache_manager(meta::eval_node_range auto const& nodes, auto&& is_volatile,
                    size_t min_repeats = 1, FootprintOf footprint_of = {},
                    double max_footprint = 0.)

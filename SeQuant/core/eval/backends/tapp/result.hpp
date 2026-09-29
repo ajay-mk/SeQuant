@@ -117,10 +117,10 @@ auto particle_antisymmetrize_tapp(TAPPTensor<T, Alloc> const& arr,
 
       auto const annot = to_annot(annot_perm);
 
-      T p_ = parity == 0 ? T{1} : T{-1};
+      T parity_sign = parity == 0 ? T{1} : T{-1};
       TAPPTensor<T, Alloc> temp;
       tapp_ops::permute(input_arr, lannot, temp, annot);
-      tapp_ops::scal(p_, temp);
+      tapp_ops::scal(parity_sign, temp);
       result += temp;
     };
 

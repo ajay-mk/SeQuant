@@ -252,13 +252,13 @@ Power const& EvalExpr::as_power() const { return expr().as<Power>(); }
 
 std::string EvalExpr::label() const noexcept {
   if (is_tensor())
-    return toUtf8(as_tensor().label()) + "(" + indices_annot() + ")";
+    return to_utf8(as_tensor().label()) + "(" + indices_annot() + ")";
   else if (is_constant()) {
-    return toUtf8(io::serialization::to_string(as_constant()));
+    return to_utf8(io::serialization::to_string(as_constant()));
   } else if (is_power()) {
-    return toUtf8(io::serialization::to_string(as_power()));
+    return to_utf8(io::serialization::to_string(as_power()));
   } else if (is_variable()) {
-    return toUtf8(as_variable().label());
+    return to_utf8(as_variable().label());
   } else {
     SEQUANT_ABORT("EvalExpr::label: unhandled expression type");
   }

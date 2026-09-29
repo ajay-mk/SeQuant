@@ -15,14 +15,14 @@ class Tensor;
 /// The two runtime execution models for batched evaluation (see
 /// `doc/dev/specs/2026-09-12-batched-array-dag-eval-as-built.md`,
 /// sections 8 and 12.1):
-///   - \c forest_descent (default): one tree at a time,
+///   - \c ForestDescent (default): one tree at a time,
 ///     `sequant::evaluate(Nodes const&, ...)`, unchanged.
-///   - \c ordered: one fused, table-driven walk over the whole forest,
+///   - \c Ordered: one fused, table-driven walk over the whole forest,
 ///     driven by the `eval::OrderedSchedule` IR
 ///     (`sequant::eval::evaluate_ordered_schedule`), so a value shared across
 ///     trees is built once per home block and reused, rather than rebuilt
 ///     per tree.
-enum class BatchScheduler { forest_descent, ordered };
+enum class BatchScheduler { ForestDescent, Ordered };
 
 /// One batchability policy shared by the single-term optimizer and the runtime
 /// batched evaluator (make_evaluator, Task A3). All predicates default empty.
@@ -106,8 +106,8 @@ struct BatchPolicy {
   /// above). Consulted by the
   /// `sequant::evaluate(Nodes const&, BatchPolicy const&, ...)` driver
   /// overload (`ordered_executor.hpp`) to select the driver. Default
-  /// \c forest_descent selects the forest-descent evaluator.
-  BatchScheduler scheduler = BatchScheduler::forest_descent;
+  /// \c ForestDescent selects the forest-descent evaluator.
+  BatchScheduler scheduler = BatchScheduler::ForestDescent;
 
   /// Peak-memory budget in bytes. It is a feasibility ceiling under both
   /// batched objectives, and it is the single knob that turns batching on:
