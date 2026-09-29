@@ -229,7 +229,7 @@ struct OptimizeOptions {
 
   /// Common-subexpression-elimination options. All disabled by default;
   /// enabling can reduce op counts at the cost of additional optimization time.
-  CSEOptions CSE = {};
+  CSEOptions cse = {};
 
   /// Caller-supplied Index to extent provider. If empty, defaults to
   /// \c IndexSpace::approximate_size().

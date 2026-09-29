@@ -248,11 +248,11 @@ container::vector<double> subset_footprints(
   container::vector<OptRes> results((size_t{1} << network.tensors().size()));
   init_results(network, tidxs, results, connected);
   auto fp = footprint_counter(std::forward<IdxToSz>(idxsz), inner_pow);
-  container::vector<double> S(results.size(), 0.0);
+  container::vector<double> s(results.size(), 0.0);
   for (size_t n = 0; n < results.size(); ++n)
-    S[n] = (n == 0 || (connected && !(*connected)[n])) ? 0.0
+    s[n] = (n == 0 || (connected && !(*connected)[n])) ? 0.0
                                                        : fp(results[n].indices);
-  return S;
+  return s;
 }
 
 /// \brief Collects the distinct batchable indices (in appearance order) across
@@ -365,8 +365,8 @@ container::vector<container::vector<double>> sliced_footprints(
   (void)is_batchable;
   std::size_t const m = aux_list.size();
   container::vector<container::vector<double>> tables(std::size_t{1} << m);
-  for (std::size_t B = 0; B < tables.size(); ++B) {
-    auto extent = [&, B](Index const& ix) -> std::size_t {
+  for (std::size_t b = 0; b < tables.size(); ++b) {
+    auto extent = [&, b](Index const& ix) -> std::size_t {
       std::size_t e = idxsz(ix);
       // Membership in aux_list is the authoritative "this is a batchable mode"
       // test: that list spans all batchability roles (contracted and external).
@@ -375,12 +375,12 @@ container::vector<container::vector<double>> sliced_footprints(
       // sliced set B yet keeps its full extent, so the DP sees no benefit and
       // never batches it.
       if (auto const k = find_position(aux_list, ix)) {
-        if (B & (std::size_t{1} << *k))
+        if (b & (std::size_t{1} << *k))
           return std::min(e, std::max<std::size_t>(batch_target_size(ix), 1));
       }
       return e;
     };
-    tables[B] = subset_footprints(network, tidxs, extent, inner_pow, connected);
+    tables[b] = subset_footprints(network, tidxs, extent, inner_pow, connected);
   }
   return tables;
 }

@@ -335,11 +335,11 @@ inline double roofline_op_cost(double flops, double traffic,
                                double block_tiles,
                                double block_prefactor) noexcept {
   if (machine_balance <= 0.0) return flops;
-  double Q = traffic;
+  double q = traffic;
   if (fast_mem_elems > 0.0 && block_tiles > 0.0)
-    Q = std::max(
-        Q, block_prefactor * flops / std::sqrt(fast_mem_elems / block_tiles));
-  return std::max(flops, machine_balance * Q);
+    q = std::max(
+        q, block_prefactor * flops / std::sqrt(fast_mem_elems / block_tiles));
+  return std::max(flops, machine_balance * q);
 }
 
 /// \brief Peak-memory single-term cost model (DenseSpaceTime objective).
@@ -414,13 +414,13 @@ struct PeakModel {
   /// whole ladder, when both are peak-equal.
   using State = container::vector<FrontPoint>;
 
-  /// Precomputed tables: S[n] = footprint of subset n's result tensor,
-  /// L[n] = sum of leaf (singleton) sizes in subset n, idx[n] = subset n's
-  /// open (result) indices (for the per-contraction flop tie-break), and
+  /// Precomputed tables: sizes[n] = footprint of subset n's result tensor,
+  /// leaf_sums[n] = sum of leaf (singleton) sizes in subset n, idx[n] = subset
+  /// n's open (result) indices (for the per-contraction flop tie-break), and
   /// flops_of(lhs, rhs, result) the flop count of one binary contraction.
   struct Context {
-    container::vector<double> S;
-    container::vector<double> L;
+    container::vector<double> sizes;
+    container::vector<double> leaf_sums;
     container::vector<IndexSet> idx;
     std::function<double(IndexSet const&, IndexSet const&, IndexSet const&)>
         flops_of;
@@ -442,16 +442,16 @@ struct PeakModel {
         outer_product_connectivity(network, tidxs, prune_outer_products);
     init_results(network, tidxs, results, &connected);
     auto fp = footprint_counter(idxsz, inner_pow);
-    ctx.S.assign(sz, 0.0);
+    ctx.sizes.assign(sz, 0.0);
     ctx.idx.resize(sz);
     for (size_t n = 0; n < sz; ++n) {
-      ctx.S[n] = (n == 0 || !connected[n]) ? 0.0 : fp(results[n].indices);
+      ctx.sizes[n] = (n == 0 || !connected[n]) ? 0.0 : fp(results[n].indices);
       ctx.idx[n] = std::move(results[n].indices);
     }
-    ctx.L.assign(sz, 0.0);
+    ctx.leaf_sums.assign(sz, 0.0);
     for (size_t n = 0; n < sz; ++n)
       for (size_t b = 0; b < nt; ++b)
-        if (n & (size_t{1} << b)) ctx.L[n] += ctx.S[size_t{1} << b];
+        if (n & (size_t{1} << b)) ctx.leaf_sums[n] += ctx.sizes[size_t{1} << b];
     ctx.flops_of = [c = flops_counter(idxsz, inner_pow)](
                        IndexSet const& lhs, IndexSet const& rhs,
                        IndexSet const& result) { return c(lhs, rhs, result); };
@@ -461,7 +461,7 @@ struct PeakModel {
 
   State leaf(Context const& ctx, size_t n) const {
     return State{
-        FrontPoint{ctx.S[n], 0.0, 0, 0, true, -1, -1}};  // load: 0 flops
+        FrontPoint{ctx.sizes[n], 0.0, 0, 0, true, -1, -1}};  // load: 0 flops
   }
 
   State init(Context const& /*ctx*/, size_t /*n*/) const {
@@ -470,7 +470,7 @@ struct PeakModel {
 
   void relax(Context& ctx, size_t n, size_t lp, size_t rp, State const& lp_st,
              State const& rp_st, State& acc) const {
-    double const both = ctx.S[lp] + ctx.S[rp] + ctx.S[lp | rp];
+    double const both = ctx.sizes[lp] + ctx.sizes[rp] + ctx.sizes[lp | rp];
     // A volatile contraction (subset n contains a volatile leaf) is replayed
     // every iteration, so its flops are scaled by volatile_weight -- matching
     // the DenseFLOPs convention. The contraction flops are order-independent.
@@ -480,16 +480,17 @@ struct PeakModel {
     // footprint. With machine_balance==0 this reduces to flops (no change).
     double const cflops =
         w * roofline_op_cost(ctx.flops_of(ctx.idx[lp], ctx.idx[rp], ctx.idx[n]),
-                             ctx.S[lp] + ctx.S[rp] + ctx.S[n], machine_balance,
-                             fast_mem_elems, block_tiles, block_prefactor);
+                             ctx.sizes[lp] + ctx.sizes[rp] + ctx.sizes[n],
+                             machine_balance, fast_mem_elems, block_tiles,
+                             block_prefactor);
     // Cross every (peak,flops) trade-off of the two children.
     for (int li = 0; li < static_cast<int>(lp_st.size()); ++li)
       for (int ri = 0; ri < static_cast<int>(rp_st.size()); ++ri) {
-        double const pL = lp_st[li].peak, pR = rp_st[ri].peak;
-        double const lp_first_cand =
-            std::max({ctx.L[rp] + pL, ctx.S[lp] + pR, both});
-        double const rp_first_cand =
-            std::max({ctx.L[lp] + pR, ctx.S[rp] + pL, both});
+        double const lp_peak = lp_st[li].peak, rp_peak = rp_st[ri].peak;
+        double const lp_first_cand = std::max(
+            {ctx.leaf_sums[rp] + lp_peak, ctx.sizes[lp] + rp_peak, both});
+        double const rp_first_cand = std::max(
+            {ctx.leaf_sums[lp] + rp_peak, ctx.sizes[rp] + lp_peak, both});
         pareto_insert(
             acc, FrontPoint{std::min(lp_first_cand, rp_first_cand),
                             lp_st[li].flops + rp_st[ri].flops + cflops, lp, rp,
@@ -729,8 +730,9 @@ struct PeakBatchedModel {
     std::size_t eopen = 0;
   };
 
-  /// Per-subset DP cell: a \c [B]-vector (size \c nB = 2^m) of Pareto
-  /// frontiers, one non-dominated (peak, flops) set per sliced-set context B.
+  /// Per-subset DP cell: a \c [B]-vector (size \c n_sliced_sets = 2^m) of
+  /// Pareto frontiers, one non-dominated (peak, flops) set per sliced-set
+  /// context B.
   using State = container::vector<container::vector<BFrontPoint>>;
 
   /// Precomputed tables and per-(subset, sliced-set) lookup parameters built
@@ -742,7 +744,7 @@ struct PeakBatchedModel {
     /// Number of batchable indices (= batchable_modes.size()).
     std::size_t m = 0;
     /// Number of sliced-sets (= 2^m).
-    std::size_t nB = 1;
+    std::size_t n_sliced_sets = 1;
     /// Number of tensors in the network.
     std::size_t nt = 0;
     /// tables[B][n] = footprint of subset n under sliced-set B.
@@ -793,43 +795,43 @@ struct PeakBatchedModel {
     double fast_flops(std::size_t lp, std::size_t rp) const {
       double mem = 1.0;
       {
-        auto const& A = f_outer[lp];
-        auto const& B = f_outer[rp];
+        auto const& lhs_outer = f_outer[lp];
+        auto const& rhs_outer = f_outer[rp];
         std::size_t i = 0, j = 0;
-        while (i < A.size() && j < B.size()) {
-          if (A[i] < B[j])
-            mem *= fo_ext[A[i++]];
-          else if (B[j] < A[i])
-            mem *= fo_ext[B[j++]];
+        while (i < lhs_outer.size() && j < rhs_outer.size()) {
+          if (lhs_outer[i] < rhs_outer[j])
+            mem *= fo_ext[lhs_outer[i++]];
+          else if (rhs_outer[j] < lhs_outer[i])
+            mem *= fo_ext[rhs_outer[j++]];
           else {
-            mem *= fo_ext[A[i]];
+            mem *= fo_ext[lhs_outer[i]];
             ++i;
             ++j;
           }
         }
-        while (i < A.size()) mem *= fo_ext[A[i++]];
-        while (j < B.size()) mem *= fo_ext[B[j++]];
+        while (i < lhs_outer.size()) mem *= fo_ext[lhs_outer[i++]];
+        while (j < rhs_outer.size()) mem *= fo_ext[rhs_outer[j++]];
       }
-      auto const& AI = f_inner[lp];
-      auto const& BI = f_inner[rp];
-      if (!AI.empty() || !BI.empty()) {
+      auto const& lhs_inner = f_inner[lp];
+      auto const& rhs_inner = f_inner[rp];
+      if (!lhs_inner.empty() || !rhs_inner.empty()) {
         f_union_in.clear();
         std::size_t i = 0, j = 0;
-        while (i < AI.size() && j < BI.size()) {
+        while (i < lhs_inner.size() && j < rhs_inner.size()) {
           std::uint32_t id;
-          if (AI[i] < BI[j])
-            id = AI[i++];
-          else if (BI[j] < AI[i])
-            id = BI[j++];
+          if (lhs_inner[i] < rhs_inner[j])
+            id = lhs_inner[i++];
+          else if (rhs_inner[j] < lhs_inner[i])
+            id = rhs_inner[j++];
           else {
-            id = AI[i];
+            id = lhs_inner[i];
             ++i;
             ++j;
           }
           f_union_in.push_back(id);
         }
-        while (i < AI.size()) f_union_in.push_back(AI[i++]);
-        while (j < BI.size()) f_union_in.push_back(BI[j++]);
+        while (i < lhs_inner.size()) f_union_in.push_back(lhs_inner[i++]);
+        while (j < rhs_inner.size()) f_union_in.push_back(rhs_inner[j++]);
         if (f_inner_engaged) {
           for (auto id : f_union_in) ++f_grpcount[fi_grp[id]];
           for (auto id : f_union_in)
@@ -850,14 +852,15 @@ struct PeakBatchedModel {
     /// \ref sz and the external-placement re-price (\ref subtree_peak) share,
     /// so an external mode can be injected into the union directly without a
     /// precomputed ordered cell (external bits are excluded from build_cells).
-    double sz_u(std::size_t U, std::size_t s) const {
-      return tables[U & open_modes[s]][s];
+    double sz_u(std::size_t union_mask, std::size_t s) const {
+      return tables[union_mask & open_modes[s]][s];
     }
     /// Per-context leaf-sum of subset s under an explicit union mask.
-    double Lof_u(std::size_t U, std::size_t s) const {
+    double leaf_sum_u(std::size_t union_mask, std::size_t s) const {
       double r = 0.0;
       for (std::size_t b = 0; b < nt; ++b)
-        if (s & (std::size_t{1} << b)) r += sz_u(U, std::size_t{1} << b);
+        if (s & (std::size_t{1} << b))
+          r += sz_u(union_mask, std::size_t{1} << b);
       return r;
     }
 
@@ -867,8 +870,8 @@ struct PeakBatchedModel {
       return sz_u(cell_union(id), s);
     }
     /// Per-context leaf-sum of subset s (sum of singleton sizes under ctx).
-    double Lof(std::size_t s, std::size_t id) const {
-      return Lof_u(cell_union(id), s);
+    double leaf_sum(std::size_t s, std::size_t id) const {
+      return leaf_sum_u(cell_union(id), s);
     }
 
     // --- ordered-cell layer ------------------------------------------------
@@ -879,11 +882,13 @@ struct PeakBatchedModel {
     // charges only enclosing modes outer to a node's innermost-carried
     // placement. `ordered` is cleared only by build_cells' enumeration-blowup
     // guard, after which `id` is the sliced-set bitmask B (identity;
-    // nCells == nB) and every helper here reduces to the plain bitmask ops --
-    // a bounded-nest schedule is still correct, only optimality is lost.
+    // n_cells == n_sliced_sets) and every helper here reduces to the plain
+    // bitmask ops -- a bounded-nest schedule is still correct, only optimality
+    // is lost.
     bool ordered = true;
-    std::size_t cap = 3;     // max sequence length when ordered
-    std::size_t nCells = 1;  // number of DP cells (== nB when !ordered)
+    std::size_t cap = 3;  // max sequence length when ordered
+    std::size_t n_cells =
+        1;  // number of DP cells (== n_sliced_sets when !ordered)
     // Bitmask of external batchable modes (bit k set iff is_external_mode(k)):
     // open on the root, contracted at no node (built from open_modes, which
     // build_context assigns before build_cells()). Unless the term batches
@@ -894,23 +899,23 @@ struct PeakBatchedModel {
     // spectator batching on they are nestable: the DP opens an external loop at
     // a node of its choosing (BFrontPoint::eopen).
     std::size_t external_mask = 0;
-    container::vector<std::size_t> cell_union_;  // id -> union bitmask
+    container::vector<std::size_t> cell_unions;  // id -> union bitmask
     container::vector<container::svector<std::uint8_t>>
-        cell_seq_;  // id -> ordered mode-bit indices
+        cell_seqs;  // id -> ordered mode-bit indices
     container::vector<std::size_t>
-        cell_descend_;  // id*m + k -> child id / SIZE_MAX
+        cell_descends;  // id*m + k -> child id / SIZE_MAX
 
     std::size_t cell_union(std::size_t id) const {
-      return ordered ? cell_union_[id] : id;
+      return ordered ? cell_unions[id] : id;
     }
-    // Append the modes of `Ap` (ascending bit order = canonical co-contracted
-    // order) as inner positions. SIZE_MAX if that exceeds cap or repeats a
-    // mode.
-    std::size_t descend(std::size_t id, std::size_t Ap) const {
-      if (!ordered) return id | Ap;
+    // Append the modes of `aprime` (ascending bit order = canonical
+    // co-contracted order) as inner positions. SIZE_MAX if that exceeds cap or
+    // repeats a mode.
+    std::size_t descend(std::size_t id, std::size_t aprime) const {
+      if (!ordered) return id | aprime;
       for (std::size_t k = 0; k < m; ++k)
-        if (Ap & (std::size_t{1} << k)) {
-          id = cell_descend_[id * m + k];
+        if (aprime & (std::size_t{1} << k)) {
+          id = cell_descends[id * m + k];
           if (id == std::numeric_limits<std::size_t>::max()) return id;
         }
       return id;
@@ -918,19 +923,19 @@ struct PeakBatchedModel {
     // The children's context of a frontier point: its external opens
     // (outer) then its contracted-here modes (inner).
     std::size_t descend_pt(std::size_t id, std::size_t eopen,
-                           std::size_t Ap) const {
+                           std::size_t aprime) const {
       if (eopen) {
         id = descend(id, eopen);
         if (id == std::numeric_limits<std::size_t>::max()) return id;
       }
-      return descend(id, Ap);
+      return descend(id, aprime);
     }
     // Enclosing modes charged as recompute for a node carrying `carried`:
     // those outer to the node's innermost-carried placement it does not carry.
     // Carr == 0 (no carried enclosing mode) hoists above every loop => none.
     std::size_t escaped_outer(std::size_t id, std::size_t carried) const {
       if (!ordered) return id & ~carried;
-      auto const& seq = cell_seq_[id];
+      auto const& seq = cell_seqs[id];
       int placement = -1;
       for (int p = static_cast<int>(seq.size()) - 1; p >= 0; --p)
         if ((carried >> seq[p]) & 1u) {
@@ -955,14 +960,14 @@ struct PeakBatchedModel {
 
     // Fill the cell tables: enumerate every ordered sequence of batched modes
     // up to `cap` length (id 0 = the empty sequence = the term root);
-    // cell_union_/cell_seq_/cell_descend_ index them. `ext_nestable` admits the
+    // cell_unions/cell_seqs/cell_descends index them. `ext_nestable` admits the
     // external bits into the enumeration (spectator batching; see
     // external_mask). If the enumeration would blow up, `ordered` is cleared,
-    // nCells == nB and the tables stay empty (helpers use the bitmask
-    // directly).
+    // n_cells == n_sliced_sets and the tables stay empty (helpers use the
+    // bitmask directly).
     void build_cells(bool ext_nestable) {
       if (!ordered) {
-        nCells = nB;
+        n_cells = n_sliced_sets;
         return;
       }
       // Enumeration blowup guard: estimate Sum_{k<=cap} P(m,k) and fall back to
@@ -978,40 +983,41 @@ struct PeakBatchedModel {
         }
         if (est > 100000) {
           ordered = false;
-          nCells = nB;
+          n_cells = n_sliced_sets;
           return;
         }
       }
-      cell_seq_.assign(1, container::svector<std::uint8_t>{});
-      cell_union_.assign(1, std::size_t{0});
+      cell_seqs.assign(1, container::svector<std::uint8_t>{});
+      cell_unions.assign(1, std::size_t{0});
       std::map<container::svector<std::uint8_t>, std::size_t> seq_id;
-      seq_id.emplace(cell_seq_[0], std::size_t{0});
+      seq_id.emplace(cell_seqs[0], std::size_t{0});
       std::size_t const lim = std::min(m, cap);
-      for (std::size_t id = 0; id < cell_seq_.size(); ++id) {
-        if (cell_seq_[id].size() >= lim) continue;
+      for (std::size_t id = 0; id < cell_seqs.size(); ++id) {
+        if (cell_seqs[id].size() >= lim) continue;
         for (std::uint8_t k = 0; k < m; ++k) {
           if (!ext_nestable && ((external_mask >> k) & 1u))
             continue;  // external: not nestable unless the DP opens them
-          if (cell_union_[id] & (std::size_t{1} << k)) continue;
-          auto ns = cell_seq_[id];
+          if (cell_unions[id] & (std::size_t{1} << k)) continue;
+          auto ns = cell_seqs[id];
           ns.push_back(k);
           if (seq_id.find(ns) == seq_id.end()) {
-            seq_id.emplace(ns, cell_seq_.size());
-            cell_union_.push_back(cell_union_[id] | (std::size_t{1} << k));
-            cell_seq_.push_back(std::move(ns));
+            seq_id.emplace(ns, cell_seqs.size());
+            cell_unions.push_back(cell_unions[id] | (std::size_t{1} << k));
+            cell_seqs.push_back(std::move(ns));
           }
         }
       }
-      nCells = cell_seq_.size();
-      cell_descend_.assign(nCells * m, std::numeric_limits<std::size_t>::max());
-      for (std::size_t id = 0; id < nCells; ++id) {
-        if (cell_seq_[id].size() >= lim) continue;
+      n_cells = cell_seqs.size();
+      cell_descends.assign(n_cells * m,
+                           std::numeric_limits<std::size_t>::max());
+      for (std::size_t id = 0; id < n_cells; ++id) {
+        if (cell_seqs[id].size() >= lim) continue;
         for (std::uint8_t k = 0; k < m; ++k) {
           if (!ext_nestable && ((external_mask >> k) & 1u)) continue;
-          if (cell_union_[id] & (std::size_t{1} << k)) continue;
-          auto ns = cell_seq_[id];
+          if (cell_unions[id] & (std::size_t{1} << k)) continue;
+          auto ns = cell_seqs[id];
           ns.push_back(k);
-          cell_descend_[id * m + k] = seq_id.at(ns);
+          cell_descends[id * m + k] = seq_id.at(ns);
         }
       }
     }
@@ -1076,7 +1082,7 @@ struct PeakBatchedModel {
     // valid for any number of batchable indices: with nested accumulation the
     // per-node charges co-exist at the peak. Validated by the identity
     // peak_cost_batched == reconstructed_batched_peak (test [batched-accum]).
-    ctx.nB = std::size_t{1} << ctx.m;
+    ctx.n_sliced_sets = std::size_t{1} << ctx.m;
     // A mode open on the root and contracted at no node (is_external_mode) is
     // carried unchanged from leaves to root: it never appears in any node's
     // contracted-here set. Without spectator batching the ordered enumeration
@@ -1195,14 +1201,15 @@ struct PeakBatchedModel {
   }
 
   State leaf(Context const& ctx, size_t n) const {
-    State s(ctx.nCells);
-    for (std::size_t B = 0; B < ctx.nCells; ++B)
-      s[B].push_back(BFrontPoint{ctx.sz(n, B), 0.0, 0, 0, true, 0, -1, -1});
+    State s(ctx.n_cells);
+    for (std::size_t cell_id = 0; cell_id < ctx.n_cells; ++cell_id)
+      s[cell_id].push_back(
+          BFrontPoint{ctx.sz(n, cell_id), 0.0, 0, 0, true, 0, -1, -1});
     return s;
   }
 
   State init(Context const& ctx, size_t /*n*/) const {
-    return State(ctx.nCells);  // empty frontiers; relax fills them
+    return State(ctx.n_cells);  // empty frontiers; relax fills them
   }
 
   void relax(Context& ctx, size_t n, size_t lp, size_t rp, State const& lp_st,
@@ -1228,23 +1235,23 @@ struct PeakBatchedModel {
     // ceiling. Off for peak-first, or for a +inf budget where relax already
     // forces contracted_here == 0 (nothing to slice).
     bool const ceiling_nsl = perf_first && std::isfinite(peak_threshold);
-    for (std::size_t B = 0; B < ctx.nCells; ++B) {
+    for (std::size_t cell_id = 0; cell_id < ctx.n_cells; ++cell_id) {
       // Batch recomputation charge: this node sits inside the ancestor batch
-      // loops over the modes in B. For each b in B whose mode this node's
-      // result does not carry (b not open in n), the node is re-executed
+      // loops over the modes in cell_id. For each b in cell_id whose mode this
+      // node's result does not carry (b not open in n), the node is re-executed
       // nbatches(b) times (across-batch recompute); modes it carries are
       // partitioned (x1). Default off => rf==1 => work-parity cost.
       double rf = 1.0;
       if (charge_batch_recompute) {
         // Recompute charge over the enclosing modes this node is re-executed
-        // across. !ordered: B & ~carried (every escaped mode -- the set
+        // across. !ordered: cell_id & ~carried (every escaped mode -- the set
         // charge). ordered: only escaped modes outer to the node's
         // innermost- carried placement (escaped modes inner to it hoist above
         // for free; Carr == 0 hoists above the whole nest => none, subsuming
         // A3a). escaped_outer collapses to the set charge when !ordered.
-        rf = ctx.recompute_factor(B, n);
+        rf = ctx.recompute_factor(cell_id, n);
       }
-      double const cflops_B = cflops * rf;
+      double const cell_cflops = cflops * rf;
       // Batchable indices contracted at THIS node: open at children but not at
       // the parent. By default batching is applied ACROSS THE BOARD: slicing
       // the batch mode shrinks any intermediate carrying it regardless of
@@ -1277,93 +1284,101 @@ struct PeakBatchedModel {
       // only under spectator batching, so this is 0 without it.
       std::size_t const ext_here =
           (batch_spectator_indices && std::isfinite(peak_threshold))
-              ? (ctx.external_mask & ctx.open_modes[n] & ~ctx.cell_union(B))
+              ? (ctx.external_mask & ctx.open_modes[n] &
+                 ~ctx.cell_union(cell_id))
               : std::size_t{0};
-      // Enumerate every subset S of (contracted_here | ext_here), including
-      // the empty set: Ap = its contracted part, E = its external part.
+      // Enumerate every subset slice_mask of (contracted_here | ext_here),
+      // including the empty set: aprime = its contracted part, eopen = its
+      // external part.
       std::size_t const choices = contracted_here | ext_here;
-      std::size_t S = choices;
+      std::size_t slice_mask = choices;
       while (true) {
-        std::size_t const Ap = S & ~ctx.external_mask;
-        std::size_t const E = S & ctx.external_mask;
-        std::size_t const C = ctx.descend_pt(B, E, Ap);
+        std::size_t const aprime = slice_mask & ~ctx.external_mask;
+        std::size_t const eopen = slice_mask & ctx.external_mask;
+        std::size_t const child_cell = ctx.descend_pt(cell_id, eopen, aprime);
         // ordered: skip an over-cap / repeat descent (SIZE_MAX). !ordered:
-        // descend == B|Ap and never returns SIZE_MAX, so the test always
-        // passes.
-        if (C != std::numeric_limits<std::size_t>::max()) {
-          double const szlp = ctx.sz(lp, C), szrp = ctx.sz(rp, C),
-                       szn = ctx.sz(n, B);
-          // A node that contracts a batchable index (Ap != 0) is accumulated
-          // over the batches of that mode (K += contribution); the in-flight
-          // contribution (same index set as the result, size szn) co-resides
-          // with the accumulator. Charge it once, on the all-co-resident moment
-          // only
-          // -- the pre-result staged terms (Lrp+pl, szlp+prr) exclude it since
-          // szn is not yet built.
-          // An external loop opened here (E != 0) produces the node per
-          // batch (size sliced on E) and scatters it into the full result
-          // (szn, pre-sized, held across the loop); with a contracted mode
-          // also sliced here the per-batch block accumulates over its
-          // batches (accumulation_factor).
+        // descend == cell_id|aprime and never returns SIZE_MAX, so the test
+        // always passes.
+        if (child_cell != std::numeric_limits<std::size_t>::max()) {
+          double const szlp = ctx.sz(lp, child_cell),
+                       szrp = ctx.sz(rp, child_cell), szn = ctx.sz(n, cell_id);
+          // A node that contracts a batchable index (aprime != 0) is
+          // accumulated over the batches of that mode (K += contribution); the
+          // in-flight contribution (same index set as the result, size szn)
+          // co-resides with the accumulator. Charge it once, on the
+          // all-co-resident moment only
+          // -- the pre-result staged terms (rp_leaf_sum+pl, szlp+prr) exclude
+          // it since szn is not yet built. An external loop opened here (eopen
+          // != 0) produces the node per batch (size sliced on eopen) and
+          // scatters it into the full result (szn, pre-sized, held across the
+          // loop); with a contracted mode also sliced here the per-batch block
+          // accumulates over its batches (accumulation_factor).
           double const contrib =
-              (E != 0) ? ((Ap != 0) ? accumulation_factor : 1.0) *
-                             ctx.sz_u(ctx.cell_union(B) | E, n)
-                       : ((Ap != 0) ? accumulation_factor * szn : 0.0);
+              (eopen != 0) ? ((aprime != 0) ? accumulation_factor : 1.0) *
+                                 ctx.sz_u(ctx.cell_union(cell_id) | eopen, n)
+                           : ((aprime != 0) ? accumulation_factor * szn : 0.0);
           double const both = szlp + szrp + szn + contrib;
-          double const Lrp = ctx.Lof(rp, C), Llp = ctx.Lof(lp, C);
-          // Resident-scan: a node that batches (Ap !=
+          double const rp_leaf_sum = ctx.leaf_sum(rp, child_cell),
+                       lp_leaf_sum = ctx.leaf_sum(lp, child_cell);
+          // Resident-scan: a node that batches (aprime !=
           // 0) allocates its accumulator (szn) up front and holds it across the
           // batch loop, so it co-resides with the children as they evaluate per
           // batch -- the pre-result staged terms (which exclude szn as "not yet
           // built") must include it. Composed recursively, each ancestor
           // batching node's szn stacks onto every descendant's peak: the
-          // Sum-of-enclosing-residents scan. S == 0 (unbatched, built once)
-          // keeps szn out.
-          double const res = (S != 0) ? szn : 0.0;
+          // Sum-of-enclosing-residents scan. slice_mask == 0 (unbatched, built
+          // once) keeps szn out.
+          double const res = (slice_mask != 0) ? szn : 0.0;
           // Cross every (peak,flops) trade-off of the two children at context
-          // C.
+          // child_cell.
           // Bound-persistence charge (charge_bound_persistence): this node
-          // closes the loops over Ap. If it is volatile, every batch of those
-          // loops re-runs each replay, so a non-volatile child sliced by them
-          // (it carries a mode of Ap) is rebuilt each replay -- scale that
-          // child's cost by volatile_weight (a volatile child already is).
+          // closes the loops over aprime. If it is volatile, every batch of
+          // those loops re-runs each replay, so a non-volatile child sliced by
+          // them (it carries a mode of aprime) is rebuilt each replay -- scale
+          // that child's cost by volatile_weight (a volatile child already is).
           // (An external loop opened here is closed here too: the full result
           // is assembled outside it, per production of this node.)
           double const lp_scale =
-              (charge_bound_persistence && S != 0 && is_volatile &&
-               !(ctx.volatile_mask & lp) && (ctx.open_modes[lp] & S) != 0)
+              (charge_bound_persistence && slice_mask != 0 && is_volatile &&
+               !(ctx.volatile_mask & lp) &&
+               (ctx.open_modes[lp] & slice_mask) != 0)
                   ? volatile_weight
                   : 1.0;
           double const rp_scale =
-              (charge_bound_persistence && S != 0 && is_volatile &&
-               !(ctx.volatile_mask & rp) && (ctx.open_modes[rp] & S) != 0)
+              (charge_bound_persistence && slice_mask != 0 && is_volatile &&
+               !(ctx.volatile_mask & rp) &&
+               (ctx.open_modes[rp] & slice_mask) != 0)
                   ? volatile_weight
                   : 1.0;
-          for (int li = 0; li < static_cast<int>(lp_st[C].size()); ++li)
-            for (int ri = 0; ri < static_cast<int>(rp_st[C].size()); ++ri) {
-              double const pl = lp_st[C][li].peak, prr = rp_st[C][ri].peak;
+          for (int li = 0; li < static_cast<int>(lp_st[child_cell].size());
+               ++li)
+            for (int ri = 0; ri < static_cast<int>(rp_st[child_cell].size());
+                 ++ri) {
+              double const pl = lp_st[child_cell][li].peak,
+                           prr = rp_st[child_cell][ri].peak;
               double const lpf =
-                  std::max({Lrp + pl + res, szlp + prr + res, both});
+                  std::max({rp_leaf_sum + pl + res, szlp + prr + res, both});
               double const rpf =
-                  std::max({Llp + prr + res, szrp + pl + res, both});
+                  std::max({lp_leaf_sum + prr + res, szrp + pl + res, both});
               // Cumulative sliced-mode count of this realization: the modes
-              // sliced at this node (popcount Ap) plus both children's. Fed to
-              // the perf-first ceiling's threshold-aware domination so the
+              // sliced at this node (popcount aprime) plus both children's. Fed
+              // to the perf-first ceiling's threshold-aware domination so the
               // unsliced realization survives when it fits the budget.
               std::size_t const nsl =
-                  lp_st[C][li].nsl + rp_st[C][ri].nsl +
-                  static_cast<std::size_t>(std::popcount(S));
+                  lp_st[child_cell][li].nsl + rp_st[child_cell][ri].nsl +
+                  static_cast<std::size_t>(std::popcount(slice_mask));
               pareto_insert_ceiling(
-                  acc[B],
+                  acc[cell_id],
                   BFrontPoint{std::min(lpf, rpf),
-                              lp_scale * lp_st[C][li].flops +
-                                  rp_scale * rp_st[C][ri].flops + cflops_B,
-                              lp, rp, lpf <= rpf, Ap, li, ri, nsl, E},
+                              lp_scale * lp_st[child_cell][li].flops +
+                                  rp_scale * rp_st[child_cell][ri].flops +
+                                  cell_cflops,
+                              lp, rp, lpf <= rpf, aprime, li, ri, nsl, eopen},
                   ceiling_nsl);
             }
-        }  // C != SIZE_MAX
-        if (S == 0) break;
-        S = (S - 1) & choices;
+        }  // child_cell != SIZE_MAX
+        if (slice_mask == 0) break;
+        slice_mask = (slice_mask - 1) & choices;
       }
     }
   }
@@ -1500,35 +1515,38 @@ struct PeakBatchedModel {
     int fi;
     std::size_t s;
     int si;
-    std::size_t C;
+    std::size_t child_cell;
   };
 
-  /// Back-pointer walk step: for node subset \p n in enclosing cell \p B with
-  /// chosen frontier index \p idx, descends to the children's cell and returns
-  /// the two child subsets/frontier indices.
+  /// Back-pointer walk step: for node subset \p n in enclosing cell \p cell_id
+  /// with chosen frontier index \p idx, descends to the children's cell and
+  /// returns the two child subsets/frontier indices.
   static ChildFrontier child_frontier(Context const& ctx,
                                       container::vector<State> const& st,
-                                      std::size_t n, std::size_t B, int idx) {
-    auto const& r = st[n][B][idx];
-    std::size_t const C = ctx.descend_pt(B, r.eopen, r.aprime);
+                                      std::size_t n, std::size_t cell_id,
+                                      int idx) {
+    auto const& r = st[n][cell_id][idx];
+    std::size_t const child_cell = ctx.descend_pt(cell_id, r.eopen, r.aprime);
     return ChildFrontier{
         r.lp_first ? r.lp : r.rp, r.lp_first ? r.lp_idx : r.rp_idx,
-        r.lp_first ? r.rp : r.lp, r.lp_first ? r.rp_idx : r.lp_idx, C};
+        r.lp_first ? r.rp : r.lp, r.lp_first ? r.rp_idx : r.lp_idx, child_cell};
   }
 
   EvalSequence reconstruct(Context const& ctx,
                            container::vector<State> const& st) const {
     std::size_t const root = (std::size_t{1} << ctx.nt) - 1;
     int const best = select_root(ctx, st);
-    // Recursive back-pointer walk: at (n, B, idx) read the chosen front point,
-    // form child context C = B | aprime, recurse in lp_first order.
+    // Recursive back-pointer walk: at (n, cell_id, idx) read the chosen front
+    // point, form child context child_cell = cell_id | aprime, recurse in
+    // lp_first order.
     std::function<EvalSequence(std::size_t, std::size_t, int)> build =
-        [&](std::size_t n, std::size_t B, int idx) -> EvalSequence {
+        [&](std::size_t n, std::size_t cell_id, int idx) -> EvalSequence {
       if (std::popcount(n) == 1)
         return EvalSequence{static_cast<int>(std::countr_zero(n))};
-      auto const [fs, fi, ss, si, C] = child_frontier(ctx, st, n, B, idx);
-      EvalSequence s = build(fs, C, fi);
-      EvalSequence b = build(ss, C, si);
+      auto const [fs, fi, ss, si, child_cell] =
+          child_frontier(ctx, st, n, cell_id, idx);
+      EvalSequence s = build(fs, child_cell, fi);
+      EvalSequence b = build(ss, child_cell, si);
       s.insert(s.end(), b.begin(), b.end());
       s.push_back(-1);
       return s;
@@ -1537,31 +1555,36 @@ struct PeakBatchedModel {
   }
 
   /// Modeled peak (in elements) of the chosen back-pointer subtree rooted at
-  /// subset \p n, read at DP schedule cell \p Bsched and sized under the
-  /// explicit union mask \p Usize. This is the reusable, node-level re-price of
-  /// the peak reconstruction in \ref reconstructed_batched_peak: it follows the
-  /// same back-pointer walk (children/order/aprime chosen by the DP) and the
-  /// same staged-peak algebra (\c stage_first / \c stage_second / \c stage_form
-  /// with the resident-scan \c res and accumulation \c contrib terms), but
-  /// sizes every subset from \p Usize instead of from the schedule cell's
-  /// union. With
-  /// \p Usize == \c cell_union(Bsched) the two agree exactly.
+  /// subset \p n, read at DP schedule cell \p sched_cell and sized under the
+  /// explicit union mask \p size_mask. This is the reusable, node-level
+  /// re-price of the peak reconstruction in \ref reconstructed_batched_peak: it
+  /// follows the same back-pointer walk (children/order/aprime chosen by the
+  /// DP) and the same staged-peak algebra (\c stage_first / \c stage_second /
+  /// \c stage_form with the resident-scan \c res and accumulation \c contrib
+  /// terms), but sizes every subset from \p size_mask instead of from the
+  /// schedule cell's union. With \p size_mask == \c cell_union(sched_cell) the
+  /// two agree exactly.
   double subtree_peak(Context const& ctx, container::vector<State> const& st,
-                      std::size_t n, std::size_t Bsched, std::size_t Usize,
-                      int idx) const {
-    if (std::popcount(n) == 1) return ctx.sz_u(Usize, n);
-    auto const& r = st[n][Bsched][idx];
-    auto const [f, fi, s, si, C] = child_frontier(ctx, st, n, Bsched, idx);
-    std::size_t const Uc = Usize | r.aprime;
-    double const peak_f = subtree_peak(ctx, st, f, C, Uc, fi);
-    double const peak_s = subtree_peak(ctx, st, s, C, Uc, si);
-    double const res = (r.aprime != 0) ? ctx.sz_u(Usize, n) : 0.0;
-    double const stage_first = ctx.Lof_u(Uc, s) + peak_f + res;
-    double const stage_second = ctx.sz_u(Uc, f) + peak_s + res;
+                      std::size_t n, std::size_t sched_cell,
+                      std::size_t size_mask, int idx) const {
+    if (std::popcount(n) == 1) return ctx.sz_u(size_mask, n);
+    auto const& r = st[n][sched_cell][idx];
+    auto const [f, fi, s, si, child_cell] =
+        child_frontier(ctx, st, n, sched_cell, idx);
+    std::size_t const child_size_mask = size_mask | r.aprime;
+    double const peak_f =
+        subtree_peak(ctx, st, f, child_cell, child_size_mask, fi);
+    double const peak_s =
+        subtree_peak(ctx, st, s, child_cell, child_size_mask, si);
+    double const res = (r.aprime != 0) ? ctx.sz_u(size_mask, n) : 0.0;
+    double const stage_first =
+        ctx.leaf_sum_u(child_size_mask, s) + peak_f + res;
+    double const stage_second = ctx.sz_u(child_size_mask, f) + peak_s + res;
     double const contrib =
-        (r.aprime != 0) ? accumulation_factor * ctx.sz_u(Usize, n) : 0.0;
-    double const stage_form =
-        ctx.sz_u(Uc, f) + ctx.sz_u(Uc, s) + ctx.sz_u(Usize, n) + contrib;
+        (r.aprime != 0) ? accumulation_factor * ctx.sz_u(size_mask, n) : 0.0;
+    double const stage_form = ctx.sz_u(child_size_mask, f) +
+                              ctx.sz_u(child_size_mask, s) +
+                              ctx.sz_u(size_mask, n) + contrib;
     return std::max({stage_first, stage_second, stage_form});
   }
 
@@ -1591,13 +1614,14 @@ struct PeakBatchedModel {
       *out_root_peak_bytes = st[root][0][best].peak * numeric_size;
     container::vector<NodeBatchAnnotation> node_axes;
     std::function<EvalSequence(std::size_t, std::size_t, int)> build =
-        [&](std::size_t n, std::size_t B, int idx) -> EvalSequence {
+        [&](std::size_t n, std::size_t cell_id, int idx) -> EvalSequence {
       if (std::popcount(n) == 1)
         return EvalSequence{static_cast<int>(std::countr_zero(n))};
-      BFrontPoint const& r = st[n][B][idx];
-      auto const [fs, fi, ss, si, C] = child_frontier(ctx, st, n, B, idx);
-      EvalSequence s = build(fs, C, fi);
-      EvalSequence b = build(ss, C, si);
+      BFrontPoint const& r = st[n][cell_id][idx];
+      auto const [fs, fi, ss, si, child_cell] =
+          child_frontier(ctx, st, n, cell_id, idx);
+      EvalSequence s = build(fs, child_cell, fi);
+      EvalSequence b = build(ss, child_cell, si);
       s.insert(s.end(), b.begin(), b.end());
       container::svector<std::pair<Index, BatchModeType>> modes;
       // External modes first (outer), then Contracted: `modes` becomes
@@ -1611,7 +1635,7 @@ struct PeakBatchedModel {
       // spectator batching no external bit ever enters a cell or an `eopen`,
       // so this is 0 and the push-order is a no-op.
       std::size_t const emit_mask_n =
-          batch_spectator_indices ? ((ctx.cell_union(B) | r.eopen) &
+          batch_spectator_indices ? ((ctx.cell_union(cell_id) | r.eopen) &
                                      ctx.external_mask & ctx.open_modes[n])
                                   : std::size_t{0};
       for (std::size_t k = 0; k < ctx.m; ++k)
@@ -1645,10 +1669,10 @@ struct PeakBatchedModel {
         ann.opened_here = std::move(opened);
       }
       // Order-aware placement/lifetime bridge: emit this node's order-aware
-      // gate and effective use count for a later runtime hoist pass. `B` is the
-      // node's ordered enclosing cell, so all the needed pieces (open_modes,
-      // escaped_outer, nbatches) are in hand at this frame -- no second
-      // structure or pass. The node's runtime residency (its
+      // gate and effective use count for a later runtime hoist pass. `cell_id`
+      // is the node's ordered enclosing cell, so all the needed pieces
+      // (open_modes, escaped_outer, nbatches) are in hand at this frame -- no
+      // second structure or pass. The node's runtime residency (its
       // enclosing-contracted and external modes alike) is not emitted here: it
       // is the all-batched-modes cross-occurrence meet stamped onto
       // EvalExpr::sliced_modes by stamp_lifetime_masks.
@@ -1661,7 +1685,7 @@ struct PeakBatchedModel {
         // (enclosing loops the node does not carry). With no CSE on this path
         // the back-pointer object is a strict tree (single consumer), so this
         // per-node rf is the effective use count.
-        double const rf = ctx.recompute_factor(B, n);
+        double const rf = ctx.recompute_factor(cell_id, n);
         ann.effective_count = static_cast<std::size_t>(std::llround(rf));
       }
       node_axes.push_back(std::move(ann));  // one entry per -1, in RPN order

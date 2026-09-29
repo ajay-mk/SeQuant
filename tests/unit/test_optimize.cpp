@@ -782,7 +782,7 @@ TEST_CASE("optimize", "[optimize]") {
       // DP cells are ORDERED sequences, so the all-sliced corner is the best
       // over every ordering whose union is the full batchable set.
       double dp_allsliced = std::numeric_limits<double>::max();
-      for (std::size_t id = 0; id < ctx.nCells; ++id)
+      for (std::size_t id = 0; id < ctx.n_cells; ++id)
         if (ctx.cell_union(id) == allK)
           for (auto const& fp : st[root][id])
             dp_allsliced = std::min(dp_allsliced, fp.peak);
@@ -1319,11 +1319,11 @@ TEST_CASE("optimize", "[optimize]") {
       auto expr = ex<Product>(prod);
 
       auto res_cse =
-          optimize(expr, OptimizeOptions{.CSE = {.subnet = true},
+          optimize(expr, OptimizeOptions{.cse = {.subnet = true},
                                          .idx_to_extent = idx_to_extent,
                                          .inner_pow = {}});
       auto res_no_cse =
-          optimize(expr, OptimizeOptions{.CSE = {.subnet = false},
+          optimize(expr, OptimizeOptions{.cse = {.subnet = false},
                                          .idx_to_extent = idx_to_extent,
                                          .inner_pow = {}});
 
@@ -1526,7 +1526,7 @@ TEST_CASE("role filter: contracted mode sliced only in the contracted role",
       if (ctx.batchable_modes[k].space().base_key() == L"F")
         mask |= (std::size_t{1} << k);
     std::size_t count = 0;
-    for (std::size_t id = 0; id < ctx.nCells; ++id)
+    for (std::size_t id = 0; id < ctx.n_cells; ++id)
       if (ctx.cell_union(id) & mask) ++count;
     return count;
   };
@@ -2766,7 +2766,7 @@ TEST_CASE("ordered key prices the hoistable order (Carr != 0)",
     auto ctx = model.build_context(net, targets);
     auto st = opt::detail::solve_single_term(model, net, targets, ctx);
     double m = std::numeric_limits<double>::max();
-    for (std::size_t id = 0; id < ctx.nCells; ++id)
+    for (std::size_t id = 0; id < ctx.n_cells; ++id)
       if (ctx.cell_union(id) == both_F)
         for (auto const& fp : st[st_set][id]) m = std::min(m, fp.flops);
     return m;
@@ -2817,7 +2817,7 @@ TEST_CASE("ordered cells exclude external modes", "[optimize][ext-place]") {
     if (model.is_external_mode(ctx, k)) x_bit = k;
   REQUIRE(x_bit < ctx.m);  // F2 is the external mode
 
-  for (std::size_t id = 0; id < ctx.nCells; ++id)
+  for (std::size_t id = 0; id < ctx.n_cells; ++id)
     CHECK((ctx.cell_union(id) & (std::size_t{1} << x_bit)) == 0);
 }
 
@@ -4397,7 +4397,7 @@ TEST_CASE("loop-tree probe: order-dependent Carr != 0 cells",
   // A cell is an ORDERED sequence (outer -> inner), not a sliced-set bitmask,
   // so enumerate cells and print each one's union; a bare bitmask index would
   // not name a cell at all.
-  for (std::size_t cell = 0; cell < ctx.nCells; ++cell)
+  for (std::size_t cell = 0; cell < ctx.n_cells; ++cell)
     std::wcerr << L"[loop-tree-order]   st[{s,t}][cell=" << cell << L" union="
                << ctx.cell_union(cell) << L"] min flops = "
                << min_flops(n_st, cell) << L"\n";
@@ -4406,7 +4406,7 @@ TEST_CASE("loop-tree probe: order-dependent Carr != 0 cells",
   // with F_1 INNER lets it hoist (400) while F_1 OUTER charges it (1600).
   double lo = std::numeric_limits<double>::max(), hi = 0.0;
   std::size_t const both_F = 0b11;
-  for (std::size_t cell = 0; cell < ctx.nCells; ++cell)
+  for (std::size_t cell = 0; cell < ctx.n_cells; ++cell)
     if (ctx.cell_union(cell) == both_F) {
       lo = std::min(lo, min_flops(n_st, cell));
       hi = std::max(hi, min_flops(n_st, cell));
@@ -4459,7 +4459,7 @@ TEST_CASE("loop-tree probe: resident-scan peak, nested",
                << ctx.sz(0b0011, 0);
     // Cells are ordered sequences; print the cell id with its union so the
     // label stays meaningful (a bare bitmask index would not be a cell).
-    for (std::size_t cell = 0; cell < ctx.nCells; ++cell)
+    for (std::size_t cell = 0; cell < ctx.n_cells; ++cell)
       std::wcerr << L"  top.peak[cell=" << cell << L" union="
                  << ctx.cell_union(cell) << L"]=" << min_peak(st[top][cell]);
     std::wcerr << L"\n";

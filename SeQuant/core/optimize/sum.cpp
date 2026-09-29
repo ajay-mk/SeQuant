@@ -63,12 +63,13 @@ container::vector<container::vector<size_t>> clusters(
   {
     for (auto const& [_, v] : positions) {
       auto const v0 = ranges::front(v);
-      auto const v_ = ranges::views::tail(v) |
-                      ranges::to<decltype(connections)::mapped_type>;
+      auto const remaining_positions =
+          ranges::views::tail(v) |
+          ranges::to<decltype(connections)::mapped_type>;
       if (auto&& found = connections.find(v0); found != connections.end())
-        for (auto p : v_) found->second.push_back(p);
+        for (auto p : remaining_positions) found->second.push_back(p);
       else
-        connections.emplace(v0, v_);
+        connections.emplace(v0, remaining_positions);
     }
   }
   positions.clear();
@@ -89,8 +90,8 @@ container::vector<container::vector<size_t>> clusters(
             visited.emplace(p);
           }
           if (auto&& found = connections.find(p); found != connections.end())
-            for (auto p_ : ranges::views::reverse(found->second))
-              dfs_stack.push(p_);
+            for (auto next_position : ranges::views::reverse(found->second))
+              dfs_stack.push(next_position);
         }
         result.emplace_back(std::move(clstr));
       }

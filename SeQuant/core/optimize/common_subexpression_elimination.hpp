@@ -30,7 +30,7 @@ class SubexpressionIdentifier {
  public:
   SubexpressionIdentifier() = default;
   SubexpressionIdentifier(std::vector<Index> indices)
-      : intermediate_hashs(
+      : intermediate_hashs_(
             SubexpressionHashCollector<TreeNode, force_hash_collisions>{}
                 .bucket_count(),  // use default bucket count
             TreeNodeHasher<TreeNode, force_hash_collisions>{},
@@ -39,8 +39,8 @@ class SubexpressionIdentifier {
   bool operator()(const TreeNode &tree) {
     using std::ranges::end;
 
-    if (auto it = intermediate_hashs.find(&tree);
-        it != end(intermediate_hashs)) {
+    if (auto it = intermediate_hashs_.find(&tree);
+        it != end(intermediate_hashs_)) {
       // The expression identified by tree has been used before -> stop
       // visiting of subtree
       // TODO: Early return might make us miss better subexpression choices that
@@ -49,7 +49,7 @@ class SubexpressionIdentifier {
       return false;
     }
 
-    intermediate_hashs.emplace(&tree, 1);
+    intermediate_hashs_.emplace(&tree, 1);
 
     return true;
   }
@@ -59,9 +59,9 @@ class SubexpressionIdentifier {
     SubexpressionUsageCounts<TreeNode, force_hash_collisions> usages(
         SubexpressionUsageCounts<TreeNode, force_hash_collisions>{}
             .bucket_count(),  // use default bucket count
-        intermediate_hashs.hash_function(), intermediate_hashs.key_eq());
+        intermediate_hashs_.hash_function(), intermediate_hashs_.key_eq());
 
-    for (const auto &[node_ptr, usage_count] : intermediate_hashs) {
+    for (const auto &[node_ptr, usage_count] : intermediate_hashs_) {
       if (usage_count < 2) {
         // Everything that is used less than 2 times is not a common
         // subexpression
@@ -71,7 +71,7 @@ class SubexpressionIdentifier {
       usages.emplace(*node_ptr, usage_count);
     }
 
-    intermediate_hashs.clear();
+    intermediate_hashs_.clear();
 
     return usages;
   }
@@ -84,7 +84,7 @@ class SubexpressionIdentifier {
   // magnitude larger, which can easily lead to memory bottlenecks for large
   // expressions.
   SubexpressionHashCollector<TreeNode, force_hash_collisions>
-      intermediate_hashs;
+      intermediate_hashs_;
 };
 
 /// Functor that will perform the elimination of previously found subexpressions
@@ -97,19 +97,19 @@ class SubexpressionReplacer {
       VectorLike &expr_trees,
       const SubexpressionUsageCounts<TreeNode, force_hash_collisions> &map,
       const Transformer &transformer, const LabelGenerator &label_gen)
-      : expr_trees(expr_trees),
-        subexpressions(map),
-        expr_to_tree(transformer),
-        label_gen(label_gen) {}
+      : expr_trees_(expr_trees),
+        subexpressions_(map),
+        expr_to_tree_(transformer),
+        label_gen_(label_gen) {}
 
   void perform_replacements(std::size_t begin, std::size_t end) {
     // Ensure we won't have to reallocate while iterating over the expressions
-    expr_trees.reserve(expr_trees.size() + subexpressions.size());
-    cse_definition_indices.reserve(subexpressions.size());
+    expr_trees_.reserve(expr_trees_.size() + subexpressions_.size());
+    cse_definition_indices_.reserve(subexpressions_.size());
 
     for (std::size_t i = begin; i < end; ++i) {
-      current_expr_idx = i;
-      expr_trees.at(i + expr_offset).visit_internal(*this);
+      current_expr_idx_ = i;
+      expr_trees_.at(i + expr_offset_).visit_internal(*this);
     }
   }
 
@@ -117,16 +117,16 @@ class SubexpressionReplacer {
     using std::ranges::begin;
     using std::ranges::end;
 
-    auto it = subexpressions.find(tree);
+    auto it = subexpressions_.find(tree);
 
-    if (it == end(subexpressions)) {
+    if (it == end(subexpressions_)) {
       return true;
     }
 
-    auto label_it = cse_names.find(tree);
+    auto label_it = cse_names_.find(tree);
 
-    std::wstring label = label_it == end(cse_names)
-                             ? toUtf16(label_gen(tree, name_counter++))
+    std::wstring label = label_it == end(cse_names_)
+                             ? to_utf16(label_gen_(tree, name_counter_++))
                              : label_it->second;
 
     ExprPtr expr = [&]() {
@@ -153,8 +153,8 @@ class SubexpressionReplacer {
     ExprPtr original = tree->expr();
 
     std::optional<TreeNode> intermediate_definition;
-    if (label_it == end(cse_names)) {
-      cse_names.emplace(tree, label);
+    if (label_it == end(cse_names_)) {
+      cse_names_.emplace(tree, label);
       // Store tree as the way to compute the current CSE (under the
       // designated name and with canonical indexing)
       // Since tree node objects are immutable, we have to disassemble
@@ -168,7 +168,7 @@ class SubexpressionReplacer {
         return ResultExpr(expr->as<Variable>(), to_expr(tree));
       }();
 
-      intermediate_definition = expr_to_tree(intermediate);
+      intermediate_definition = expr_to_tree_(intermediate);
     }
 
     if (tree->canon_phase() != 1) {
@@ -186,40 +186,40 @@ class SubexpressionReplacer {
         return ResultExpr(original->as<Variable>(), std::move(expr));
       }();
 
-      tree = expr_to_tree(result);
+      tree = expr_to_tree_(result);
     } else {
-      tree = expr_to_tree(expr);
+      tree = expr_to_tree_(expr);
     }
 
     if (intermediate_definition.has_value()) {
-      SEQUANT_ASSERT(expr_trees.size() > current_expr_idx + expr_offset);
-      auto expr_it = expr_trees.begin();
-      std::advance(expr_it, current_expr_idx + expr_offset);
+      SEQUANT_ASSERT(expr_trees_.size() > current_expr_idx_ + expr_offset_);
+      auto expr_it = expr_trees_.begin();
+      std::advance(expr_it, current_expr_idx_ + expr_offset_);
 
-      cse_definition_indices.emplace_back(current_expr_idx + expr_offset);
+      cse_definition_indices_.emplace_back(current_expr_idx_ + expr_offset_);
 
-      expr_trees.insert(expr_it, std::move(intermediate_definition.value()));
-      expr_offset += 1;
+      expr_trees_.insert(expr_it, std::move(intermediate_definition.value()));
+      expr_offset_ += 1;
     }
 
     return false;
   }
 
   const std::vector<std::size_t> &cse_indices() const {
-    return cse_definition_indices;
+    return cse_definition_indices_;
   }
 
  private:
-  VectorLike &expr_trees;
-  std::size_t expr_offset = 0;
-  std::size_t current_expr_idx = 0;
+  VectorLike &expr_trees_;
+  std::size_t expr_offset_ = 0;
+  std::size_t current_expr_idx_ = 0;
   const SubexpressionUsageCounts<TreeNode, force_hash_collisions>
-      &subexpressions;
-  const Transformer &expr_to_tree;
-  SubexpressionNames<TreeNode, force_hash_collisions> cse_names;
-  std::size_t name_counter = 1;
-  const LabelGenerator &label_gen;
-  std::vector<std::size_t> cse_definition_indices;
+      &subexpressions_;
+  const Transformer &expr_to_tree_;
+  SubexpressionNames<TreeNode, force_hash_collisions> cse_names_;
+  std::size_t name_counter_ = 1;
+  const LabelGenerator &label_gen_;
+  std::vector<std::size_t> cse_definition_indices_;
 };
 
 }  // namespace cse

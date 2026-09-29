@@ -635,7 +635,8 @@ TEST_CASE("ordered-key C60 giant: does order_aware engage (m vs cap)?",
   std::wcerr << L"[ordered-key-c60-m] giant (summand " << gi << L", "
              << giant->as<Product>().factors().size() << L" factors): m="
              << ctx.m << L" ordered=" << ctx.ordered << L" n_cells="
-             << ctx.n_cells << L" (nB=" << ctx.nB << L")\n";
+             << ctx.n_cells << L" (n_sliced_sets=" << ctx.n_sliced_sets
+             << L")\n";
 }
 
 // Diagnostic + regression ([.]): scan EVERY summand of the C60 CSV-CCSD doubles

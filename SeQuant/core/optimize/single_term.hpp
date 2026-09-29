@@ -273,12 +273,12 @@ ExprPtr single_term_opt(
       result.push_back(tensors.at(i));
     }
 
-  auto& p_ = (*result.rbegin()).as<Product>();
+  auto& result_product = (*result.rbegin()).as<Product>();
   for (auto&& v :
        prod | reverse | filter([](const ExprPtr& e) { return e->is_scalar(); }))
-    p_.prepend(1, v, Product::Flatten::No);
+    result_product.prepend(1, v, Product::Flatten::No);
 
-  p_.scale(prod.scalar());
+  result_product.scale(prod.scalar());
   return *result.rbegin();
 }
 

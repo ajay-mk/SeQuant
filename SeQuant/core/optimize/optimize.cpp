@@ -93,7 +93,7 @@ void log_chosen_factorization(ExprPtr const& result,
 
 /// Optimize a Product that contains only Tensor and scalar factors.
 ExprPtr opt_pure_product(Product const& prod, OptimizeOptions const& opts) {
-  bool const subnet_cse = opts.CSE.subnet;
+  bool const subnet_cse = opts.cse.subnet;
   // Build the cost knobs field-by-field from OptimizeOptions / its BatchPolicy.
   // Batching config (both role predicates, batch_target_size, inner_pow,
   // batch_persistent_only) travels on CostParams.
