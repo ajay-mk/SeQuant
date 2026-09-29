@@ -1,0 +1,59 @@
+name: Naming check
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
+
+jobs:
+  check:
+    name: Check identifier naming
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libboost-dev libboost-locale-dev libboost-regex-dev
+
+      - name: Configure compilation database
+        run: |
+          cmake -S . -B build/naming -G Ninja \
+            -DCMAKE_CXX_COMPILER=clang++-18 \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+            -DCMAKE_UNITY_BUILD=OFF \
+            -DCMAKE_CXX_STANDARD=20 \
+            -DCMAKE_CXX_EXTENSIONS=OFF \
+            -DSEQUANT_ASSERT_BEHAVIOR=THROW \
+            -DSEQUANT_USE_SYSTEM_BOOST_HASH=OFF \
+            -DSEQUANT_TESTS=OFF \
+            -DSEQUANT_UTILITIES=ON \
+            -DSEQUANT_BENCHMARKS=ON \
+            -DSEQUANT_COMPILE_DOC_EXAMPLES=ON \
+            -DSEQUANT_PYTHON=OFF
+
+      - name: Validate naming configuration
+        run: clang-tidy-18 --verify-config
+
+      - name: Check identifier naming
+        shell: bash
+        run: |
+          run-clang-tidy-18 -clang-tidy-binary clang-tidy-18 \
+            -p build/naming -j 2 \
+            '(^|/)(SeQuant/(?!external/)|utilities/|benchmarks/|doc/examples/)' \
+            2>&1 | tee naming-check.log
+
+      - name: Save naming report
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: naming-check
+          path: naming-check.log
+          if-no-files-found: ignore
