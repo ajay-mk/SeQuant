@@ -14,14 +14,14 @@ namespace sequant {
 
 std::string ItfContext::index_name(const IndexSpace &space,
                                    std::size_t ordinal) const {
-  SEQUANT_ASSERT(ordinal >= m_idx_offset);
-  ordinal -= m_idx_offset;
+  SEQUANT_ASSERT(ordinal >= idx_offset_);
+  ordinal -= idx_offset_;
 
-  std::string base_key = toUtf8(space.base_key());
+  std::string base_key = to_utf8(space.base_key());
 
   char limit = [&]() -> char {
-    auto it = m_index_label_limits.find(space);
-    if (it == m_index_label_limits.end()) {
+    auto it = index_label_limits_.find(space);
+    if (it == index_label_limits_.end()) {
       // Note that in between capital and lowercase letters there are symbols
       // [,\,],^,_ and `. Hence, this default is not quite safe but should work
       // in most cases anyway
@@ -47,31 +47,31 @@ std::string ItfContext::index_name(const IndexSpace &space,
 }
 
 std::string ItfContext::get_name(const IndexSpace &space) const {
-  auto it = m_space_names.find(space);
+  auto it = space_names_.find(space);
 
-  if (it == m_space_names.end()) {
+  if (it == space_names_.end()) {
     throw Exception("No name known for index space '" +
-                    toUtf8(space.base_key()) + "'");
+                    to_utf8(space.base_key()) + "'");
   }
 
   return it->second;
 }
 
 std::string ItfContext::get_tag(const IndexSpace &space) const {
-  auto it = m_tags.find(space);
+  auto it = tags_.find(space);
 
-  if (it == m_tags.end()) {
+  if (it == tags_.end()) {
     throw Exception("No tag known for index space '" +
-                    toUtf8(space.base_key()) + "'");
+                    to_utf8(space.base_key()) + "'");
   }
 
   return it->second;
 }
 
 std::optional<std::string> ItfContext::import_name(const Tensor &tensor) const {
-  auto it = m_tensor_imports.find(tensor);
+  auto it = tensor_imports_.find(tensor);
 
-  if (it == m_tensor_imports.end()) {
+  if (it == tensor_imports_.end()) {
     return {};
   }
 
@@ -80,9 +80,9 @@ std::optional<std::string> ItfContext::import_name(const Tensor &tensor) const {
 
 std::optional<std::string> ItfContext::import_name(
     const Variable &variable) const {
-  auto it = m_variable_imports.find(variable);
+  auto it = variable_imports_.find(variable);
 
-  if (it == m_variable_imports.end()) {
+  if (it == variable_imports_.end()) {
     return {};
   }
 
@@ -90,19 +90,19 @@ std::optional<std::string> ItfContext::import_name(
 }
 
 void ItfContext::set_name(const IndexSpace &space, std::string name) {
-  m_space_names[space] = std::move(name);
+  space_names_[space] = std::move(name);
 }
 
 void ItfContext::set_tag(const IndexSpace &space, std::string tag) {
-  m_tags[space] = std::move(tag);
+  tags_[space] = std::move(tag);
 }
 
 void ItfContext::set_import_name(const Tensor &tensor, std::string name) {
-  m_tensor_imports[tensor] = std::move(name);
+  tensor_imports_[tensor] = std::move(name);
 }
 
 void ItfContext::set_import_name(const Variable &variable, std::string name) {
-  m_variable_imports[variable] = std::move(name);
+  variable_imports_[variable] = std::move(name);
 }
 
 bool ItfContext::rewrite(Tensor &tensor) const {
@@ -111,7 +111,7 @@ bool ItfContext::rewrite(Tensor &tensor) const {
   auto num_indices = std::distance(tensor.const_indices().begin(),
                                    tensor.const_indices().end());
 
-  if (tensor.label() == m_integral_label && num_indices == 4 &&
+  if (tensor.label() == integral_label_ && num_indices == 4 &&
       tensor.bra_rank() == 2 && tensor.ket_rank() == 2) {
     // These are the 2-electron integrals. They posses intra-particle braket
     // symmetry, that is in g^{pq}_{rs} we can exchange p with r, without also
@@ -221,19 +221,19 @@ bool ItfContext::is_exceptional_J(std::span<Index> bra,
          first_ket_same_as_bra;
 }
 
-std::size_t ItfContext::index_id_offset() const { return m_idx_offset; }
+std::size_t ItfContext::index_id_offset() const { return idx_offset_; }
 
 void ItfContext::set_index_id_offset(std::size_t offset) {
-  m_idx_offset = offset;
+  idx_offset_ = offset;
 }
 
 void ItfContext::set_batch_indices(std::span<const Index> indices,
                                    std::optional<std::size_t> id) {
-  auto it = m_batch_indices.find(id.value_or(ID_GLOBAL));
+  auto it = batch_indices_.find(id.value_or(ID_GLOBAL));
 
-  if (it == m_batch_indices.end()) {
+  if (it == batch_indices_.end()) {
     std::vector<Index> copy(indices.begin(), indices.end());
-    it = m_batch_indices.emplace(id.value_or(ID_GLOBAL), std::move(copy)).first;
+    it = batch_indices_.emplace(id.value_or(ID_GLOBAL), std::move(copy)).first;
   } else {
     it->second.assign(indices.begin(), indices.end());
   }
@@ -247,13 +247,13 @@ void ItfContext::set_batch_indices(std::span<const Index> indices,
 
 std::span<const Index> ItfContext::batch_indices(
     std::optional<std::size_t> id) const {
-  auto it = m_batch_indices.find(id.value_or(ID_GLOBAL));
+  auto it = batch_indices_.find(id.value_or(ID_GLOBAL));
 
-  if (it == m_batch_indices.end() && id.has_value()) {
-    it = m_batch_indices.find(ID_GLOBAL);
+  if (it == batch_indices_.end() && id.has_value()) {
+    it = batch_indices_.find(ID_GLOBAL);
   }
 
-  if (it == m_batch_indices.end()) {
+  if (it == batch_indices_.end()) {
     return {};
   }
 

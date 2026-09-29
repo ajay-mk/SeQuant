@@ -24,19 +24,19 @@ class TextGeneratorContext : public ExportContext {
  public:
   void set_batch_indices(std::span<const Index> indices,
                          std::optional<std::size_t> id = {}) override {
-    m_batch_indices[id.value_or(ID_GLOBAL)].assign(indices.begin(),
-                                                   indices.end());
+    batch_indices_[id.value_or(ID_GLOBAL)].assign(indices.begin(),
+                                                  indices.end());
   }
 
   std::span<const Index> batch_indices(
       std::optional<std::size_t> id = {}) const override {
-    auto it = m_batch_indices.find(id.value_or(ID_GLOBAL));
+    auto it = batch_indices_.find(id.value_or(ID_GLOBAL));
 
-    if (it == m_batch_indices.end() && id.has_value()) {
-      it = m_batch_indices.find(ID_GLOBAL);
+    if (it == batch_indices_.end() && id.has_value()) {
+      it = batch_indices_.find(ID_GLOBAL);
     }
 
-    if (it == m_batch_indices.end()) {
+    if (it == batch_indices_.end()) {
       return {};
     }
 
@@ -44,7 +44,7 @@ class TextGeneratorContext : public ExportContext {
   }
 
  private:
-  std::map<std::size_t, std::vector<Index>> m_batch_indices;
+  std::map<std::size_t, std::vector<Index>> batch_indices_;
 };
 
 /// A dummy generator producing a plain text representation of the code. Mostly
@@ -82,12 +82,12 @@ class TextGenerator : public Generator<Context> {
   }
 
   std::string represent(const Index &idx, const Context &) const override {
-    return toUtf8(idx.label());
+    return to_utf8(idx.label());
   }
 
   std::string represent(const Tensor &tensor,
                         const Context &ctx) const override {
-    std::string representation = toUtf8(tensor.label()) + "[";
+    std::string representation = to_utf8(tensor.label()) + "[";
 
     using namespace std::literals;
     representation += tensor.const_indices() |
@@ -103,7 +103,7 @@ class TextGenerator : public Generator<Context> {
 
   std::string represent(const Variable &variable,
                         const Context &) const override {
-    return toUtf8(variable.label());
+    return to_utf8(variable.label());
   }
 
   std::string represent(const Constant &constant,
@@ -130,135 +130,133 @@ class TextGenerator : public Generator<Context> {
 
   void create(const Tensor &tensor, bool zero_init,
               const Context &ctx) override {
-    m_generated += m_indent + "Create " + represent(tensor, ctx);
+    generated_ += indent_ + "Create " + represent(tensor, ctx);
     if (zero_init) {
-      m_generated += " and initialize to zero";
+      generated_ += " and initialize to zero";
     }
-    m_generated += "\n";
+    generated_ += "\n";
   }
 
   void load(const Tensor &tensor, bool set_to_zero,
             const Context &ctx) override {
-    m_generated += m_indent + "Load " + represent(tensor, ctx);
+    generated_ += indent_ + "Load " + represent(tensor, ctx);
 
     if (set_to_zero) {
-      m_generated += " and set it to zero";
+      generated_ += " and set it to zero";
     }
 
-    m_generated += "\n";
+    generated_ += "\n";
   }
 
   void set_to_zero(const Tensor &tensor, const Context &ctx) override {
-    m_generated +=
-        m_indent + "Setting " + represent(tensor, ctx) + " to zero\n";
+    generated_ += indent_ + "Setting " + represent(tensor, ctx) + " to zero\n";
   }
 
   void unload(const Tensor &tensor, const Context &ctx) override {
-    m_generated += m_indent + "Unload " + represent(tensor, ctx) + "\n";
+    generated_ += indent_ + "Unload " + represent(tensor, ctx) + "\n";
   }
 
   void destroy(const Tensor &tensor, const Context &ctx) override {
-    m_generated += m_indent + "Delete " + represent(tensor, ctx) + "\n";
+    generated_ += indent_ + "Delete " + represent(tensor, ctx) + "\n";
   }
 
   void persist(const Tensor &tensor, const Context &ctx) override {
-    m_generated += m_indent + "Persist " + represent(tensor, ctx) + "\n";
+    generated_ += indent_ + "Persist " + represent(tensor, ctx) + "\n";
   }
 
   void create(const Variable &variable, bool zero_init,
               const Context &ctx) override {
-    m_generated += m_indent + "Create " + represent(variable, ctx);
+    generated_ += indent_ + "Create " + represent(variable, ctx);
     if (zero_init) {
-      m_generated += " and initialize to zero";
+      generated_ += " and initialize to zero";
     }
-    m_generated += "\n";
+    generated_ += "\n";
   }
 
   void load(const Variable &variable, bool set_to_zero,
             const Context &ctx) override {
-    m_generated += m_indent + "Load " + represent(variable, ctx);
+    generated_ += indent_ + "Load " + represent(variable, ctx);
     if (set_to_zero) {
-      m_generated += " and set it to zero";
+      generated_ += " and set it to zero";
     }
-    m_generated += "\n";
+    generated_ += "\n";
   }
 
   void set_to_zero(const Variable &variable, const Context &ctx) override {
-    m_generated +=
-        m_indent + "Setting " + represent(variable, ctx) + " to zero\n";
+    generated_ +=
+        indent_ + "Setting " + represent(variable, ctx) + " to zero\n";
   }
 
   void unload(const Variable &variable, const Context &ctx) override {
-    m_generated += m_indent + "Unload " + represent(variable, ctx) + "\n";
+    generated_ += indent_ + "Unload " + represent(variable, ctx) + "\n";
   }
 
   void destroy(const Variable &variable, const Context &ctx) override {
-    m_generated += m_indent + "Delete " + represent(variable, ctx) + "\n";
+    generated_ += indent_ + "Delete " + represent(variable, ctx) + "\n";
   }
 
   void persist(const Variable &variable, const Context &ctx) override {
-    m_generated += m_indent + "Persist " + represent(variable, ctx) + "\n";
+    generated_ += indent_ + "Persist " + represent(variable, ctx) + "\n";
   }
 
   void compute(const Expr &expression, const Variable &result,
                const Context &ctx) override {
-    m_generated += m_indent + "Compute " + represent(result, ctx) +
-                   " += " + stringify(expression, ctx) + "\n";
+    generated_ += indent_ + "Compute " + represent(result, ctx) +
+                  " += " + stringify(expression, ctx) + "\n";
   }
 
   void compute(const Expr &expression, const Tensor &result,
                const Context &ctx) override {
-    m_generated += m_indent + "Compute " + represent(result, ctx) +
-                   " += " + stringify(expression, ctx) + "\n";
+    generated_ += indent_ + "Compute " + represent(result, ctx) +
+                  " += " + stringify(expression, ctx) + "\n";
   }
 
   void declare(const Index &idx, const Context &ctx) override {
-    m_generated += m_indent + "Declare index " + represent(idx, ctx) + "\n";
+    generated_ += indent_ + "Declare index " + represent(idx, ctx) + "\n";
   }
 
   void declare(const Variable &variable, UsageSet /*usage*/,
                const Context &ctx) override {
     if (ctx.inside_named_section()) {
-      if (m_generated.back() != '(') {
-        m_generated += ", ";
+      if (generated_.back() != '(') {
+        generated_ += ", ";
       }
 
-      m_generated += "variable " + represent(variable, ctx);
+      generated_ += "variable " + represent(variable, ctx);
     } else {
-      m_generated +=
-          m_indent + "Declare variable " + represent(variable, ctx) + "\n";
+      generated_ +=
+          indent_ + "Declare variable " + represent(variable, ctx) + "\n";
     }
   }
 
   void declare(const Tensor &tensor, UsageSet /*usage*/,
                const Context &ctx) override {
     if (ctx.inside_named_section()) {
-      if (m_generated.back() != '(') {
-        m_generated += ", ";
+      if (generated_.back() != '(') {
+        generated_ += ", ";
       }
 
-      m_generated += "tensor " + represent(tensor, ctx);
+      generated_ += "tensor " + represent(tensor, ctx);
     } else {
-      m_generated +=
-          m_indent + "Declare tensor " + represent(tensor, ctx) + "\n";
+      generated_ += indent_ + "Declare tensor " + represent(tensor, ctx) + "\n";
     }
   }
 
   void all_indices_declared(std::size_t amount, const Context &) override {
     if (amount > 0) {
-      m_generated += "\n";
+      generated_ += "\n";
     }
   }
 
   void all_variables_declared(std::size_t amount, const Context &ctx) override {
     if (amount > 0 && !ctx.inside_named_section()) {
-      m_generated += "\n";
+      generated_ += "\n";
     }
   }
 
   void all_tensors_declared(std::size_t amount, const Context &ctx) override {
     if (amount > 0 && !ctx.inside_named_section()) {
-      m_generated += "\n";
+      generated_ += "\n";
     }
   }
 
@@ -266,61 +264,61 @@ class TextGenerator : public Generator<Context> {
 
   void end_declarations(DeclarationScope scope, const Context &ctx) override {
     if (scope == DeclarationScope::Section && ctx.inside_named_section()) {
-      m_generated += ")\n";
+      generated_ += ")\n";
     }
   }
 
   void insert_comment(const std::string &comment, const Context &) override {
-    m_generated += m_indent + "// " + comment + "\n";
+    generated_ += indent_ + "// " + comment + "\n";
   }
 
   void begin_named_section(std::string_view name, const Context &) override {
-    m_generated += m_indent + "section " + std::string(name) + "(";
-    m_indent += "  ";
+    generated_ += indent_ + "section " + std::string(name) + "(";
+    indent_ += "  ";
   }
 
   void end_named_section(std::string_view /*name*/, const Context &) override {
-    SEQUANT_ASSERT(m_indent.size() >= 2);
-    m_indent = m_indent.substr(2, std::string::npos);
-    m_generated += m_indent + "end section\n";
+    SEQUANT_ASSERT(indent_.size() >= 2);
+    indent_ = indent_.substr(2, std::string::npos);
+    generated_ += indent_ + "end section\n";
   }
 
   void begin_expression(const Context &ctx) override {
-    if (!m_generated.empty() && !m_generated.ends_with("\n\n") &&
-        !m_generated.ends_with(")\n")) {
-      m_generated += "\n";
+    if (!generated_.empty() && !generated_.ends_with("\n\n") &&
+        !generated_.ends_with(")\n")) {
+      generated_ += "\n";
     }
 
     std::span<const Index> batch =
         ctx.batch_indices(ctx.current_expression_id());
     if (!batch.empty()) {
-      m_generated += "Start batching over ";
+      generated_ += "Start batching over ";
       for (std::size_t i = 0; i < batch.size(); ++i) {
-        m_generated += represent(batch[i], ctx);
+        generated_ += represent(batch[i], ctx);
 
         if (i + 1 < batch.size()) {
-          m_generated += ", ";
+          generated_ += ", ";
         }
       }
-      m_generated += "\n";
+      generated_ += "\n";
     }
   }
 
-  void begin_export(const Context &) override { m_generated.clear(); }
+  void begin_export(const Context &) override { generated_.clear(); }
 
   void end_export(const Context &) override {}
 
   void end_expression(const Context &ctx) override {
     if (ctx.is_batched(ctx.current_expression_id())) {
-      m_generated += "End batching\n";
+      generated_ += "End batching\n";
     }
   }
 
-  std::string get_generated_code() const override { return m_generated; }
+  std::string get_generated_code() const override { return generated_; }
 
  private:
-  std::string m_generated;
-  std::string m_indent;
+  std::string generated_;
+  std::string indent_;
 
   std::string stringify(const Expr &expr, const Context &ctx) const {
     return detail::stringify_expr(

@@ -9,16 +9,16 @@ namespace sequant {
 JuliaTensorOperationsGeneratorContext::JuliaTensorOperationsGeneratorContext(
     TagMap index_tags, DimMap index_dims)
     : ReorderingContext(MemoryLayout::ColumnMajor),
-      m_index_tags(std::move(index_tags)),
-      m_index_dims(std::move(index_dims)) {}
+      index_tags_(std::move(index_tags)),
+      index_dims_(std::move(index_dims)) {}
 
 std::string JuliaTensorOperationsGeneratorContext::get_tag(
     const IndexSpace &space) const {
-  auto it = m_index_tags.find(space);
+  auto it = index_tags_.find(space);
 
-  if (it == m_index_tags.end()) {
+  if (it == index_tags_.end()) {
     throw Exception("No known tags for indices of space \"" +
-                    toUtf8(space.base_key()) + "\"");
+                    to_utf8(space.base_key()) + "\"");
   }
 
   return it->second;
@@ -26,9 +26,9 @@ std::string JuliaTensorOperationsGeneratorContext::get_tag(
 
 std::string JuliaTensorOperationsGeneratorContext::get_dim(
     const IndexSpace &space) const {
-  auto it = m_index_dims.find(space);
+  auto it = index_dims_.find(space);
 
-  if (it == m_index_dims.end()) {
+  if (it == index_dims_.end()) {
     // Auto-generate a variable name for the space's dimension
     return "dim_" + get_tag(space);
   }
@@ -49,12 +49,12 @@ std::string JuliaTensorOperationsGeneratorContext::get_tags(
 
 void JuliaTensorOperationsGeneratorContext::set_tag(const IndexSpace &space,
                                                     std::string tag) {
-  m_index_tags[space] = std::move(tag);
+  index_tags_[space] = std::move(tag);
 }
 
 void JuliaTensorOperationsGeneratorContext::set_dim(const IndexSpace &space,
                                                     std::string dim) {
-  m_index_dims[space] = std::move(dim);
+  index_dims_[space] = std::move(dim);
 }
 
 }  // namespace sequant

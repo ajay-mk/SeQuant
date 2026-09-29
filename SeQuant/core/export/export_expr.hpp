@@ -47,8 +47,8 @@ class ExportExpr : public EvalExpr {
   bool operator==(const ExportExpr &other) const;
 
  private:
-  ComputeSelection m_selection = ComputeSelection::Both;
-  std::size_t m_id = detail::next_export_expr_id();
+  ComputeSelection selection_ = ComputeSelection::Both;
+  std::size_t id_ = detail::next_export_expr_id();
 };
 
 }  // namespace sequant

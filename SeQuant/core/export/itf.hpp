@@ -70,11 +70,11 @@ class ItfContext : public ReorderingContext {
 
   /// @returns The label of the 2-electron integral tensor
   virtual const std::wstring two_electron_integral_label() const {
-    return m_integral_label;
+    return integral_label_;
   }
   /// Sets the label of the 2-electron integral tensor
   virtual void set_two_electron_integral_label(std::wstring label) {
-    m_integral_label = std::move(label);
+    integral_label_ = std::move(label);
   }
 
   using ReorderingContext::rewrite;
@@ -93,14 +93,14 @@ class ItfContext : public ReorderingContext {
       std::optional<std::size_t> id = {}) const override;
 
  private:
-  NameMap m_space_names;
-  TagMap m_tags;
-  TensorImportMap m_tensor_imports;
-  VariableImportMap m_variable_imports;
-  container::map<IndexSpace, char> m_index_label_limits;
-  std::wstring m_integral_label = L"g";
-  std::size_t m_idx_offset = 0;
-  std::map<std::size_t, std::vector<Index>> m_batch_indices;
+  NameMap space_names_;
+  TagMap tags_;
+  TensorImportMap tensor_imports_;
+  VariableImportMap variable_imports_;
+  container::map<IndexSpace, char> index_label_limits_;
+  std::wstring integral_label_ = L"g";
+  std::size_t idx_offset_ = 0;
+  std::map<std::size_t, std::vector<Index>> batch_indices_;
 
  protected:
   bool is_exceptional_J(std::span<Index> bra, std::span<Index> ket) const;
@@ -158,7 +158,7 @@ class ItfGenerator : public Generator<Context> {
   }
 
   std::string get_name(const Tensor &tensor, const Context &ctx) const {
-    std::string name = toUtf8(tensor.label());
+    std::string name = to_utf8(tensor.label());
 
     if (tensor.num_indices() > 0) {
       name += ":";
@@ -192,7 +192,7 @@ class ItfGenerator : public Generator<Context> {
 
   std::string represent(const Variable &variable,
                         const Context &) const override {
-    return toUtf8(variable.label()) + "[]";
+    return to_utf8(variable.label()) + "[]";
   }
 
   std::string represent(const Constant &constant,
@@ -332,7 +332,7 @@ class ItfGenerator : public Generator<Context> {
       if (import_name.has_value()) {
         append(import_name.value());
       } else {
-        append(toUtf8(variable.label()));
+        append(to_utf8(variable.label()));
       }
     } else {
       append("!Create{type:scalar}");
@@ -410,24 +410,24 @@ class ItfGenerator : public Generator<Context> {
   }
 
   void begin_expression(const Context &ctx) override {
-    if (!m_generated.empty() && !m_generated.ends_with("\n\n") &&
-        !m_generated.ends_with(")\n")) {
+    if (!generated_.empty() && !generated_.ends_with("\n\n") &&
+        !generated_.ends_with(")\n")) {
       append_line();
     }
 
     if (ctx.is_batched(ctx.current_expression_id())) {
-      std::span<const Index> batchIndices =
+      std::span<const Index> batch_indices =
           ctx.batch_indices(ctx.current_expression_id());
 
       SEQUANT_ASSERT(std::ranges::is_sorted(
-          batchIndices, std::greater<>{},
+          batch_indices, std::greater<>{},
           [](const Index &idx) { return idx.space().approximate_size(); }));
 
       std::size_t num_shared = 0;
       for (std::size_t i = 0;
-           i < std::min(m_currentBatchIndices.size(), batchIndices.size());
+           i < std::min(current_batch_indices_.size(), batch_indices.size());
            ++i) {
-        if (batchIndices[i] != m_currentBatchIndices[i]) {
+        if (batch_indices[i] != current_batch_indices_[i]) {
           break;
         }
         ++num_shared;
@@ -435,16 +435,16 @@ class ItfGenerator : public Generator<Context> {
 
       // ITF is able to fuse index batching for indices of the same space
       std::size_t num_fuseable = std::ranges::distance(
-          batchIndices.begin(),
+          batch_indices.begin(),
           std::ranges::partition_point(
-              batchIndices, [&batchIndices](const Index &idx) {
-                return idx.space() == batchIndices.front().space();
+              batch_indices, [&batch_indices](const Index &idx) {
+                return idx.space() == batch_indices.front().space();
               }));
 
       if (num_shared >= num_fuseable &&
-          num_shared == m_currentBatchIndices.size()) {
+          num_shared == current_batch_indices_.size()) {
         // "Reuse" previously started batch loop
-        if (batchIndices.size() == num_shared) {
+        if (batch_indices.size() == num_shared) {
           return;
         }
       } else {
@@ -454,15 +454,15 @@ class ItfGenerator : public Generator<Context> {
       }
 
       append("for [");
-      for (std::size_t i = num_shared; i < batchIndices.size(); ++i) {
-        append(represent(batchIndices[i], ctx));
-        if (i + 1 < batchIndices.size()) {
+      for (std::size_t i = num_shared; i < batch_indices.size(); ++i) {
+        append(represent(batch_indices[i], ctx));
+        if (i + 1 < batch_indices.size()) {
           append(", ");
         }
       }
       append_line("]:");
-      m_indent_level += 1;
-      m_currentBatchIndices.assign(batchIndices.begin(), batchIndices.end());
+      indent_level_ += 1;
+      current_batch_indices_.assign(batch_indices.begin(), batch_indices.end());
     } else {
       end_batching();
     }
@@ -470,7 +470,7 @@ class ItfGenerator : public Generator<Context> {
 
   void end_expression(const Context &) override {}
 
-  void begin_export(const Context &) override { m_generated.clear(); }
+  void begin_export(const Context &) override { generated_.clear(); }
 
   void end_export(const Context &) override {
     end_batching();
@@ -478,12 +478,12 @@ class ItfGenerator : public Generator<Context> {
     append_line("---- end");
   }
 
-  std::string get_generated_code() const override { return m_generated; }
+  std::string get_generated_code() const override { return generated_; }
 
  private:
-  std::string m_generated;
-  std::size_t m_indent_level = 0;
-  std::vector<Index> m_currentBatchIndices;
+  std::string generated_;
+  std::size_t indent_level_ = 0;
+  std::vector<Index> current_batch_indices_;
 
   std::string stringify(const Expr &expr, const Context &ctx) const {
     if (expr.is<Tensor>()) {
@@ -529,21 +529,21 @@ class ItfGenerator : public Generator<Context> {
       return;
     }
 
-    std::string indent = std::string(m_indent_level, '\t');
+    std::string indent = std::string(indent_level_, '\t');
 
-    if (m_generated.empty() || m_generated.back() == '\n') {
-      m_generated += indent;
+    if (generated_.empty() || generated_.back() == '\n') {
+      generated_ += indent;
     }
 
     std::size_t offset = 0;
     while (offset != std::string::npos) {
       std::size_t idx = snippet.find('\n', offset);
       if (idx == std::string::npos) {
-        m_generated.append(snippet.data() + offset,
-                           snippet.data() + snippet.size());
+        generated_.append(snippet.data() + offset,
+                          snippet.data() + snippet.size());
       } else {
         idx += 1;
-        m_generated.append(snippet.data() + offset, snippet.data() + idx);
+        generated_.append(snippet.data() + offset, snippet.data() + idx);
       }
 
       offset = idx;
@@ -552,14 +552,14 @@ class ItfGenerator : public Generator<Context> {
 
   void append_line(const std::string &snippet = {}) {
     append(snippet);
-    m_generated += "\n";
+    generated_ += "\n";
   }
 
   void end_batching() {
-    if (!m_currentBatchIndices.empty()) {
-      m_currentBatchIndices.clear();
-      SEQUANT_ASSERT(m_indent_level > 0);
-      m_indent_level = 0;
+    if (!current_batch_indices_.empty()) {
+      current_batch_indices_.clear();
+      SEQUANT_ASSERT(indent_level_ > 0);
+      indent_level_ = 0;
     }
   }
 };

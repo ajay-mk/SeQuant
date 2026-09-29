@@ -41,8 +41,8 @@ class JuliaTensorOperationsGeneratorContext : public ReorderingContext {
   void set_dim(const IndexSpace &space, std::string dim);
 
  protected:
-  TagMap m_index_tags;
-  DimMap m_index_dims;
+  TagMap index_tags_;
+  DimMap index_dims_;
 };
 
 /// Generator for producing Julia code using the ITensor framework
@@ -85,7 +85,7 @@ class JuliaTensorOperationsGenerator : public Generator<Context> {
       throw Exception("Proto Indices are not (yet) supported!");
     }
 
-    return toUtf8(idx.full_label());
+    return to_utf8(idx.full_label());
   }
 
   std::string represent(const Tensor &tensor,
@@ -108,7 +108,7 @@ class JuliaTensorOperationsGenerator : public Generator<Context> {
 
   std::string represent(const Variable &variable,
                         const Context &) const override {
-    return toUtf8(variable.label());
+    return to_utf8(variable.label());
   }
 
   std::string represent(const Constant &constant,
@@ -141,21 +141,21 @@ class JuliaTensorOperationsGenerator : public Generator<Context> {
           "In Julia tensors can't be created without being initialized");
     }
 
-    m_generated += zero_initialization(tensor, ctx) + "\n";
+    generated_ += zero_initialization(tensor, ctx) + "\n";
   }
 
   void load(const Tensor &tensor, bool set_to_zero,
             const Context &ctx) override {
     if (!set_to_zero) {
-      m_generated += tensor_name(tensor, ctx);
-      m_generated += " = ";
-      m_generated += "deserialize(\"" + tensor_name(tensor, ctx) + ".jlbin\")";
+      generated_ += tensor_name(tensor, ctx);
+      generated_ += " = ";
+      generated_ += "deserialize(\"" + tensor_name(tensor, ctx) + ".jlbin\")";
     } else {
       // zero_initialization already emits "<name> = zeros(...)"
-      m_generated += zero_initialization(tensor, ctx);
+      generated_ += zero_initialization(tensor, ctx);
     }
 
-    m_generated += "\n";
+    generated_ += "\n";
   }
 
   void set_to_zero(const Tensor &tensor, const Context &ctx) override {
@@ -165,17 +165,17 @@ class JuliaTensorOperationsGenerator : public Generator<Context> {
   }
 
   void unload(const Tensor &tensor, const Context &ctx) override {
-    m_generated += tensor_name(tensor, ctx) + " = nothing\n";
+    generated_ += tensor_name(tensor, ctx) + " = nothing\n";
   }
 
   void destroy(const Tensor &tensor, const Context &ctx) override {
     unload(tensor, ctx);
     // Remove potential serialized version of this tensor from disk
-    m_generated += "rm( \"" + tensor_name(tensor, ctx) + +".jlbin\"" + ")\n";
+    generated_ += "rm( \"" + tensor_name(tensor, ctx) + +".jlbin\"" + ")\n";
   }
 
   void persist(const Tensor &tensor, const Context &ctx) override {
-    m_generated += "return " + tensor_name(tensor, ctx) + "\n";
+    generated_ += "return " + tensor_name(tensor, ctx) + "\n";
   }
 
   void create(const Variable &variable, bool zero_init,
@@ -185,48 +185,48 @@ class JuliaTensorOperationsGenerator : public Generator<Context> {
           "Julia doesn't support declaring a variable without initializing it");
     }
 
-    m_generated += represent(variable, ctx) + " = 0.0\n";
+    generated_ += represent(variable, ctx) + " = 0.0\n";
   }
   void load(const Variable &variable, bool set_to_zero,
             const Context &ctx) override {
-    m_generated += represent(variable, ctx) + " = ";
+    generated_ += represent(variable, ctx) + " = ";
 
     if (set_to_zero)
-      m_generated += "0.0";
+      generated_ += "0.0";
     else {
-      m_generated += "deserialize(\"" + represent(variable, ctx) + ".jlbin\")";
+      generated_ += "deserialize(\"" + represent(variable, ctx) + ".jlbin\")";
     }
-    m_generated += "\n";
+    generated_ += "\n";
   }
 
   void set_to_zero(const Variable &variable, const Context &ctx) override {
-    m_generated += represent(variable, ctx) + " = 0.0\n";
+    generated_ += represent(variable, ctx) + " = 0.0\n";
   }
 
   void unload(const Variable &variable, const Context &ctx) override {
-    m_generated += represent(variable, ctx) + " = nothing\n";
+    generated_ += represent(variable, ctx) + " = nothing\n";
   }
 
   void destroy(const Variable &variable, const Context &ctx) override {
     unload(variable, ctx);
     // Remove any potentially serialized version from disk
-    m_generated += "rm(\"" + represent(variable, ctx) + ".jlbin\")\n";
+    generated_ += "rm(\"" + represent(variable, ctx) + ".jlbin\")\n";
   }
 
   void persist(const Variable &variable, const Context &ctx) override {
-    m_generated += "return " + represent(variable, ctx) + "\n";
+    generated_ += "return " + represent(variable, ctx) + "\n";
   }
 
   void compute(const Expr &expression, const Tensor &result,
                const Context &ctx) override {
-    m_generated += "@tensor " + represent(result, ctx) +
-                   " += " + to_julia_expr(expression, ctx) + "\n";
+    generated_ += "@tensor " + represent(result, ctx) +
+                  " += " + to_julia_expr(expression, ctx) + "\n";
   }
 
   void compute(const Expr &expression, const Variable &result,
                const Context &ctx) override {
-    m_generated += "@tensor " + represent(result, ctx) +
-                   " += " + to_julia_expr(expression, ctx) + "\n";
+    generated_ += "@tensor " + represent(result, ctx) +
+                  " += " + to_julia_expr(expression, ctx) + "\n";
   }
 
   void declare(const Index &, const Context &) override {}
@@ -246,7 +246,7 @@ class JuliaTensorOperationsGenerator : public Generator<Context> {
   void end_declarations(DeclarationScope, const Context &) override {}
 
   void insert_comment(const std::string &comment, const Context &) override {
-    m_generated += "# " + comment + "\n";
+    generated_ += "# " + comment + "\n";
   }
 
   void begin_named_section(std::string_view, const Context &) override {
@@ -258,21 +258,21 @@ class JuliaTensorOperationsGenerator : public Generator<Context> {
   }
 
   void begin_expression(const Context &) override {
-    if (!m_generated.empty() && !m_generated.ends_with("\n\n")) {
-      m_generated += "\n";
+    if (!generated_.empty() && !generated_.ends_with("\n\n")) {
+      generated_ += "\n";
     }
   }
 
   void end_expression(const Context &) override {}
 
-  void begin_export(const Context &) override { m_generated.clear(); }
+  void begin_export(const Context &) override { generated_.clear(); }
 
   void end_export(const Context &) override {}
 
-  std::string get_generated_code() const override { return m_generated; }
+  std::string get_generated_code() const override { return generated_; }
 
  protected:
-  std::string m_generated;
+  std::string generated_;
 
   std::string to_julia_expr(const Expr &expr, const Context &ctx) const {
     return detail::stringify_expr(
@@ -293,19 +293,19 @@ class JuliaTensorOperationsGenerator : public Generator<Context> {
           "In Julia tensors can't be created without being initialized");
     }
 
-    m_generated += tensor_name(tensor, ctx);
-    m_generated += " = ";
-    m_generated += wrapper;
-    m_generated += "(zeros(Float64";
+    generated_ += tensor_name(tensor, ctx);
+    generated_ += " = ";
+    generated_ += wrapper;
+    generated_ += "(zeros(Float64";
 
     for (const Index &idx : tensor.const_indices()) {
-      m_generated += ", ";
-      m_generated += ctx.get_dim(idx.space());
+      generated_ += ", ";
+      generated_ += ctx.get_dim(idx.space());
     }
 
-    m_generated += "), ";
-    m_generated += shape;
-    m_generated += ")\n";
+    generated_ += "), ";
+    generated_ += shape;
+    generated_ += ")\n";
   }
 
   /// emits `<name> = <wrapper>(deserialize("<name>.jlbin"), <shape>)`, or
@@ -319,18 +319,18 @@ class JuliaTensorOperationsGenerator : public Generator<Context> {
       return;
     }
 
-    m_generated += tensor_name(tensor, ctx);
-    m_generated += " = ";
-    m_generated += wrapper;
-    m_generated += "(deserialize(\"";
-    m_generated += tensor_name(tensor, ctx);
-    m_generated += ".jlbin\"), ";
-    m_generated += shape;
-    m_generated += ")\n";
+    generated_ += tensor_name(tensor, ctx);
+    generated_ += " = ";
+    generated_ += wrapper;
+    generated_ += "(deserialize(\"";
+    generated_ += tensor_name(tensor, ctx);
+    generated_ += ".jlbin\"), ";
+    generated_ += shape;
+    generated_ += ")\n";
   }
 
   std::string tensor_name(const Tensor &tensor, const Context &ctx) const {
-    std::string representation = toUtf8(tensor.label());
+    std::string representation = to_utf8(tensor.label());
 
     representation += "_";
     representation += ctx.get_tags(tensor);

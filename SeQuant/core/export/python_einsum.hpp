@@ -37,22 +37,22 @@ class PythonEinsumGeneratorContext : public ReorderingContext {
   ~PythonEinsumGeneratorContext() = default;
   PythonEinsumGeneratorContext(ShapeMap index_shapes)
       : ReorderingContext(MemoryLayout::ColumnMajor),
-        m_index_shapes(std::move(index_shapes)) {}
+        index_shapes_(std::move(index_shapes)) {}
 
   /// Get whether to generate import statements
-  bool generate_imports() const { return m_generate_imports; }
+  bool generate_imports() const { return generate_imports_; }
 
   /// Set whether to generate import statements
-  void set_generate_imports(bool value) { m_generate_imports = value; }
+  void set_generate_imports(bool value) { generate_imports_ = value; }
 
   /// Get the dimension/shape for a given index space
   std::string get_shape(const IndexSpace &space) const {
-    auto it = m_index_shapes.find(space);
-    if (it != m_index_shapes.end()) {
+    auto it = index_shapes_.find(space);
+    if (it != index_shapes_.end()) {
       return it->second;
     }
     // Default fallback - use a simple naming scheme
-    return "dim_" + toUtf8(space.base_key());
+    return "dim_" + to_utf8(space.base_key());
   }
 
   /// Get the shape tuple for a tensor
@@ -70,29 +70,29 @@ class PythonEinsumGeneratorContext : public ReorderingContext {
 
   /// Set the dimension/shape for a given index space
   void set_shape(const IndexSpace &space, std::string shape) {
-    m_index_shapes[space] = std::move(shape);
+    index_shapes_[space] = std::move(shape);
   }
 
   /// Get the tag for a given index space
   /// Tags are appended to tensor names to distinguish different blocks
   std::string get_tag(const IndexSpace &space) const {
-    auto it = m_tags.find(space);
-    if (it != m_tags.end()) {
+    auto it = tags_.find(space);
+    if (it != tags_.end()) {
       return it->second;
     }
     // Default: use first character of base key
-    return toUtf8(space.base_key()).substr(0, 1);
+    return to_utf8(space.base_key()).substr(0, 1);
   }
 
   /// Set the tag for a given index space
   void set_tag(const IndexSpace &space, std::string tag) {
-    m_tags[space] = std::move(tag);
+    tags_[space] = std::move(tag);
   }
 
  protected:
-  ShapeMap m_index_shapes;
-  TagMap m_tags;
-  bool m_generate_imports = true;  // Generate imports by default
+  ShapeMap index_shapes_;
+  TagMap tags_;
+  bool generate_imports_ = true;  // Generate imports by default
 };
 
 /// Context for NumPy einsum generator
@@ -151,7 +151,7 @@ class PythonEinsumGeneratorBase : public Generator<Context> {
 
     // Convert index label to a single character for einsum notation
     // For einsum, we need single characters
-    std::string label = toUtf8(idx.full_label());
+    std::string label = to_utf8(idx.full_label());
 
     // Try to extract a single character representation
     // If the label is longer, use its first character (this may need
@@ -205,14 +205,14 @@ class PythonEinsumGeneratorBase : public Generator<Context> {
   }
 
   void unload(const Tensor &tensor, const Context &ctx) override {
-    m_generated += m_indent + "del " + represent(tensor, ctx) + "\n";
+    generated_ += indent_ + "del " + represent(tensor, ctx) + "\n";
   }
 
   void destroy(const Tensor &tensor, const Context &ctx) override {
     unload(tensor, ctx);
     // Remove the associated storage file from disk
-    m_generated += m_indent + "os.remove('" + represent(tensor, ctx) +
-                   file_extension() + "')\n";
+    generated_ += indent_ + "os.remove('" + represent(tensor, ctx) +
+                  file_extension() + "')\n";
   }
 
   void create(const Variable &variable, bool zero_init,
@@ -221,34 +221,34 @@ class PythonEinsumGeneratorBase : public Generator<Context> {
       throw Exception("Python variables must be initialized when created");
     }
 
-    m_generated += m_indent + represent(variable, ctx) + " = 0.0\n";
+    generated_ += indent_ + represent(variable, ctx) + " = 0.0\n";
   }
 
   void set_to_zero(const Variable &variable, const Context &ctx) override {
-    m_generated += m_indent + represent(variable, ctx) + " = 0.0\n";
+    generated_ += indent_ + represent(variable, ctx) + " = 0.0\n";
   }
 
   void unload(const Variable &variable, const Context &ctx) override {
-    m_generated += m_indent + "del " + represent(variable, ctx) + "\n";
+    generated_ += indent_ + "del " + represent(variable, ctx) + "\n";
   }
 
   void destroy(const Variable &variable, const Context &ctx) override {
     unload(variable, ctx);
     // Remove the associated storage file from disk
-    m_generated += m_indent + "os.remove('" + represent(variable, ctx) +
-                   file_extension() + "')\n";
+    generated_ += indent_ + "os.remove('" + represent(variable, ctx) +
+                  file_extension() + "')\n";
   }
 
   void compute(const Expr &expression, const Tensor &result,
                const Context &ctx) override {
-    m_generated += m_indent + represent(result, ctx) +
-                   " += " + to_einsum_expr(expression, result, ctx) + "\n";
+    generated_ += indent_ + represent(result, ctx) +
+                  " += " + to_einsum_expr(expression, result, ctx) + "\n";
   }
 
   void compute(const Expr &expression, const Variable &result,
                const Context &ctx) override {
-    m_generated += m_indent + represent(result, ctx) +
-                   " += " + to_python_scalar_expr(expression, ctx) + "\n";
+    generated_ += indent_ + represent(result, ctx) +
+                  " += " + to_python_scalar_expr(expression, ctx) + "\n";
   }
 
   void declare(const Index &, const Context &) override {
@@ -274,39 +274,39 @@ class PythonEinsumGeneratorBase : public Generator<Context> {
   void end_declarations(DeclarationScope, const Context &) override {}
 
   void insert_comment(const std::string &comment, const Context &) override {
-    m_generated += m_indent + "# " + comment + "\n";
+    generated_ += indent_ + "# " + comment + "\n";
   }
 
   void begin_named_section(std::string_view name, const Context &) override {
-    m_generated += m_indent + "def " + std::string(name) + "():\n";
-    m_indent += "    ";
+    generated_ += indent_ + "def " + std::string(name) + "():\n";
+    indent_ += "    ";
   }
 
   void end_named_section(std::string_view /*name*/, const Context &) override {
-    SEQUANT_ASSERT(m_indent.size() >= 4);
-    m_indent = m_indent.substr(0, m_indent.size() - 4);
-    m_generated += "\n";
+    SEQUANT_ASSERT(indent_.size() >= 4);
+    indent_ = indent_.substr(0, indent_.size() - 4);
+    generated_ += "\n";
   }
 
   void begin_expression(const Context &ctx) override {
     (void)ctx;
-    if (!m_generated.empty() && !m_generated.ends_with("\n\n")) {
+    if (!generated_.empty() && !generated_.ends_with("\n\n")) {
       // Add a blank line (no trailing whitespace in Python)
-      m_generated += "\n";
+      generated_ += "\n";
     }
   }
 
   void end_expression(const Context &ctx) override { (void)ctx; }
 
-  void begin_export(const Context &) override { m_generated.clear(); }
+  void begin_export(const Context &) override { generated_.clear(); }
 
   void end_export(const Context &ctx) override { (void)ctx; }
 
-  std::string get_generated_code() const override { return m_generated; }
+  std::string get_generated_code() const override { return generated_; }
 
  protected:
-  std::string m_generated;
-  std::string m_indent;
+  std::string generated_;
+  std::string indent_;
 
   /// Get the tensor name (without indices)
   std::string tensor_name(const Tensor &tensor, const Context &ctx) const {
@@ -358,7 +358,7 @@ class PythonEinsumGeneratorBase : public Generator<Context> {
 
   /// Sanitize a label to be a valid Python identifier
   std::string sanitize_python_name(std::wstring_view label) const {
-    std::string name = toUtf8(label);
+    std::string name = to_utf8(label);
 
     // Replace invalid characters with underscores
     // Python 3 supports unicode identifiers, so we only replace:
@@ -390,7 +390,7 @@ class PythonEinsumGeneratorBase : public Generator<Context> {
       const Index &idx, const Context &,
       boost::unordered::unordered_map<std::string, std::string> &index_map,
       boost::unordered::unordered_set<std::string> &used_chars) const {
-    const std::string full_label = toUtf8(idx.full_label());
+    const std::string full_label = to_utf8(idx.full_label());
 
     // Check if we've already assigned a character to this index
     auto it = index_map.find(full_label);
@@ -635,10 +635,10 @@ class NumPyEinsumGenerator
   std::string get_format_name() const override { return "Python (einsum)"; }
 
   void begin_export(const Context &ctx) override {
-    Base::m_generated.clear();
+    Base::generated_.clear();
     if (ctx.generate_imports()) {
-      Base::m_generated += "import numpy as np\n";
-      Base::m_generated += "import os\n\n";
+      Base::generated_ += "import numpy as np\n";
+      Base::generated_ += "import os\n\n";
     }
   }
 
@@ -654,61 +654,60 @@ class NumPyEinsumGenerator
       throw Exception("Python tensors must be initialized when created");
     }
 
-    m_generated += m_indent + represent(tensor, ctx) + " = " + module_prefix() +
-                   "zeros(" + ctx.get_shape_tuple(tensor) + ", order='" +
-                   get_order_string(ctx) + "')\n";
+    generated_ += indent_ + represent(tensor, ctx) + " = " + module_prefix() +
+                  "zeros(" + ctx.get_shape_tuple(tensor) + ", order='" +
+                  get_order_string(ctx) + "')\n";
   }
 
   void load(const Tensor &tensor, bool set_to_zero,
             const Context &ctx) override {
-    Base::m_generated += Base::m_indent + Base::represent(tensor, ctx) + " = ";
+    Base::generated_ += Base::indent_ + Base::represent(tensor, ctx) + " = ";
 
     if (set_to_zero) {
-      Base::m_generated += module_prefix() + "zeros(" +
-                           ctx.get_shape_tuple(tensor) + ", order='" +
-                           Base::get_order_string(ctx) + "')";
+      Base::generated_ += module_prefix() + "zeros(" +
+                          ctx.get_shape_tuple(tensor) + ", order='" +
+                          Base::get_order_string(ctx) + "')";
     } else {
       // Load from file
-      Base::m_generated += module_prefix() + "load('" +
-                           Base::represent(tensor, ctx) + file_extension() +
-                           "')";
+      Base::generated_ += module_prefix() + "load('" +
+                          Base::represent(tensor, ctx) + file_extension() +
+                          "')";
     }
 
-    Base::m_generated += "\n";
+    Base::generated_ += "\n";
   }
 
   void set_to_zero(const Tensor &tensor, const Context &ctx) override {
-    Base::m_generated +=
-        Base::m_indent + Base::represent(tensor, ctx) + ".fill(0)\n";
+    Base::generated_ +=
+        Base::indent_ + Base::represent(tensor, ctx) + ".fill(0)\n";
   }
 
   void persist(const Tensor &tensor, const Context &ctx) override {
-    Base::m_generated += Base::m_indent + module_prefix() + "save('" +
-                         Base::represent(tensor, ctx) + file_extension() +
-                         "', " + Base::represent(tensor, ctx) + ")\n";
+    Base::generated_ += Base::indent_ + module_prefix() + "save('" +
+                        Base::represent(tensor, ctx) + file_extension() +
+                        "', " + Base::represent(tensor, ctx) + ")\n";
   }
 
   void load(const Variable &variable, bool set_to_zero,
             const Context &ctx) override {
-    Base::m_generated +=
-        Base::m_indent + Base::represent(variable, ctx) + " = ";
+    Base::generated_ += Base::indent_ + Base::represent(variable, ctx) + " = ";
 
     if (set_to_zero) {
-      Base::m_generated += "0.0";
+      Base::generated_ += "0.0";
     } else {
       // Load from file
-      Base::m_generated += module_prefix() + "load('" +
-                           Base::represent(variable, ctx) + file_extension() +
-                           "')";
+      Base::generated_ += module_prefix() + "load('" +
+                          Base::represent(variable, ctx) + file_extension() +
+                          "')";
     }
 
-    Base::m_generated += "\n";
+    Base::generated_ += "\n";
   }
 
   void persist(const Variable &variable, const Context &ctx) override {
-    Base::m_generated += Base::m_indent + module_prefix() + "save('" +
-                         Base::represent(variable, ctx) + file_extension() +
-                         "', " + Base::represent(variable, ctx) + ")\n";
+    Base::generated_ += Base::indent_ + module_prefix() + "save('" +
+                        Base::represent(variable, ctx) + file_extension() +
+                        "', " + Base::represent(variable, ctx) + ")\n";
   }
 
  protected:
@@ -739,10 +738,10 @@ class PyTorchEinsumGenerator
   std::string get_format_name() const override { return "PyTorch (einsum)"; }
 
   void begin_export(const Context &ctx) override {
-    Base::m_generated.clear();
+    Base::generated_.clear();
     if (ctx.generate_imports()) {
-      Base::m_generated += "import torch\n";
-      Base::m_generated += "import os\n\n";
+      Base::generated_ += "import torch\n";
+      Base::generated_ += "import os\n\n";
     }
   }
 
@@ -761,62 +760,60 @@ class PyTorchEinsumGenerator
 
     // PyTorch doesn't support the 'order' parameter - tensors are always
     // row-major Use float64 (double precision) to match C++ double type
-    Base::m_generated += Base::m_indent + Base::represent(tensor, ctx) + " = " +
-                         module_prefix() + "zeros(" +
-                         ctx.get_shape_tuple(tensor) +
-                         ", dtype=torch.float64)\n";
+    Base::generated_ +=
+        Base::indent_ + Base::represent(tensor, ctx) + " = " + module_prefix() +
+        "zeros(" + ctx.get_shape_tuple(tensor) + ", dtype=torch.float64)\n";
   }
 
   void load(const Tensor &tensor, bool set_to_zero,
             const Context &ctx) override {
-    Base::m_generated += Base::m_indent + Base::represent(tensor, ctx) + " = ";
+    Base::generated_ += Base::indent_ + Base::represent(tensor, ctx) + " = ";
 
     if (set_to_zero) {
       // PyTorch doesn't support the 'order' parameter - tensors are always
       // row-major Use float64 (double precision) to match C++ double type
-      Base::m_generated += module_prefix() + "zeros(" +
-                           ctx.get_shape_tuple(tensor) +
-                           ", dtype=torch.float64)";
+      Base::generated_ += module_prefix() + "zeros(" +
+                          ctx.get_shape_tuple(tensor) +
+                          ", dtype=torch.float64)";
     } else {
       // Load from file
-      Base::m_generated += "torch.load('" + Base::represent(tensor, ctx) +
-                           file_extension() + "')";
+      Base::generated_ += "torch.load('" + Base::represent(tensor, ctx) +
+                          file_extension() + "')";
     }
 
-    Base::m_generated += "\n";
+    Base::generated_ += "\n";
   }
 
   void set_to_zero(const Tensor &tensor, const Context &ctx) override {
-    Base::m_generated +=
-        Base::m_indent + Base::represent(tensor, ctx) + ".zero_()\n";
+    Base::generated_ +=
+        Base::indent_ + Base::represent(tensor, ctx) + ".zero_()\n";
   }
 
   void persist(const Tensor &tensor, const Context &ctx) override {
-    Base::m_generated +=
-        Base::m_indent + "torch.save(" + Base::represent(tensor, ctx) + ", '" +
+    Base::generated_ +=
+        Base::indent_ + "torch.save(" + Base::represent(tensor, ctx) + ", '" +
         Base::represent(tensor, ctx) + file_extension() + "')\n";
   }
 
   void load(const Variable &variable, bool set_to_zero,
             const Context &ctx) override {
-    Base::m_generated +=
-        Base::m_indent + Base::represent(variable, ctx) + " = ";
+    Base::generated_ += Base::indent_ + Base::represent(variable, ctx) + " = ";
 
     if (set_to_zero) {
-      Base::m_generated += "0.0";
+      Base::generated_ += "0.0";
     } else {
       // Load from file
-      Base::m_generated += "torch.load('" + Base::represent(variable, ctx) +
-                           file_extension() + "')";
+      Base::generated_ += "torch.load('" + Base::represent(variable, ctx) +
+                          file_extension() + "')";
     }
 
-    Base::m_generated += "\n";
+    Base::generated_ += "\n";
   }
 
   void persist(const Variable &variable, const Context &ctx) override {
-    Base::m_generated +=
-        Base::m_indent + "torch.save(" + Base::represent(variable, ctx) +
-        ", '" + Base::represent(variable, ctx) + file_extension() + "')\n";
+    Base::generated_ +=
+        Base::indent_ + "torch.save(" + Base::represent(variable, ctx) + ", '" +
+        Base::represent(variable, ctx) + file_extension() + "')\n";
   }
 
  protected:

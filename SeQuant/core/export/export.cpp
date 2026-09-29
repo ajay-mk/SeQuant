@@ -15,7 +15,7 @@ auto get_with_default(const auto &map, const auto &key, auto def_value) {
 }
 
 bool rename(Tensor &tensor, PreprocessResult &result) {
-  SEQUANT_ASSERT(result.tensorReferences.at(tensor) > 0);
+  SEQUANT_ASSERT(result.tensor_references.at(tensor) > 0);
 
   std::wstring basename = [&tensor]() {
     std::size_t size = tensor.label().size();
@@ -31,16 +31,17 @@ bool rename(Tensor &tensor, PreprocessResult &result) {
   tensor.set_label(basename);
 
   std::size_t counter = 2;
-  while (get_with_default(result.tensorReferences, tensor, 0) > 0) {
+  while (get_with_default(result.tensor_references, tensor, 0) > 0) {
     tensor.set_label(basename + std::to_wstring(counter));
     counter++;
   }
 
-  return result.tensorReferences.find(tensor) != result.tensorReferences.end();
+  return result.tensor_references.find(tensor) !=
+         result.tensor_references.end();
 }
 
 bool rename(Variable &variable, PreprocessResult &result) {
-  SEQUANT_ASSERT(result.variableReferences.at(variable) > 0);
+  SEQUANT_ASSERT(result.variable_references.at(variable) > 0);
 
   std::wstring basename = [&variable]() {
     std::size_t size = variable.label().size();
@@ -56,13 +57,13 @@ bool rename(Variable &variable, PreprocessResult &result) {
   variable.set_label(basename);
 
   std::size_t counter = 2;
-  while (get_with_default(result.variableReferences, variable, 0) > 0) {
+  while (get_with_default(result.variable_references, variable, 0) > 0) {
     variable.set_label(basename + std::to_wstring(counter));
     counter++;
   }
 
-  return result.variableReferences.find(variable) !=
-         result.variableReferences.end();
+  return result.variable_references.find(variable) !=
+         result.variable_references.end();
 }
 
 }  // namespace sequant::detail

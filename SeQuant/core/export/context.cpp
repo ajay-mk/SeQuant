@@ -34,38 +34,38 @@ StrategyPair::StrategyPair(ZeroStrategy zero) : StrategyPair() {
 }
 
 UsageSet &UsageSet::operator=(Usage usage) {
-  m_val = static_cast<Value>(usage);
+  val_ = static_cast<Value>(usage);
   return *this;
 }
 
 UsageSet &UsageSet::operator|=(UsageSet usage) {
-  m_val |= usage.m_val;
+  val_ |= usage.val_;
   return *this;
 }
 
 UsageSet &UsageSet::operator&=(UsageSet usage) {
-  m_val &= usage.m_val;
+  val_ &= usage.val_;
   return *this;
 }
 
 UsageSet &UsageSet::operator|=(Usage usage) {
-  m_val |= static_cast<Value>(usage);
+  val_ |= static_cast<Value>(usage);
   return *this;
 }
 
 UsageSet &UsageSet::operator&=(Usage usage) {
-  m_val &= static_cast<Value>(usage);
+  val_ &= static_cast<Value>(usage);
   return *this;
 }
 
 bool operator&(UsageSet set, Usage usage) {
-  return set.m_val & static_cast<UsageSet::Value>(usage);
+  return set.val_ & static_cast<UsageSet::Value>(usage);
 }
 
 bool operator&(Usage usage, UsageSet set) { return set & usage; }
 
 bool operator==(UsageSet set, Usage usage) {
-  return set.m_val == static_cast<UsageSet::Value>(usage);
+  return set.val_ == static_cast<UsageSet::Value>(usage);
 }
 
 bool operator==(Usage usage, UsageSet set) { return set == usage; }
@@ -74,19 +74,19 @@ bool operator!=(UsageSet set, Usage usage) { return !(set == usage); }
 
 bool operator!=(Usage usage, UsageSet set) { return set != usage; }
 
-ExportContext::ExportContext(TensorStrategyMap tensorMap,
-                             VariableStrategyMap variableMap)
-    : m_tensorStrategies({{ID_GLOBAL, std::move(tensorMap)}}),
-      m_variableStrategies({{ID_GLOBAL, std::move(variableMap)}}) {}
+ExportContext::ExportContext(TensorStrategyMap tensor_map,
+                             VariableStrategyMap variable_map)
+    : tensor_strategies_({{ID_GLOBAL, std::move(tensor_map)}}),
+      variable_strategies_({{ID_GLOBAL, std::move(variable_map)}}) {}
 
 ExportContext::ExportContext(VariableStrategyMap map)
-    : m_variableStrategies({{ID_GLOBAL, std::move(map)}}) {}
+    : variable_strategies_({{ID_GLOBAL, std::move(map)}}) {}
 
 ExportContext::~ExportContext() = default;
 
-LoadStrategy ExportContext::loadStrategy(const Tensor &tensor) const {
-  if (auto map_iter = m_tensorStrategies.find(ID_GLOBAL);
-      map_iter != m_tensorStrategies.end()) {
+LoadStrategy ExportContext::load_strategy(const Tensor &tensor) const {
+  if (auto map_iter = tensor_strategies_.find(ID_GLOBAL);
+      map_iter != tensor_strategies_.end()) {
     auto iter = map_iter->second.find(tensor);
     if (iter != map_iter->second.end()) {
       return iter->second.load;
@@ -94,8 +94,8 @@ LoadStrategy ExportContext::loadStrategy(const Tensor &tensor) const {
   }
 
   if (has_current_expression_id()) {
-    if (auto map_iter = m_tensorStrategies.find(current_expression_id());
-        map_iter != m_tensorStrategies.end()) {
+    if (auto map_iter = tensor_strategies_.find(current_expression_id());
+        map_iter != tensor_strategies_.end()) {
       auto iter = map_iter->second.find(tensor);
       if (iter != map_iter->second.end()) {
         return iter->second.load;
@@ -106,9 +106,9 @@ LoadStrategy ExportContext::loadStrategy(const Tensor &tensor) const {
   return LoadStrategy::Create;
 }
 
-LoadStrategy ExportContext::loadStrategy(const Variable &variable) const {
-  if (auto map_iter = m_variableStrategies.find(ID_GLOBAL);
-      map_iter != m_variableStrategies.end()) {
+LoadStrategy ExportContext::load_strategy(const Variable &variable) const {
+  if (auto map_iter = variable_strategies_.find(ID_GLOBAL);
+      map_iter != variable_strategies_.end()) {
     auto iter = map_iter->second.find(variable);
     if (iter != map_iter->second.end()) {
       return iter->second.load;
@@ -116,8 +116,8 @@ LoadStrategy ExportContext::loadStrategy(const Variable &variable) const {
   }
 
   if (has_current_expression_id()) {
-    if (auto map_iter = m_variableStrategies.find(current_expression_id());
-        map_iter != m_variableStrategies.end()) {
+    if (auto map_iter = variable_strategies_.find(current_expression_id());
+        map_iter != variable_strategies_.end()) {
       auto iter = map_iter->second.find(variable);
       if (iter != map_iter->second.end()) {
         return iter->second.load;
@@ -128,39 +128,39 @@ LoadStrategy ExportContext::loadStrategy(const Variable &variable) const {
   return LoadStrategy::Create;
 }
 
-void ExportContext::setLoadStrategy(
+void ExportContext::set_load_strategy(
     const Tensor &tensor, LoadStrategy strategy,
     const std::optional<std::size_t> &expression_id) {
   std::size_t id = expression_id.value_or(
       has_current_expression_id() ? current_expression_id() : ID_GLOBAL);
 
-  auto iter = m_tensorStrategies[id].find(tensor);
+  auto iter = tensor_strategies_[id].find(tensor);
 
-  if (iter == m_tensorStrategies[id].end()) {
-    m_tensorStrategies[id][tensor] = StrategyPair(strategy);
+  if (iter == tensor_strategies_[id].end()) {
+    tensor_strategies_[id][tensor] = StrategyPair(strategy);
   } else {
     iter->second.load = strategy;
   }
 }
 
-void ExportContext::setLoadStrategy(
+void ExportContext::set_load_strategy(
     const Variable &variable, LoadStrategy strategy,
     const std::optional<std::size_t> &expression_id) {
   std::size_t id = expression_id.value_or(
       has_current_expression_id() ? current_expression_id() : ID_GLOBAL);
 
-  auto iter = m_variableStrategies[id].find(variable);
+  auto iter = variable_strategies_[id].find(variable);
 
-  if (iter == m_variableStrategies[id].end()) {
-    m_variableStrategies[id][variable] = StrategyPair(strategy);
+  if (iter == variable_strategies_[id].end()) {
+    variable_strategies_[id][variable] = StrategyPair(strategy);
   } else {
     iter->second.load = strategy;
   }
 }
 
-ZeroStrategy ExportContext::zeroStrategy(const Tensor &tensor) const {
-  if (auto map_iter = m_tensorStrategies.find(ID_GLOBAL);
-      map_iter != m_tensorStrategies.end()) {
+ZeroStrategy ExportContext::zero_strategy(const Tensor &tensor) const {
+  if (auto map_iter = tensor_strategies_.find(ID_GLOBAL);
+      map_iter != tensor_strategies_.end()) {
     auto iter = map_iter->second.find(tensor);
     if (iter != map_iter->second.end()) {
       return iter->second.zero;
@@ -168,8 +168,8 @@ ZeroStrategy ExportContext::zeroStrategy(const Tensor &tensor) const {
   }
 
   if (has_current_expression_id()) {
-    if (auto map_iter = m_tensorStrategies.find(current_expression_id());
-        map_iter != m_tensorStrategies.end()) {
+    if (auto map_iter = tensor_strategies_.find(current_expression_id());
+        map_iter != tensor_strategies_.end()) {
       auto iter = map_iter->second.find(tensor);
       if (iter != map_iter->second.end()) {
         return iter->second.zero;
@@ -180,9 +180,9 @@ ZeroStrategy ExportContext::zeroStrategy(const Tensor &tensor) const {
   return ZeroStrategy::ZeroOnCreate;
 }
 
-ZeroStrategy ExportContext::zeroStrategy(const Variable &variable) const {
-  if (auto map_iter = m_variableStrategies.find(ID_GLOBAL);
-      map_iter != m_variableStrategies.end()) {
+ZeroStrategy ExportContext::zero_strategy(const Variable &variable) const {
+  if (auto map_iter = variable_strategies_.find(ID_GLOBAL);
+      map_iter != variable_strategies_.end()) {
     auto iter = map_iter->second.find(variable);
     if (iter != map_iter->second.end()) {
       return iter->second.zero;
@@ -190,8 +190,8 @@ ZeroStrategy ExportContext::zeroStrategy(const Variable &variable) const {
   }
 
   if (has_current_expression_id()) {
-    if (auto map_iter = m_variableStrategies.find(current_expression_id());
-        map_iter != m_variableStrategies.end()) {
+    if (auto map_iter = variable_strategies_.find(current_expression_id());
+        map_iter != variable_strategies_.end()) {
       auto iter = map_iter->second.find(variable);
       if (iter != map_iter->second.end()) {
         return iter->second.zero;
@@ -202,31 +202,31 @@ ZeroStrategy ExportContext::zeroStrategy(const Variable &variable) const {
   return ZeroStrategy::ZeroOnCreate;
 }
 
-void ExportContext::setZeroStrategy(
+void ExportContext::set_zero_strategy(
     const Tensor &tensor, ZeroStrategy strategy,
     const std::optional<std::size_t> &expression_id) {
   std::size_t id = expression_id.value_or(
       has_current_expression_id() ? current_expression_id() : ID_GLOBAL);
 
-  auto iter = m_tensorStrategies[id].find(tensor);
+  auto iter = tensor_strategies_[id].find(tensor);
 
-  if (iter == m_tensorStrategies[id].end()) {
-    m_tensorStrategies[id][tensor] = StrategyPair(strategy);
+  if (iter == tensor_strategies_[id].end()) {
+    tensor_strategies_[id][tensor] = StrategyPair(strategy);
   } else {
     iter->second.zero = strategy;
   }
 }
 
-void ExportContext::setZeroStrategy(
+void ExportContext::set_zero_strategy(
     const Variable &variable, ZeroStrategy strategy,
     const std::optional<std::size_t> &expression_id) {
   std::size_t id = expression_id.value_or(
       has_current_expression_id() ? current_expression_id() : ID_GLOBAL);
 
-  auto iter = m_variableStrategies[id].find(variable);
+  auto iter = variable_strategies_[id].find(variable);
 
-  if (iter == m_variableStrategies[id].end()) {
-    m_variableStrategies[id][variable] = StrategyPair(strategy);
+  if (iter == variable_strategies_[id].end()) {
+    variable_strategies_[id][variable] = StrategyPair(strategy);
   } else {
     iter->second.zero = strategy;
   }
@@ -237,33 +237,33 @@ bool ExportContext::rewrite(Tensor &) const { return false; }
 bool ExportContext::rewrite(Variable &) const { return false; }
 
 bool ExportContext::inside_named_section() const {
-  return m_currentSection.has_value();
+  return current_section_.has_value();
 }
 
 const std::string &ExportContext::current_section_name() const {
-  return m_currentSection.value();
+  return current_section_.value();
 }
 
 void ExportContext::set_current_section_name(std::string name) {
-  m_currentSection = std::move(name);
+  current_section_ = std::move(name);
 }
 
-void ExportContext::clear_current_section_name() { m_currentSection.reset(); }
+void ExportContext::clear_current_section_name() { current_section_.reset(); }
 
 bool ExportContext::has_current_expression_id() const {
-  return m_currentExpressionID.has_value();
+  return current_expression_id_.has_value();
 }
 
 std::size_t ExportContext::current_expression_id() const {
-  return m_currentExpressionID.value();
+  return current_expression_id_.value();
 }
 
 void ExportContext::set_current_expression_id(std::size_t id) {
-  m_currentExpressionID = id;
+  current_expression_id_ = id;
 }
 
 void ExportContext::clear_current_expression_id() {
-  m_currentExpressionID.reset();
+  current_expression_id_.reset();
 }
 
 std::span<const Index> ExportContext::batch_indices(

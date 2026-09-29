@@ -35,8 +35,8 @@ class ExpressionGroup {
   explicit ExpressionGroup(container_type expressions)
       : ExpressionGroup(std::move(expressions), {}) {}
   ExpressionGroup(container_type expressions, std::optional<std::string> name)
-      : m_expressions(std::move(expressions)), m_name(std::move(name)) {
-    SEQUANT_ASSERT(!m_name.has_value() || !m_name.value().empty());
+      : expressions_(std::move(expressions)), name_(std::move(name)) {
+    SEQUANT_ASSERT(!name_.has_value() || !name_.value().empty());
   }
 
   template <typename Range>
@@ -49,51 +49,51 @@ class ExpressionGroup {
             container_type(std::ranges::begin(rng), std::ranges::end(rng)),
             std::move(name)) {}
 
-  [[nodiscard]] bool is_named() const { return m_name.has_value(); }
+  [[nodiscard]] bool is_named() const { return name_.has_value(); }
 
-  [[nodiscard]] const std::string &name() const { return m_name.value(); }
+  [[nodiscard]] const std::string &name() const { return name_.value(); }
 
-  [[nodiscard]] iterator begin() { return m_expressions.begin(); }
-  [[nodiscard]] iterator end() { return m_expressions.end(); }
-  [[nodiscard]] const_iterator begin() const { return m_expressions.begin(); }
-  [[nodiscard]] const_iterator end() const { return m_expressions.end(); }
-  [[nodiscard]] const_iterator cbegin() const { return m_expressions.cbegin(); }
-  [[nodiscard]] const_iterator cend() const { return m_expressions.cend(); }
-  [[nodiscard]] reverse_iterator rbegin() { return m_expressions.rbegin(); }
-  [[nodiscard]] reverse_iterator rend() { return m_expressions.rend(); }
+  [[nodiscard]] iterator begin() { return expressions_.begin(); }
+  [[nodiscard]] iterator end() { return expressions_.end(); }
+  [[nodiscard]] const_iterator begin() const { return expressions_.begin(); }
+  [[nodiscard]] const_iterator end() const { return expressions_.end(); }
+  [[nodiscard]] const_iterator cbegin() const { return expressions_.cbegin(); }
+  [[nodiscard]] const_iterator cend() const { return expressions_.cend(); }
+  [[nodiscard]] reverse_iterator rbegin() { return expressions_.rbegin(); }
+  [[nodiscard]] reverse_iterator rend() { return expressions_.rend(); }
   [[nodiscard]] const_reverse_iterator rbegin() const {
-    return m_expressions.rbegin();
+    return expressions_.rbegin();
   }
   [[nodiscard]] const_reverse_iterator rend() const {
-    return m_expressions.rend();
+    return expressions_.rend();
   }
   [[nodiscard]] const_reverse_iterator crbegin() const {
-    return m_expressions.crbegin();
+    return expressions_.crbegin();
   }
   [[nodiscard]] const_reverse_iterator crend() const {
-    return m_expressions.crend();
+    return expressions_.crend();
   }
 
-  [[nodiscard]] ExportNode<T> &front() { return m_expressions.front(); }
+  [[nodiscard]] ExportNode<T> &front() { return expressions_.front(); }
   [[nodiscard]] const ExportNode<T> &front() const {
-    return m_expressions.front();
+    return expressions_.front();
   }
-  [[nodiscard]] ExportNode<T> &back() { return m_expressions.back(); }
+  [[nodiscard]] ExportNode<T> &back() { return expressions_.back(); }
   [[nodiscard]] const ExportNode<T> &back() const {
-    return m_expressions.back();
+    return expressions_.back();
   }
 
-  [[nodiscard]] std::size_t size() const { return m_expressions.size(); }
+  [[nodiscard]] std::size_t size() const { return expressions_.size(); }
 
-  void add(ExportNode<T> expr) { m_expressions.emplace_back(std::move(expr)); }
+  void add(ExportNode<T> expr) { expressions_.emplace_back(std::move(expr)); }
 
   iterator insert(const_iterator pos, ExportNode<T> expr) {
-    return m_expressions.insert(pos, std::move(expr));
+    return expressions_.insert(pos, std::move(expr));
   }
 
  private:
-  container::svector<ExportNode<T>> m_expressions;
-  std::optional<std::string> m_name;
+  container::svector<ExportNode<T>> expressions_;
+  std::optional<std::string> name_;
 };
 
 }  // namespace sequant

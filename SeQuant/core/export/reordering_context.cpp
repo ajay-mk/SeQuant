@@ -97,7 +97,7 @@ bool ReorderingContext::rewrite(Tensor &tensor) const {
   using std::ranges::begin;
   using std::ranges::end;
 
-  if (!m_rewrite) {
+  if (!rewrite_) {
     return false;
   }
 
@@ -132,10 +132,10 @@ bool ReorderingContext::rewrite(Tensor &tensor) const {
 
   IndexSpace relevant_bra = sort_bra || (sort_particles && bra_over_ket)
                                 ? max_space_size_idx(tensor.bra())
-                                : relevant_space(tensor.bra(), m_layout);
+                                : relevant_space(tensor.bra(), layout_);
   IndexSpace relevant_ket = sort_ket || (sort_particles && !bra_over_ket)
                                 ? max_space_size_idx(tensor.ket())
-                                : relevant_space(tensor.ket(), m_layout);
+                                : relevant_space(tensor.ket(), layout_);
 
   // Same as for antisymmetry: We can't deal with conjugation at the tensor
   // level
@@ -144,7 +144,7 @@ bool ReorderingContext::rewrite(Tensor &tensor) const {
                      needs_swap(relevant_bra, relevant_ket);
   bool prioritize_aux = !tensor.aux().empty() &&
                         needs_swap((swap_braket ? relevant_ket : relevant_bra),
-                                   relevant_space(tensor.aux(), m_layout));
+                                   relevant_space(tensor.aux(), layout_));
 
   if (!sort_bra && !sort_ket && !swap_braket && !prioritize_aux &&
       !sort_particles) {
@@ -228,7 +228,7 @@ bool ReorderingContext::rewrite(Tensor &tensor) const {
 
 bool ReorderingContext::is_less(const IndexSpace &lhs,
                                 const IndexSpace &rhs) const {
-  switch (m_layout) {
+  switch (layout_) {
     case MemoryLayout::RowMajor:
       // Fastest index is right-most in [abcd]
       return lhs.approximate_size() < rhs.approximate_size();

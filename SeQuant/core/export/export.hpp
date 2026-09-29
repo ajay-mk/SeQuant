@@ -33,13 +33,14 @@ namespace detail {
 
 /// A collection of various meta-data that the preprocessing stage will collect
 struct PreprocessResult {
-  std::unordered_map<std::size_t, ExprPtr> scalarFactors;
+  std::unordered_map<std::size_t, ExprPtr> scalar_factors;
   std::set<Index> indices;
   std::map<Tensor, UsageSet, TensorBlockLessThanComparator> tensors;
   std::map<Variable, UsageSet> variables;
 
-  std::map<Tensor, std::size_t, TensorBlockLessThanComparator> tensorReferences;
-  std::map<Variable, std::size_t> variableReferences;
+  std::map<Tensor, std::size_t, TensorBlockLessThanComparator>
+      tensor_references;
+  std::map<Variable, std::size_t> variable_references;
 };
 
 /// Visitor objects that will steer code generation while visiting a given
@@ -52,21 +53,21 @@ class GenerationVisitor {
 
   /// @param generator The Generator to use
   /// @param ctx The Context to use
-  /// @param scalarFactors A map of node IDs to a product of scalar factors that
-  /// need to be multiplied with the result before storing the node
+  /// @param scalar_factors A map of node IDs to a product of scalar factors
+  /// that need to be multiplied with the result before storing the node
   GenerationVisitor(Generator<Context> &generator, Context &ctx,
-                    const std::unordered_map<NodeID, ExprPtr> &scalarFactors)
-      : m_generator(generator), m_ctx(ctx), m_scalarFactors(scalarFactors) {
-    if (m_generator.supports_index_batching()) {
+                    const std::unordered_map<NodeID, ExprPtr> &scalar_factors)
+      : generator_(generator), ctx_(ctx), scalar_factors_(scalar_factors) {
+    if (generator_.supports_index_batching()) {
       // Make tensor comparator aware of the list of batched indices
-      std::span<const Index> batchIndices =
-          m_ctx.batch_indices(m_ctx.current_expression_id());
-      if (!batchIndices.empty()) {
+      std::span<const Index> batch_indices =
+          ctx_.batch_indices(ctx_.current_expression_id());
+      if (!batch_indices.empty()) {
         IndexSpecificTensorBlockLessThanComparator cmp =
-            m_tensorUses.key_comp();
+            tensor_uses_.key_comp();
         cmp.set_indices(
-            std::vector<Index>(batchIndices.begin(), batchIndices.end()));
-        m_tensorUses = decltype(m_tensorUses)(std::move(cmp));
+            std::vector<Index>(batch_indices.begin(), batch_indices.end()));
+        tensor_uses_ = decltype(tensor_uses_)(std::move(cmp));
       }
     }
   }
@@ -91,69 +92,69 @@ class GenerationVisitor {
         SEQUANT_UNREACHABLE;
     }
 
-    if (!m_rootID.has_value()) {
-      m_rootID = node->id();
-    } else if (m_rootID.value() == node->id()) {
+    if (!root_id_.has_value()) {
+      root_id_ = node->id();
+    } else if (root_id_.value() == node->id()) {
       if (node->is_tensor()) {
-        m_generator.persist(node->as_tensor(), m_ctx);
+        generator_.persist(node->as_tensor(), ctx_);
       } else if (node->is_variable()) {
-        m_generator.persist(node->as_variable(), m_ctx);
+        generator_.persist(node->as_variable(), ctx_);
       } else {
         throw Exception(
             "Root nodes are expected to be of type tensor or variable");
       }
 
-      m_rootID.reset();
+      root_id_.reset();
     }
   }
 
   template <typename ExprType>
-  void load_or_create(const ExprType &expr, const bool isLeaf) {
+  void load_or_create(const ExprType &expr, const bool is_leaf) {
     static_assert(
         std::is_same_v<ExprType, Tensor> || std::is_same_v<ExprType, Variable>,
         "This function currently only works for tensors and variables");
 
-    const LoadStrategy loadStrategy = m_ctx.loadStrategy(expr);
-    const ZeroStrategy zeroStrategy = m_ctx.zeroStrategy(expr);
+    const LoadStrategy load_strategy = ctx_.load_strategy(expr);
+    const ZeroStrategy zero_strategy = ctx_.zero_strategy(expr);
 
-    const auto [usedExprBefore,
-                alreadyLoaded] = [&]() -> std::tuple<bool, bool> {
+    const auto [used_expr_before,
+                already_loaded] = [&]() -> std::tuple<bool, bool> {
       if constexpr (std::is_same_v<ExprType, Tensor>) {
-        auto iter = m_tensorUses.find(expr);
-        bool usedExprBefore = iter != m_tensorUses.end();
-        bool alreadyLoaded = usedExprBefore && iter->second > 0;
+        auto iter = tensor_uses_.find(expr);
+        bool used_expr_before = iter != tensor_uses_.end();
+        bool already_loaded = used_expr_before && iter->second > 0;
 
-        m_tensorUses[expr]++;
+        tensor_uses_[expr]++;
 
-        return {usedExprBefore, alreadyLoaded};
+        return {used_expr_before, already_loaded};
       } else {
-        auto iter = m_variableUses.find(expr);
-        bool usedExprBefore = iter != m_variableUses.end();
-        bool alreadyLoaded = usedExprBefore && iter->second > 0;
+        auto iter = variable_uses_.find(expr);
+        bool used_expr_before = iter != variable_uses_.end();
+        bool already_loaded = used_expr_before && iter->second > 0;
 
-        m_variableUses[expr]++;
+        variable_uses_[expr]++;
 
-        return {usedExprBefore, alreadyLoaded};
+        return {used_expr_before, already_loaded};
       }
     }();
 
     const bool create =
-        !isLeaf && !usedExprBefore && loadStrategy == LoadStrategy::Create;
-    const bool load = !create && !alreadyLoaded;
-    const bool zeroCreate =
-        static_cast<bool>(zeroStrategy & ZeroStrategy::ZeroOnCreate);
-    const bool zeroLoad =
-        static_cast<bool>(zeroStrategy & ZeroStrategy::ZeroOnLoad);
-    const bool zeroReuse =
-        static_cast<bool>(zeroStrategy & ZeroStrategy::ZeroOnReuse);
+        !is_leaf && !used_expr_before && load_strategy == LoadStrategy::Create;
+    const bool load = !create && !already_loaded;
+    const bool zero_create =
+        static_cast<bool>(zero_strategy & ZeroStrategy::ZeroOnCreate);
+    const bool zero_load =
+        static_cast<bool>(zero_strategy & ZeroStrategy::ZeroOnLoad);
+    const bool zero_reuse =
+        static_cast<bool>(zero_strategy & ZeroStrategy::ZeroOnReuse);
 
     if (create) {
-      m_generator.create(expr, zeroCreate, m_ctx);
+      generator_.create(expr, zero_create, ctx_);
     } else if (load) {
-      m_generator.load(expr, zeroLoad, m_ctx);
-    } else if (zeroReuse) {
-      SEQUANT_ASSERT(alreadyLoaded);
-      m_generator.set_to_zero(expr, m_ctx);
+      generator_.load(expr, zero_load, ctx_);
+    } else if (zero_reuse) {
+      SEQUANT_ASSERT(already_loaded);
+      generator_.set_to_zero(expr, ctx_);
     }
   }
 
@@ -187,20 +188,20 @@ class GenerationVisitor {
     if (expr.is<Tensor>()) {
       const Tensor &tensor = expr.as<Tensor>();
 
-      SEQUANT_ASSERT(m_tensorUses[tensor] > 0);
-      m_tensorUses[tensor]--;
+      SEQUANT_ASSERT(tensor_uses_[tensor] > 0);
+      tensor_uses_[tensor]--;
 
-      if (m_tensorUses[tensor] == 0) {
-        m_generator.unload(tensor, m_ctx);
+      if (tensor_uses_[tensor] == 0) {
+        generator_.unload(tensor, ctx_);
       }
     } else if (expr.is<Variable>()) {
       const Variable &variable = expr.as<Variable>();
 
-      SEQUANT_ASSERT(m_variableUses[variable] > 0);
-      m_variableUses[variable]--;
+      SEQUANT_ASSERT(variable_uses_[variable] > 0);
+      variable_uses_[variable]--;
 
-      if (m_variableUses[variable] == 0) {
-        m_generator.unload(variable, m_ctx);
+      if (variable_uses_[variable] == 0) {
+        generator_.unload(variable, ctx_);
       }
     } else if (expr.is<Power>()) {
       // drop if base is Variable
@@ -268,8 +269,8 @@ class GenerationVisitor {
     // Account for any scalar prefactor(s) and if there are
     // variables among them, make sure to load them first
     container::svector<Variable> variables;
-    if (auto iter = m_scalarFactors.find(node->id());
-        iter != m_scalarFactors.end()) {
+    if (auto iter = scalar_factors_.find(node->id());
+        iter != scalar_factors_.end()) {
       auto handle_factor = [&](const ExprPtr &current) {
         SEQUANT_ASSERT(current->is<Constant>() || current->is<Variable>() ||
                        current->is<Power>());
@@ -286,10 +287,10 @@ class GenerationVisitor {
                                   ? current->as<Variable>()
                                   : current->as<Power>().base()->as<Variable>();
         variables.push_back(var);
-        if (m_variableUses[variables.back()] == 0) {
-          m_generator.load(variables.back(), false, m_ctx);
+        if (variable_uses_[variables.back()] == 0) {
+          generator_.load(variables.back(), false, ctx_);
         }
-        m_variableUses[variables.back()]++;
+        variable_uses_[variables.back()]++;
       };
       if (iter->second->template is<Product>()) {
         for (const ExprPtr &current : iter->second->template as<Product>()) {
@@ -307,10 +308,10 @@ class GenerationVisitor {
     for (ExprPtr current : expressions) {
       switch (node->result_type()) {
         case ResultType::Tensor:
-          m_generator.compute(*current, node->as_tensor(), m_ctx);
+          generator_.compute(*current, node->as_tensor(), ctx_);
           break;
         case ResultType::Scalar:
-          m_generator.compute(*current, node->as_variable(), m_ctx);
+          generator_.compute(*current, node->as_variable(), ctx_);
           break;
       }
     }
@@ -326,14 +327,14 @@ class GenerationVisitor {
   }
 
  private:
-  Generator<Context> &m_generator;
-  Context &m_ctx;
-  const std::unordered_map<NodeID, ExprPtr> &m_scalarFactors;
+  Generator<Context> &generator_;
+  Context &ctx_;
+  const std::unordered_map<NodeID, ExprPtr> &scalar_factors_;
   std::map<Tensor, std::size_t, IndexSpecificTensorBlockLessThanComparator>
-      m_tensorUses;
-  std::map<Variable, std::size_t> m_variableUses;
+      tensor_uses_;
+  std::map<Variable, std::size_t> variable_uses_;
 
-  std::optional<NodeID> m_rootID;
+  std::optional<NodeID> root_id_;
 };
 
 /// Removes explicitly represented scalar factors from the provided tree and
@@ -351,9 +352,9 @@ bool prune_scalar_factor(ExportNode<T> &node, PreprocessResult &result,
   SEQUANT_ASSERT(!node.root());
   SEQUANT_ASSERT(node.parent()->op_type() == EvalOp::Product);
 
-  const auto iter = result.scalarFactors.find(node.parent()->id());
-  ExprPtr parentFactor =
-      iter == result.scalarFactors.end() ? nullptr : iter->second;
+  const auto iter = result.scalar_factors.find(node.parent()->id());
+  ExprPtr parent_factor =
+      iter == result.scalar_factors.end() ? nullptr : iter->second;
 
   ExprPtr factor = node->expr();
 
@@ -384,8 +385,8 @@ bool prune_scalar_factor(ExportNode<T> &node, PreprocessResult &result,
     return false;
   }
 
-  if (parentFactor) {
-    factor = parentFactor * factor;
+  if (parent_factor) {
+    factor = parent_factor * factor;
   }
 
   ExportNode<T> fill_in = [&]() {
@@ -411,7 +412,7 @@ bool prune_scalar_factor(ExportNode<T> &node, PreprocessResult &result,
 
   fill_in->set_id(node.parent()->id());
 
-  result.scalarFactors[fill_in->id()] = std::move(factor);
+  result.scalar_factors[fill_in->id()] = std::move(factor);
 
   // We can only do the moving after finishing access to node as
   // node might become unreferenced and thus deleted once its parent
@@ -437,31 +438,32 @@ void preprocess(ExprType expr, ExportContext &ctx, Node &node,
       std::is_same_v<ExprType, Tensor> || std::is_same_v<ExprType, Variable>,
       "This function currently only works for tensors and variables");
 
-  bool storeExpr = false;
+  bool store_expr = false;
 
   // TODO: find a way to pass usage information to this call so that indices
   // of tensors that are only used as an intermediate can be more easily
   // reordered
-  storeExpr |= ctx.rewrite(expr);
+  store_expr |= ctx.rewrite(expr);
 
   if (node.leaf()) {
     // Anything but loading doesn't make sense for leaf nodes
-    ctx.setLoadStrategy(expr, LoadStrategy::Load);
-    ctx.setZeroStrategy(expr, ZeroStrategy::NeverZero);
+    ctx.set_load_strategy(expr, LoadStrategy::Load);
+    ctx.set_zero_strategy(expr, ZeroStrategy::NeverZero);
   } else {
-    const auto [usedBefore, currentlyLoaded] = [&]() -> std::tuple<bool, bool> {
+    const auto [used_before,
+                currently_loaded] = [&]() -> std::tuple<bool, bool> {
       if constexpr (std::is_same_v<ExprType, Tensor>) {
-        auto iter = result.tensorReferences.find(expr);
-        const bool usedBefore = iter != result.tensorReferences.end();
-        const bool currentlyLoaded = usedBefore && iter->second > 0;
+        auto iter = result.tensor_references.find(expr);
+        const bool used_before = iter != result.tensor_references.end();
+        const bool currently_loaded = used_before && iter->second > 0;
 
-        return {usedBefore, currentlyLoaded};
+        return {used_before, currently_loaded};
       } else {
-        auto iter = result.variableReferences.find(expr);
-        const bool usedBefore = iter != result.variableReferences.end();
-        const bool currentlyLoaded = usedBefore && iter->second > 0;
+        auto iter = result.variable_references.find(expr);
+        const bool used_before = iter != result.variable_references.end();
+        const bool currently_loaded = used_before && iter->second > 0;
 
-        return {usedBefore, currentlyLoaded};
+        return {used_before, currently_loaded};
       }
     }();
 
@@ -470,35 +472,35 @@ void preprocess(ExprType expr, ExportContext &ctx, Node &node,
     // keep adding sub-results to the final sum without the need for explicit
     // intermediates for each step of the summation.
     // Also, we don't want to mess with the final result tensor.
-    const bool handleReuse =
+    const bool handle_reuse =
         !node.root() && node.parent()->op_type() != EvalOp::Sum;
 
     // Special handling for result objects that have been used before
     // However, for any object that is the result of a sum,
     // we don't want this special behavior.
-    if (handleReuse && usedBefore) {
+    if (handle_reuse && used_before) {
       SEQUANT_ASSERT(!node.leaf());
 
-      if (currentlyLoaded) {
+      if (currently_loaded) {
         // This expr is currently in use -> can't use it as a result as that
         // would overwrite the currently used value -> need to rename expr
         if (rename(expr, result)) {
           // We renamed expr to another expression that has been used before
           // but is currently not used/loaded -> set to zero before adding new
           // data
-          ctx.setZeroStrategy(expr, ZeroStrategy::AlwaysZero);
+          ctx.set_zero_strategy(expr, ZeroStrategy::AlwaysZero);
         }
 
-        storeExpr = true;
+        store_expr = true;
       } else {
         // This expr is reused to store a new result -> set it to zero before
         // adding new result
-        ctx.setZeroStrategy(expr, ZeroStrategy::AlwaysZero);
+        ctx.set_zero_strategy(expr, ZeroStrategy::AlwaysZero);
       }
     }
   }
 
-  if (storeExpr) {
+  if (store_expr) {
     node->set_expr(ex<ExprType>(expr));
   }
 }
@@ -527,12 +529,12 @@ void track_usage(const EvalNode<T> &node, PreprocessResult &result) {
     auto &&indices = tensor.const_indices();
     result.indices.insert(indices.begin(), indices.end());
 
-    result.tensorReferences[tensor]++;
+    result.tensor_references[tensor]++;
   };
   auto handle_variable = [&](const Variable &variable) {
     result.variables[variable] |= usage;
 
-    result.variableReferences[variable]++;
+    result.variable_references[variable]++;
   };
 
   if (expr.is<Tensor>()) {
@@ -605,7 +607,7 @@ class PreprocessVisitor {
  public:
   PreprocessVisitor(PreprocessResult &result, ExportContext &ctx,
                     PrunableScalars prunable)
-      : m_result(result), m_ctx(ctx), m_prunable(prunable) {}
+      : result_(result), ctx_(ctx), prunable_(prunable) {}
 
   void operator()(ExportNode<T> &tree, TreeTraversal context) {
     // Note the context for leaf nodes is always TreeTraversal::Any
@@ -624,7 +626,7 @@ class PreprocessVisitor {
         // It is important to track_usage AFTER prune_redundant_intermediate
         // as the latter might change the result expression on the current
         // node
-        track_usage(tree, m_result);
+        track_usage(tree, result_);
         break;
       case TreeTraversal::PostOrder:
         if (!tree.leaf()) {
@@ -642,19 +644,19 @@ class PreprocessVisitor {
 
   void prune_scalar_factors(ExportNode<T> &tree) {
     while (may_prune(tree) &&
-           prune_scalar_factor(tree.left(), m_result, m_prunable)) {
+           prune_scalar_factor(tree.left(), result_, prunable_)) {
       // In case the pruning led to tree becoming a leaf, we have to move the
       // pruned scalar factor out to its parent in order to be properly
       // accounted for (as leafs only get loaded and never computed)
-      if (auto iter = m_result.scalarFactors.find(tree->id());
-          iter != m_result.scalarFactors.end() && tree.leaf()) {
+      if (auto iter = result_.scalar_factors.find(tree->id());
+          iter != result_.scalar_factors.end() && tree.leaf()) {
         SEQUANT_ASSERT(!tree.root());
         ExprPtr factor = std::move(iter->second);
-        m_result.scalarFactors.erase(iter);
+        result_.scalar_factors.erase(iter);
 
-        iter = m_result.scalarFactors.find(tree.parent()->id());
-        if (iter == m_result.scalarFactors.end()) {
-          m_result.scalarFactors[tree.parent()->id()] = std::move(factor);
+        iter = result_.scalar_factors.find(tree.parent()->id());
+        if (iter == result_.scalar_factors.end()) {
+          result_.scalar_factors[tree.parent()->id()] = std::move(factor);
         } else {
           iter->second *= std::move(factor);
         }
@@ -662,16 +664,16 @@ class PreprocessVisitor {
     }
 
     while (may_prune(tree) &&
-           prune_scalar_factor(tree.right(), m_result, m_prunable)) {
-      if (auto iter = m_result.scalarFactors.find(tree->id());
-          iter != m_result.scalarFactors.end() && tree.leaf()) {
+           prune_scalar_factor(tree.right(), result_, prunable_)) {
+      if (auto iter = result_.scalar_factors.find(tree->id());
+          iter != result_.scalar_factors.end() && tree.leaf()) {
         SEQUANT_ASSERT(!tree.root());
         ExprPtr factor = std::move(iter->second);
-        m_result.scalarFactors.erase(iter);
+        result_.scalar_factors.erase(iter);
 
-        iter = m_result.scalarFactors.find(tree.parent()->id());
-        if (iter == m_result.scalarFactors.end()) {
-          m_result.scalarFactors[tree.parent()->id()] = std::move(factor);
+        iter = result_.scalar_factors.find(tree.parent()->id());
+        if (iter == result_.scalar_factors.end()) {
+          result_.scalar_factors[tree.parent()->id()] = std::move(factor);
         } else {
           iter->second *= std::move(factor);
         }
@@ -681,13 +683,13 @@ class PreprocessVisitor {
 
   void preprocess_node_content(ExportNode<T> &node) {
     if (node->is_tensor()) {
-      preprocess<Tensor>(node->as_tensor(), m_ctx, node, m_result);
+      preprocess<Tensor>(node->as_tensor(), ctx_, node, result_);
     } else if (node->is_variable()) {
-      preprocess<Variable>(node->as_variable(), m_ctx, node, m_result);
+      preprocess<Variable>(node->as_variable(), ctx_, node, result_);
     } else if (node->is_power()) {
       const Power &pw = node->as_power();
       if (pw.base()->is<Variable>()) {
-        preprocess<Variable>(pw.base()->as<Variable>(), m_ctx, node, m_result);
+        preprocess<Variable>(pw.base()->as<Variable>(), ctx_, node, result_);
       }
     }
   }
@@ -749,12 +751,12 @@ class PreprocessVisitor {
 
   void release_used_terms(ExportNode<T> &node) {
     auto handle_tensor = [&](const Tensor &tensor) {
-      SEQUANT_ASSERT(m_result.tensorReferences[tensor] > 0);
-      m_result.tensorReferences[tensor]--;
+      SEQUANT_ASSERT(result_.tensor_references[tensor] > 0);
+      result_.tensor_references[tensor]--;
     };
     auto handle_variable = [&](const Variable &variable) {
-      SEQUANT_ASSERT(m_result.variableReferences[variable] > 0);
-      m_result.variableReferences[variable]--;
+      SEQUANT_ASSERT(result_.variable_references[variable] > 0);
+      result_.variable_references[variable]--;
     };
 
     // Mark tensors/variables as no longer in use
@@ -786,9 +788,9 @@ class PreprocessVisitor {
   }
 
  private:
-  PreprocessResult &m_result;
-  ExportContext &m_ctx;
-  PrunableScalars m_prunable;
+  PreprocessResult &result_;
+  ExportContext &ctx_;
+  PrunableScalars prunable_;
 };
 
 /// Uses the PreprocessVisitor to perform preprocessing and, if desired, also
@@ -800,8 +802,8 @@ void preprocess_and_maybe_log(ExportNode<T> &tree, PreprocessResult &result,
     std::cout << "Tree before preprocessing:\n"
               << tree.tikz(
                      [](const ExportNode<T> &node) {
-                       return "$" + toUtf8(io::latex::to_string(node->expr())) +
-                              "$";
+                       return "$" +
+                              to_utf8(io::latex::to_string(node->expr())) + "$";
                      },
                      [](const ExportNode<T>) -> std::string { return ""; })
               << "\n";
@@ -814,8 +816,8 @@ void preprocess_and_maybe_log(ExportNode<T> &tree, PreprocessResult &result,
     std::cout << "Tree after pre-processing:\n"
               << tree.tikz(
                      [](const ExportNode<T> &node) {
-                       return "$" + toUtf8(io::latex::to_string(node->expr())) +
-                              "$";
+                       return "$" +
+                              to_utf8(io::latex::to_string(node->expr())) + "$";
                      },
                      [](const ExportNode<T>) -> std::string { return ""; })
               << "\n";
@@ -832,7 +834,7 @@ void export_expression(ExportNode<T> &expression, Generator<Context> &generator,
   generator.begin_expression(ctx);
 
   detail::GenerationVisitor<T, Context> visitor(generator, ctx,
-                                                pp_result.scalarFactors);
+                                                pp_result.scalar_factors);
 
   expression.visit(
       [&visitor](const FullBinaryNode<T> &node, TreeTraversal context) {

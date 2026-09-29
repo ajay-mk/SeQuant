@@ -49,10 +49,10 @@ class JuliaTensorKitGenerator : public JuliaTensorOperationsGenerator<Context> {
   std::string domain(const Tensor &tensor, const Context &ctx) const {
     std::string domain;
 
-    const std::size_t braRank = tensor.bra_rank();
+    const std::size_t bra_rank = tensor.bra_rank();
     const std::size_t num_indices = tensor.num_indices();
 
-    if (braRank == 0 && num_indices > 0) {
+    if (bra_rank == 0 && num_indices > 0) {
       throw Exception(
           "It is not (yet) clear how to represent a zero-dimensional domain "
           "for a tensor in TensorKit");
@@ -62,7 +62,7 @@ class JuliaTensorKitGenerator : public JuliaTensorOperationsGenerator<Context> {
       domain += "ℝ^";
       domain += ctx.get_dim(idx.space());
 
-      if (i == braRank - 1) {
+      if (i == bra_rank - 1) {
         domain += ", ";
       } else if (i + 1 < num_indices) {
         domain += " ⊗ ";

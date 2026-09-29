@@ -81,7 +81,7 @@ class UsageSet {
   friend bool operator!=(Usage usage, UsageSet set);
 
  private:
-  Value m_val = static_cast<Value>(Usage::None);
+  Value val_ = static_cast<Value>(Usage::None);
 };
 
 /// The ExportContext is intended to provide context during export operations.
@@ -101,17 +101,17 @@ class ExportContext {
   using VariableStrategyMap = std::map<Variable, StrategyPair>;
 
   ExportContext() = default;
-  ExportContext(TensorStrategyMap tensorMap,
-                VariableStrategyMap variableMap = {});
+  ExportContext(TensorStrategyMap tensor_map,
+                VariableStrategyMap variable_map = {});
   ExportContext(VariableStrategyMap map);
   virtual ~ExportContext();
 
   /// @returns The LoadStrategy for the given tensor
   /// @sa LoadStrategy
-  [[nodiscard]] virtual LoadStrategy loadStrategy(const Tensor &tensor) const;
+  [[nodiscard]] virtual LoadStrategy load_strategy(const Tensor &tensor) const;
   /// @returns The LoadStrategy for the given variable
   /// @sa LoadStrategy
-  [[nodiscard]] virtual LoadStrategy loadStrategy(
+  [[nodiscard]] virtual LoadStrategy load_strategy(
       const Variable &variable) const;
   /// Sets the LoadStrategy for the given tensor
   /// @param tensor The Tensor to set the strategy for
@@ -121,7 +121,7 @@ class ExportContext {
   ///        ID is the ID of the root of the associated ExportNode
   /// @sa LoadStrategy
   /// @sa ExportNode
-  virtual void setLoadStrategy(
+  virtual void set_load_strategy(
       const Tensor &tensor, LoadStrategy strategy,
       const std::optional<std::size_t> &expression_id = {});
   /// Sets the LoadStrategy for the given variable
@@ -132,16 +132,16 @@ class ExportContext {
   ///        ID is the ID of the root of the associated ExportNode
   /// @sa LoadStrategy
   /// @sa ExportNode
-  virtual void setLoadStrategy(
+  virtual void set_load_strategy(
       const Variable &variable, LoadStrategy strategy,
       const std::optional<std::size_t> &expression_id = {});
 
   /// @returns The ZeroStrategy for the given tensor
   /// @sa ZeroStrategy
-  [[nodiscard]] virtual ZeroStrategy zeroStrategy(const Tensor &tensor) const;
+  [[nodiscard]] virtual ZeroStrategy zero_strategy(const Tensor &tensor) const;
   /// @returns The ZeroStrategy for the given variable
   /// @sa ZeroStrategy
-  [[nodiscard]] virtual ZeroStrategy zeroStrategy(
+  [[nodiscard]] virtual ZeroStrategy zero_strategy(
       const Variable &variable) const;
   /// Sets the ZeroStrategy for the given tensor
   /// @param tensor The Tensor to set the strategy for
@@ -151,7 +151,7 @@ class ExportContext {
   ///        ID is the ID of the root of the associated ExportNode
   /// @sa ZeroStrategy
   /// @sa ExportNode
-  virtual void setZeroStrategy(
+  virtual void set_zero_strategy(
       const Tensor &tensor, ZeroStrategy strategy,
       const std::optional<std::size_t> &expression_id = {});
   /// Sets the ZeroStrategy for the given variable
@@ -162,7 +162,7 @@ class ExportContext {
   ///        ID is the ID of the root of the associated ExportNode
   /// @sa ZeroStrategy
   /// @sa ExportNode
-  virtual void setZeroStrategy(
+  virtual void set_zero_strategy(
       const Variable &variable, ZeroStrategy strategy,
       const std::optional<std::size_t> &expression_id = {});
 
@@ -226,10 +226,10 @@ class ExportContext {
       std::numeric_limits<std::size_t>::max();
 
  private:
-  std::map<std::size_t, TensorStrategyMap> m_tensorStrategies;
-  std::map<std::size_t, VariableStrategyMap> m_variableStrategies;
-  std::optional<std::string> m_currentSection;
-  std::optional<std::size_t> m_currentExpressionID;
+  std::map<std::size_t, TensorStrategyMap> tensor_strategies_;
+  std::map<std::size_t, VariableStrategyMap> variable_strategies_;
+  std::optional<std::string> current_section_;
+  std::optional<std::size_t> current_expression_id_;
 };
 
 }  // namespace sequant

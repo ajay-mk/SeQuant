@@ -17,20 +17,20 @@ class Tensor;
 /// cache-locality (depending on the chosen memory layout).
 class ReorderingContext : public ExportContext {
  public:
-  explicit ReorderingContext(MemoryLayout layout) : m_layout(layout) {}
+  explicit ReorderingContext(MemoryLayout layout) : layout_(layout) {}
 
-  MemoryLayout memory_layout() const { return m_layout; }
-  void set_memory_layout(MemoryLayout layout) { m_layout = layout; }
+  MemoryLayout memory_layout() const { return layout_; }
+  void set_memory_layout(MemoryLayout layout) { layout_ = layout; }
 
   using ExportContext::rewrite;
   bool rewrite(Tensor &tensor) const override;
 
-  bool rewriting_enabled() const { return m_rewrite; }
-  void enable_rewriting(bool enable) { m_rewrite = enable; }
+  bool rewriting_enabled() const { return rewrite_; }
+  void enable_rewriting(bool enable) { rewrite_ = enable; }
 
  private:
-  MemoryLayout m_layout;
-  bool m_rewrite = true;
+  MemoryLayout layout_;
+  bool rewrite_ = true;
 
  protected:
   bool is_less(const IndexSpace &lhs, const IndexSpace &rhs) const;

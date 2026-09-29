@@ -469,7 +469,7 @@ TEST_CASE("export", "[export]") {
       ctx.set_memory_layout(layout);
 
       for (const auto &[input, candidates] : tests) {
-        CAPTURE(toUtf8(input));
+        CAPTURE(to_utf8(input));
 
         const std::string &expected =
             candidates.at(static_cast<std::size_t>(layout));
@@ -481,7 +481,7 @@ TEST_CASE("export", "[export]") {
                 ->as<Tensor>();
         bool rewritten = ctx.rewrite(tensor);
         REQUIRE_THAT(tensor, EquivalentTo(expected));
-        REQUIRE(rewritten == (toUtf8(input) != expected));
+        REQUIRE(rewritten == (to_utf8(input) != expected));
       }
     }
   }

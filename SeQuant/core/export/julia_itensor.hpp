@@ -58,47 +58,45 @@ class JuliaITensorGenerator : public JuliaTensorOperationsGenerator<Context> {
           "Julia doesn't support declaring a variable without initializing it");
     }
 
-    Base::m_generated += "tmpvar = 0.0\n";
-    Base::m_generated +=
-        Base::represent(variable, ctx) + " = ITensor(tmpvar)\n";
+    Base::generated_ += "tmpvar = 0.0\n";
+    Base::generated_ += Base::represent(variable, ctx) + " = ITensor(tmpvar)\n";
   }
 
   void load(const Variable &variable, bool set_to_zero,
             const Context &ctx) override {
     if (set_to_zero) {
-      Base::m_generated += "tmpvar = 0\n";
+      Base::generated_ += "tmpvar = 0\n";
     } else {
-      Base::m_generated += "tmpvar = deserialize(\"" +
-                           Base::represent(variable, ctx) + ".jlbin\")\n";
+      Base::generated_ += "tmpvar = deserialize(\"" +
+                          Base::represent(variable, ctx) + ".jlbin\")\n";
     }
 
-    Base::m_generated +=
-        Base::represent(variable, ctx) + " = ITensor(tmpvar)\n";
+    Base::generated_ += Base::represent(variable, ctx) + " = ITensor(tmpvar)\n";
   }
 
   void compute(const Expr &expression, const Tensor &result,
                const Context &ctx) override {
-    Base::m_generated += Base::tensor_name(result, ctx) +
-                         " += " + Base::to_julia_expr(expression, ctx) + "\n";
+    Base::generated_ += Base::tensor_name(result, ctx) +
+                        " += " + Base::to_julia_expr(expression, ctx) + "\n";
   }
 
   void compute(const Expr &expression, const Variable &result,
                const Context &ctx) override {
-    Base::m_generated += Base::represent(result, ctx) +
-                         " += " + Base::to_julia_expr(expression, ctx) + "\n";
+    Base::generated_ += Base::represent(result, ctx) +
+                        " += " + Base::to_julia_expr(expression, ctx) + "\n";
   }
 
   void declare(const Index &idx, const Context &ctx) override {
-    std::string currentindex = toUtf8(idx.full_label());
-    Base::m_generated += currentindex;
-    Base::m_generated += " = Index(";
-    Base::m_generated += ctx.get_dim(idx.space());
-    Base::m_generated += ", \"" + currentindex + "\")\n";
+    std::string currentindex = to_utf8(idx.full_label());
+    Base::generated_ += currentindex;
+    Base::generated_ += " = Index(";
+    Base::generated_ += ctx.get_dim(idx.space());
+    Base::generated_ += ", \"" + currentindex + "\")\n";
   }
 
   void all_indices_declared(std::size_t amount, const Context &) override {
     if (amount > 0) {
-      Base::m_generated += "\n";
+      Base::generated_ += "\n";
     }
   }
 
