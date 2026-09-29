@@ -76,3 +76,28 @@ Formatting
 The repository's ``.clang-format`` is the formatting authority. Use ``bin/admin/clang-format.sh`` to apply the
 supported formatter to changed C++ lines and retain surrounding style. Keep naming changes focused on the identifiers
 and the references and documentation that depend on them.
+
+Checking names
+----------------
+
+The repository's ``.clang-tidy`` enables only ``readability-identifier-naming`` and records the established exceptions
+above. The ``Naming check`` CI workflow uses LLVM 18 to report naming diagnostics for library sources, utilities,
+benchmarks, and documentation examples. Naming violations, configuration errors, and parsing errors fail the job.
+When the check fails, the full log is available as the ``naming-check`` workflow artifact.
+Clang-tidy groups all static data members together, so the check accepts snake_case with or without a trailing
+underscore for them; private and protected static members still follow the convention above.
+
+Tests, Python bindings, and vendored sources are excluded from this initial check. Optional backend headers are checked
+only when the selected build enables those backends and includes them in a checked translation unit.
+
+For a local check, configure a non-unity build with ``CMAKE_EXPORT_COMPILE_COMMANDS=ON`` and run LLVM 18's
+``run-clang-tidy`` against that build directory. For example, on Linux:
+
+.. code-block:: console
+
+   clang-tidy-18 --verify-config
+   run-clang-tidy-18 -clang-tidy-binary clang-tidy-18 -p build/release -j 2 \
+     '(^|/)(SeQuant/(?!external/)|utilities/|benchmarks/|doc/examples/)'
+
+Review a diagnostic against the exceptions before renaming an identifier. Add an exception only for an established
+scientific or interface convention, rather than to silence an ordinary naming inconsistency.
