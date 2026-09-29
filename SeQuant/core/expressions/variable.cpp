@@ -13,7 +13,7 @@ Variable::Variable(std::wstring label)
     : label_(std::move(label)), conjugated_(false) {}
 
 Variable::Variable(const std::string &label)
-    : label_(sequant::toUtf16(label)), conjugated_(false) {}
+    : label_(sequant::to_utf16(label)), conjugated_(false) {}
 
 Expr::type_id_type Variable::type_id() const { return get_type_id<Variable>(); }
 

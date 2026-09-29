@@ -36,7 +36,7 @@ class ExprRange : public ranges::view_facade<ExprRange> {
   friend ranges::range_access;
 
   /// the cursor type
-  struct cursor {
+  struct Cursor {
    private:
     ExprPtr* top_;
     // current element is encoded by a sequence of {pointer, index} pairs to its
@@ -65,10 +65,10 @@ class ExprRange : public ranges::view_facade<ExprRange> {
 
    public:
     /// constructs an uninitialized cursor
-    cursor() = default;
+    Cursor() = default;
     /// constructs a cursor pointing to the begin, if range is not empty
     /// @note has O(d) complexity (where d = tree depth)
-    cursor(ExprPtr& top) : top_(&top) {
+    Cursor(ExprPtr& top) : top_(&top) {
       // if top is nonnull, initialize the address of the first element
       if (*top_) next_atom(*top_);
       if (element_ptr_)  // if have at least one atom
@@ -76,13 +76,13 @@ class ExprRange : public ranges::view_facade<ExprRange> {
     }
     /// constructs a cursor pointing to the end
     /// @note has O(1) complexity
-    cursor(ExprPtr& top, ranges::default_sentinel_t) : top_(&top) {}
+    Cursor(ExprPtr& top, ranges::default_sentinel_t) : top_(&top) {}
 
     ExprPtr& read() const {
       SEQUANT_ASSERT(ordinal_ != -1);
       return *element_ptr_;
     }
-    bool equal(const cursor& that) const {
+    bool equal(const Cursor& that) const {
       return this->element_ptr_ == that.element_ptr_;
     }
     void next() {
@@ -139,8 +139,8 @@ class ExprRange : public ranges::view_facade<ExprRange> {
     //      SEQUANT_ASSERT(capacity == range_iter_->capacity());
     //    }
   };
-  cursor begin_cursor() { return {top_}; }
-  cursor end_cursor() { return {top_, ranges::default_sentinel_t{}}; }
+  Cursor begin_cursor() { return {top_}; }
+  Cursor end_cursor() { return {top_, ranges::default_sentinel_t{}}; }
 
   // public:
   //  using iterator = ranges::basic_iterator<cursor>;

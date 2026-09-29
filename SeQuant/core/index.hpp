@@ -564,7 +564,7 @@ class Index : public Taggable {
     if constexpr (std::same_as<
                       std::remove_cvref_t<std::ranges::range_value_t<View>>,
                       char>) {
-      return toUtf16(std::string_view(
+      return to_utf16(std::string_view(
           &(*begin(label)), std::ranges::distance(begin(label), end)));
     } else {
       return std::wstring(begin(label), end);
@@ -578,7 +578,7 @@ class Index : public Taggable {
 
   template <typename Char, typename = std::enable_if_t<meta::is_char_v<Char>>>
   static std::wstring base_label(Char label) {
-    return toUtf16(label);
+    return to_utf16(label);
   }
 
   /// @return the memoized label as a UTF-8 encoded wide-character string
@@ -968,26 +968,26 @@ class Index : public Taggable {
                         wchar_t>)
   static std::optional<ordinal_type> to_ordinal(
       View && label) noexcept {
-	  auto end = base_label_end(label);
+    auto end = base_label_end(label);
 
-	  if (end == std::ranges::end(label)) {
-		  return std::nullopt;
-	  }
+    if (end == std::ranges::end(label)) {
+      return std::nullopt;
+    }
 
-	  if (*end == '_') {
-		  ++end;
-	  }
+    if (*end == '_') {
+      ++end;
+    }
 
-	  SEQUANT_ASSERT(end != std::ranges::end(label));
+    SEQUANT_ASSERT(end != std::ranges::end(label));
 
-	  std::basic_string_view<std::remove_cvref_t<std::ranges::range_value_t<View>>> view(&(*end),
-			  std::ranges::distance(end, std::ranges::end(label)));
-	  return string_to<ordinal_type>(view);
+    std::basic_string_view<std::remove_cvref_t<std::ranges::range_value_t<View>>> view(&(*end),
+        std::ranges::distance(end, std::ranges::end(label)));
+    return string_to<ordinal_type>(view);
   }
 
   template<typename CharT>
   static std::optional<ordinal_type> to_ordinal(const CharT *label) noexcept {
-	  return to_ordinal(std::basic_string_view<CharT>{label});
+    return to_ordinal(std::basic_string_view<CharT>{label});
   }
 
   friend class IndexFactory;

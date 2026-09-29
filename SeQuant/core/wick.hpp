@@ -186,7 +186,7 @@ class WickTheorem {
               ss << L"WickTheorem::set_external_indices: "
                     L"external index " +
                         io::latex::to_string(Index(v)) + L" repeated";
-              throw Exception(toUtf8(ss.str()));
+              throw Exception(to_utf8(ss.str()));
             }
           });
     }
@@ -643,7 +643,7 @@ class WickTheorem {
 
     // need to be able to look up ordinals of ops in the input expression to
     // make index partitions usable
-    using nopseq_view_type = flattened_rangenest<NormalOperatorSequence<S>>;
+    using nopseq_view_type = FlattenedRangeNest<NormalOperatorSequence<S>>;
     auto nopseq_view = nopseq_view_type(input_.get());
     std::size_t op_ord = 0;
     op_to_input_ordinal_.clear();
@@ -1209,7 +1209,7 @@ class WickTheorem {
   void recursive_nontensor_wick(
       std::pair<HashingAccumulator *, std::mutex *> &result,
       NontensorWickState &state) const {
-    using nopseq_view_type = flattened_rangenest<NormalOperatorSequence<S>>;
+    using nopseq_view_type = FlattenedRangeNest<NormalOperatorSequence<S>>;
     auto nopseq_view = nopseq_view_type(&state.nopseq);
     using std::begin;
     using std::end;

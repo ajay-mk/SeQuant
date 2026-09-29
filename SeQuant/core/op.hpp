@@ -1160,7 +1160,7 @@ std::tuple<int, std::shared_ptr<NormalOperator<S>>> normalize(
   int phase = 1;
   container::svector<Op<S>> creators, annihilators;
 
-  using opseq_view_type = flattened_rangenest<const NormalOperatorSequence<S>>;
+  using opseq_view_type = FlattenedRangeNest<const NormalOperatorSequence<S>>;
   auto opseq_view = opseq_view_type(&opseq);
   using std::begin;
   using std::end;

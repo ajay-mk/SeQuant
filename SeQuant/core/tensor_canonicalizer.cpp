@@ -172,36 +172,35 @@ TensorCanonicalizer::~TensorCanonicalizer() = default;
 std::pair<container::map<std::wstring, std::shared_ptr<TensorCanonicalizer>>*,
           std::unique_lock<std::recursive_mutex>>
 TensorCanonicalizer::instance_map_accessor() {
-  static container::map<std::wstring, std::shared_ptr<TensorCanonicalizer>>
-      map_;
-  static std::recursive_mutex mtx_;
-  static bool initialized_ = false;
+  static container::map<std::wstring, std::shared_ptr<TensorCanonicalizer>> map;
+  static std::recursive_mutex mtx;
+  static bool initialized = false;
 
-  std::unique_lock lock(mtx_);
-  if (!initialized_) {
+  std::unique_lock lock(mtx);
+  if (!initialized) {
     // Ensure DefaultTensorCanonicalizer is installed as the default
     // canonicalizer by default
-    map_.emplace(L"", std::make_shared<DefaultTensorCanonicalizer>());
-    initialized_ = true;
+    map.emplace(L"", std::make_shared<DefaultTensorCanonicalizer>());
+    initialized = true;
   }
 
-  return std::make_pair(&map_, std::move(lock));
+  return std::make_pair(&map, std::move(lock));
 }
 
 container::vector<std::wstring>&
 TensorCanonicalizer::default_cardinal_tensor_labels_accessor() {
   // {antisymm_label, symm_label, transposition_label} is the default
-  static container::vector<std::wstring> default_ctlabels_{
+  static container::vector<std::wstring> default_ctlabels{
       reserved::antisymm_label(), reserved::symm_label(),
       reserved::transposition_label()};
-  return default_ctlabels_;
+  return default_ctlabels;
 }
 
 container::vector<std::wstring>&
 TensorCanonicalizer::cardinal_tensor_labels_accessor() {
-  static container::vector<std::wstring> ctlabels_ =
+  static container::vector<std::wstring> ctlabels =
       default_cardinal_tensor_labels_accessor();
-  return ctlabels_;
+  return ctlabels;
 }
 
 void TensorCanonicalizer::set_cardinal_tensor_labels(

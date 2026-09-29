@@ -177,8 +177,8 @@ TEST_CASE("tensor_network_shared", "[elements]") {
                          L"f{u3;u4}:N-S Y{u2,u4;u1,u5}", Eq, Plus);
 
       for (const auto& [input1, input2, eq, phase] : tests) {
-        CAPTURE(toUtf8(input1));
-        CAPTURE(toUtf8(input2));
+        CAPTURE(to_utf8(input1));
+        CAPTURE(to_utf8(input2));
 
         auto ex1 = deserialize(input1);
         auto ex2 = deserialize(input2);
@@ -190,7 +190,7 @@ TEST_CASE("tensor_network_shared", "[elements]") {
         INFO("tn1 - Canonical order of named indices: "
              << (cbp1.named_indices_canonical |
                  ranges::views::transform([](const auto& idx_it) {
-                   return toUtf8(idx_it->full_label());
+                   return to_utf8(idx_it->full_label());
                  }) |
                  ranges::views::join(", "sv) | ranges::to<std::string>()));
 
@@ -201,7 +201,7 @@ TEST_CASE("tensor_network_shared", "[elements]") {
         INFO("tn2 - Canonical order of named indices: "
              << (cbp2.named_indices_canonical |
                  ranges::views::transform([](const auto& idx_it) {
-                   return toUtf8(idx_it->full_label());
+                   return to_utf8(idx_it->full_label());
                  }) |
                  ranges::views::join(", "sv) | ranges::to<std::string>()));
 
@@ -295,7 +295,7 @@ TEST_CASE("tensor_network_shared", "[elements]") {
             }) |
             ranges::to<std::vector>();
 
-        INFO(toUtf8(input));
+        INFO(to_utf8(input));
         Product prod = deserialize(input)->as<Product>();
         TN tn(prod.factors());
 
@@ -714,7 +714,7 @@ TEST_CASE("tensor_network_v3", "[elements][valgrind_skip]") {
                                         .texlabels = graph.vertex_texlabels,
                                         .display_colors = true});
 
-          FAIL(toUtf8(stream.str()));
+          FAIL(to_utf8(stream.str()));
         }
 
         TN tn1(first);
@@ -958,7 +958,7 @@ TEST_CASE("tensor_network_v3", "[elements][valgrind_skip]") {
               }
               sstream << "\nInput was " << serialize(ex<Product>(factors))
                       << "\n";
-              FAIL(toUtf8(sstream.str()));
+              FAIL(to_utf8(sstream.str()));
             }
           } while (std::next_permutation(indices.begin() + 4, indices.end()));
         } while (std::next_permutation(indices.begin(), indices.begin() + 4));

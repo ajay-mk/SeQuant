@@ -188,13 +188,13 @@ class Context {
   /// \return ref to `*this`, for chaining
   Context& set(Vacuum vacuum);
   /// sets the IndexSpaceRegistry for this context
-  /// \param ISR an IndexSpaceRegistry
+  /// \param isr an IndexSpaceRegistry
   /// \return ref to '*this' for chaining
-  Context& set(IndexSpaceRegistry ISR);
+  Context& set(IndexSpaceRegistry isr);
   /// sets the IndexSpaceRegistry for this context
-  /// \param ISR a IndexSpaceRegistry shared_ptr
+  /// \param isr a IndexSpaceRegistry shared_ptr
   /// \return ref to '*this' for chaining
-  Context& set(std::shared_ptr<IndexSpaceRegistry> ISR);
+  Context& set(std::shared_ptr<IndexSpaceRegistry> isr);
   /// Sets the IndexSpaceMetric for this context, convenient for chaining
   /// \param metric IndexSpaceMetric
   /// \return ref to `*this`, for chaining

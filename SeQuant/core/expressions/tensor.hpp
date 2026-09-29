@@ -151,7 +151,7 @@ class Tensor : public Expr, public AbstractTensor, public MutatableLabeled {
   void assert_nonreserved_label(std::wstring_view label) const;
 
   // utility for dispatching to private ctor
-  struct reserved_tag {};
+  struct ReservedTag {};
 
   // list of friends who can make Tensor objects with reserved labels
   friend ExprPtr make_overlap(const Index &bra_index, const Index &ket_index);
@@ -255,10 +255,10 @@ class Tensor : public Expr, public AbstractTensor, public MutatableLabeled {
       const bool have_empty_slots =
           bra_rank() != bra_net_rank() || ket_rank() != ket_net_rank();
       if (have_empty_slots) {
-        decltype(bra_)::value_type canonical_bra_;
-        canonical_bra_.reserve(bra_.size());
-        decltype(ket_)::value_type canonical_ket_;
-        canonical_ket_.reserve(ket_.size());
+        decltype(bra_)::value_type canonical_bra;
+        canonical_bra.reserve(bra_.size());
+        decltype(ket_)::value_type canonical_ket;
+        canonical_ket.reserve(ket_.size());
         // push all braket bundles first
         for (std::size_t p = 0; p != std::min(bra_rank(), ket_rank()); ++p) {
           const auto nonempty_bra = bra_[p].nonnull();
@@ -268,23 +268,23 @@ class Tensor : public Expr, public AbstractTensor, public MutatableLabeled {
           if (nonempty_bra && nonempty_ket) {
             // we know that no empty braket bundles exist, so move the indices
             // out
-            canonical_bra_.emplace_back(std::move(bra_[p]));
-            canonical_ket_.push_back(std::move(ket_[p]));
+            canonical_bra.emplace_back(std::move(bra_[p]));
+            canonical_ket.push_back(std::move(ket_[p]));
           }
         }
 
-        std::size_t num_bra_indices = canonical_bra_.size();
-        std::size_t num_ket_indices = canonical_ket_.size();
+        std::size_t num_bra_indices = canonical_bra.size();
+        std::size_t num_ket_indices = canonical_ket.size();
         for (auto &&idx : bra_) {
           if (idx.nonnull()) {
-            canonical_bra_.emplace_back(std::move(idx));
+            canonical_bra.emplace_back(std::move(idx));
             ++num_bra_indices;
-            canonical_ket_.emplace_back(Index::null);
+            canonical_ket.emplace_back(Index::null);
           }
         }
         for (auto &&idx : ket_) {
           if (idx.nonnull()) {
-            canonical_ket_.emplace_back(std::move(idx));
+            canonical_ket.emplace_back(std::move(idx));
             ++num_ket_indices;
           }
         }
@@ -295,8 +295,8 @@ class Tensor : public Expr, public AbstractTensor, public MutatableLabeled {
         assert(ranges::count_if(
                    ket_, [](const Index &idx) { return idx.nonnull(); }) == 0);
         ;
-        bra_ = sequant::bra(std::move(canonical_bra_));
-        ket_ = sequant::ket(std::move(canonical_ket_));
+        bra_ = sequant::bra(std::move(canonical_bra));
+        ket_ = sequant::ket(std::move(canonical_ket));
         bra_net_rank_ = num_bra_indices;
         ket_net_rank_ = num_ket_indices;
       }
@@ -375,9 +375,9 @@ class Tensor : public Expr, public AbstractTensor, public MutatableLabeled {
             range_of_castables_to_index IndexRange3>
   Tensor(S &&label, const bra<IndexRange1> &bra_indices,
          const ket<IndexRange2> &ket_indices,
-         const aux<IndexRange3> &aux_indices, reserved_tag,
+         const aux<IndexRange3> &aux_indices, ReservedTag,
          ResolvedSymmetries rsym)
-      : label_(toUtf16(std::forward<S>(label))),
+      : label_(to_utf16(std::forward<S>(label))),
         bra_(make_indices(bra_indices)),
         ket_(make_indices(ket_indices)),
         aux_(make_indices(aux_indices)),
@@ -398,9 +398,9 @@ class Tensor : public Expr, public AbstractTensor, public MutatableLabeled {
   template <basic_string_convertible S>
   Tensor(S &&label, bra<index_container_type> &&bra_indices,
          ket<index_container_type> &&ket_indices,
-         aux<index_container_type> &&aux_indices, reserved_tag,
+         aux<index_container_type> &&aux_indices, ReservedTag,
          ResolvedSymmetries rsym)
-      : label_(toUtf16(std::forward<S>(label))),
+      : label_(to_utf16(std::forward<S>(label))),
         bra_(std::move(bra_indices)),
         ket_(std::move(ket_indices)),
         aux_(std::move(aux_indices)),
@@ -423,10 +423,10 @@ class Tensor : public Expr, public AbstractTensor, public MutatableLabeled {
             range_of_castables_to_index IndexRange3>
   Tensor(S &&label, const bra<IndexRange1> &bra_indices,
          const ket<IndexRange2> &ket_indices,
-         const aux<IndexRange3> &aux_indices, reserved_tag,
+         const aux<IndexRange3> &aux_indices, ReservedTag,
          const TensorSymmetries &syms = {})
       : Tensor(std::forward<S>(label), bra_indices, ket_indices, aux_indices,
-               reserved_tag{},
+               ReservedTag{},
                resolve_symmetries(
                    syms, sequant::base_field(make_indices(bra_indices),
                                              make_indices(ket_indices)))) {}
@@ -435,13 +435,13 @@ class Tensor : public Expr, public AbstractTensor, public MutatableLabeled {
   template <basic_string_convertible S>
   Tensor(S &&label, bra<index_container_type> &&bra_indices,
          ket<index_container_type> &&ket_indices,
-         aux<index_container_type> &&aux_indices, reserved_tag,
+         aux<index_container_type> &&aux_indices, ReservedTag,
          const TensorSymmetries &syms = {})
       // base_field() takes its arguments by value and the indices are moved
       // only in the delegated ctor's member-init list, so this reads them
       // intact
       : Tensor(std::forward<S>(label), std::move(bra_indices),
-               std::move(ket_indices), std::move(aux_indices), reserved_tag{},
+               std::move(ket_indices), std::move(aux_indices), ReservedTag{},
                resolve_symmetries(
                    syms, sequant::base_field(bra_indices, ket_indices))) {}
 
@@ -484,7 +484,7 @@ class Tensor : public Expr, public AbstractTensor, public MutatableLabeled {
          std::optional<BraKetSymmetry> bks_opt = std::nullopt,
          std::optional<ColumnSymmetry> ps = std::nullopt)
       : Tensor(std::forward<S>(label), bra_indices, ket_indices, sequant::aux{},
-               reserved_tag{},
+               ReservedTag{},
                TensorSymmetries{.perm = s, .braket = bks_opt, .column = ps}) {
     assert_nonreserved_label(label_);
   }
@@ -514,7 +514,7 @@ class Tensor : public Expr, public AbstractTensor, public MutatableLabeled {
          std::optional<BraKetSymmetry> bks_opt = std::nullopt,
          std::optional<ColumnSymmetry> ps = std::nullopt)
       : Tensor(std::forward<S>(label), bra_indices, ket_indices, aux_indices,
-               reserved_tag{},
+               ReservedTag{},
                TensorSymmetries{.perm = s, .braket = bks_opt, .column = ps}) {
     assert_nonreserved_label(label_);
   }
@@ -539,7 +539,7 @@ class Tensor : public Expr, public AbstractTensor, public MutatableLabeled {
          std::optional<BraKetSymmetry> bks_opt = std::nullopt,
          std::optional<ColumnSymmetry> ps = std::nullopt)
       : Tensor(std::forward<S>(label), std::move(bra_indices),
-               std::move(ket_indices), sequant::aux{}, reserved_tag{},
+               std::move(ket_indices), sequant::aux{}, ReservedTag{},
                TensorSymmetries{.perm = s, .braket = bks_opt, .column = ps}) {
     assert_nonreserved_label(label_);
   }
@@ -567,7 +567,7 @@ class Tensor : public Expr, public AbstractTensor, public MutatableLabeled {
          std::optional<BraKetSymmetry> bks_opt = std::nullopt,
          std::optional<ColumnSymmetry> ps = std::nullopt)
       : Tensor(std::forward<S>(label), std::move(bra_indices),
-               std::move(ket_indices), std::move(aux_indices), reserved_tag{},
+               std::move(ket_indices), std::move(aux_indices), ReservedTag{},
                TensorSymmetries{.perm = s, .braket = bks_opt, .column = ps}) {
     assert_nonreserved_label(label_);
   }
@@ -598,7 +598,7 @@ class Tensor : public Expr, public AbstractTensor, public MutatableLabeled {
       // braket_symmetry_ must be derived from h before canonicalize_slots()
       // runs, so let the reserved-tag ctor do it
       : Tensor(std::forward<S>(label), bra_indices, ket_indices, sequant::aux{},
-               reserved_tag{},
+               ReservedTag{},
                TensorSymmetries{.perm = s, .hermiticity = h, .column = ps}) {
     assert_nonreserved_label(label_);
   }
@@ -623,7 +623,7 @@ class Tensor : public Expr, public AbstractTensor, public MutatableLabeled {
       // braket_symmetry_ must be derived from h before canonicalize_slots()
       // runs, so let the reserved-tag ctor do it
       : Tensor(std::forward<S>(label), bra_indices, ket_indices, aux_indices,
-               reserved_tag{},
+               ReservedTag{},
                TensorSymmetries{.perm = s, .hermiticity = h, .column = ps}) {
     assert_nonreserved_label(label_);
   }
@@ -646,7 +646,7 @@ class Tensor : public Expr, public AbstractTensor, public MutatableLabeled {
   Tensor(S &&label, const bra<IndexRange1> &bra_indices,
          const ket<IndexRange2> &ket_indices, TensorSymmetries syms)
       : Tensor(std::forward<S>(label), bra_indices, ket_indices, sequant::aux{},
-               reserved_tag{}, syms) {
+               ReservedTag{}, syms) {
     assert_nonreserved_label(label_);
   }
 
@@ -662,7 +662,7 @@ class Tensor : public Expr, public AbstractTensor, public MutatableLabeled {
          const ket<IndexRange2> &ket_indices,
          const aux<IndexRange3> &aux_indices, TensorSymmetries syms)
       : Tensor(std::forward<S>(label), bra_indices, ket_indices, aux_indices,
-               reserved_tag{}, syms) {
+               ReservedTag{}, syms) {
     assert_nonreserved_label(label_);
   }
 
@@ -674,7 +674,7 @@ class Tensor : public Expr, public AbstractTensor, public MutatableLabeled {
   Tensor(S &&label, bra<index_container_type> &&bra_indices,
          ket<index_container_type> &&ket_indices, TensorSymmetries syms)
       : Tensor(std::forward<S>(label), std::move(bra_indices),
-               std::move(ket_indices), sequant::aux{}, reserved_tag{}, syms) {
+               std::move(ket_indices), sequant::aux{}, ReservedTag{}, syms) {
     assert_nonreserved_label(label_);
   }
 
@@ -688,7 +688,7 @@ class Tensor : public Expr, public AbstractTensor, public MutatableLabeled {
          ket<index_container_type> &&ket_indices,
          aux<index_container_type> &&aux_indices, TensorSymmetries syms)
       : Tensor(std::forward<S>(label), std::move(bra_indices),
-               std::move(ket_indices), std::move(aux_indices), reserved_tag{},
+               std::move(ket_indices), std::move(aux_indices), ReservedTag{},
                syms) {
     assert_nonreserved_label(label_);
   }
@@ -1189,7 +1189,7 @@ inline ExprPtr make_overlap(const Index &bra_index, const Index &ket_index) {
   // obtained by deserialization
   return ex<Tensor>(
       Tensor(reserved::overlap_label(), bra{bra_index}, ket{ket_index}, aux{},
-             Tensor::reserved_tag{},
+             Tensor::ReservedTag{},
              TensorSymmetries{.perm = Symmetry::Nonsymm,
                               .hermiticity = Hermiticity::Hermitian,
                               .column = ColumnSymmetry::Symm}));
@@ -1200,7 +1200,7 @@ inline ExprPtr make_kronecker(const Index &bra_index, const Index &ket_index) {
   // symmetric
   return ex<Tensor>(
       Tensor(reserved::kronecker_label(), bra{bra_index}, ket{ket_index}, aux{},
-             Tensor::reserved_tag{},
+             Tensor::ReservedTag{},
              TensorSymmetries{.perm = Symmetry::Nonsymm,
                               .hermiticity = Hermiticity::Hermitian,
                               .column = ColumnSymmetry::Symm}));

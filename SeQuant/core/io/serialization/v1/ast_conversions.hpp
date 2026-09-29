@@ -43,26 +43,27 @@ std::tuple<std::size_t, std::size_t> get_pos(const AST &ast,
 template <typename PositionCache, typename Iterator>
 Index to_index(const io::serialization::v1::ast::Index &index,
                const PositionCache &position_cache, const Iterator &begin) {
-  container::vector<Index> protoIndices;
-  protoIndices.reserve(index.protoLabels.size());
+  container::vector<Index> proto_indices;
+  proto_indices.reserve(index.proto_labels.size());
 
   for (const io::serialization::v1::ast::IndexLabel &current :
-       index.protoLabels) {
+       index.proto_labels) {
     try {
       std::wstring label = current.label + L"_" + std::to_wstring(current.id);
       IndexSpace space =
           get_default_context().index_space_registry()->retrieve(label);
-      protoIndices.push_back(Index(std::move(label), std::move(space)));
+      proto_indices.push_back(Index(std::move(label), std::move(space)));
     } catch (const IndexSpace::bad_key &) {
       auto [offset, length] = get_pos(current, position_cache, begin);
       throw SerializationError(offset, length,
-                               "Unknown index space '" + toUtf8(current.label) +
+                               "Unknown index space '" +
+                                   to_utf8(current.label) +
                                    "' in proto index specification");
     } catch (const Exception &e) {
       auto [offset, length] = get_pos(current, position_cache, begin);
       throw SerializationError(offset, length,
-                               "Invalid index '" + toUtf8(current.label) + "_" +
-                                   std::to_string(current.id) + ": " +
+                               "Invalid index '" + to_utf8(current.label) +
+                                   "_" + std::to_string(current.id) + ": " +
                                    e.what());
     }
   }
@@ -70,17 +71,17 @@ Index to_index(const io::serialization::v1::ast::Index &index,
   try {
     IndexSpace space = get_default_context().index_space_registry()->retrieve(
         index.label.label);
-    return Index(std::move(space), index.label.id, std::move(protoIndices));
+    return Index(std::move(space), index.label.id, std::move(proto_indices));
   } catch (const IndexSpace::bad_key &e) {
     auto [offset, length] = get_pos(index.label, position_cache, begin);
     throw SerializationError(offset, length,
                              "Unknown index space '" +
-                                 toUtf8(index.label.label) +
+                                 to_utf8(index.label.label) +
                                  "' in index specification");
   } catch (const Exception &e) {
     auto [offset, length] = get_pos(index.label, position_cache, begin);
     throw SerializationError(offset, length,
-                             "Invalid index '" + toUtf8(index.label.label) +
+                             "Invalid index '" + to_utf8(index.label.label) +
                                  "_" + std::to_string(index.label.id) + ": " +
                                  e.what());
   }
@@ -91,10 +92,10 @@ std::tuple<container::vector<Index>, container::vector<Index>,
            container::vector<Index>>
 make_indices(const io::serialization::v1::ast::IndexGroups &groups,
              const PositionCache &position_cache, const Iterator &begin) {
-  container::vector<Index> braIndices;
-  container::vector<Index> ketIndices;
+  container::vector<Index> bra_indices;
+  container::vector<Index> ket_indices;
   container::vector<Index> auxiliaries;
-  container::vector<Index> auxIndices;
+  container::vector<Index> aux_indices;
 
   static_assert(std::is_same_v<decltype(groups.bra), decltype(groups.ket)>,
                 "Types for bra and ket indices must be equal for pointer "
@@ -107,20 +108,21 @@ make_indices(const io::serialization::v1::ast::IndexGroups &groups,
     ket = &groups.bra;
   }
 
-  braIndices.reserve(bra->size());
-  ketIndices.reserve(ket->size());
+  bra_indices.reserve(bra->size());
+  ket_indices.reserve(ket->size());
 
   for (const io::serialization::v1::ast::Index &current : *bra) {
-    braIndices.push_back(to_index(current, position_cache, begin));
+    bra_indices.push_back(to_index(current, position_cache, begin));
   }
   for (const io::serialization::v1::ast::Index &current : *ket) {
-    ketIndices.push_back(to_index(current, position_cache, begin));
+    ket_indices.push_back(to_index(current, position_cache, begin));
   }
   for (const io::serialization::v1::ast::Index &current : groups.auxiliaries) {
     auxiliaries.push_back(to_index(current, position_cache, begin));
   }
 
-  return {std::move(braIndices), std::move(ketIndices), std::move(auxiliaries)};
+  return {std::move(bra_indices), std::move(ket_indices),
+          std::move(auxiliaries)};
 }
 
 template <typename Iterator>
@@ -280,7 +282,7 @@ struct Transformer {
   }
 
   ExprPtr operator()(const io::serialization::v1::ast::Tensor &tensor) const {
-    auto [braIndices, ketIndices, auxiliaries] =
+    auto [bra_indices, ket_indices, auxiliaries] =
         make_indices(tensor.indices, position_cache.get(), begin.get());
 
     auto [perm_symm, braket_symm, column_symm] =
@@ -302,8 +304,8 @@ struct Transformer {
       Vacuum vac = fit == ranges::begin(FNOperator::labels())
                        ? Vacuum::Physical
                        : Vacuum::SingleProduct;
-      return ex<FNOperator>(cre(std::move(ketIndices)),
-                            ann(std::move(braIndices)), vac);
+      return ex<FNOperator>(cre(std::move(ket_indices)),
+                            ann(std::move(bra_indices)), vac);
     }
     decltype(ranges::begin(BNOperator::labels())) bit;
     if ((bit = ranges::find(BNOperator::labels(), tensor.name)) !=
@@ -319,8 +321,8 @@ struct Transformer {
       Vacuum vac = bit == ranges::begin(BNOperator::labels())
                        ? Vacuum::Physical
                        : Vacuum::SingleProduct;
-      return ex<BNOperator>(cre(std::move(ketIndices)),
-                            ann(std::move(braIndices)), vac);
+      return ex<BNOperator>(cre(std::move(ket_indices)),
+                            ann(std::move(bra_indices)), vac);
     }
 
     // whether the input spelled a symmetry out, as opposed to inheriting it
@@ -387,8 +389,8 @@ struct Transformer {
     // Hermiticity)
     return std::visit(
         [&](auto symm) {
-          return ex<Tensor>(tensor.name, bra(std::move(braIndices)),
-                            ket(std::move(ketIndices)),
+          return ex<Tensor>(tensor.name, bra(std::move(bra_indices)),
+                            ket(std::move(ket_indices)),
                             aux(std::move(auxiliaries)), perm_symm, symm,
                             column_symm);
         },

@@ -262,7 +262,7 @@ ExprPtr optimize_impl(ExprPtr const& expr, OptimizeOptions const& opts,
       for (std::size_t i = 0; i < in_sum.size(); ++i) do_term(i);
     }
 
-    Sum new_sum(std::move(new_smands), Sum::move_only_tag{});
+    Sum new_sum(std::move(new_smands), Sum::MoveOnlyTag{});
 
     // Re-key the per-summand batch annotations onto the final reassembled Sum.
     // opt_pure_product keyed each summand's node_batch_axes (one entry per

@@ -77,40 +77,40 @@ std::wstring serialize_scalar(const Constant::scalar_type& scalar,
   }
 
   const auto& real = scalar.real();
-  const auto& realNumerator = numerator(real);
-  const auto& realDenominator = denominator(real);
+  const auto& real_numerator = numerator(real);
+  const auto& real_denominator = denominator(real);
   const auto& imag = scalar.imag();
-  auto imagNumerator = numerator(imag);
-  const auto& imagDenominator = denominator(imag);
+  auto imag_numerator = numerator(imag);
+  const auto& imag_denominator = denominator(imag);
 
   std::string serialized;
-  if (realNumerator != 0) {
-    serialized += realNumerator.str();
+  if (real_numerator != 0) {
+    serialized += real_numerator.str();
 
-    if (realDenominator != 1) {
-      serialized += "/" + realDenominator.str();
+    if (real_denominator != 1) {
+      serialized += "/" + real_denominator.str();
     }
   }
-  if (imagNumerator != 0) {
+  if (imag_numerator != 0) {
     if (!serialized.empty()) {
-      if (imagNumerator < 0) {
+      if (imag_numerator < 0) {
         serialized += " - i ";
-        imagNumerator *= -1;
+        imag_numerator *= -1;
       } else {
         serialized += " + i ";
       }
     }
 
-    serialized += imagNumerator.str();
+    serialized += imag_numerator.str();
 
-    if (imagDenominator != 1) {
-      serialized += "/" + imagDenominator.str();
+    if (imag_denominator != 1) {
+      serialized += "/" + imag_denominator.str();
     }
   }
 
   SEQUANT_ASSERT(!serialized.empty());
 
-  return toUtf16(serialized);
+  return to_utf16(serialized);
 }
 
 std::wstring to_string(Tensor const& tensor,

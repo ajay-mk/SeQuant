@@ -90,7 +90,7 @@ T string_to(std::wstring_view str, int base = 10) {
         return c > std::numeric_limits<char>::max();
       })) {
     throw ConversionException(
-        "'" + toUtf8(str) +
+        "'" + to_utf8(str) +
         "' contains characters that can't possibly represent a numeric value");
   }
 
@@ -133,7 +133,7 @@ T string_to(std::wstring_view str,
         return c > std::numeric_limits<char>::max();
       })) {
     throw ConversionException(
-        "'" + toUtf8(str) +
+        "'" + to_utf8(str) +
         "' contains characters that can't possibly represent a numeric value");
   }
 

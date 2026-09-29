@@ -980,7 +980,7 @@ TEST_CASE("optimize", "[optimize]") {
             << " c_mixed=" << c_mixed);
     }
 
-    SECTION("CostModel concept conformance + custom model") {
+    SECTION("cost_model concept conformance + custom model") {
       using namespace sequant;
       // idxsz lambda captures approximate_size() for each index space.
       auto idxsz = [](Index const& ix) {
@@ -990,24 +990,24 @@ TEST_CASE("optimize", "[optimize]") {
       // --- Static conformance checks ---
       // AdditiveModel (FLOPs variant): two template params (CostFn,
       // FootprintFn).
-      static_assert(opt::detail::CostModel<opt::detail::AdditiveModel<
+      static_assert(opt::detail::cost_model<opt::detail::AdditiveModel<
                         decltype(opt::detail::flops_counter(idxsz)),
                         decltype(opt::detail::footprint_counter(idxsz))>>);
       // AdditiveModel (Size variant).
-      static_assert(opt::detail::CostModel<opt::detail::AdditiveModel<
+      static_assert(opt::detail::cost_model<opt::detail::AdditiveModel<
                         decltype(opt::detail::memsize_counter(idxsz)),
                         decltype(opt::detail::footprint_counter(idxsz))>>);
       // PeakModel: one template param (IdxToSz).
       static_assert(
-          opt::detail::CostModel<opt::detail::PeakModel<decltype(idxsz)>>);
+          opt::detail::cost_model<opt::detail::PeakModel<decltype(idxsz)>>);
       // PeakBatchedModel: one template param (IdxToSz).
-      static_assert(opt::detail::CostModel<
+      static_assert(opt::detail::cost_model<
                     opt::detail::PeakBatchedModel<decltype(idxsz)>>);
 
       // Negative direction: a type lacking State/Context/the six methods must
-      // NOT satisfy CostModel (guards against a vacuously-true concept).
+      // NOT satisfy cost_model (guards against a vacuously-true concept).
       struct NotAModel {};
-      static_assert(!opt::detail::CostModel<NotAModel>);
+      static_assert(!opt::detail::cost_model<NotAModel>);
 
       // --- Custom-model extension-point exercise ---
       // Build an AdditiveModel driven by memsize_counter with a doubled

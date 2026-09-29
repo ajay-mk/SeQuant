@@ -44,9 +44,9 @@ void print_auts(const PermutationSequence& aut_generators, Stream& stream,
     auto print = [&stream, &vlabels,
                   use_labels = !vlabels.empty()](const auto& perm) {
       const unsigned int offset = 0;
-      const unsigned int N = perm.size();
-      if (!vlabels.empty()) SEQUANT_ASSERT(vlabels.size() == N);
-      for (unsigned int i = 0; i < N; i++) {
+      const unsigned int n = perm.size();
+      if (!vlabels.empty()) SEQUANT_ASSERT(vlabels.size() == n);
+      for (unsigned int i = 0; i < n; i++) {
         unsigned int j = perm[i];
         if (j == i) continue;
         bool is_first = true;

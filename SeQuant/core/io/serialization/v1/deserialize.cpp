@@ -59,7 +59,7 @@ x3::rule<PowerRule, ast::Power> power{"Power"};
 x3::rule<ProductRule, ast::Product> product{"Product"};
 x3::rule<SumRule, ast::Sum> sum{"Sum"};
 x3::rule<ExprRule, ast::Sum> expr{"Expression"};
-x3::rule<ResultExprRule, ast::ResultExpr> resultExpr{"ResultExpr"};
+x3::rule<ResultExprRule, ast::ResultExpr> result_expr{"ResultExpr"};
 
 // Auxiliaries
 x3::rule<struct NameRule, std::wstring> name{"Name"};
@@ -106,9 +106,9 @@ auto index_def        = x3::lexeme[
                             index_label >> -x3::skip['<' >> index_label % ',' >> ">"]
                         ];
 
-const std::vector<ast::Index> noIndices;
-auto index_groups_def =   L"_{" > -(index % ',') > L"}^{" > -(index % ',')  > L"}" >> x3::attr(noIndices) >> x3::attr(false)
-                        | L"^{" > -(index % ',') > L"}_{" > -(index % ',')  > L"}" >> x3::attr(noIndices) >> x3::attr(true)
+const std::vector<ast::Index> no_indices;
+auto index_groups_def =   L"_{" > -(index % ',') > L"}^{" > -(index % ',')  > L"}" >> x3::attr(no_indices) >> x3::attr(false)
+                        | L"^{" > -(index % ',') > L"}_{" > -(index % ',')  > L"}" >> x3::attr(no_indices) >> x3::attr(true)
                         |  '{'  > -(index % ',') > -( ';' > -(index % ',')) > -(';' > -(index % ','))     >  '}'  >> x3::attr(false);
 
 auto symmetry_spec_def= x3::lexeme[
@@ -132,27 +132,27 @@ auto grouped          = power | '(' > sum > ')' | nullary;
 
 auto product_def      = grouped % -x3::lit('*');
 
-auto first_addend     = (('-' >> x3::attr(-1) | -x3::lit('+') >> x3::attr(1)) >> product)[actions::process_addend{}];
+auto first_addend     = (('-' >> x3::attr(-1) | -x3::lit('+') >> x3::attr(1)) >> product)[actions::ProcessAddend{}];
 
-auto addend           = (('+' >> x3::attr(1) | '-' >> x3::attr(-1)) > product)[actions::process_addend{}];
+auto addend           = (('+' >> x3::attr(1) | '-' >> x3::attr(-1)) > product)[actions::ProcessAddend{}];
 
 auto sum_def          = first_addend >> *addend;
 
 auto expr_def         = -sum > x3::eoi;
 
-auto resultExpr_def       = (tensor | variable) > (L'=' | x3::lit(L"->")) >> expr;
+auto result_expr_def       = (tensor | variable) > (L'=' | x3::lit(L"->")) >> expr;
 // clang-format on
 
 BOOST_SPIRIT_DEFINE(name, number, variable, index_label, index, index_groups,
                     tensor, power, product, sum, expr, symmetry_spec,
-                    resultExpr);
+                    result_expr);
 
 struct position_cache_tag;
 struct error_handler_tag;
 
 namespace helpers {
 
-struct annotate_position {
+struct AnnotatePosition {
   template <typename T, typename Iterator, typename Context>
   void on_success(const Iterator &first, const Iterator &last, T &ast,
                   const Context &ctx) {
@@ -162,7 +162,7 @@ struct annotate_position {
   }
 };
 
-struct error_handler {
+struct ErrorHandler {
   template <typename Iterator, typename Exception, typename Context>
   x3::error_handler_result on_error(const Iterator & /*first*/,
                                     const Iterator & /*last*/,
@@ -175,18 +175,18 @@ struct error_handler {
 
 }  // namespace helpers
 
-struct NumberRule : helpers::annotate_position, helpers::error_handler {};
-struct VariableRule : helpers::annotate_position, helpers::error_handler {};
-struct TensorRule : helpers::annotate_position, helpers::error_handler {};
-struct PowerRule : helpers::annotate_position, helpers::error_handler {};
-struct ProductRule : helpers::annotate_position, helpers::error_handler {};
-struct SumRule : helpers::annotate_position, helpers::error_handler {};
-struct ExprRule : helpers::annotate_position, helpers::error_handler {};
-struct ResultRule : helpers::annotate_position, helpers::error_handler {};
-struct IndexLabelRule : helpers::annotate_position, helpers::error_handler {};
-struct IndexRule : helpers::annotate_position, helpers::error_handler {};
-struct IndexGroupRule : helpers::annotate_position, helpers::error_handler {};
-struct SymmetrySpecRule : helpers::annotate_position, helpers::error_handler {};
+struct NumberRule : helpers::AnnotatePosition, helpers::ErrorHandler {};
+struct VariableRule : helpers::AnnotatePosition, helpers::ErrorHandler {};
+struct TensorRule : helpers::AnnotatePosition, helpers::ErrorHandler {};
+struct PowerRule : helpers::AnnotatePosition, helpers::ErrorHandler {};
+struct ProductRule : helpers::AnnotatePosition, helpers::ErrorHandler {};
+struct SumRule : helpers::AnnotatePosition, helpers::ErrorHandler {};
+struct ExprRule : helpers::AnnotatePosition, helpers::ErrorHandler {};
+struct ResultRule : helpers::AnnotatePosition, helpers::ErrorHandler {};
+struct IndexLabelRule : helpers::AnnotatePosition, helpers::ErrorHandler {};
+struct IndexRule : helpers::AnnotatePosition, helpers::ErrorHandler {};
+struct IndexGroupRule : helpers::AnnotatePosition, helpers::ErrorHandler {};
+struct SymmetrySpecRule : helpers::AnnotatePosition, helpers::ErrorHandler {};
 
 template <typename Iterator>
 struct ErrorHandler {
@@ -285,7 +285,7 @@ transform::DefaultSymmetries to_default_symms(
                          to_default_symms(options));                         \
   }
 
-SEQUANT_DESERIALIZATION_SPECIALIZATION(ResultExpr, parse::resultExpr,
+SEQUANT_DESERIALIZATION_SPECIALIZATION(ResultExpr, parse::result_expr,
                                        ast::ResultExpr,
                                        transform::ast_to_result)
 SEQUANT_DESERIALIZATION_SPECIALIZATION(ExprPtr, parse::expr, ast::Sum,
@@ -294,12 +294,12 @@ SEQUANT_DESERIALIZATION_SPECIALIZATION(ExprPtr, parse::expr, ast::Sum,
 template <>
 ResultExpr from_string<ResultExpr>(std::string_view input,
                                    const DeserializationOptions &options) {
-  return v1::from_string<ResultExpr>(toUtf16(input), options);
+  return v1::from_string<ResultExpr>(to_utf16(input), options);
 }
 template <>
 ExprPtr from_string<ExprPtr>(std::string_view input,
                              const DeserializationOptions &options) {
-  return v1::from_string<ExprPtr>(toUtf16(input), options);
+  return v1::from_string<ExprPtr>(to_utf16(input), options);
 }
 
 }  // namespace sequant::io::serialization::v1

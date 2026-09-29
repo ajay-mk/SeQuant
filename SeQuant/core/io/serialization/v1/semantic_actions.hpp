@@ -22,9 +22,9 @@ namespace x3 = boost::spirit::x3;
 /// Auxiliary type traits
 namespace {
 
-// ctx_tags
+// CtxTags
 template <typename Context>
-struct ctx_tags {
+struct CtxTags {
   using attribute_type = std::remove_reference_t<
       std::remove_cv_t<decltype(x3::_attr(std::declval<Context>()))>>;
   using target_type = std::remove_reference_t<
@@ -32,9 +32,9 @@ struct ctx_tags {
 };
 
 template <typename Context>
-using ctx_attribute_t = typename ctx_tags<Context>::attribute_type;
+using ctx_attribute_t = typename CtxTags<Context>::attribute_type;
 template <typename Context>
-using ctx_target_t = typename ctx_tags<Context>::target_type;
+using ctx_target_t = typename CtxTags<Context>::target_type;
 
 }  // namespace
 
@@ -44,7 +44,7 @@ auto get_val(Variant &variant) {
   return boost::apply_visitor([](auto &element) { return element; }, variant);
 }
 
-struct process_addend {
+struct ProcessAddend {
   template <typename Context>
   void operator()(Context &ctx) const {
     static_assert(std::is_same_v<ctx_target_t<Context>, ast::Sum>);

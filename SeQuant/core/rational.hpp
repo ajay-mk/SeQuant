@@ -68,7 +68,7 @@ inline rational to_rational(
     using fraction = rational;
     using Int = rational::value_type;
     auto base = std::floor(f);
-    auto base_Int = boost::numeric_cast<Int>(base);
+    auto base_int = boost::numeric_cast<Int>(base);
     f -= base;
     if (f < tol) return fraction(base, 1);
     if (1 - tol < f) return fraction(base + 1, 1);
@@ -88,7 +88,7 @@ inline rational to_rational(
       } else if (numerator(middle) < denominator(middle) * f_minus_top_exact) {
         lower = middle;
       } else {
-        return fraction(denominator(middle) * base_Int + numerator(middle),
+        return fraction(denominator(middle) * base_int + numerator(middle),
                         denominator(middle));
       }
       ++niter;
@@ -125,13 +125,13 @@ inline std::string to_string(const boost::multiprecision::number<Backend>& i) {
 }
 
 inline std::wstring to_wstring(const rational& i) {
-  return toUtf16(boost::lexical_cast<std::string>(i));
+  return to_utf16(boost::lexical_cast<std::string>(i));
 }
 
 template <typename Backend>
 inline std::wstring to_wstring(
     const boost::multiprecision::number<Backend>& i) {
-  return toUtf16(boost::lexical_cast<std::string>(i));
+  return to_utf16(boost::lexical_cast<std::string>(i));
 }
 
 }  // namespace sequant

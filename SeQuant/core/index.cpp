@@ -67,7 +67,7 @@ std::string Index::ascii_label() const {
   return label_ascii;
 }
 
-std::string Index::to_string() const { return toUtf8(this->label()); }
+std::string Index::to_string() const { return to_utf8(this->label()); }
 
 std::shared_ptr<const IndexSpaceRegistry>
 Index::obtain_default_index_registry() {

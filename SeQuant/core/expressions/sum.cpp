@@ -14,7 +14,7 @@ Sum::Sum(ExprPtrList summands) {
   }
 }
 
-Sum::Sum(summands_type &&summands, move_only_tag)
+Sum::Sum(summands_type &&summands, MoveOnlyTag)
     : summands_(std::move(summands)) {
   std::size_t pos = 0;
   for (auto it = summands_.begin(); it != summands_.end(); ++it) {
@@ -371,7 +371,7 @@ SumPtr HashingAccumulator::make_sum_impl(bool canonicalize) {
     });
   }
 
-  return std::make_shared<Sum>(std::move(summands), Sum::move_only_tag{});
+  return std::make_shared<Sum>(std::move(summands), Sum::MoveOnlyTag{});
 }
 
 SumPtr HashingAccumulator::make_sum() { return make_sum_impl(false); }

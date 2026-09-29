@@ -48,8 +48,8 @@ class TypeAttr {
   /// @warning first (most significant) bit is reserved for internal use
   /// @param bitset bitset representation of this Type
   /// @pre `(bitset & make_reserved().bitset) == null.bitset`
-  explicit constexpr TypeAttr(bitset_t bitset) noexcept : bitset(bitset) {
-    SEQUANT_ASSERT((this->bitset & bitset::reserved) == bitset::null);
+  explicit constexpr TypeAttr(bitset_t bitset) noexcept : bitset_(bitset) {
+    SEQUANT_ASSERT((this->bitset_ & bitset::reserved) == bitset::null);
   }
 
   /// construct TypeAddr from things that can be cast to bitset_t, but exclude
@@ -64,19 +64,19 @@ class TypeAttr {
       : TypeAttr(static_cast<bitset_t>(std::forward<T>(value))) {}
 
   constexpr explicit operator int64_t() const {
-    return static_cast<int64_t>(bitset);
+    return static_cast<int64_t>(bitset_);
   }
-  constexpr explicit operator bitset_t() const { return bitset; }
-  constexpr bitset_t to_bitset() const { return bitset; }
-  constexpr int32_t to_int32() const { return bitset; }
+  constexpr explicit operator bitset_t() const { return bitset_; }
+  constexpr bitset_t to_bitset() const { return bitset_; }
+  constexpr int32_t to_int32() const { return bitset_; }
 
   /// @return true if this object is non-null (i.e. has any bits set)
-  constexpr explicit operator bool() const { return bitset != 0; }
+  constexpr explicit operator bool() const { return bitset_ != 0; }
 
   constexpr TypeAttr(const TypeAttr &other) { *this = other; }
 
   constexpr TypeAttr &operator=(const TypeAttr &other) {
-    bitset = other.to_int32();
+    bitset_ = other.to_int32();
     return *this;
   }
 
@@ -134,14 +134,14 @@ class TypeAttr {
   }
 
  private:
-  bitset_t bitset = 0;
+  bitset_t bitset_ = 0;
 
   friend class Index;
 
   /// makes reserved object
   static TypeAttr make_reserved() {
     TypeAttr result;
-    result.bitset = 0x80000000;
+    result.bitset_ = 0x80000000;
     return result;
   }
 };  // struct TypeAttr
@@ -169,8 +169,8 @@ class QuantumNumbersAttr {
   /// @param bitset bitset representation of this Type
   /// @pre `(bitset & make_reserved().bitset()) == null.bitset()`
   explicit constexpr QuantumNumbersAttr(bitset_t bitset) noexcept
-      : bitset(bitset) {
-    SEQUANT_ASSERT((this->bitset & bitset::reserved) == bitset::null);
+      : bitset_(bitset) {
+    SEQUANT_ASSERT((this->bitset_ & bitset::reserved) == bitset::null);
   }
 
   template <typename QN,
@@ -180,19 +180,19 @@ class QuantumNumbersAttr {
                 !std::is_same_v<std::decay_t<QN>, TypeAttr> &&
                 !std::is_same_v<std::decay_t<QN>, QuantumNumbersAttr>>>
   constexpr QuantumNumbersAttr(QN &&value) noexcept
-      : bitset(static_cast<bitset_t>(std::forward<QN>(value))) {
-    SEQUANT_ASSERT((this->bitset & bitset::reserved) == bitset::null);
+      : bitset_(static_cast<bitset_t>(std::forward<QN>(value))) {
+    SEQUANT_ASSERT((this->bitset_ & bitset::reserved) == bitset::null);
   }
 
   constexpr explicit operator int64_t() const {
-    return static_cast<int64_t>(bitset);
+    return static_cast<int64_t>(bitset_);
   }
-  constexpr explicit operator bitset_t() const { return bitset; }
-  constexpr bitset_t to_bitset() const { return bitset; }
-  constexpr int32_t to_int32() const { return bitset; }
+  constexpr explicit operator bitset_t() const { return bitset_; }
+  constexpr bitset_t to_bitset() const { return bitset_; }
+  constexpr int32_t to_int32() const { return bitset_; }
 
   /// @return true if this object is non-null (i.e. has any bits set)
-  constexpr explicit operator bool() const { return bitset != 0; }
+  constexpr explicit operator bool() const { return bitset_ != 0; }
 
   /// @return `*this` XOR @p other
   /// @note equivalent to `this->to_int32() ^ other.to_int32()`
@@ -254,14 +254,14 @@ class QuantumNumbersAttr {
   }
 
  private:
-  bitset_t bitset = bitset::null;
+  bitset_t bitset_ = bitset::null;
 
   friend class Index;
 
   /// makes reserved object
   static QuantumNumbersAttr make_reserved() {
     QuantumNumbersAttr result;
-    result.bitset = bitset::reserved;
+    result.bitset_ = bitset::reserved;
     return result;
   }
 };  // struct QuantumNumbersAttr
@@ -381,7 +381,7 @@ class IndexSpace {
   struct bad_key : Exception {
     bad_key() : Exception("bad key") {}
     template <basic_string_convertible S>
-    bad_key(S &&key) : Exception(std::string("bad key: ") + toUtf8(key)) {}
+    bad_key(S &&key) : Exception(std::string("bad key: ") + to_utf8(key)) {}
   };
 
   struct KeyCompare {
@@ -447,7 +447,7 @@ class IndexSpace {
              QuantumNumbersAttr qnattr = QuantumNumbersAttr{0},
              std::size_t approximate_size = 10, Field field = Field::Complex)
       : attr_(typeattr, qnattr),
-        base_key_(toUtf16(std::forward<S>(type_label))),
+        base_key_(to_utf16(std::forward<S>(type_label))),
         approximate_size_(approximate_size),
         field_(field) {}
 
@@ -494,7 +494,7 @@ class IndexSpace {
       std::basic_string_view<CharT> view(begin(range), end(range));
 
       if constexpr (std::same_as<CharT, char>) {
-        return toUtf16(view);
+        return to_utf16(view);
       } else {
         return view;
       }

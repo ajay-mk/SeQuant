@@ -43,9 +43,9 @@ namespace detail {
 /// will require searching through all replacements. This struct makes sure that
 /// I1 will need to be replaced in 1 spot. Note that destination index may or
 /// may not have protonindices.
-class index_repl_dst_t {
+class IndexReplDst {
  public:
-  explicit index_repl_dst_t(Index dst, Index src)
+  explicit IndexReplDst(Index dst, Index src)
       : dst_(std::move(dst)), src_{std::move(src)} {
     if (Logger::instance().wick_reduce) {
       sequant::wprintf("index_repl_dst_t: ctor, src=", src.to_latex(),
@@ -63,7 +63,7 @@ class index_repl_dst_t {
   }
 
   const container::svector<Index> &src() const { return src_; }
-  index_repl_dst_t &append_src(Index src) {
+  IndexReplDst &append_src(Index src) {
     SEQUANT_ASSERT(ranges::contains(src_, src) == false);
     if (Logger::instance().wick_reduce) {
       sequant::wprintf("index_repl_dst_t: appended src=", src.to_latex(),
@@ -132,9 +132,9 @@ compute_index_replacement_rules(
     return all_indices.find(idx) == all_indices.end();
   };
   IndexFactory idxfac(index_validator);
-  container::map<Index /* src */, std::shared_ptr<index_repl_dst_t> /* dst */>
+  container::map<Index /* src */, std::shared_ptr<IndexReplDst> /* dst */>
       src2dst;  // src->dst, will be converted to
-  container::svector<std::shared_ptr<index_repl_dst_t>>
+  container::svector<std::shared_ptr<IndexReplDst>>
       dst_list;  // unsorted list of dst indices
 
   // transfers proto indices from src (if any) to dst
@@ -212,8 +212,8 @@ compute_index_replacement_rules(
       (*it)->append_src(src);
       src2dst.emplace(src, *it);
     } else {
-      [[maybe_unused]] auto insertion_result = src2dst.emplace(
-          src, std::make_shared<index_repl_dst_t>(real_dst, src));
+      [[maybe_unused]] auto insertion_result =
+          src2dst.emplace(src, std::make_shared<IndexReplDst>(real_dst, src));
       SEQUANT_ASSERT(insertion_result.second);
       dst_list.emplace_back(insertion_result.first->second);
     }
@@ -894,7 +894,7 @@ ExprPtr WickTheorem<S>::compute(const bool count_only,
             const auto nop_labels_end = end(nop_labels);
 
             using opseq_view_type =
-                flattened_rangenest<NormalOperatorSequence<S>>;
+                FlattenedRangeNest<NormalOperatorSequence<S>>;
             auto opseq_view = opseq_view_type(input_.get());
             const auto opseq_view_begin = ranges::begin(opseq_view);
             const auto opseq_view_end = ranges::end(opseq_view);
@@ -1158,9 +1158,10 @@ ExprPtr WickTheorem<S>::compute(const bool count_only,
               const auto nt2 = edge2.vertex_count();
               SEQUANT_ASSERT(nt2 <= 2);
               for (auto i1 = 0; i1 != nt1; ++i1) {
-                const auto tensor1_ord = edge1.vertex(i1).getTerminalIndex();
+                const auto tensor1_ord = edge1.vertex(i1).get_terminal_index();
                 for (auto i2 = 0; i2 != nt2; ++i2) {
-                  const auto tensor2_ord = edge2.vertex(i2).getTerminalIndex();
+                  const auto tensor2_ord =
+                      edge2.vertex(i2).get_terminal_index();
 
                   // do not skip if connected to same ...
                   if (tensor1_ord == tensor2_ord) {
@@ -1171,9 +1172,9 @@ ExprPtr WickTheorem<S>::compute(const bool count_only,
                     // ... (anti)symmetric ...
                     if (tensor_ptr->_symmetry() != Symmetry::Nonsymm) {
                       const auto tensor1_slot_type =
-                          edge1.vertex(i1).getOrigin();
+                          edge1.vertex(i1).get_origin();
                       const auto tensor2_slot_type =
-                          edge2.vertex(i2).getOrigin();
+                          edge2.vertex(i2).get_origin();
 
                       // ... bra/ket of ...
                       if (tensor1_slot_type == tensor2_slot_type) {

@@ -23,22 +23,22 @@ namespace sequant {
 /// elements but also their indices as well as the host ranges.
 ///       this is needed to be able to iterate over pairs of elements while
 ///       skipping pairs of elements from the same subrange
-/// @tparam RangeNest the type of a nest of ranges; use flattened_rangenest for
+/// @tparam RangeNest the type of a nest of ranges; use FlattenedRangeNest for
 /// RangeNest if you want recursive flattening.
 template <typename RangeNest>
-class flattened_rangenest
-    : public ranges::view_facade<flattened_rangenest<RangeNest>> {
+class FlattenedRangeNest
+    : public ranges::view_facade<FlattenedRangeNest<RangeNest>> {
  public:
-  using base_type = ranges::view_facade<flattened_rangenest<RangeNest>>;
+  using base_type = ranges::view_facade<FlattenedRangeNest<RangeNest>>;
 
-  flattened_rangenest() = default;
+  FlattenedRangeNest() = default;
 
-  explicit flattened_rangenest(RangeNest *r) : range_(r) {}
+  explicit FlattenedRangeNest(RangeNest *r) : range_(r) {}
 
-  flattened_rangenest(const flattened_rangenest &) = default;
-  flattened_rangenest(flattened_rangenest &&) = default;
-  flattened_rangenest &operator=(const flattened_rangenest &) = default;
-  flattened_rangenest &operator=(flattened_rangenest &&) = default;
+  FlattenedRangeNest(const FlattenedRangeNest &) = default;
+  FlattenedRangeNest(FlattenedRangeNest &&) = default;
+  FlattenedRangeNest &operator=(const FlattenedRangeNest &) = default;
+  FlattenedRangeNest &operator=(FlattenedRangeNest &&) = default;
 
   RangeNest *range() const { return range_; }
 
@@ -52,7 +52,7 @@ class flattened_rangenest
   friend ranges::range_access;
 
   /// the cursor type
-  struct cursor {
+  struct Cursor {
    private:
     RangeNest *range_;
     std::conditional_t<std::is_const_v<RangeNest>,
@@ -100,10 +100,10 @@ class flattened_rangenest
 
    public:
     /// constructs an uninitialized cursor
-    cursor() = default;
+    Cursor() = default;
     /// constructs a cursor pointing to the begin, if range is not empty
     /// @note has O(1) complexity
-    cursor(RangeNest *range)
+    Cursor(RangeNest *range)
         : range_(range),
           range_iter_(std::find_if(this->_begin(*range), this->_end(*range),
                                    [](const auto &e) {
@@ -118,19 +118,19 @@ class flattened_rangenest
                        : std::nullopt} {}
     /// constructs a cursor pointing to the end
     /// @note has O(1) complexity
-    cursor(RangeNest *range, ranges::default_sentinel_t)
+    Cursor(RangeNest *range, ranges::default_sentinel_t)
         : range_(range), range_iter_(this->_end(*range)) {}
 
     /// constructs a cursor pointing to particular @c range_iter and @c
     /// elem_iter
     /// @note has O(N) complexity due to the need to compute the ordinal
-    cursor(RangeNest *range, typename RangeNest::iterator range_iter,
+    Cursor(RangeNest *range, typename RangeNest::iterator range_iter,
            typename Range::iterator elem_iter)
         : range_(range), range_iter_(range_iter), elem_iter_(elem_iter) {
       compute_ordinal();
     }
     const auto &read() const { return *elem_iter_; }
-    bool equal(const cursor &that) const {
+    bool equal(const Cursor &that) const {
       if (range_ == that.range_) {  // make sure these point to same range
         const auto end_range_iter = _end(*range_);
         const auto this_is_the_end = range_iter_ == end_range_iter;
@@ -194,12 +194,12 @@ class flattened_rangenest
       SEQUANT_ASSERT(capacity == range_iter_->capacity());
     }
   };
-  cursor begin_cursor() const { return {range_}; }
-  cursor end_cursor() const { return {range_, ranges::default_sentinel_t{}}; }
+  Cursor begin_cursor() const { return {range_}; }
+  Cursor end_cursor() const { return {range_, ranges::default_sentinel_t{}}; }
 
  public:
-  using iterator = ranges::basic_iterator<cursor>;
-  using const_iterator = ranges::basic_iterator<const cursor>;
+  using iterator = ranges::basic_iterator<Cursor>;
+  using const_iterator = ranges::basic_iterator<const Cursor>;
 };
 
 }  // namespace sequant

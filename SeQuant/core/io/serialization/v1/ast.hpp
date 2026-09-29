@@ -28,10 +28,10 @@ struct IndexLabel : boost::spirit::x3::position_tagged {
 
 struct Index : boost::spirit::x3::position_tagged {
   IndexLabel label;
-  std::vector<IndexLabel> protoLabels;
+  std::vector<IndexLabel> proto_labels;
 
-  Index(IndexLabel label = {}, std::vector<IndexLabel> protoLabels = {})
-      : label(std::move(label)), protoLabels(std::move(protoLabels)) {}
+  Index(IndexLabel label = {}, std::vector<IndexLabel> proto_labels = {})
+      : label(std::move(label)), proto_labels(std::move(proto_labels)) {}
 };
 
 struct Number : boost::spirit::x3::position_tagged {
@@ -150,7 +150,7 @@ struct ResultExpr : boost::spirit::x3::position_tagged {
 BOOST_FUSION_ADAPT_STRUCT(sequant::io::serialization::v1::ast::IndexLabel,
                           label, id);
 BOOST_FUSION_ADAPT_STRUCT(sequant::io::serialization::v1::ast::Index, label,
-                          protoLabels);
+                          proto_labels);
 BOOST_FUSION_ADAPT_STRUCT(sequant::io::serialization::v1::ast::Number,
                           numerator, denominator);
 BOOST_FUSION_ADAPT_STRUCT(sequant::io::serialization::v1::ast::Variable, name,

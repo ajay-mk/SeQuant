@@ -66,28 +66,30 @@ concept basic_string_convertible =
     meta::is_basic_string_convertible_v<std::remove_cvref_t<T>>;
 
 /// Converts the given wide-string to a UTF-8 encoded narrow string
-std::string toUtf8(std::wstring_view str);
+std::string to_utf8(std::wstring_view str);
 
 /// Pass-through (only converts to std::string)
-std::string toUtf8(std::string_view str);
+std::string to_utf8(std::string_view str);
 
-inline std::string toUtf8(char c) { return toUtf8(std::string_view(&c, 1)); }
+inline std::string to_utf8(char c) { return to_utf8(std::string_view(&c, 1)); }
 
-inline std::string toUtf8(wchar_t c) {
-  return toUtf8(std::wstring_view(&c, 1));
+inline std::string to_utf8(wchar_t c) {
+  return to_utf8(std::wstring_view(&c, 1));
 }
 
 /// Converts the given UTF-8 encoded narrow-string to a UTF-16 encoded
 /// wide-string
-std::wstring toUtf16(std::string_view str);
+std::wstring to_utf16(std::string_view str);
 
 /// Pass-through (only converts to std::wstring)
-std::wstring toUtf16(std::wstring_view str);
+std::wstring to_utf16(std::wstring_view str);
 
-inline std::wstring toUtf16(char c) { return toUtf16(std::string_view(&c, 1)); }
+inline std::wstring to_utf16(char c) {
+  return to_utf16(std::string_view(&c, 1));
+}
 
-inline std::wstring toUtf16(wchar_t c) {
-  return toUtf16(std::wstring_view(&c, 1));
+inline std::wstring to_utf16(wchar_t c) {
+  return to_utf16(std::wstring_view(&c, 1));
 }
 
 template <basic_string_convertible S>

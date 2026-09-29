@@ -2,7 +2,7 @@
 #define SEQUANT_CORE_OPTIMIZE_SINGLE_TERM_HPP
 
 // The shared DP helpers (cost counters, OptRes/EvalSequence, init_results)
-// live in single_term_detail.hpp; the generic CostModel driver and the
+// live in single_term_detail.hpp; the generic cost_model driver and the
 // objective models live in cost_model.hpp (which includes the detail header).
 // Including cost_model.hpp here brings both, then the public
 // single_term_opt<Metric> entry points below route through run_single_term_opt.

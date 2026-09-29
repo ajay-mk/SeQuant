@@ -89,7 +89,7 @@ std::string AsyCost::AsyCostEntry::text() const {
     // breaks ties between reserved-attr spaces).
     for (auto const &[space, exp] : exponents_) {
       if (exp == 0) continue;
-      oss << toUtf8(space.base_key());
+      oss << to_utf8(space.base_key());
       if (exp > 1) oss << "^" << exp;
     }
   }
@@ -117,7 +117,7 @@ std::string AsyCost::AsyCostEntry::to_latex() const {
     }
     for (auto const &[space, exp] : exponents_) {
       if (exp == 0) continue;
-      oss << toUtf8(space.base_key());
+      oss << to_utf8(space.base_key());
       if (exp > 1) {
         oss << "^{" << exp << "}";
       }
@@ -295,9 +295,9 @@ std::wstring AsyCost::to_latex() const {
     //
     // stream out in reverse so that more expensive terms appear first
     auto rev = ranges::views::reverse(cost_);
-    oss << toUtf16(ranges::front(rev).to_latex());
+    oss << to_utf16(ranges::front(rev).to_latex());
     for (auto &&c : ranges::views::tail(rev))
-      oss << L" + " << toUtf16(c.to_latex());
+      oss << L" + " << to_utf16(c.to_latex());
   }
   return oss.str();
 }

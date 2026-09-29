@@ -84,7 +84,7 @@ class ResultExpr {
 
   /// @return concatenated view of all slots (bra, ket, aux)
   auto slots() const {
-    return ranges::views::concat(m_braIndices, m_ketIndices, m_auxIndices);
+    return ranges::views::concat(bra_indices_, ket_indices_, aux_indices_);
   }
 
   /// @return view of all non-null indices across all slots (bra, ket, aux)
@@ -113,34 +113,34 @@ class ResultExpr {
   container::svector<Group> index_particle_grouping() const {
     container::svector<Group> groups;
 
-    SEQUANT_ASSERT(m_braIndices.size() == m_ketIndices.size() &&
+    SEQUANT_ASSERT(bra_indices_.size() == ket_indices_.size() &&
                    "Not yet generalized to particle non-conserving results");
 
-    groups.reserve(m_braIndices.size());
+    groups.reserve(bra_indices_.size());
 
     // Note that the assumption is that indices are sorted
     // based on the particle they belong to and that bra and
     // ket indices are assigned to the same set of particles.
-    for (std::size_t i = 0; i < m_braIndices.size(); ++i) {
+    for (std::size_t i = 0; i < bra_indices_.size(); ++i) {
       if constexpr (std::is_constructible_v<
                         Group, std::initializer_list<SlottedIndex>>) {
         groups.emplace_back(std::initializer_list<SlottedIndex>{
-            {m_braIndices.at(i), SlotType::Bra},
-            {m_ketIndices.at(i), SlotType::Ket}});
+            {bra_indices_.at(i), SlotType::Bra},
+            {ket_indices_.at(i), SlotType::Ket}});
       } else if constexpr (std::is_constructible_v<
                                Group, std::initializer_list<Index>>) {
-        groups.emplace_back(std::initializer_list<Index>{m_braIndices.at(i),
-                                                         m_ketIndices.at(i)});
+        groups.emplace_back(std::initializer_list<Index>{bra_indices_.at(i),
+                                                         ket_indices_.at(i)});
       } else if constexpr (std::is_constructible_v<Group, SlottedIndex,
                                                    SlottedIndex>) {
-        groups.emplace_back(SlottedIndex{m_braIndices.at(i), SlotType::Bra},
-                            SlottedIndex{m_ketIndices.at(i), SlotType::Ket});
+        groups.emplace_back(SlottedIndex{bra_indices_.at(i), SlotType::Bra},
+                            SlottedIndex{ket_indices_.at(i), SlotType::Ket});
       } else {
         static_assert(
             std::is_constructible_v<Group, Index, Index>,
             "Group is expected to be constructible from two (slotted) indices "
             "or from an initializer_list of (slotted) indices");
-        groups.emplace_back(m_braIndices.at(i), m_ketIndices.at(i));
+        groups.emplace_back(bra_indices_.at(i), ket_indices_.at(i));
       }
     }
 
@@ -148,25 +148,25 @@ class ResultExpr {
   }
 
   Tensor result_as_tensor(std::wstring default_label = L"Unnamed") const {
-    return Tensor(m_label.has_value() ? m_label.value() : default_label,
-                  sequant::bra(m_braIndices), sequant::ket(m_ketIndices),
-                  sequant::aux(m_auxIndices), m_symm, m_bksymm, m_csymm);
+    return Tensor(label_.has_value() ? label_.value() : default_label,
+                  sequant::bra(bra_indices_), sequant::ket(ket_indices_),
+                  sequant::aux(aux_indices_), symm_, bksymm_, csymm_);
   }
 
   Variable result_as_variable(std::wstring default_label = L"Unnamed") const {
     SEQUANT_ASSERT(!produces_tensor());
-    return Variable(m_label.has_value() ? m_label.value() : default_label);
+    return Variable(label_.has_value() ? label_.value() : default_label);
   }
 
   bool produces_tensor() const {
-    return !m_braIndices.empty() || !m_ketIndices.empty() ||
-           !m_auxIndices.empty();
+    return !bra_indices_.empty() || !ket_indices_.empty() ||
+           !aux_indices_.empty();
   }
 
   bool operator==(const ResultExpr &other) const = default;
 
  private:
-  ExprPtr m_expr;
+  ExprPtr expr_;
 
   template <typename Range1, typename Range2, typename Range3>
     requires(!std::is_constructible_v<IndexContainer, Range1> ||
@@ -185,13 +185,13 @@ class ResultExpr {
              ColumnSymmetry column_symm, std::optional<std::wstring> label,
              ExprPtr expression);
 
-  Symmetry m_symm = Symmetry::Nonsymm;
-  BraKetSymmetry m_bksymm = BraKetSymmetry::Nonsymm;
-  ColumnSymmetry m_csymm = ColumnSymmetry::Nonsymm;
-  IndexContainer m_braIndices;
-  IndexContainer m_ketIndices;
-  IndexContainer m_auxIndices;
-  std::optional<std::wstring> m_label;
+  Symmetry symm_ = Symmetry::Nonsymm;
+  BraKetSymmetry bksymm_ = BraKetSymmetry::Nonsymm;
+  ColumnSymmetry csymm_ = ColumnSymmetry::Nonsymm;
+  IndexContainer bra_indices_;
+  IndexContainer ket_indices_;
+  IndexContainer aux_indices_;
+  std::optional<std::wstring> label_;
 };
 
 }  // namespace sequant

@@ -123,23 +123,23 @@ template <std::integral T>
 int permutation_parity(std::span<T> p, bool overwrite = false) {
   // https://stackoverflow.com/a/20703469
   // compute cycles, mutating elements of p to mark used elements
-  const std::size_t N = p.size();
+  const std::size_t n = p.size();
   int parity = 1;
   // search for next element to start cycle with
-  for (std::size_t k = 0; k != N; ++k) {
-    if (p[k] >= N) continue;
+  for (std::size_t k = 0; k != n; ++k) {
+    if (p[k] >= n) continue;
     std::size_t i = k;
     std::size_t cycle_length = 1;
     do {
       i = p[i];
-      p[i] += N;
+      p[i] += n;
       ++cycle_length;
-    } while (p[i] < N);
+    } while (p[i] < n);
     if (cycle_length % 2 == 0) parity *= -1;
   }
 
   if (overwrite) {
-    std::ranges::for_each(p, [N](auto& e) { e -= N; });
+    std::ranges::for_each(p, [n](auto& e) { e -= n; });
   }
 
   return parity;

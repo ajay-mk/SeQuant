@@ -79,28 +79,28 @@ namespace sequant::detail {
 
 /// self-test of SEQUANT_DESIGNATED_INIT_ONLY: the guard must not change what
 /// the aggregate *is*, only how it may be written
-struct designated_init_only_probe {
+struct DesignatedInitOnlyProbe {
   SEQUANT_DESIGNATED_INIT_ONLY;
   bool a = false;
   bool b = false;
 };
-static_assert(std::is_aggregate_v<designated_init_only_probe>);
-static_assert(std::is_trivially_copyable_v<designated_init_only_probe>);
-static_assert(std::is_default_constructible_v<designated_init_only_probe>);
+static_assert(std::is_aggregate_v<DesignatedInitOnlyProbe>);
+static_assert(std::is_trivially_copyable_v<DesignatedInitOnlyProbe>);
+static_assert(std::is_default_constructible_v<DesignatedInitOnlyProbe>);
 // [[no_unique_address]] elision is permitted, not required, and MSVC ignores
 // the standard spelling outright (it has [[msvc::no_unique_address]], since
 // honoring this one would change its ABI). A toolchain that does not elide
 // still gets a working guard -- the tag merely costs a byte -- so check the
 // size only where elision is guaranteed rather than failing the build over it.
 #if !defined(_MSC_VER) || defined(__clang__)
-static_assert(sizeof(designated_init_only_probe) == 2 * sizeof(bool),
+static_assert(sizeof(DesignatedInitOnlyProbe) == 2 * sizeof(bool),
               "[[no_unique_address]] must elide the tag member");
 #endif
 /// odr-uses the copy assignment, which is what diagnoses -Wdeprecated-copy;
 /// a trait check alone would not, since it never defines the operator
 static_assert([] {
-  designated_init_only_probe p{};
-  p = designated_init_only_probe{.a = true};
+  DesignatedInitOnlyProbe p{};
+  p = DesignatedInitOnlyProbe{.a = true};
   return p.a;
 }());
 

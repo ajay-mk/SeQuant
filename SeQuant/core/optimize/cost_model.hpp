@@ -51,7 +51,7 @@ container::vector<typename Model::State> solve_single_term(
 
 /// \brief Generic single-term optimization: build context, solve, reconstruct.
 ///
-/// \tparam Model A type satisfying the CostModel concept (a built-in objective
+/// \tparam Model A type satisfying the cost_model concept (a built-in objective
 ///         such as \ref AdditiveModel, or a user-defined model).
 /// \param m The model instance carrying the objective's parameters.
 /// \param network The TensorNetwork containing the tensors to be contracted.
@@ -98,7 +98,7 @@ run_single_term_opt_axes(Model const& m, TensorNetwork const& network,
 
 /// \brief Additive single-term cost model (FLOPs or operand storage size).
 ///
-/// Implements the additive single-term DP, factored into the CostModel hooks
+/// Implements the additive single-term DP, factored into the cost_model hooks
 /// driven by \ref run_single_term_opt. The per-contraction cost is supplied by
 /// \p CostFn (e.g. \ref flops_counter or \ref memsize_counter); a
 /// per-intermediate footprint penalty, volatile replay weighting, and subnet
@@ -344,7 +344,7 @@ inline double roofline_op_cost(double flops, double traffic,
 
 /// \brief Peak-memory single-term cost model (DenseSpaceTime objective).
 ///
-/// Implements the all-co-resident pebble-game DP, factored into the CostModel
+/// Implements the all-co-resident pebble-game DP, factored into the cost_model
 /// hooks driven by \ref run_single_term_opt. The recurrence minimizes peak
 /// memory: while one child evaluates, the other child's leaf inputs sit
 /// resident. A Pareto frontier of (peak, flops) per subset lets the
@@ -553,7 +553,7 @@ struct PeakModel {
 /// (DenseSpaceTimeBatched objective).
 ///
 /// Implements the per-batchable-index all-co-resident pebble-game DP, factored
-/// into the CostModel hooks driven by \ref run_single_term_opt. Follows the
+/// into the cost_model hooks driven by \ref run_single_term_opt. Follows the
 /// batch-aware cost model design (section 6.2, model A): each DP cell is
 /// indexed by both a subset \c n and a sliced-set context \c B over the
 /// batchable indices, so a model State is the \c [B]-vector of per-context
@@ -1770,11 +1770,11 @@ double reconstructed_batched_peak(
 
 /// \brief Compile-time concept for a single-term-DP cost model.
 ///
-/// A type \c M satisfies \c CostModel if it provides two associated types
+/// A type \c M satisfies \c cost_model if it provides two associated types
 /// (\c State and \c Context) and the six methods that \ref
 /// run_single_term_opt calls.  The four built-in models -- \ref AdditiveModel
 /// (FLOPs and Size variants), \ref PeakModel, and \ref PeakBatchedModel --
-/// all satisfy this concept.  Users may also implement \c CostModel directly
+/// all satisfy this concept.  Users may also implement \c cost_model directly
 /// and pass the instance to \ref run_single_term_opt to obtain an
 /// \ref EvalSequence under any custom objective.
 ///
@@ -1788,7 +1788,7 @@ double reconstructed_batched_peak(
 /// - \c finalize(ctx, n, states) \c const -- per-subset post-processing hook
 /// - \c reconstruct(ctx, states) \c const -> \c EvalSequence
 template <class M>
-concept CostModel =
+concept cost_model =
     requires {
       typename M::State;
       typename M::Context;

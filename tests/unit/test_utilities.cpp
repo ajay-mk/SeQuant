@@ -483,8 +483,8 @@ TEST_CASE("utilities", "[utilities]") {
       };
 
       for (const auto& [lhs, rhs, equal] : test_cases) {
-        CAPTURE(toUtf8(lhs));
-        CAPTURE(toUtf8(rhs));
+        CAPTURE(to_utf8(lhs));
+        CAPTURE(to_utf8(rhs));
 
         const Tensor lhs_tensor = deserialize(lhs)->as<Tensor>();
         const Tensor rhs_tensor = deserialize(rhs)->as<Tensor>();
@@ -514,8 +514,8 @@ TEST_CASE("utilities", "[utilities]") {
       };
 
       for (const auto& [lhs, rhs, less] : test_cases) {
-        CAPTURE(toUtf8(lhs));
-        CAPTURE(toUtf8(rhs));
+        CAPTURE(to_utf8(lhs));
+        CAPTURE(to_utf8(rhs));
 
         const Tensor lhs_tensor = deserialize(lhs)->as<Tensor>();
         const Tensor rhs_tensor = deserialize(rhs)->as<Tensor>();
@@ -716,10 +716,10 @@ TEST_CASE("utilities", "[utilities]") {
                {L"g{p1,p2;p3,p4} t{p3,p4;p1,p2}", L"t{p5,p6;p1,p2}",
                 L"T{p5,p6;p7,p8}", L"g{p1,p2;p3,p4} T{p3,p4;p7,p8}"},
            }) {
-        CAPTURE(toUtf8(input_str));
-        CAPTURE(toUtf8(target_str));
-        CAPTURE(toUtf8(replacement_str));
-        CAPTURE(toUtf8(expected_str));
+        CAPTURE(to_utf8(input_str));
+        CAPTURE(to_utf8(target_str));
+        CAPTURE(to_utf8(replacement_str));
+        CAPTURE(to_utf8(expected_str));
 
         ExprPtr input = deserialize(input_str);
         ExprPtr input2 = deserialize(input_str);
@@ -760,10 +760,10 @@ TEST_CASE("utilities", "[utilities]") {
                 L"T{p5,p6;p7,p8}",
                 L"R{p1,p2;p7,p8}:N-N-N = g{p1,p2;p3,p4} T{p3,p4;p7,p8}"},
            }) {
-        CAPTURE(toUtf8(input_str));
-        CAPTURE(toUtf8(target_str));
-        CAPTURE(toUtf8(replacement_str));
-        CAPTURE(toUtf8(expected_str));
+        CAPTURE(to_utf8(input_str));
+        CAPTURE(to_utf8(target_str));
+        CAPTURE(to_utf8(replacement_str));
+        CAPTURE(to_utf8(expected_str));
 
         ResultExpr input = deserialize<ResultExpr>(input_str);
         ResultExpr input2 = deserialize<ResultExpr>(input_str);
@@ -804,7 +804,7 @@ TEST_CASE("utilities", "[utilities]") {
                // Allow bra/ket inconsistencies in external indices
                {L"t{;a1} + t{a1}", ""},
            }) {
-        CAPTURE(toUtf8(expr_str));
+        CAPTURE(to_utf8(expr_str));
 
         ExprPtr expr = deserialize(expr_str);
 
@@ -848,7 +848,7 @@ TEST_CASE("utilities", "[utilities]") {
                // Allow bra/ket inconsistencies in external indices
                {L"R{a2;a1} = t{a1;i1} t{i1;a2}", ""},
            }) {
-        CAPTURE(toUtf8(expr_str));
+        CAPTURE(to_utf8(expr_str));
 
         ResultExpr expr = deserialize<ResultExpr>(expr_str);
 
@@ -927,10 +927,10 @@ TEST_CASE("utilities", "[utilities]") {
              {L"Â{i1,i2;} R{;i1,i2}",
               {{{L"i_1", SlotType::Ket}}, {{L"i_2", SlotType::Ket}}}},
          }) {
-      CAPTURE(toUtf8(input));
+      CAPTURE(to_utf8(input));
 
       ExprPtr expr = deserialize(input);
-      SlottedIndexGroupContainer auto actual =
+      slotted_index_group_container auto actual =
           external_indices<std::vector, std::vector>(expr);
 
       REQUIRE_THAT(actual, ::Catch::Matchers::UnorderedRangeEquals(expected));

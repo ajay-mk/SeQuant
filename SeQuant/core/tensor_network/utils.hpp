@@ -182,9 +182,9 @@ int sort_then_replace_by_ordinals(IntegerSequence &iseq) {
   using ranges::begin;
   using ranges::end;
 
-  const auto N = iseq.size();
+  const auto n = iseq.size();
   auto input_ordinals =
-      ranges::views::iota(0ul, N) |
+      ranges::views::iota(0ul, n) |
       ranges::to<container::svector<SwapCountable<std::size_t>>>();
 
   const int parity = bubble_sort_parity(

@@ -37,10 +37,10 @@ namespace sequant {
 
 namespace detail {
 template <typename Range>
-struct not_in {
+struct NotIn {
   const Range& range;
 
-  not_in(const Range& range) : range(range) {}
+  NotIn(const Range& range) : range(range) {}
 
   template <typename T>
   bool operator()(const T& element) const {
@@ -120,21 +120,21 @@ IndexGroups<Container> get_uncontracted_indices(const Tensor& t1,
 
   // Bra indices
   std::copy_if(t1.bra().begin(), t1.bra().end(), std::back_inserter(groups.bra),
-               detail::not_in{t2.ket()});
+               detail::NotIn{t2.ket()});
   std::copy_if(t2.bra().begin(), t2.bra().end(), std::back_inserter(groups.bra),
-               detail::not_in{t1.ket()});
+               detail::NotIn{t1.ket()});
 
   // Ket indices
   std::copy_if(t1.ket().begin(), t1.ket().end(), std::back_inserter(groups.ket),
-               detail::not_in{t2.bra()});
+               detail::NotIn{t2.bra()});
   std::copy_if(t2.ket().begin(), t2.ket().end(), std::back_inserter(groups.ket),
-               detail::not_in{t1.bra()});
+               detail::NotIn{t1.bra()});
 
   // Auxiliary indices
   std::copy_if(t1.aux().begin(), t1.aux().end(), std::back_inserter(groups.aux),
-               detail::not_in{t2.aux()});
+               detail::NotIn{t2.aux()});
   std::copy_if(t2.aux().begin(), t2.aux().end(), std::back_inserter(groups.aux),
-               detail::not_in{t1.aux()});
+               detail::NotIn{t1.aux()});
 
   return groups;
 }
@@ -143,12 +143,12 @@ IndexGroups<Container> get_uncontracted_indices(const Tensor& t1,
 template <typename Container = std::vector<Index>>
 IndexGroups<Container> get_unique_indices(const Tensor& tensor) {
   IndexGroups<Container> groups;
-  std::set<Index> encounteredIndices;
+  std::set<Index> encountered_indices;
 
   for (const Index& current : tensor.bra()) {
-    if (encounteredIndices.find(current) == encounteredIndices.end()) {
+    if (encountered_indices.find(current) == encountered_indices.end()) {
       groups.bra.push_back(current);
-      encounteredIndices.insert(current);
+      encountered_indices.insert(current);
     } else {
       // There can't be indices in bra at this point, so we don't have to remove
       // from that
@@ -157,9 +157,9 @@ IndexGroups<Container> get_unique_indices(const Tensor& tensor) {
   }
 
   for (const Index& current : tensor.ket()) {
-    if (encounteredIndices.find(current) == encounteredIndices.end()) {
+    if (encountered_indices.find(current) == encountered_indices.end()) {
       groups.ket.push_back(current);
-      encounteredIndices.insert(current);
+      encountered_indices.insert(current);
     } else {
       detail::remove_one(groups.bra, current);
       detail::remove_one(groups.ket, current);
@@ -167,9 +167,9 @@ IndexGroups<Container> get_unique_indices(const Tensor& tensor) {
   }
 
   for (const Index& current : tensor.aux()) {
-    if (encounteredIndices.find(current) == encounteredIndices.end()) {
+    if (encountered_indices.find(current) == encountered_indices.end()) {
       groups.aux.push_back(current);
-      encounteredIndices.insert(current);
+      encountered_indices.insert(current);
     } else {
       detail::remove_one(groups.bra, current);
       detail::remove_one(groups.ket, current);
@@ -195,16 +195,16 @@ IndexGroups<Container> get_unique_indices(const Sum& sum) {
 /// Obtains the set of unique (non-repeated) indices used in the given product
 template <typename Container = std::vector<Index>>
 IndexGroups<Container> get_unique_indices(const Product& product) {
-  std::set<Index> encounteredIndices;
+  std::set<Index> encountered_indices;
   IndexGroups<Container> groups;
 
   for (const ExprPtr& current : product) {
-    IndexGroups<Container> currentGroups =
+    IndexGroups<Container> current_groups =
         get_unique_indices<Container>(current);
 
-    for (Index& current : currentGroups.bra) {
-      if (encounteredIndices.find(current) == encounteredIndices.end()) {
-        encounteredIndices.insert(current);
+    for (Index& current : current_groups.bra) {
+      if (encountered_indices.find(current) == encountered_indices.end()) {
+        encountered_indices.insert(current);
         groups.bra.push_back(std::move(current));
       } else {
         detail::remove_one(groups.bra, current);
@@ -214,9 +214,9 @@ IndexGroups<Container> get_unique_indices(const Product& product) {
     }
 
     // Same for ket indices
-    for (Index& current : currentGroups.ket) {
-      if (encounteredIndices.find(current) == encounteredIndices.end()) {
-        encounteredIndices.insert(current);
+    for (Index& current : current_groups.ket) {
+      if (encountered_indices.find(current) == encountered_indices.end()) {
+        encountered_indices.insert(current);
         groups.ket.push_back(std::move(current));
       } else {
         detail::remove_one(groups.bra, current);
@@ -226,9 +226,9 @@ IndexGroups<Container> get_unique_indices(const Product& product) {
     }
 
     // Same for aux indices
-    for (Index& current : currentGroups.aux) {
-      if (encounteredIndices.find(current) == encounteredIndices.end()) {
-        encounteredIndices.insert(current);
+    for (Index& current : current_groups.aux) {
+      if (encountered_indices.find(current) == encountered_indices.end()) {
+        encountered_indices.insert(current);
         groups.aux.push_back(std::move(current));
       } else {
         detail::remove_one(groups.bra, current);
@@ -366,9 +366,9 @@ Map get_used_indices_with_counts(const ExprPtr& expr) {
 /// @note includes pure protoindices
 /// @tparam types The set of SlotTypes of indices to consider. Any index that
 /// never occurs in these kind of slots at least once is filtered out
-template <typename Set = container::set<Index>, SlotTypes types = AnySlotType>
+template <typename Set = container::set<Index>, SlotTypes types = any_slot_type>
 Set get_used_indices(const Expr& expr) {
-  if constexpr (types == AnySlotType) {
+  if constexpr (types == any_slot_type) {
     return get_used_indices_with_counts(expr) |
            std::views::transform(
                [](const auto& idx_count) { return idx_count.first; }) |
@@ -409,7 +409,7 @@ Set get_used_indices(const Expr& expr) {
 /// @note includes pure protoindices
 /// @tparam types The set of SlotTypes of indices to consider. Any index that
 /// never occurs in these kind of slots at least once is filtered out
-template <typename Set = container::set<Index>, SlotTypes types = AnySlotType>
+template <typename Set = container::set<Index>, SlotTypes types = any_slot_type>
 Set get_used_indices(const ExprPtr& expr) {
   return get_used_indices<Set, types>(*expr);
 }
@@ -480,7 +480,7 @@ std::string csv_labels(meta::range_of<Index> auto&& idxs) {
     auto v = concat(single(i.label()),                             //
                     i.proto_indices() | transform(&Index::label))  //
              | join;
-    return toUtf8(v | ranges::to<std::wstring>);
+    return to_utf8(v | ranges::to<std::wstring>);
   };
 
   return std::forward<decltype(idxs)>(idxs)  //
@@ -613,38 +613,39 @@ Container<Group<SlottedIndex>> external_indices(const ExprPtr& expr) {
 }
 
 template <typename T>
-concept SlottedIndexContainer =
+concept slotted_index_container =
     std::ranges::range<T> &&
     std::same_as<std::ranges::range_value_t<T>, SlottedIndex>;
 
 template <typename T>
-concept IndexContainer =
+concept index_container =
     std::ranges::range<T> && std::same_as<std::ranges::range_value_t<T>, Index>;
 
 template <typename T>
-concept SlottedIndexTuple =
+concept slotted_index_tuple =
     std::is_same_v<std::tuple_element_t<0, std::remove_cvref_t<T>>,
                    SlottedIndex> &&
     std::is_same_v<std::tuple_element_t<1, std::remove_cvref_t<T>>,
                    SlottedIndex>;
 template <typename T>
-concept IndexTuple =
+concept index_tuple =
     std::is_same_v<std::tuple_element_t<0, std::remove_cvref_t<T>>, Index> &&
     std::is_same_v<std::tuple_element_t<1, std::remove_cvref_t<T>>, Index>;
 
 template <typename T>
-concept SlottedIndexGroup = SlottedIndexContainer<T> || SlottedIndexTuple<T>;
+concept slotted_index_group =
+    slotted_index_container<T> || slotted_index_tuple<T>;
 
 template <typename T>
-concept IndexGroup = IndexContainer<T> || IndexTuple<T>;
+concept index_group = index_container<T> || index_tuple<T>;
 
 template <typename T>
-concept SlottedIndexGroupContainer =
-    std::ranges::range<T> && SlottedIndexGroup<std::ranges::range_value_t<T>>;
+concept slotted_index_group_container =
+    std::ranges::range<T> && slotted_index_group<std::ranges::range_value_t<T>>;
 
 template <typename T>
-concept IndexGroupContainer =
-    std::ranges::range<T> && IndexGroup<std::ranges::range_value_t<T>>;
+concept index_group_container =
+    std::ranges::range<T> && index_group<std::ranges::range_value_t<T>>;
 
 /// @param group A group of indices with slot information
 /// @returns The bra index of the provided group
@@ -655,9 +656,9 @@ concept IndexGroupContainer =
 /// May be a std::pair<SlottedIndex, SlottedIndex> or a container that retains
 /// the order of its elements based on how they have been inserted
 /// (vector-like).
-template <SlottedIndexGroup Group>
+template <slotted_index_group Group>
 decltype(auto) get_bra_idx(Group&& group) {
-  if constexpr (SlottedIndexTuple<Group>) {
+  if constexpr (slotted_index_tuple<Group>) {
     SEQUANT_ASSERT(std::get<0>(group).slot_type() == SlotType::Bra ||
                    std::get<1>(group).slot_type() == SlotType::Bra);
     return std::get<0>(group).slot_type() == SlotType::Bra
@@ -682,9 +683,9 @@ decltype(auto) get_bra_idx(Group&& group) {
 /// May be a std::pair<Index, Index> or a container that retains
 /// the order of its elements based on how they have been inserted
 /// (vector-like).
-template <IndexGroup Group>
+template <index_group Group>
 decltype(auto) get_bra_idx(Group&& group) {
-  if constexpr (IndexTuple<Group>) {
+  if constexpr (index_tuple<Group>) {
     return std::get<0>(group);
   } else {
     using std::begin;
@@ -704,9 +705,9 @@ decltype(auto) get_bra_idx(Group&& group) {
 /// May be a std::pair<SlottedIndex, SlottedIndex> or a container that retains
 /// the order of its elements based on how they have been inserted
 /// (vector-like).
-template <SlottedIndexGroup Group>
+template <slotted_index_group Group>
 decltype(auto) get_ket_idx(Group&& group) {
-  if constexpr (SlottedIndexTuple<Group>) {
+  if constexpr (slotted_index_tuple<Group>) {
     SEQUANT_ASSERT(std::get<0>(group).slot_type() == SlotType::Ket ||
                    std::get<1>(group).slot_type() == SlotType::Ket);
     return std::get<1>(group).slot_type() == SlotType::Ket
@@ -733,9 +734,9 @@ decltype(auto) get_ket_idx(Group&& group) {
 /// May be a std::pair<Index, Index> or a container that retains
 /// the order of its elements based on how they have been inserted
 /// (vector-like).
-template <IndexGroup Group>
+template <index_group Group>
 decltype(auto) get_ket_idx(Group&& group) {
-  if constexpr (IndexTuple<Group>) {
+  if constexpr (index_tuple<Group>) {
     return std::get<1>(group);
   } else {
     using std::begin;
@@ -753,7 +754,7 @@ decltype(auto) get_ket_idx(Group&& group) {
 /// @note This function will bring indices in the group into canonical order
 /// (based on slot type) or assert that they already are in canonical order,
 /// if group is const.
-decltype(auto) as_index_group_view(SlottedIndexGroup auto&& group) {
+decltype(auto) as_index_group_view(slotted_index_group auto&& group) {
   static_assert(SlotType::Bra < SlotType::Ket);
   static_assert(SlotType::Bra < SlotType::Aux);
   static_assert(SlotType::Bra < SlotType::Proto);
@@ -781,7 +782,7 @@ decltype(auto) as_index_group_view(SlottedIndexGroup auto&& group) {
 ///
 /// @sa as_index_group
 decltype(auto) as_view_of_index_groups(
-    SlottedIndexGroupContainer auto&& groups) {
+    slotted_index_group_container auto&& groups) {
   return groups |
          std::ranges::views::transform([](auto&& group) -> decltype(auto) {
            return as_index_group_view(group);
@@ -804,11 +805,11 @@ decltype(auto) as_view_of_index_groups(
 ///
 auto subset_index_counts(meta::range_of<Index, 2> auto const& rng,
                          container::vector<char> const* needed = nullptr) {
-  size_t const N = ranges::distance(rng);
-  SEQUANT_ASSERT(N <= 24 &&
+  size_t const n = ranges::distance(rng);
+  SEQUANT_ASSERT(n <= 24 &&
                  "subset_index_counts: N > 24 would require excessive memory");
   container::vector<container::map<Index, size_t, Index::FullLabelCompare>>
-      result((size_t{1} << N));
+      result((size_t{1} << n));
   for (size_t i = 1; i < result.size(); ++i) {
     // When a `needed` mask is supplied, only these subsets' counts are ever
     // consulted (see subset_target_indices); skip the rest (result[i] stays
@@ -848,12 +849,12 @@ auto subset_target_indices(meta::range_of<Index, 2> auto const& rng,
                            meta::range_of<Index> auto const& tixs,
                            container::vector<char> const* connected = nullptr) {
   using IndexSet = container::set<Index, Index::FullLabelCompare>;
-  size_t const N = ranges::distance(rng);
+  size_t const n = ranges::distance(rng);
   SEQUANT_ASSERT(
-      N <= 24 &&
+      n <= 24 &&
       "subset_target_indices: N > 24 would require excessive memory");
-  size_t const S = size_t{1} << N;
-  container::vector<IndexSet> result(S);
+  size_t const s = size_t{1} << n;
+  container::vector<IndexSet> result(s);
 
   // Outer-product pruning: the caller only reads result[i] for connected
   // subsets i, but computing result[i] consults counts[i] AND counts of the
@@ -863,13 +864,13 @@ auto subset_target_indices(meta::range_of<Index, 2> auto const& rng,
   container::vector<char> needed_storage;
   container::vector<char> const* needed = nullptr;
   if (connected) {
-    needed_storage.assign(S, 0);
-    for (size_t i = 0; i < S; ++i)
-      needed_storage[i] = (*connected)[i] || (*connected)[S - 1 - i];
+    needed_storage.assign(s, 0);
+    for (size_t i = 0; i < s; ++i)
+      needed_storage[i] = (*connected)[i] || (*connected)[s - 1 - i];
     needed = &needed_storage;
   }
 
-  for (size_t i = 0; i < N; ++i)
+  for (size_t i = 0; i < n; ++i)
     for (auto&& ix : ranges::at(rng, i)) result[(size_t{1} << i)].emplace(ix);
 
   auto counts = subset_index_counts(rng, needed);

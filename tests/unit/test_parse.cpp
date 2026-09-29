@@ -687,7 +687,7 @@ TEST_CASE("serialization", "[serialization]") {
       Sum::summands_type summands{
           ex<Variable>(L"a"),
           ex<Sum>(ExprPtrList{ex<Variable>(L"b"), ex<Variable>(L"c")})};
-      auto nested = ex<Sum>(std::move(summands), Sum::move_only_tag{});
+      auto nested = ex<Sum>(std::move(summands), Sum::MoveOnlyTag{});
       REQUIRE(serialize(nested) == L"a + (b + c)");
     }
 

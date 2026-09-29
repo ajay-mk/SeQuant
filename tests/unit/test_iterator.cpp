@@ -23,8 +23,8 @@ TEST_CASE("iterators", "[elements]") {
 
   SECTION("constructor") {
     {
-      REQUIRE_NOTHROW(flattened_rangenest<FNOperatorSeq>{});
-      [[maybe_unused]] auto rng0 = flattened_rangenest<FNOperatorSeq>{};
+      REQUIRE_NOTHROW(FlattenedRangeNest<FNOperatorSeq>{});
+      [[maybe_unused]] auto rng0 = FlattenedRangeNest<FNOperatorSeq>{};
     }
 
     {
@@ -32,8 +32,8 @@ TEST_CASE("iterators", "[elements]") {
           {FNOperator(cre({L"i_1", L"i_3"}), ann({L"i_2", L"i_4"})),
            FNOperator(cre({L"i_5"}), ann({L"i_6"}))}};
 
-      REQUIRE_NOTHROW(flattened_rangenest<FNOperatorSeq>{&opseq1});
-      auto rng1 = flattened_rangenest<FNOperatorSeq>{&opseq1};
+      REQUIRE_NOTHROW(FlattenedRangeNest<FNOperatorSeq>{&opseq1});
+      auto rng1 = FlattenedRangeNest<FNOperatorSeq>{&opseq1};
       using std::begin;
       REQUIRE_NOTHROW(begin(rng1));
       auto it1 = begin(rng1);
@@ -82,8 +82,8 @@ TEST_CASE("iterators", "[elements]") {
           FNOperatorSeq{{FNOperator(cre({L"i_7"}), ann({L"i_8"})),
                          FNOperator(cre({L"i_9"}), ann({L"i_10"}))}}};
 
-      auto rng1 = flattened_rangenest<decltype(opseq1)>{&opseq1};
-      auto rng2 = flattened_rangenest<decltype(rng1)>{&rng1};
+      auto rng1 = FlattenedRangeNest<decltype(opseq1)>{&opseq1};
+      auto rng2 = FlattenedRangeNest<decltype(rng1)>{&rng1};
       using std::begin;
       using std::end;
       REQUIRE_NOTHROW(begin(rng1));

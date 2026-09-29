@@ -24,16 +24,16 @@ template <>
 const container::svector<std::wstring>&
 NormalOperator<Statistics::FermiDirac>::labels() {
   using namespace std::literals;
-  static container::svector<std::wstring> labels_{L"a"s, L"ã"s};
-  return labels_;
+  static container::svector<std::wstring> labels{L"a"s, L"ã"s};
+  return labels;
 }
 
 template <>
 const container::svector<std::wstring>&
 NormalOperator<Statistics::BoseEinstein>::labels() {
   using namespace std::literals;
-  static container::svector<std::wstring> labels_{L"b"s, L"b̃"s};
-  return labels_;
+  static container::svector<std::wstring> labels{L"b"s, L"b̃"s};
+  return labels;
 }
 
 }  // namespace sequant

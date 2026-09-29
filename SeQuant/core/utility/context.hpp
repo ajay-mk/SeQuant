@@ -11,8 +11,8 @@ namespace sequant::detail {
 
 template <typename Ctx>
 inline Ctx& implicit_context_instance() {
-  static Ctx instance_;
-  return instance_;
+  static Ctx instance;
+  return instance;
 }
 
 template <typename Ctx>

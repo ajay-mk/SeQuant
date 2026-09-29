@@ -91,11 +91,11 @@ struct StringMaker<sequant::Expr> {
                              bool include_canonical = true) {
     std::string str;
     try {
-      str = sequant::toUtf8(sequant::serialize(expr, {.annot_symm = true}));
+      str = sequant::to_utf8(sequant::serialize(expr, {.annot_symm = true}));
     } catch (const std::exception &) {
       // serialize doesn't support all kinds of expressions -> fall back to
       // LaTeX representation
-      str = sequant::toUtf8(sequant::to_latex(expr));
+      str = sequant::to_utf8(sequant::to_latex(expr));
     }
 
     if (include_canonical) {
@@ -129,7 +129,7 @@ struct StringMaker<sequant::Tensor> {
 template <>
 struct StringMaker<sequant::Index> {
   static std::string convert(const sequant::Index &idx) {
-    return sequant::toUtf8(idx.full_label());
+    return sequant::to_utf8(idx.full_label());
   }
 };
 
@@ -138,7 +138,7 @@ struct StringMaker<sequant::ResultExpr> {
   static std::string convert(const sequant::ResultExpr &res,
                              bool include_canonical = true) {
     std::string str =
-        sequant::toUtf8(sequant::serialize(res, {.annot_symm = true}));
+        sequant::to_utf8(sequant::serialize(res, {.annot_symm = true}));
 
     if (include_canonical) {
       sequant::ResultExpr clone = res.clone();
@@ -173,7 +173,7 @@ class StringDiffMatcher : public Catch::Matchers::MatcherGenericBase {
     } else if constexpr (std::is_same_v<String, std::wstring> ||
                          std::is_same_v<String, std::wstring_view> ||
                          std::is_same_v<String, wchar_t *>) {
-      expected_ = sequant::toUtf8(str);
+      expected_ = sequant::to_utf8(str);
     } else {
       expected_ = std::string(str);
     }
@@ -244,7 +244,7 @@ ExprVar to_expression(T &&expression) {
   using BaseT = std::remove_cvref_t<T>;
 
   if constexpr (std::is_convertible_v<BaseT, std::string>) {
-    std::wstring string = sequant::toUtf16(std::forward<T>(expression));
+    std::wstring string = sequant::to_utf16(std::forward<T>(expression));
 
     if (std::find(begin(string), end(string), L'=') != end(string)) {
       return sequant::deserialize<sequant::ResultExpr>(

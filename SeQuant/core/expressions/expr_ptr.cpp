@@ -107,10 +107,10 @@ bool operator==(const ExprPtr &left, const ExprPtr &right) {
 
 ExprPtr operator*(const ExprPtr &left, const ExprPtr &right) {
   if (left.is<Constant>() && right.is<Constant>()) {
-    auto c_ = left->clone();
-    auto &c = c_.as<Constant>();
+    auto constant_expr = left->clone();
+    auto &c = constant_expr.as<Constant>();
     c *= right.as<Constant>();
-    return c_;
+    return constant_expr;
   }
 
   auto left_is_product = left->is<Product>();

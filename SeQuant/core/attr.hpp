@@ -181,7 +181,7 @@ constexpr SlotTypes operator|(SlotType lhs, SlotType rhs) {
   return {static_cast<IntType>(lhs) | static_cast<IntType>(rhs)};
 }
 
-static constexpr const SlotTypes AnySlotType =
+static constexpr const SlotTypes any_slot_type =
     SlotType::Bra | SlotType::Ket | SlotType::Aux | SlotType::Proto;
 
 enum class Statistics {
@@ -199,8 +199,8 @@ inline Action adjoint(Action action) {
 
 enum class Vacuum { Physical, SingleProduct, MultiProduct };
 
-inline std::wstring to_string(Vacuum V) {
-  switch (V) {
+inline std::wstring to_string(Vacuum v) {
+  switch (v) {
     case Vacuum::Physical:
       return L"PhysicalVacuum";
     case Vacuum::SingleProduct:

@@ -124,15 +124,15 @@ bool has_duplicates(const Range& rng) {
 
 namespace detail {
 template <typename T>
-struct swap_counter_key {
+struct SwapCounterKey {
   using type = T;
 };
 template <typename T>
-struct swap_counter_key<SwapCountable<T>> {
+struct SwapCounterKey<SwapCountable<T>> {
   using type = T;
 };
 template <typename T>
-struct swap_counter_key<SwapCountableRef<T>> {
+struct SwapCounterKey<SwapCountableRef<T>> {
   using type = T;
 };
 }  // namespace detail
@@ -147,8 +147,8 @@ struct swap_counter_key<SwapCountableRef<T>> {
 /// @note resets the thread-local swap counter of the element type
 template <std::ranges::range Range, typename Compare = std::less<>>
 int bubble_sort_parity(Range&& rng, Compare comp = {}) {
-  using counter_key = typename detail::swap_counter_key<
-      std::ranges::range_value_t<Range>>::type;
+  using counter_key =
+      typename detail::SwapCounterKey<std::ranges::range_value_t<Range>>::type;
   reset_ts_swap_counter<counter_key>();
   bubble_sort(std::ranges::begin(rng), std::ranges::end(rng), comp);
   return ts_swap_counter_is_even<counter_key>() ? +1 : -1;
@@ -241,9 +241,10 @@ constexpr auto bipartitions_ordered(T mask) {
   size_t const nparts = (size_t{1} << std::popcount(mask));
   return std::views::iota(size_t{0}, nparts) |
          std::views::transform([mask, p = mask](auto) mutable {
-           auto p_ = p;
+           auto previous_partition = p;
            p = (p - 1) & mask;
-           return std::pair<T, T>{p_ ^ mask, p_};
+           return std::pair<T, T>{previous_partition ^ mask,
+                                  previous_partition};
          });
 }
 

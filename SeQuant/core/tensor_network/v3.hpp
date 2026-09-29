@@ -57,19 +57,19 @@ class TensorNetworkV3 {
     Vertex(Origin origin, std::size_t terminal_idx, std::size_t index_slot,
            Symmetry terminal_symm);
 
-    Origin getOrigin() const;
-    std::size_t getTerminalIndex() const;
-    std::size_t getIndexSlot() const;
-    Symmetry getTerminalSymmetry() const;
+    Origin get_origin() const;
+    std::size_t get_terminal_index() const;
+    std::size_t get_index_slot() const;
+    Symmetry get_terminal_symmetry() const;
 
     bool operator<(const Vertex &rhs) const;
     bool operator==(const Vertex &rhs) const;
 
    private:
-    Origin origin;
-    std::size_t terminal_idx;
-    std::size_t index_slot;
-    Symmetry terminal_symm;
+    Origin origin_;
+    std::size_t terminal_idx_;
+    std::size_t index_slot_;
+    Symmetry terminal_symm_;
   };
 
   // clang-format off
@@ -86,22 +86,22 @@ class TensorNetworkV3 {
     Edge(Edge &&) = default;
     Edge &operator=(const Edge &) = delete;
     Edge &operator=(Edge &&) = default;
-    explicit Edge(const Vertex &vertex) : vertices{vertex} {}
+    explicit Edge(const Vertex &vertex) : vertices_{vertex} {}
     explicit Edge(std::initializer_list<Vertex> vertices) {
       ranges::for_each(vertices,
                        [this](const Vertex &v) { this->connect_to(v); });
     }
     Edge(const Vertex &vertex, const Index *index)
-        : vertices{vertex}, index(index) {}
+        : vertices_{vertex}, index_(index) {}
     Edge(std::initializer_list<Vertex> vertices, const Index *index)
         : Edge(vertices) {
-      this->index = index;
+      this->index_ = index;
     }
 
     Edge &connect_to(const Vertex &vertex) {
       // free Edge
-      if (vertices.empty()) {
-        vertices.emplace(vertex);
+      if (vertices_.empty()) {
+        vertices_.emplace(vertex);
       } else {
         add_vertex(vertex);
       }
@@ -116,43 +116,43 @@ class TensorNetworkV3 {
         return vertex_count() < other.vertex_count();
       }
 
-      if (!(vertices == other.vertices)) {
-        return vertices < other.vertices;
+      if (!(vertices_ == other.vertices_)) {
+        return vertices_ < other.vertices_;
       }
 
-      SEQUANT_ASSERT(index && other.index);
-      return index->space() < other.index->space();
+      SEQUANT_ASSERT(index_ && other.index_);
+      return index_->space() < other.index_->space();
     }
 
     bool operator==(const Edge &other) const {
-      return vertices == other.vertices;
+      return vertices_ == other.vertices_;
     }
 
     /// @param i vertex ordinal
     /// @return const reference to the `i`th Vertex object
     /// @pre `this->size() > i`
     const Vertex &vertex(std::size_t i) const {
-      SEQUANT_ASSERT(vertices.size() > i);
-      return *(vertices.begin() + i);
+      SEQUANT_ASSERT(vertices_.size() > i);
+      return *(vertices_.begin() + i);
     }
 
     /// @return the number of attached terminals (0 or more)
-    std::size_t vertex_count() const { return vertices.size(); }
+    std::size_t vertex_count() const { return vertices_.size(); }
 
     const Index &idx() const {
-      SEQUANT_ASSERT(index);
-      return *index;
+      SEQUANT_ASSERT(index_);
+      return *index_;
     }
 
    private:
-    container::set<Vertex> vertices;
-    const Index *index = nullptr;
+    container::set<Vertex> vertices_;
+    const Index *index_ = nullptr;
 
     /// @param vertex a vertex to be added
     /// @throw Exception if @p vertex is already connected by this
     /// Edge
     void add_vertex(const Vertex &vertex) {
-      auto [it, inserted] = this->vertices.emplace(vertex);
+      auto [it, inserted] = this->vertices_.emplace(vertex);
       if (!inserted)
         throw Exception(
             "TensorNetworkV3::Edge::add_vertex(v): v is already connected by "
@@ -322,7 +322,7 @@ class TensorNetworkV3 {
       const container::vector<std::wstring> &cardinal_tensor_labels = {},
       const NamedIndexSet *named_indices = nullptr,
       SlotCanonicalizationMetadata::named_index_compare_t named_index_compare =
-          default_idxptr_slottype_lesscompare{},
+          DefaultIdxPtrSlotTypeLessCompare{},
       const tensor_network::NamedIndexColorMap *named_index_colors = nullptr);
 
   /// Factorizes tensor network

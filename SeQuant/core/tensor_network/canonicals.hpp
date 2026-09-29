@@ -20,7 +20,7 @@ namespace sequant {
 /// g^{a<ij> b<ij>}_{k l} to be laid out with ij first, since in
 /// any tensor product involving such indices will treat ij as batch indices,
 /// hence it's best to make them as "slow" as possible (in row-major layout)
-struct default_idxptr_slottype_lesscompare {
+struct DefaultIdxPtrSlotTypeLessCompare {
   template <typename IdxPtrPlusSlotType>
   bool operator()(const IdxPtrPlusSlotType& idxptr_slottype1,
                   const IdxPtrPlusSlotType& idxptr_slottype2) {

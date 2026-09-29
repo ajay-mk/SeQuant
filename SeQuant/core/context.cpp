@@ -202,13 +202,13 @@ Context& Context::set(Vacuum vacuum) {
   return *this;
 }
 
-Context& Context::set(IndexSpaceRegistry ISR) {
-  idx_space_reg_ = std::make_shared<IndexSpaceRegistry>(ISR);
+Context& Context::set(IndexSpaceRegistry isr) {
+  idx_space_reg_ = std::make_shared<IndexSpaceRegistry>(isr);
   return *this;
 }
 
-Context& Context::set(std::shared_ptr<IndexSpaceRegistry> ISR) {
-  idx_space_reg_ = std::move(ISR);
+Context& Context::set(std::shared_ptr<IndexSpaceRegistry> isr) {
+  idx_space_reg_ = std::move(isr);
   return *this;
 }
 

@@ -291,34 +291,35 @@ class IndexSpaceRegistry {
   /// @{
 
   /// @brief add an IndexSpace to this registry.
-  /// @param IS an IndexSpace
+  /// @param index_space an IndexSpace
   /// @return reference to `this`
-  /// @throw Exception if `IS.base_key()` or `IS.attr()` matches
-  /// an already registered IndexSpace
-  IndexSpaceRegistry& add(const IndexSpace& IS) {
-    auto it = spaces_->find(IS.base_key());
+  /// @throw Exception if `index_space.base_key()` or `index_space.attr()`
+  /// matches an already registered IndexSpace
+  IndexSpaceRegistry& add(const IndexSpace& index_space) {
+    auto it = spaces_->find(index_space.base_key());
     if (it != spaces_->end()) {
       throw Exception(
           (std::string("IndexSpaceRegistry::add(index_space): space with "
                        "index_space.base_key()=") +
-           toUtf8(IS.base_key()) +
+           to_utf8(index_space.base_key()) +
            " already in the registry; if you are trying to replace the "
            "IndexSpace use "
            "IndexSpaceRegistry::replace(is)"));
     } else {
       // make sure there are no duplicate IndexSpaces whose attribute is
-      // IS.attr()
-      if (ranges::any_of(*spaces_,
-                         [&IS](auto&& is) { return IS.attr() == is.attr(); })) {
+      // index_space.attr()
+      if (ranges::any_of(*spaces_, [&index_space](auto&& is) {
+            return index_space.attr() == is.attr();
+          })) {
         throw Exception(
             (std::string("IndexSpaceRegistry::add(index_space): space with "
                          "index_space.attr()=") +
-             to_string(IS.attr()) +
+             to_string(index_space.attr()) +
              " already in the registry; if you are trying to replace the "
              "IndexSpace use "
              "IndexSpaceRegistry::replace(is)"));
       }
-      spaces_->emplace(IS);
+      spaces_->emplace(index_space);
     }
 
     return clear_memoized_data_and_return_this();
@@ -532,13 +533,14 @@ class IndexSpaceRegistry {
 
   /// @}
 
-  /// @brief removes an IndexSpace associated with `IS.base_key()` from this
-  /// @param IS an IndexSpace
+  /// @brief removes an IndexSpace associated with `index_space.base_key()` from
+  /// this
+  /// @param index_space an IndexSpace
   /// @return reference to `this`
-  IndexSpaceRegistry& remove(const IndexSpace& IS) {
-    auto it = spaces_->find(IS.base_key());
+  IndexSpaceRegistry& remove(const IndexSpace& index_space) {
+    auto it = spaces_->find(index_space.base_key());
     if (it != spaces_->end()) {
-      spaces_->erase(IS);
+      spaces_->erase(index_space);
     }
     return clear_memoized_data_and_return_this();
   }
@@ -548,18 +550,18 @@ class IndexSpaceRegistry {
   /// @return reference to `this`
   template <basic_string_convertible S>
   IndexSpaceRegistry& remove(S&& label) {
-    auto&& IS = this->retrieve(std::forward<S>(label));
-    return this->remove(IS);
+    auto&& index_space = this->retrieve(std::forward<S>(label));
+    return this->remove(index_space);
   }
 
   /// @brief replaces an IndexSpace registered in the registry under
-  /// IS.base_key()
-  ///        with @p IS
-  /// @param IS an IndexSpace
+  /// index_space.base_key()
+  ///        with @p index_space
+  /// @param index_space an IndexSpace
   /// @return reference to `this`
-  IndexSpaceRegistry& replace(const IndexSpace& IS) {
-    this->remove(IS);
-    return this->add(IS);
+  IndexSpaceRegistry& replace(const IndexSpace& index_space) {
+    this->remove(index_space);
+    return this->add(index_space);
   }
 
   /// @brief clear the contents of *this
@@ -727,15 +729,15 @@ class IndexSpaceRegistry {
             " must have identical "
             "quantum number attributes.");
       }
-      auto unIontype = space1.type().unIon(space2.type());
-      const IndexSpace& unIonSpace = find_by_attr({unIontype, space1.qns()});
-      if (unIonSpace == IndexSpace::null) {
+      auto union_type = space1.type().unIon(space2.type());
+      const IndexSpace& union_space = find_by_attr({union_type, space1.qns()});
+      if (union_space == IndexSpace::null) {
         throw Exception(
             std::string("IndexSpaceRegistry::valid_unIon(s1,s2), s1=") +
             to_string(space1) + " and s2=" + to_string(space2) +
             ": the result is not registered, must register first.");
       } else {
-        return unIonSpace;
+        return union_space;
       }
     }
   }
@@ -845,13 +847,13 @@ class IndexSpaceRegistry {
   }
 
   /// @brief checks if an IndexSpace is in the basis
-  /// @param IS IndexSpace
-  /// @return true if @p IS is in the basis
+  /// @param index_space IndexSpace
+  /// @return true if @p index_space is in the basis
   /// @sa base_spaces
-  bool is_base(const IndexSpace& IS) const {
+  bool is_base(const IndexSpace& index_space) const {
     // is base if has base type and has no bits outsize of the physical particle
     // attribute mask
-    return is_base(IS.type()) && !other_attributes(IS.qns());
+    return is_base(index_space.type()) && !other_attributes(index_space.qns());
   }
 
   /// @brief equivalent to `is_base(retrieve(space_key))`
@@ -877,8 +879,8 @@ class IndexSpaceRegistry {
   /// @brief an @c IndexSpace is occupied with respect to the fermi vacuum or a
   /// subset of that space
   /// @note only makes sense to ask this if in a SingleProduct vacuum context.
-  bool is_pure_occupied(const IndexSpace& IS) const {
-    if (!IS) {
+  bool is_pure_occupied(const IndexSpace& index_space) const {
+    if (!index_space) {
       return false;
     }
     // this introduces icky dependence on bit footprint of vacuum_occupied_space
@@ -889,9 +891,9 @@ class IndexSpaceRegistry {
     // density-fitting or batching index that carries no particle/spin
     // character), so such a space is reported not pure-occupied rather than
     // triggering a throw.
-    auto const vacocc_type =
-        vacuum_occupied_type_or_null(physical_particle_attributes(IS.qns()));
-    if (IS.type().to_int32() <= vacocc_type.to_int32()) {
+    auto const vacocc_type = vacuum_occupied_type_or_null(
+        physical_particle_attributes(index_space.qns()));
+    if (index_space.type().to_int32() <= vacocc_type.to_int32()) {
       return true;
     } else {
       return false;
@@ -912,17 +914,17 @@ class IndexSpaceRegistry {
   /// @brief all states are unoccupied in the fermi vacuum
   /// @note again, this only makes sense to ask if in a SingleProduct vacuum
   /// context.
-  bool is_pure_unoccupied(const IndexSpace& IS) const {
-    if (!IS) {
+  bool is_pure_unoccupied(const IndexSpace& index_space) const {
+    if (!index_space) {
       return false;
     } else {
-      // Q: would be better to express as IS is a subspace of
+      // Q: would be better to express as index_space is a subspace of
       // vacuum_unoccupied_space? Then subspaces that are part of neither (this
       // is not supposed to happen) will not cause an issue here
       // non-throwing lookup: a non-physical auxiliary space yields null
       // vacuum-occupied type, so this reports it as (trivially) unoccupied
-      return !IS.type().intersection(
-          vacuum_occupied_type_or_null(physical_particle_attributes(IS.qns())));
+      return !index_space.type().intersection(vacuum_occupied_type_or_null(
+          physical_particle_attributes(index_space.qns())));
     }
   }
 
@@ -938,11 +940,11 @@ class IndexSpaceRegistry {
   }
 
   /// @brief some states are fermi vacuum occupied
-  bool contains_occupied(const IndexSpace& IS) const {
+  bool contains_occupied(const IndexSpace& index_space) const {
     // non-throwing lookup on physical-particle attributes: a non-physical
     // auxiliary space (no particle/spin character) contains no occupied states
-    return IS.type().intersection(vacuum_occupied_type_or_null(
-               physical_particle_attributes(IS.qns()))) !=
+    return index_space.type().intersection(vacuum_occupied_type_or_null(
+               physical_particle_attributes(index_space.qns()))) !=
            IndexSpace::Type::null;
   }
 
@@ -958,12 +960,12 @@ class IndexSpaceRegistry {
   }
 
   /// @brief some states are fermi vacuum unoccupied
-  bool contains_unoccupied(const IndexSpace& IS) const {
+  bool contains_unoccupied(const IndexSpace& index_space) const {
     // non-throwing lookup on physical-particle attributes: a non-physical
     // auxiliary space (no particle/spin character) contains no unoccupied
     // states
-    return IS.type().intersection(vacuum_unoccupied_type_or_null(
-               physical_particle_attributes(IS.qns()))) !=
+    return index_space.type().intersection(vacuum_unoccupied_type_or_null(
+               physical_particle_attributes(index_space.qns()))) !=
            IndexSpace::Type::null;
   }
 
@@ -1411,7 +1413,7 @@ class IndexSpaceRegistry {
                                       std::string_view message_prefix) const {
     const auto* ptr = this->retrieve_ptr(space_key);
     if (!ptr)
-      throw Exception(std::string(message_prefix) + toUtf8(space_key) +
+      throw Exception(std::string(message_prefix) + to_utf8(space_key) +
                       " must be added to the registry first");
     return *ptr;
   }

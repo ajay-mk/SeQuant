@@ -44,8 +44,8 @@ template <typename SwapType>
 struct SwapCounter {
   SwapCounter() : even_num_of_swaps_(true) {}
   static SwapCounter& thread_instance() {
-    static thread_local SwapCounter instance_{};
-    return instance_;
+    static thread_local SwapCounter instance{};
+    return instance;
   }
 
   bool even_num_of_swaps() const { return even_num_of_swaps_; }

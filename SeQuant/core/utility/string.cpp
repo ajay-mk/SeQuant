@@ -9,7 +9,7 @@
 
 namespace sequant {
 
-std::string toUtf8(const std::wstring_view str) {
+std::string to_utf8(const std::wstring_view str) {
   SEQUANT_ASSERT(std::none_of(str.begin(), str.end(), [](wchar_t c) {
     return c > std::numeric_limits<char16_t>::max();
   }));
@@ -21,9 +21,9 @@ std::string toUtf8(const std::wstring_view str) {
   return std::string(stream.begin(), stream.end());
 }
 
-std::string toUtf8(std::string_view str) { return std::string(str); }
+std::string to_utf8(std::string_view str) { return std::string(str); }
 
-std::wstring toUtf16(const std::string_view str) {
+std::wstring to_utf16(const std::string_view str) {
   auto stream = utf8::utf8to16(str);
 
   static_assert(sizeof(wchar_t) >= sizeof(char16_t));
@@ -31,6 +31,6 @@ std::wstring toUtf16(const std::string_view str) {
   return std::wstring(stream.begin(), stream.end());
 }
 
-std::wstring toUtf16(std::wstring_view str) { return std::wstring(str); }
+std::wstring to_utf16(std::wstring_view str) { return std::wstring(str); }
 
 }  // namespace sequant

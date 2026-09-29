@@ -52,26 +52,28 @@ namespace sequant {
 
 TensorNetworkV3::Vertex::Vertex(Origin origin, std::size_t terminal_idx,
                                 std::size_t index_slot, Symmetry terminal_symm)
-    : origin(origin),
-      terminal_idx(terminal_idx),
-      index_slot(index_slot),
-      terminal_symm(terminal_symm) {}
+    : origin_(origin),
+      terminal_idx_(terminal_idx),
+      index_slot_(index_slot),
+      terminal_symm_(terminal_symm) {}
 
-SlotType TensorNetworkV3::Vertex::getOrigin() const { return origin; }
+SlotType TensorNetworkV3::Vertex::get_origin() const { return origin_; }
 
-std::size_t TensorNetworkV3::Vertex::getTerminalIndex() const {
-  return terminal_idx;
+std::size_t TensorNetworkV3::Vertex::get_terminal_index() const {
+  return terminal_idx_;
 }
 
-std::size_t TensorNetworkV3::Vertex::getIndexSlot() const { return index_slot; }
+std::size_t TensorNetworkV3::Vertex::get_index_slot() const {
+  return index_slot_;
+}
 
-Symmetry TensorNetworkV3::Vertex::getTerminalSymmetry() const {
-  return terminal_symm;
+Symmetry TensorNetworkV3::Vertex::get_terminal_symmetry() const {
+  return terminal_symm_;
 }
 
 bool TensorNetworkV3::Vertex::operator<(const Vertex &rhs) const {
-  if (terminal_idx != rhs.terminal_idx) {
-    return terminal_idx < rhs.terminal_idx;
+  if (terminal_idx_ != rhs.terminal_idx_) {
+    return terminal_idx_ < rhs.terminal_idx_;
   }
 
   // Both vertices belong to same tensor and are both non-aux? -> they must have
@@ -79,13 +81,13 @@ bool TensorNetworkV3::Vertex::operator<(const Vertex &rhs) const {
   assert(origin != Origin::Aux || rhs.origin != Origin::Aux ||
          terminal_symm == rhs.terminal_symm);
 
-  if (origin != rhs.origin) {
-    return origin < rhs.origin;
+  if (origin_ != rhs.origin_) {
+    return origin_ < rhs.origin_;
   }
 
   // We only take the index slot into account for non-symmetric tensors
-  if (terminal_symm == Symmetry::Nonsymm) {
-    return index_slot < rhs.index_slot;
+  if (terminal_symm_ == Symmetry::Nonsymm) {
+    return index_slot_ < rhs.index_slot_;
   } else {
     return false;
   }
@@ -94,17 +96,17 @@ bool TensorNetworkV3::Vertex::operator<(const Vertex &rhs) const {
 bool TensorNetworkV3::Vertex::operator==(const Vertex &rhs) const {
   // Slot position is only taken into account for non_symmetric tensors
   const std::size_t lhs_slot =
-      (terminal_symm == Symmetry::Nonsymm) * index_slot;
+      (terminal_symm_ == Symmetry::Nonsymm) * index_slot_;
   const std::size_t rhs_slot =
-      (rhs.terminal_symm == Symmetry::Nonsymm) * rhs.index_slot;
+      (rhs.terminal_symm_ == Symmetry::Nonsymm) * rhs.index_slot_;
 
   // sanity check that bra and ket have same symmetry
   assert(origin == Origin::Aux || rhs.origin == Origin::Aux ||
          terminal_idx != rhs.terminal_idx ||
          terminal_symm == rhs.terminal_symm);
 
-  return terminal_idx == rhs.terminal_idx && lhs_slot == rhs_slot &&
-         origin == rhs.origin;
+  return terminal_idx_ == rhs.terminal_idx_ && lhs_slot == rhs_slot &&
+         origin_ == rhs.origin_;
 }
 
 std::size_t TensorNetworkV3::Graph::vertex_to_index_idx(
@@ -766,12 +768,12 @@ TensorNetworkV3::canonicalize_slots(
         // due to also being a protoindex on one of the named indices!
         if (edge_it->vertex_count() == 1) {
           const BraKetSymmetry symm = braket_symmetry(
-              *tensors_.at(edge_it->vertex(0).getTerminalIndex()));
+              *tensors_.at(edge_it->vertex(0).get_terminal_index()));
 
-          if (edge_it->vertex(0).getOrigin() == Origin::Aux) {
+          if (edge_it->vertex(0).get_origin() == Origin::Aux) {
             slot_type = IndexSlotType::TensorAux;
           } else if (symm == BraKetSymmetry::Symm ||
-                     edge_it->vertex(0).getOrigin() == Origin::Bra) {
+                     edge_it->vertex(0).get_origin() == Origin::Bra) {
             // Note: we must not distinguis bra and ket indices in case braket
             // symmetry is present Technically, this should (to some degree)
             // also apply to BraKetSymmetry::Conjugate but this TN
@@ -780,7 +782,7 @@ TensorNetworkV3::canonicalize_slots(
             // complex conjugation)
             slot_type = IndexSlotType::TensorBra;
           } else {
-            SEQUANT_ASSERT(edge_it->vertex(0).getOrigin() == Origin::Ket);
+            SEQUANT_ASSERT(edge_it->vertex(0).get_origin() == Origin::Ket);
             slot_type = IndexSlotType::TensorKet;
           }
         } else if (edge_it->vertex_count() == 2) {
@@ -798,7 +800,7 @@ TensorNetworkV3::canonicalize_slots(
           // ones) rather than silently mis-canonicalize it.
           bool all_aux = true;
           for (std::size_t v = 0; v != edge_it->vertex_count(); ++v)
-            if (edge_it->vertex(v).getOrigin() != Origin::Aux) {
+            if (edge_it->vertex(v).get_origin() != Origin::Aux) {
               all_aux = false;
               break;
             }
@@ -1269,7 +1271,7 @@ TensorNetworkV3::Graph TensorNetworkV3::create_graph(
             [[maybe_unused]] BraKetSymmetry symm = BraKetSymmetry::Nonsymm;
             for (std::size_t v = 0; v < current_edge.vertex_count(); ++v) {
               const Vertex &vertex = current_edge.vertex(v);
-              switch (vertex.getOrigin()) {
+              switch (vertex.get_origin()) {
                 case Origin::Bra:
                   ++nbra;
                   break;
@@ -1286,7 +1288,7 @@ TensorNetworkV3::Graph TensorNetworkV3::create_graph(
               if (symm != BraKetSymmetry::Symm) {
                 // We only care if at least one of the vertices has symmetric
                 // braket symm
-                symm = braket_symmetry(*tensors_[vertex.getTerminalIndex()]);
+                symm = braket_symmetry(*tensors_[vertex.get_terminal_index()]);
               }
             }
 
@@ -1306,17 +1308,17 @@ TensorNetworkV3::Graph TensorNetworkV3::create_graph(
     for (std::size_t i = 0; i < current_edge.vertex_count(); ++i) {
       const Vertex &vertex = current_edge.vertex(i);
 
-      SEQUANT_ASSERT(vertex.getTerminalIndex() < tensor_vertices.size());
-      SEQUANT_ASSERT(tensor_vertices[vertex.getTerminalIndex()] !=
+      SEQUANT_ASSERT(vertex.get_terminal_index() < tensor_vertices.size());
+      SEQUANT_ASSERT(tensor_vertices[vertex.get_terminal_index()] !=
                      uninitialized_vertex);
       const std::size_t tensor_vertex =
-          tensor_vertices[vertex.getTerminalIndex()];
+          tensor_vertices[vertex.get_terminal_index()];
 
       // Store an edge connecting the index vertex to the corresponding tensor
       // vertex
-      const AbstractTensor &tensor = *tensors_[vertex.getTerminalIndex()];
-      const std::size_t offset =
-          index_slot_offset(tensor, vertex.getOrigin(), vertex.getIndexSlot());
+      const AbstractTensor &tensor = *tensors_[vertex.get_terminal_index()];
+      const std::size_t offset = index_slot_offset(tensor, vertex.get_origin(),
+                                                   vertex.get_index_slot());
       const std::size_t tensor_component_vertex = tensor_vertex + offset;
 
       SEQUANT_ASSERT(tensor_component_vertex < nvertex);
@@ -1431,9 +1433,9 @@ void TensorNetworkV3::init_edges() {
     if (Logger::instance().tensor_network) {
       std::wostringstream oss;
       oss << "TensorNetworkV3::init_edges: idx=" << to_latex(idx)
-          << " attached to tensor " << vertex.getTerminalIndex() << " ("
-          << vertex.getOrigin() << ") at position " << vertex.getIndexSlot()
-          << " (sym: " << sequant::to_wstring(vertex.getTerminalSymmetry())
+          << " attached to tensor " << vertex.get_terminal_index() << " ("
+          << vertex.get_origin() << ") at position " << vertex.get_index_slot()
+          << " (sym: " << sequant::to_wstring(vertex.get_terminal_symmetry())
           << ")" << std::endl;
       sequant::wprintf(oss.str());
     }
