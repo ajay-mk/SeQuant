@@ -137,8 +137,9 @@ jobs:
       run: cmake -E make_directory ${{github.workspace}}/build
     - name: Record environment
       shell: bash
-      run: python "$RUNNER_TEMP/ci-timing-metrics.py" environment -- bash -c 'git rev-parse HEAD; python --version; pip freeze;
-        cmake --version; uname -a; df -h'
+      run: 'mkdir -p "$RUNNER_TEMP/ci-timing-results"
+
+        { git rev-parse HEAD; python --version; pip freeze; cmake --version; uname -a; df -h; } | tee "$RUNNER_TEMP/ci-timing-results/environment.txt"'
     - name: Set sanitizer flags
       if: ${{ matrix.sanitize }}
       shell: bash
@@ -361,8 +362,9 @@ jobs:
       run: cmake -E make_directory ${{github.workspace}}/build
     - name: Record environment
       shell: bash
-      run: python "$RUNNER_TEMP/ci-timing-metrics.py" environment -- bash -c 'git rev-parse HEAD; python --version; pip freeze;
-        cmake --version; uname -a; df -h'
+      run: 'mkdir -p "$RUNNER_TEMP/ci-timing-results"
+
+        { git rev-parse HEAD; python --version; pip freeze; cmake --version; uname -a; df -h; } | tee "$RUNNER_TEMP/ci-timing-results/environment.txt"'
     - name: Set sanitizer flags
       if: ${{ matrix.sanitize }}
       shell: bash
@@ -589,8 +591,9 @@ jobs:
       run: cmake -E make_directory ${{github.workspace}}/build
     - name: Record environment
       shell: bash
-      run: python "$RUNNER_TEMP/ci-timing-metrics.py" environment -- bash -c 'git rev-parse HEAD; python --version; pip freeze;
-        cmake --version; uname -a; df -h'
+      run: 'mkdir -p "$RUNNER_TEMP/ci-timing-results"
+
+        { git rev-parse HEAD; python --version; pip freeze; cmake --version; uname -a; df -h; } | tee "$RUNNER_TEMP/ci-timing-results/environment.txt"'
     - name: Set sanitizer flags
       if: ${{ matrix.sanitize }}
       shell: bash
@@ -754,8 +757,9 @@ jobs:
       run: cmake -E make_directory ${{github.workspace}}/build
     - name: Record environment
       shell: bash
-      run: python "$RUNNER_TEMP/ci-timing-metrics.py" environment -- bash -c 'git rev-parse HEAD; python --version; pip freeze;
-        cmake --version; uname -a; df -h'
+      run: 'mkdir -p "$RUNNER_TEMP/ci-timing-results"
+
+        { git rev-parse HEAD; python --version; pip freeze; cmake --version; uname -a; df -h; } | tee "$RUNNER_TEMP/ci-timing-results/environment.txt"'
     - name: Set sanitizer flags
       if: ${{ matrix.sanitize }}
       shell: bash
