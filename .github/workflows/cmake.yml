@@ -173,10 +173,20 @@ jobs:
           boost-conversion boost-interval boost-range boost-spirit
         triplet: x64-windows
         token: ${{ github.token }}
+      continue-on-error: true
+    - name: Retry Windows prerequisites
+      if: ${{ startswith(matrix.os, 'windows') && steps.vcpkg.outcome == 'failure' }}
+      id: vcpkg_retry
+      uses: johnwason/vcpkg-action@v8
+      with:
+        pkgs: eigen3 boost-locale boost-random boost-regex boost-container boost-container-hash boost-hana boost-multiprecision
+          boost-conversion boost-interval boost-range boost-spirit
+        triplet: x64-windows
+        token: ${{ github.token }}
     - name: Configure CMake
       shell: bash
       env:
-        VCPKG_CMAKE_CONFIG: ${{ steps.vcpkg.outputs.vcpkg-cmake-config }}
+        VCPKG_CMAKE_CONFIG: ${{ steps.vcpkg.outputs.vcpkg-cmake-config || steps.vcpkg_retry.outputs.vcpkg-cmake-config }}
       run: python "$RUNNER_TEMP/ci-timing-metrics.py" configure -- python "$RUNNER_TEMP/ci-timing-metrics.py" configure --
         python "$RUNNER_TEMP/ci-timing-metrics.py" configure -- python "$RUNNER_TEMP/ci-timing-metrics.py" configure -- cmake
         -DCMAKE_BUILD_TYPE=$BUILD_TYPE $BUILD_CONFIG -B $GITHUB_WORKSPACE/build -S $GITHUB_WORKSPACE -DSEQUANT_QUICK_BENCHMARKS=ON
@@ -398,6 +408,16 @@ jobs:
           boost-conversion boost-interval boost-range boost-spirit
         triplet: x64-windows
         token: ${{ github.token }}
+      continue-on-error: true
+    - name: Retry Windows prerequisites
+      if: ${{ startswith(matrix.os, 'windows') && steps.vcpkg.outcome == 'failure' }}
+      id: vcpkg_retry
+      uses: johnwason/vcpkg-action@v8
+      with:
+        pkgs: eigen3 boost-locale boost-random boost-regex boost-container boost-container-hash boost-hana boost-multiprecision
+          boost-conversion boost-interval boost-range boost-spirit
+        triplet: x64-windows
+        token: ${{ github.token }}
     - name: Restore ccache cache files
       id: ccache_restore
       uses: actions/cache/restore@v6
@@ -410,7 +430,7 @@ jobs:
     - name: Configure CMake
       shell: bash
       env:
-        VCPKG_CMAKE_CONFIG: ${{ steps.vcpkg.outputs.vcpkg-cmake-config }}
+        VCPKG_CMAKE_CONFIG: ${{ steps.vcpkg.outputs.vcpkg-cmake-config || steps.vcpkg_retry.outputs.vcpkg-cmake-config }}
       run: python "$RUNNER_TEMP/ci-timing-metrics.py" configure -- python "$RUNNER_TEMP/ci-timing-metrics.py" configure --
         python "$RUNNER_TEMP/ci-timing-metrics.py" configure -- python "$RUNNER_TEMP/ci-timing-metrics.py" configure -- cmake
         -DCMAKE_BUILD_TYPE=$BUILD_TYPE $BUILD_CONFIG -B $GITHUB_WORKSPACE/build -S $GITHUB_WORKSPACE -DSEQUANT_QUICK_BENCHMARKS=ON
@@ -627,6 +647,16 @@ jobs:
           boost-conversion boost-interval boost-range boost-spirit
         triplet: x64-windows
         token: ${{ github.token }}
+      continue-on-error: true
+    - name: Retry Windows prerequisites
+      if: ${{ startswith(matrix.os, 'windows') && steps.vcpkg.outcome == 'failure' }}
+      id: vcpkg_retry
+      uses: johnwason/vcpkg-action@v8
+      with:
+        pkgs: eigen3 boost-locale boost-random boost-regex boost-container boost-container-hash boost-hana boost-multiprecision
+          boost-conversion boost-interval boost-range boost-spirit
+        triplet: x64-windows
+        token: ${{ github.token }}
     - name: Restore ccache cache files
       id: ccache_restore
       uses: actions/cache/restore@v6
@@ -639,7 +669,7 @@ jobs:
     - name: Configure CMake
       shell: bash
       env:
-        VCPKG_CMAKE_CONFIG: ${{ steps.vcpkg.outputs.vcpkg-cmake-config }}
+        VCPKG_CMAKE_CONFIG: ${{ steps.vcpkg.outputs.vcpkg-cmake-config || steps.vcpkg_retry.outputs.vcpkg-cmake-config }}
       run: python "$RUNNER_TEMP/ci-timing-metrics.py" configure -- python "$RUNNER_TEMP/ci-timing-metrics.py" configure --
         python "$RUNNER_TEMP/ci-timing-metrics.py" configure -- python "$RUNNER_TEMP/ci-timing-metrics.py" configure -- cmake
         -DCMAKE_BUILD_TYPE=$BUILD_TYPE $BUILD_CONFIG -B $GITHUB_WORKSPACE/build -S $GITHUB_WORKSPACE -DSEQUANT_QUICK_BENCHMARKS=ON
@@ -793,6 +823,16 @@ jobs:
           boost-conversion boost-interval boost-range boost-spirit
         triplet: x64-windows
         token: ${{ github.token }}
+      continue-on-error: true
+    - name: Retry Windows prerequisites
+      if: ${{ startswith(matrix.os, 'windows') && steps.vcpkg.outcome == 'failure' }}
+      id: vcpkg_retry
+      uses: johnwason/vcpkg-action@v8
+      with:
+        pkgs: eigen3 boost-locale boost-random boost-regex boost-container boost-container-hash boost-hana boost-multiprecision
+          boost-conversion boost-interval boost-range boost-spirit
+        triplet: x64-windows
+        token: ${{ github.token }}
     - name: Restore ccache cache files
       id: ccache_restore
       uses: actions/cache/restore@v6
@@ -805,7 +845,7 @@ jobs:
     - name: Configure CMake
       shell: bash
       env:
-        VCPKG_CMAKE_CONFIG: ${{ steps.vcpkg.outputs.vcpkg-cmake-config }}
+        VCPKG_CMAKE_CONFIG: ${{ steps.vcpkg.outputs.vcpkg-cmake-config || steps.vcpkg_retry.outputs.vcpkg-cmake-config }}
       run: python "$RUNNER_TEMP/ci-timing-metrics.py" configure -- python "$RUNNER_TEMP/ci-timing-metrics.py" configure --
         python "$RUNNER_TEMP/ci-timing-metrics.py" configure -- python "$RUNNER_TEMP/ci-timing-metrics.py" configure -- cmake
         -DCMAKE_BUILD_TYPE=$BUILD_TYPE $BUILD_CONFIG -B $GITHUB_WORKSPACE/build -S $GITHUB_WORKSPACE -DSEQUANT_QUICK_BENCHMARKS=ON
