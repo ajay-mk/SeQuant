@@ -49,7 +49,7 @@ jobs:
         run: |
           run-clang-tidy-23 -clang-tidy-binary clang-tidy-23 \
             -p build/naming -j 2 \
-            '(^|/)(SeQuant/(?!external/)|utilities/|benchmarks/|doc/examples/)' \
+            "^$GITHUB_WORKSPACE/(SeQuant/(?!external/)|utilities/|benchmarks/|doc/examples/)" \
             2>&1 | tee naming-check.log
 
       - name: Save naming report
