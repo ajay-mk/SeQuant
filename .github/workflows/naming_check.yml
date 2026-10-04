@@ -17,15 +17,17 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - name: Install dependencies
+      - name: Install LLVM 23 and dependencies
         run: |
+          wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key | sudo tee /etc/apt/keyrings/llvm.asc > /dev/null
+          echo "deb [signed-by=/etc/apt/keyrings/llvm.asc] https://apt.llvm.org/noble/ llvm-toolchain-noble-23 main" | sudo tee /etc/apt/sources.list.d/llvm-23.list > /dev/null
           sudo apt-get update
-          sudo apt-get install -y libboost-dev libboost-locale-dev libboost-regex-dev
+          sudo apt-get install -y clang-23 clang-tidy-23 clang-tools-23 ninja-build libboost-dev libboost-locale-dev libboost-regex-dev
 
       - name: Configure compilation database
         run: |
           cmake -S . -B build/naming -G Ninja \
-            -DCMAKE_CXX_COMPILER=clang++-18 \
+            -DCMAKE_CXX_COMPILER=clang++-23 \
             -DCMAKE_BUILD_TYPE=Release \
             -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
             -DCMAKE_UNITY_BUILD=OFF \
@@ -40,18 +42,18 @@ jobs:
             -DSEQUANT_PYTHON=OFF
 
       - name: Validate naming configuration
-        run: clang-tidy-18 --verify-config
+        run: clang-tidy-23 --verify-config
 
       - name: Check identifier naming
         shell: bash
         run: |
-          run-clang-tidy-18 -clang-tidy-binary clang-tidy-18 \
+          run-clang-tidy-23 -clang-tidy-binary clang-tidy-23 \
             -p build/naming -j 2 \
             '(^|/)(SeQuant/(?!external/)|utilities/|benchmarks/|doc/examples/)' \
             2>&1 | tee naming-check.log
 
       - name: Save naming report
-        if: failure()
+        if: always()
         uses: actions/upload-artifact@v7
         with:
           name: naming-check
