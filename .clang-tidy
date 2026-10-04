@@ -20,21 +20,21 @@ CheckOptions:
   readability-identifier-naming.ConstexprVariableCase: lower_case
   readability-identifier-naming.PrivateMemberSuffix: '_'
   readability-identifier-naming.ProtectedMemberSuffix: '_'
-  readability-identifier-naming.ClassIgnoredRegexp: '^(_.*|any_comparable|bad_any_comparable_cast|scope_exit)$'
-  readability-identifier-naming.StructIgnoredRegexp: '^(_.*|is_.*|has_.*|are_.*|always_false|bad_key|castable_to_any|detector|impl|impl_base|literal_to_string|nonesuch|proportional_to|std_array_size|tuple_less)$'
-  readability-identifier-naming.FunctionIgnoredRegexp: '^(_.*|A|A_maps|F|H|L|N_part|N_part_reduced|P|P_maps|R|R_part|R_part_reduced|S|S_maps|S_replacement_maps|T|WK_biorthogonalization_filter|WK_biorthogonalization_filter_impl|closed_shell_CC_spintrace|closed_shell_CC_spintrace_v1|closed_shell_CC_spintrace_v2|expand_A_op|expand_P_op|is_N_term|keep_N_terms|make_F12_sr_spaces|open_shell_A_op|open_shell_CC_spintrace|open_shell_P_op_vector|δl|δr)$'
-  readability-identifier-naming.MethodIgnoredRegexp: '^(_.*|add_unIon|is_exceptional_J|unIon|valid_unIon|xOr)$'
-  readability-identifier-naming.VariableIgnoredRegexp: '^(_.*|A|A_is_nconserving|A_opt|A_tensor|A_vec|Bd|Cb|D2E|DDE|DE2|F|K|L_hbar|Lb|Lp|P|P1|P2|P_bra_list|P_ket_list|P_vec|Rb|Rb2|Rp|S|S_bra_ptr|S_ket_ptr|S_tensor|S_tensor_rank|T|V|abs_K|adjoint_dN|braidx_J|braidx_K|dN|expand_S_product|has_A_operator|has_P_operator|hbar_R|hbar_λ|i1_Q|i2_Q|idx_A|idx_B|ketidxs_J|ketidxs_K|op_Sk|op_Sk_comm_w_S)$'
-  readability-identifier-naming.ParameterIgnoredRegexp: '^(_.*|A|B|K|N|O1|O2|P|R|S|SQN)$'
-  readability-identifier-naming.MemberIgnoredRegexp: '^_.*$'
-  readability-identifier-naming.PrivateMemberIgnoredRegexp: '^_.*$'
-  readability-identifier-naming.ProtectedMemberIgnoredRegexp: '^_.*$'
+  readability-identifier-naming.ClassIgnoredRegexp: &type_exceptions '^(_.*|are_.*|has_.*|is_.*|always_false|any_comparable|bad_any_comparable_cast|bad_key|castable_to_any|detector|impl|impl_base|literal_to_string|nonesuch|proportional_to|scope_exit|std_array_size|tuple_less)$'
+  readability-identifier-naming.StructIgnoredRegexp: *type_exceptions
+  readability-identifier-naming.FunctionIgnoredRegexp: &notation_exceptions '^(_.*|A|A_is_nconserving|A_maps|A_opt|A_tensor|A_vec|B|Bd|Cb|D2E|DDE|DE2|F|H|K|L|L_hbar|Lb|Lp|N|N_part|N_part_reduced|O1|O2|P|P1|P2|P_bra_list|P_ket_list|P_maps|P_vec|R|R_part|R_part_reduced|Rb|Rb2|Rp|S|SQN|S_bra_ptr|S_ket_ptr|S_maps|S_replacement_maps|S_tensor|S_tensor_rank|T|V|WK_biorthogonalization_filter|WK_biorthogonalization_filter_impl|abs_K|add_unIon|adjoint_dN|braidx_J|braidx_K|closed_shell_CC_spintrace|closed_shell_CC_spintrace_v1|closed_shell_CC_spintrace_v2|dN|expand_A_op|expand_P_op|expand_S_product|has_A_operator|has_P_operator|hbar_R|hbar_λ|i1_Q|i2_Q|idx_A|idx_B|is_N_term|is_exceptional_J|keep_N_terms|ketidxs_J|ketidxs_K|make_F12_sr_spaces|op_Sk|op_Sk_comm_w_S|open_shell_A_op|open_shell_CC_spintrace|open_shell_P_op_vector|unIon|valid_unIon|xOr|δl|δr)$'
+  readability-identifier-naming.MethodIgnoredRegexp: *notation_exceptions
+  readability-identifier-naming.VariableIgnoredRegexp: *notation_exceptions
+  readability-identifier-naming.ParameterIgnoredRegexp: *notation_exceptions
+  readability-identifier-naming.MemberIgnoredRegexp: &leading_underscore '^_.*$'
+  readability-identifier-naming.PrivateMemberIgnoredRegexp: *leading_underscore
+  readability-identifier-naming.ProtectedMemberIgnoredRegexp: *leading_underscore
   readability-identifier-naming.EnumConstantIgnoredRegexp: '^(_.*|alpha|any|ao|batch|beta|df|down|free|none|null|oT|oU|pao|paired|bra_unpaired|ket_unpaired|thc|up)$'
   readability-identifier-naming.TypeAliasIgnoredRegexp: '^(_.*|[a-z][a-z0-9]*(_[a-z0-9]+)*)$'
   readability-identifier-naming.TypedefIgnoredRegexp: '^(_.*|[a-z][a-z0-9]*(_[a-z0-9]+)*)$'
-  readability-identifier-naming.EnumIgnoredRegexp: '^_.*$'
-  readability-identifier-naming.NamespaceIgnoredRegexp: '^_.*$'
-  readability-identifier-naming.ConceptIgnoredRegexp: '^_.*$'
+  readability-identifier-naming.EnumIgnoredRegexp: *leading_underscore
+  readability-identifier-naming.NamespaceIgnoredRegexp: *leading_underscore
+  readability-identifier-naming.ConceptIgnoredRegexp: *leading_underscore
   readability-identifier-naming.ConstexprVariableIgnoredRegexp: '^(_.*|[A-Z][A-Z0-9_]*)$'
   readability-identifier-naming.ClassMemberCase: lower_case
   readability-identifier-naming.ClassMemberIgnoredRegexp: '^(_.*|[a-z][a-z0-9]*(_[a-z0-9]+)*_)$'
