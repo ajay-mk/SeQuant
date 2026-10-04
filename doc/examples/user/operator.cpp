@@ -95,16 +95,16 @@ int main() {
   set_default_mbpt_context({.op_registry_ptr = custom_registry});
 
   // Create custom operator using OpMaker
-  auto X2_tensor = OpMaker<Statistics::FermiDirac>(L"X", 2)();
+  auto x2_tensor = OpMaker<Statistics::FermiDirac>(L"X", 2)();
 
   // Create custom operator using mbpt::Operator
-  auto X2_op = ex<op_t>(
+  auto x2_op = ex<op_t>(
       []() -> std::wstring_view { return L"X"; },
       []() -> ExprPtr { return OpMaker<Statistics::FermiDirac>(L"X", 2)(); },
       [](qns_t& qns) { qns += excitation_type_qns(2); });
 
   // Use in expressions
-  auto custom_expr = h(2) * X2_op * t(2);
+  auto custom_expr = h(2) * x2_op * t(2);
   // end-snippet-5
 
   return 0;
