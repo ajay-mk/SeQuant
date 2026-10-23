@@ -187,7 +187,7 @@ jobs:
         # Install fetched dependencies explicitly into the CI prefix.
         for dependency in rangev3 tiledarray; do
           if [[ -f "build/_deps/${dependency}-build/cmake_install.cmake" ]]; then
-            cmake --install "build/_deps/${dependency}-build"
+            cmake --build build -j 2 --target "_deps/${dependency}-build/install"
           fi
         done
         cmake --install build
