@@ -838,6 +838,11 @@ if (SEQUANT_IWYU)
 endif()
 
 
+option(SEQUANT_TESTS "Enable building of test cases" ${BUILD_TESTING})
+# SEQUANT_TESTS can enable our suite while dependency tests are disabled.
+if (SEQUANT_TESTS)
+    enable_testing()
+endif()
 add_subdirectory(tests)
 add_subdirectory(doc)
 

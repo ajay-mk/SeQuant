@@ -67,7 +67,8 @@ Useful CMake Variables
      - The installation path for SeQuant.
    * - SEQUANT_TESTS
      - `BUILD_TESTING <https://cmake.org/cmake/help/latest/variable/BUILD_TESTING.html>`_
-     - Enables test targets, e.g. ``check-sequant``.
+     - Builds SeQuant's tests by default. Set this to ``ON`` with ``BUILD_TESTING=OFF`` to test SeQuant without
+       building dependency tests.
    * - SEQUANT_SKIP_LONG_TESTS
      - OFF
      - Skip long test cases within unit and integration tests. ``Debug`` configurations always skip them, regardless of
