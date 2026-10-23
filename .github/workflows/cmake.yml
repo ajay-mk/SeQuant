@@ -64,6 +64,7 @@ jobs:
         -DMPIEXEC_PREFLAGS='--bind-to;none;--allow-run-as-root'
         -DCMAKE_PREFIX_PATH='/usr/local/opt/boost'
         -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/install
+        -DBUILD_TESTING=OFF
         -DSEQUANT_TESTS=ON
         -DSEQUANT_EVAL_TESTS=${{ !matrix.valgrind && !matrix.sanitize && !startswith(matrix.os, 'windows') }}
         -DSEQUANT_USE_SYSTEM_BOOST_HASH=OFF

@@ -31,7 +31,7 @@ set_target_properties(
   OUTPUT_NAME _sequant
   )
 
-if (BUILD_TESTING)
+if (SEQUANT_TESTS)
   add_test(sequant/unit/python/build "${CMAKE_COMMAND}" --build ${CMAKE_BINARY_DIR} --target python-sequant)
   set_tests_properties(sequant/unit/python/build PROPERTIES FIXTURES_SETUP PYSEQUANT_MODULE)
 
@@ -55,4 +55,4 @@ if (BUILD_TESTING)
 
   add_dependencies(check-sequant python-sequant)
 
-endif (BUILD_TESTING)
+endif (SEQUANT_TESTS)
