@@ -39,10 +39,24 @@ Mandatory
 
 Optional
 ~~~~~~~~
-* `TiledArray <https://github.com/ValeevGroup/tiledarray.git>`_ - for building coupled-cluster evaluation tests
+* `TiledArray <https://github.com/ValeevGroup/tiledarray.git>`_ - optional distributed evaluation backend
 
 .. note:: If not found, SeQuant can download and build all dependencies other than CMake and the C++ compiler, provided `git <https://git-scm.com/>`_
    is available on the system.
+
+Installing dependencies and backends
+-------------------------------------
+
+SeQuant reuses compatible dependencies found through ``CMAKE_PREFIX_PATH`` and the standard package search paths.
+Fetched prerequisites such as range-v3, libperm, and polymorphic_variant are installed alongside SeQuant. Boost and
+Eigen should be supplied separately when consuming an installed SeQuant package.
+
+Evaluation backends enabled with ``SEQUANT_TILEDARRAY``, ``SEQUANT_BTAS``, or ``SEQUANT_TAPP`` are available in the
+build tree. Fetched backends are not installed by default, and their SeQuant targets are omitted from the installed
+package and its umbrella target. To install fetched backends, select them in ``SEQUANT_INSTALL_FETCHED_BACKENDS``;
+for example, enable ``SEQUANT_TILEDARRAY=ON`` and select ``SEQUANT_INSTALL_FETCHED_BACKENDS=TiledArray`` to install
+TA support and its required dependencies. A backend found installed or supplied by a parent project is reused;
+SeQuant does not install that dependency itself.
 
 
 Useful CMake Variables
@@ -81,6 +95,11 @@ Useful CMake Variables
    * - SEQUANT_TAPP
      - OFF
      - SeQuant will look for (or build)  `TAPP <https://github.com/TAPPorg/reference-implementation>`_ and enable its use as an evaluation backend.
+   * - SEQUANT_INSTALL_FETCHED_BACKENDS
+     - Empty
+     - Semicolon-separated subset of ``TiledArray;BTAS;TAPP`` to install when fetched. Each selected backend must also
+       be enabled using its ``SEQUANT_<backend>`` option. Dependencies found installed are reused and never installed
+       by SeQuant. Required transitive dependencies of selected backends are installed too.
    * - SEQUANT_BENCHMARKS
      - ON
      - Enable SeQuant benchmarks.

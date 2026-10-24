@@ -1,5 +1,14 @@
 #include <SeQuant/core/context.hpp>
 #include <SeQuant/core/expr.hpp>
+#ifdef SEQUANT_HAS_TILEDARRAY
+#include <SeQuant/core/eval/backends/tiledarray/eval_expr.hpp>
+#endif
+#ifdef SEQUANT_HAS_BTAS
+#include <SeQuant/core/eval/backends/btas/eval_expr.hpp>
+#endif
+#ifdef SEQUANT_HAS_TAPP
+#include <SeQuant/core/eval/backends/tapp/eval_expr.hpp>
+#endif
 #include <SeQuant/domain/mbpt/context.hpp>
 #include <SeQuant/domain/mbpt/convention.hpp>
 #include <SeQuant/domain/mbpt/op.hpp>

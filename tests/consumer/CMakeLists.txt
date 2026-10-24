@@ -5,5 +5,17 @@ project(sequant-consumer CXX)
 
 find_package(SeQuant CONFIG REQUIRED)
 
+if (DEFINED EXPECTED_BACKENDS)
+  foreach (backend ta btas tapp)
+    if (backend IN_LIST EXPECTED_BACKENDS)
+      if (NOT TARGET SeQuant::eval::${backend})
+        message(FATAL_ERROR "Expected SeQuant::eval::${backend} in the package")
+      endif()
+    elseif (TARGET SeQuant::eval::${backend})
+      message(FATAL_ERROR "Unexpected SeQuant::eval::${backend} in the package")
+    endif()
+  endforeach()
+endif()
+
 add_executable(consumer main.cpp)
 target_link_libraries(consumer PRIVATE SeQuant::SeQuant)

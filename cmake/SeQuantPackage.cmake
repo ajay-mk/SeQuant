@@ -1,0 +1,62 @@
+function(sequant_configure_backend_installation name target config_variable config_path)
+    string(TOUPPER "${name}" key)
+    get_target_property(imported ${target} IMPORTED)
+    if (imported OR name IN_LIST _sequant_provided_backends)
+        string(REGEX REPLACE "_CONFIG$" "_DIR" config_dir "${config_variable}")
+        get_filename_component(config_filename "${config_path}" NAME)
+        if (NOT ${config_variable})
+            if (DEFINED ${config_dir} AND EXISTS "${${config_dir}}/${config_filename}")
+                set(${config_variable} "${${config_dir}}/${config_filename}" PARENT_SCOPE)
+            elseif (NOT imported)
+                set(${config_variable} "${CMAKE_INSTALL_PREFIX}/${config_path}" PARENT_SCOPE)
+            endif()
+        endif()
+        set(SEQUANT_INSTALL_HAS_${key} ON PARENT_SCOPE)
+        return()
+    endif()
+
+    FetchContent_GetProperties(${name} SOURCE_DIR source_dir BINARY_DIR binary_dir POPULATED populated)
+    if (NOT populated)
+        set(SEQUANT_INSTALL_HAS_${key} ON PARENT_SCOPE)
+        return()
+    endif()
+    set(${config_variable} "${CMAKE_INSTALL_PREFIX}/${config_path}" PARENT_SCOPE)
+    if (name IN_LIST SEQUANT_INSTALL_FETCHED_BACKENDS OR
+        (name STREQUAL "BTAS" AND "TiledArray" IN_LIST _sequant_installed_fetched_backends))
+        set_property(DIRECTORY "${source_dir}" PROPERTY EXCLUDE_FROM_ALL FALSE)
+        set(SEQUANT_INSTALL_HAS_${key} ON PARENT_SCOPE)
+        list(APPEND _sequant_installed_fetched_backends "${name}")
+        set(_sequant_installed_fetched_backends "${_sequant_installed_fetched_backends}" PARENT_SCOPE)
+
+        # BTAS fetched by an excluded TiledArray still needs an install entry.
+        get_directory_property(parent DIRECTORY "${source_dir}" PARENT_DIRECTORY)
+        while (parent AND NOT parent STREQUAL PROJECT_SOURCE_DIR)
+            get_directory_property(excluded DIRECTORY "${parent}" EXCLUDE_FROM_ALL)
+            if (excluded)
+                install(SCRIPT "${binary_dir}/cmake_install.cmake")
+                break()
+            endif()
+            get_directory_property(parent DIRECTORY "${parent}" PARENT_DIRECTORY)
+        endwhile()
+    else()
+        set_property(DIRECTORY "${source_dir}" PROPERTY EXCLUDE_FROM_ALL TRUE)
+        set(SEQUANT_INSTALL_HAS_${key} OFF PARENT_SCOPE)
+    endif()
+endfunction()
+
+function(sequant_write_package_config destination installed)
+    foreach (backend TILEDARRAY BTAS TAPP)
+        if (installed)
+            set(SEQUANT_PACKAGE_HAS_${backend} "${SEQUANT_INSTALL_HAS_${backend}}")
+        else()
+            set(SEQUANT_PACKAGE_HAS_${backend} "${SEQUANT_HAS_${backend}}")
+        endif()
+    endforeach()
+
+    configure_package_config_file("${PROJECT_SOURCE_DIR}/cmake/sequant-config.cmake.in"
+        "${destination}"
+        INSTALL_DESTINATION "${SEQUANT_INSTALL_CMAKEDIR}"
+        PATH_VARS CMAKE_INSTALL_PREFIX SEQUANT_INSTALL_BINDIR
+        SEQUANT_INSTALL_INCLUDEDIR SEQUANT_INSTALL_LIBDIR
+        SEQUANT_INSTALL_DOCDIR SEQUANT_INSTALL_CMAKEDIR)
+endfunction()

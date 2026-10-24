@@ -184,17 +184,25 @@ jobs:
       env:
         VCPKG_CMAKE_CONFIG: ${{ steps.vcpkg.outputs.vcpkg-cmake-config }}
       run: |
-        # Install fetched dependencies explicitly into the CI prefix.
-        for dependency in rangev3 tiledarray; do
-          if [[ -f "build/_deps/${dependency}-build/cmake_install.cmake" ]]; then
-            cmake --build build -j 2 --target "_deps/${dependency}-build/install"
-          fi
-        done
         cmake --install build
         cmake -S tests/consumer -B $RUNNER_TEMP/consumer -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
-          -DCMAKE_PREFIX_PATH="$GITHUB_WORKSPACE/install;/usr/local/opt/boost" $VCPKG_CMAKE_CONFIG
+          -DCMAKE_PREFIX_PATH="$GITHUB_WORKSPACE/install;/usr/local/opt/boost" -DEXPECTED_BACKENDS= $VCPKG_CMAKE_CONFIG
         cmake --build $RUNNER_TEMP/consumer
         $RUNNER_TEMP/consumer/consumer
+
+    - name: Test installing a fetched backend
+      if: ${{ matrix.os == 'ubuntu-24.04' && !matrix.valgrind && !matrix.sanitize }}
+      shell: bash
+      env:
+        FETCHED_BACKEND: ${{ matrix.build_type == 'Release' && 'BTAS' || 'TAPP' }}
+        EXPECTED_BACKEND: ${{ matrix.build_type == 'Release' && 'btas' || 'tapp' }}
+      run: |
+        cmake -S . -B build -DSEQUANT_INSTALL_FETCHED_BACKENDS="$FETCHED_BACKEND"
+        cmake --install build
+        cmake -S tests/consumer -B $RUNNER_TEMP/consumer-backend -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
+          -DCMAKE_PREFIX_PATH="$GITHUB_WORKSPACE/install;/usr/local/opt/boost" -DEXPECTED_BACKENDS="$EXPECTED_BACKEND"
+        cmake --build $RUNNER_TEMP/consumer-backend
+        $RUNNER_TEMP/consumer-backend/consumer
 
     - name: Ensure benchmarks not broken
       if: ${{ !matrix.valgrind && !matrix.sanitize }}

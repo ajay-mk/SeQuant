@@ -14,12 +14,10 @@ if (NOT TARGET tapp::reference)
       tapp
       GIT_REPOSITORY      https://github.com/TAPPorg/reference-implementation.git
       GIT_TAG             ${SEQUANT_TRACKED_TAPP_TAG}
+      EXCLUDE_FROM_ALL
       SYSTEM
   )
   FetchContent_MakeAvailable(tapp)
-
-  # set tapp_CONFIG to the install location so that sequant-config.cmake knows where to find it
-  set(tapp_CONFIG ${CMAKE_INSTALL_PREFIX}/${TAPP_INSTALL_CMAKEDIR}/tapp-config.cmake)
 
 endif()
 

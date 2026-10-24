@@ -30,11 +30,6 @@ if (NOT TARGET tiledarray)
 
     FetchContent_MakeAvailable(TiledArray)
 
-    if (NOT DEFINED TiledArray_CONFIG)
-        # this is where tiledarray-config.cmake will end up
-        # must be in sync with the "install(FILES ...tiledarray-config.cmake" statement in https://github.com/ValeevGroup/tiledarray/blob/${MPQC_TRACKED_TILEDARRAY_TAG}/CMakeLists.txt
-        set(TiledArray_CONFIG "${CMAKE_INSTALL_PREFIX}/${TILEDARRAY_INSTALL_CMAKEDIR}")
-    endif()
 endif()
 
 # postcond check
