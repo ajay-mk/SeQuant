@@ -1,4 +1,4 @@
-if (NOT TARGET libperm)
+if (NOT TARGET libperm::libperm)
     include(FetchContent)
 
     # libPerm's own tests are never run by check-sequant (ctest -R "^sequant"),
@@ -12,12 +12,13 @@ if (NOT TARGET libperm)
         GIT_TAG "${SEQUANT_TRACKED_LIBPERM_TAG}"
         GIT_SHALLOW
         SYSTEM
+        FIND_PACKAGE_ARGS ${SEQUANT_OLDEST_LIBPERM_VERSION} NAMES libperm
     )
 
     FetchContent_MakeAvailable(libPerm)
 endif()
 
 # postcond check
-if (NOT TARGET libperm)
-    message(FATAL_ERROR "FindOrFetchLibPerm could not make TARGET libperm available")
+if (NOT TARGET libperm::libperm)
+    message(FATAL_ERROR "FindOrFetchLibPerm could not make TARGET libperm::libperm available")
 endif()

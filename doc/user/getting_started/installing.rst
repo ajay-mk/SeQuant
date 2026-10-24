@@ -23,8 +23,8 @@ Mandatory
 * `Boost <https://www.boost.org/>`_ 1.81 or later (1.85 or later with MSVC)
 * `Range-V3 <https://github.com/ericniebler/range-v3.git>`_ 0.12.0 or later
 * `Eigen3 <http://eigen.tuxfamily.org/>`_ 3.0 or later
-* `libperm <https://github.com/Krzmbrzl/libPerm>`_
-* `polymorphic_variant <https://github.com/Krzmbrzl/polymorphic_variant>`_
+* `libperm <https://github.com/Krzmbrzl/libPerm>`_ 2.0 or later
+* `polymorphic_variant <https://github.com/Krzmbrzl/polymorphic_variant>`_ 1.5 or later
 * `Utfcpp <https://github.com/nemtrif/utfcpp>`_ 4.0 or later
 * `DTL <https://github.com/cubicdaiya/dtl>`_ 1.12 or later - only used for unit tests
 * `CLI11 <https://github.com/CLIUtils/CLI11>`_ 2.0 or later - only used for external interface
