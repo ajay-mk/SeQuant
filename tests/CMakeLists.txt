@@ -1,5 +1,6 @@
 include(FindOrFetchDTL)
 
+option(SEQUANT_TESTS "Enable building of test cases" ${BUILD_TESTING})
 add_feature_info(TESTS SEQUANT_TESTS "Enable building of test cases")
 
 if (NOT SEQUANT_TESTS)
