@@ -170,9 +170,9 @@ jobs:
       uses: actions/cache/restore@v6
       with:
         path: ${{github.workspace}}/build/.ccache
-        key: ${{ matrix.os }}-${{ matrix.build_type }}-${{ matrix.sanitize }}-${{ matrix.valgrind }}-${{ matrix.boost }}-ccache-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
+        key: exp-${{ github.ref_name }}-${{ matrix.os }}-${{ matrix.build_type }}-${{ matrix.sanitize }}-${{ matrix.valgrind }}-${{ matrix.boost }}-ccache-${{ steps.ccache_cache_timestamp.outputs.timestamp }}
         restore-keys: |
-          ${{ matrix.os }}-${{ matrix.build_type }}-${{ matrix.sanitize }}-${{ matrix.valgrind }}-${{ matrix.boost }}-ccache-
+          exp-${{ github.ref_name }}-${{ matrix.os }}-${{ matrix.build_type }}-${{ matrix.sanitize }}-${{ matrix.valgrind }}-${{ matrix.boost }}-ccache-
 
     - name: Configure CMake
       shell: bash
@@ -188,12 +188,12 @@ jobs:
       # Execute the build.  You can specify a specific target with "--target <NAME>"
       run: |
         start=$(date +%s)
+        df -h . || true
         ccache -p && ccache -z && cmake --build . -j 2 && ccache -s
         # keep only the entries this build used, so the saved cache does not grow with every commit
         ccache --evict-older-than $(( $(date +%s) - start + 60 ))s && ccache -s
 
     - name: Save ccache cache files
-      if: ${{ github.ref == 'refs/heads/master' }}
       uses: actions/cache/save@v6
       with:
         path: ${{github.workspace}}/build/.ccache
@@ -254,3 +254,8 @@ jobs:
       working-directory: ${{github.workspace}}/build
       shell: bash
       run: valgrind --error-exitcode=1 --leak-check=full ./tests/unit/unit_tests-sequant '~[valgrind_skip]'
+
+    - name: Disk usage
+      if: always()
+      shell: bash
+      run: df -h . ; du -sh $GITHUB_WORKSPACE/build 2>/dev/null || true
