@@ -73,6 +73,7 @@ jobs:
         -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/install
         -DSEQUANT_INSTALL_FETCHED_BACKENDS=TAPP
         -DSEQUANT_TESTS=ON
+        -DSEQUANT_LTO=OFF
         -DSEQUANT_EVAL_TESTS=${{ !matrix.valgrind && !matrix.sanitize && !startswith(matrix.os, 'windows') }}
         -DSEQUANT_USE_SYSTEM_BOOST_HASH=OFF
         -DCMAKE_CXX_STANDARD=${{ matrix.build_type == 'Release' && 23 || 20 }}
