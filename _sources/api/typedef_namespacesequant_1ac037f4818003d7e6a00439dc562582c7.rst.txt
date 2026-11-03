@@ -1,0 +1,14 @@
+.. _exhale_typedef_namespacesequant_1ac037f4818003d7e6a00439dc562582c7:
+
+Typedef sequant::TensorPowerPtr
+===============================
+
+- Defined in :ref:`file_SeQuant_core_expr_fwd.hpp`
+
+
+Typedef Documentation
+---------------------
+
+
+.. doxygentypedef:: sequant::TensorPowerPtr
+   :project: SeQuant

@@ -1,0 +1,14 @@
+.. _exhale_typedef_namespacesequant_1_1opt_1a4cab665b37e041d94e41eae202f4cbd6:
+
+Typedef sequant::opt::SlotMap
+=============================
+
+- Defined in :ref:`file_SeQuant_core_optimize_name_recycling.hpp`
+
+
+Typedef Documentation
+---------------------
+
+
+.. doxygentypedef:: sequant::opt::SlotMap
+   :project: SeQuant
