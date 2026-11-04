@@ -73,6 +73,7 @@ jobs:
         -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/install
         -DSEQUANT_INSTALL_FETCHED_BACKENDS=TAPP
         -DSEQUANT_TESTS=ON
+        ${{ !startswith(matrix.os, 'windows') && '-DSEQUANT_LTO=OFF' || '' }}
         -DSEQUANT_EVAL_TESTS=${{ !matrix.valgrind && !matrix.sanitize && !startswith(matrix.os, 'windows') }}
         -DSEQUANT_USE_SYSTEM_BOOST_HASH=OFF
         -DCMAKE_CXX_STANDARD=${{ matrix.build_type == 'Release' && 23 || 20 }}
@@ -85,9 +86,11 @@ jobs:
     steps:
     - uses: actions/checkout@v7
 
+    # Some Ubuntu runners have a 72 GB disk that the build nearly fills; deleting the largest unused toolchains takes
+    # minutes, so it runs in the background while the job installs and configures
     - name: free up disk space on Ubuntu runner
       if: ${{ startswith(matrix.os, 'ubuntu') }}
-      uses: jlumbroso/free-disk-space@main
+      run: nohup sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /usr/local/.ghcup > /dev/null 2>&1 &
 
     - name: Setup Python
       uses: actions/setup-python@v7
@@ -183,7 +186,11 @@ jobs:
       working-directory: ${{github.workspace}}/build
       shell: bash
       # Execute the build.  You can specify a specific target with "--target <NAME>"
-      run: ccache -p && ccache -z && cmake --build . -j 2 && ccache -s
+      run: |
+        start=$(date +%s)
+        ccache -p && ccache -z && cmake --build . -j 2 && ccache -s
+        # keep only the entries this build used, so the saved cache does not grow with every commit
+        ccache --evict-older-than $(( $(date +%s) - start + 60 ))s && ccache -s
 
     - name: Save ccache cache files
       if: ${{ github.ref == 'refs/heads/master' }}
